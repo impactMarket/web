@@ -1,0 +1,36 @@
+{
+  "name": "impact-market-web",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "generate:icons": "yarn svglist generate",
+    "lint": "eslint .",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@psoares/svg-list": "^1.1.4",
+    "next": "latest",
+    "next-manifest": "^3.0.1",
+    "polished": "^4.1.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-is": "^16.8.0",
+    "react-styled-flexboxgrid": "^3.2.1",
+    "styled-components": "^5.0.0",
+    "styled-gen": "^1.4.4",
+    "styled-reset": "^4.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@types/styled-components": "^5.1.7",
+    "babel-plugin-styled-components": "^1.8.0",
+    "eslint": "^7.21.0",
+    "eslint-config-im": "impactMarket/eslint-config-im",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.2"
+  },
+  "license": "MIT"
+}
