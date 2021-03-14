@@ -1,11 +1,24 @@
 import { AppProps } from 'next/app';
+import { DataProvider, SEO } from '../components';
 import { GlobalStyle } from '../theme/components';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 import React from 'react';
 import theme from '../theme';
 
-export default function App({ Component, pageProps }: AppProps) {
+// eslint-disable-next-line no-process-env
+const baseUrl = process.env.NEXT_PUBLIC_URL;
+
+export default function App(props: AppProps) {
+    const { Component, pageProps, router } = props;
+    const { pathname, locale } = router;
+    const url = `${baseUrl}/${locale}${pathname}`;
+    const { page } = pageProps;
+
+    if (!page) {
+        return <h1>Did you forgot to pass a page name?</h1>;
+    }
+
     return (
         <>
             <Head>
@@ -14,7 +27,10 @@ export default function App({ Component, pageProps }: AppProps) {
             </Head>
             <GlobalStyle />
             <ThemeProvider theme={theme}>
-                <Component {...pageProps} />
+                <DataProvider locale={locale} page={page} url={url}>
+                    <SEO />
+                    <Component {...pageProps} />
+                </DataProvider>
             </ThemeProvider>
         </>
     );
