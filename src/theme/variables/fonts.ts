@@ -14,8 +14,8 @@ const families = {
 
 // [size, lineHeight, letterSpacing]
 const sizes = {
-    h1: [72, 98],
-    h2: [48, 64],
+    h1: [48, 54],
+    h2: [48, 54],
     h3: [40, 54],
     h4: [28, 40],
     h5: [24, 32],
