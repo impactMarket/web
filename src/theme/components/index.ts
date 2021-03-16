@@ -1,7 +1,7 @@
-export { Button } from './Button/Button';
-export { GlobalStyle } from './GlobalStyle/GlobalStyle';
-export { Grid } from './Grid/Grid';
-export { Icon } from './Icon/Icon';
-export { Logo } from './Logo/Logo';
-export { Spinner } from './Spinner/Spinner';
-export { Text } from './Text/Text';
+export * from './Button/Button';
+export * from './GlobalStyle/GlobalStyle';
+export * from './Grid/Grid';
+export * from './Icon/Icon';
+export * from './Logo/Logo';
+export * from './Spinner/Spinner';
+export * from './Text/Text';

@@ -1,3 +1,4 @@
+import { BoolProps } from '../../Types';
 import { colors } from '../../variables/colors';
 import { mq, variations } from 'styled-gen';
 import React from 'react';
@@ -15,15 +16,11 @@ const sizeVariations = {
     `
 };
 
-type LogoProps = {
-    href?: 'string';
-};
+type LogoSizeVariations = BoolProps<typeof sizeVariations>;
+type LogoProps = LogoSizeVariations;
 
-const LogoWrapper = styled.div.attrs((props: LogoProps) => ({
-    as: props.href ? 'a' : 'div'
-}))`
+const LogoWrapper = styled.div`
     display: inline-flex;
-
     ${variations(sizeVariations)}
 `;
 
@@ -31,7 +28,7 @@ const SVG = styled.svg.attrs({
     viewBox: '0 0 146 48',
     xmlns: 'http://www.w3.org/2000/svg'
 })`
-    fill: ${colors.p06};
+    fill: ${colors.primary};
     height: 100%;
     width: auto;
 `;

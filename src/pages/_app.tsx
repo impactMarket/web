@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import { DataProvider, SEO } from '../components';
+import { DataProvider, Header, SEO } from '../components';
 import { GlobalStyle } from '../theme/components';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
@@ -29,6 +29,7 @@ export default function App(props: AppProps) {
             <ThemeProvider theme={theme}>
                 <DataProvider locale={locale} page={page} url={url}>
                     <SEO />
+                    <Header />
                     <Component {...pageProps} />
                 </DataProvider>
             </ThemeProvider>

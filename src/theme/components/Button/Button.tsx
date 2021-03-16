@@ -7,8 +7,8 @@ import styled, { css } from 'styled-components';
 
 const colorVariations = {
     default: css`
-        background-color: ${colors.p06};
-        color: ${colors.n01};
+        background-color: ${colors.primary};
+        color: ${colors.white};
 
         &:not(:disabled) {
             &:hover {
@@ -18,8 +18,8 @@ const colorVariations = {
     `,
 
     white: css`
-        background-color: ${colors.n01};
-        color: ${colors.p06};
+        background-color: ${colors.white};
+        color: ${colors.primary};
 
         &:not(:disabled) {
             &:hover {
@@ -104,9 +104,9 @@ export const Button = (props: ButtonProps) => {
     return (
         <ButtonWrapper as={href ? 'a' : 'button'} disabled={isLoading} href={href} {...forwardProps}>
             <Spinner
-                backgroundColor={!forwardProps.white ? colors.p06 : colors.n01}
+                backgroundColor={!forwardProps.white ? colors.primary : colors.white}
                 isLoading={isLoading}
-                spinnerColor={forwardProps.white ? colors.p06 : colors.n01}
+                spinnerColor={forwardProps.white ? colors.primary : colors.white}
             />
             {children}
         </ButtonWrapper>
