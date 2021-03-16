@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         box-sizing: border-box;
-        color: ${colors.n06};
+        color: ${colors.body};
         font-family: ${fonts.families.sans};
         font-size: 1.125rem;
         line-height: 1.5;
@@ -40,17 +40,22 @@ export const GlobalStyle = createGlobalStyle`
     a {
         outline: 0;
         text-decoration: none;
+        cursor: default;
 
-    &:active,
-    &:focus,
-    &:hover {
-        outline: 0;
-        text-decoration: none;
-    }
+        &:active,
+        &:focus,
+        &:hover {
+            outline: 0;
+            text-decoration: none;
+        }
 
-    &:not(:disabled) {
-        cursor: po  inter;
-    }
+        &:not(:disabled) {
+            cursor: pointer;
+        }
+
+        &.is-disabled {
+            cursor: default !important;
+        }
     }
 
     b {

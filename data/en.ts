@@ -75,7 +75,7 @@ export const en = {
             }
         },
         globalDashboard: {
-            Hero: {
+            hero: {
                 heading: 'Lorem 2'
             }
         }

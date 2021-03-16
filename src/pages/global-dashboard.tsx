@@ -2,7 +2,7 @@ import { Col, Grid, Row, Text } from '../theme/components';
 import { useData } from '../components';
 import React from 'react';
 
-const Homepage = () => {
+const GlobalDashboard = () => {
     const { page } = useData();
 
     return (
@@ -21,9 +21,9 @@ const Homepage = () => {
 export const getStaticProps = () => {
     return {
         props: {
-            page: 'homepage'
+            page: 'globalDashboard'
         }
     };
 };
 
-export default Homepage;
+export default GlobalDashboard;

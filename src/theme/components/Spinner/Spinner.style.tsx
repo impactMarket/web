@@ -2,8 +2,8 @@ import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const SpinnerWrapper = styled.div`
-    ${size('100%')};
     ${position('absolute', 0)};
+    ${size('100%')};
 
     overflow: hidden;
     z-index: 10;
