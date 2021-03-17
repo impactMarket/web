@@ -1,10 +1,11 @@
 import { Button, Col, Currency, Div, Grid, Row, Text, TextLink } from '../../theme/components';
 import { FooterLogo, FooterWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
+import { modal } from 'react-modal-handler';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 const currencies = ['btc', 'eth', 'celo'] as const;
 
@@ -16,6 +17,10 @@ export const Footer = () => {
     const menu = config?.footer?.menu;
 
     const checkActiveRoute = (route: string | undefined) => route === asPath;
+
+    const handleDonateClick = useCallback(() => {
+        modal.open('donate', { heading: getString('donate'), withCloseButton: true });
+    }, []);
 
     return (
         <FooterWrapper>
@@ -50,7 +55,7 @@ export const Footer = () => {
                     <Col xs={12}>
                         <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
                             <Div sWidth={{ sm: 'unset', xs: '100%' }}>
-                                <Button fluid large lined pl={1.375} pr={1.375}>
+                                <Button fluid large lined onClick={handleDonateClick} pl={1.375} pr={1.375}>
                                     {getString('donate')}
                                     {currencies.map((currency: typeof currencies[number], index: number) => (
                                         <Currency currency={currency} key={currency} ml={index ? 0.5 : 1} />

@@ -72,6 +72,7 @@ export const useData = () => {
     const getDataContent: any = (prop: string) => getDataContentByLang(lang, prop);
 
     const config: PartialDeep<typeof defaultData.config> = getDataContent('config');
+    const getModal = (modal: string) => getDataContent(`modals.${modal}`);
     const getString = (key: StringsType, vars: any | undefined = {}) => bracked(getData(`config.strings.${key}`), vars);
     const pageData: any = getDataContent(`pages.${page}`);
     const seo: Partial<typeof defaultData.config.seo> = {
@@ -79,7 +80,7 @@ export const useData = () => {
         url
     };
 
-    return { config, getString, page: pageData, seo };
+    return { config, getModal, getString, page: pageData, seo };
 };
 
 export const DataConsumer = DataContext.Consumer;

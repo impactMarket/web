@@ -26,10 +26,13 @@ export const en = {
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
+            invalidEmail: 'The email is not valid',
+            required: 'A valid email is required',
+            somethingWrong: 'Something went wrong. Try again later...',
             subscribe: 'Subscribe',
             subscribingNote:
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
-            testVar: 'Hello {{ name }}. Today - {{date}} - is an awesome day!',
+            subscribeSuccess: 'Thanks for subscribing!',
             wrongEmail: 'Wrong email'
         },
         wallets: [
@@ -41,7 +44,8 @@ export const en = {
     modals: {
         donate: {
             currencies: ['btc', 'eth', 'celo'],
-            scanText: 'Scan or copy/paste the address below into your wallet. Only send BTC to this address.',
+            scanText:
+                'Scan or copy/paste the address below into your wallet. Only send {{ currency }} to this address.',
             text:
                 'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.'
         }

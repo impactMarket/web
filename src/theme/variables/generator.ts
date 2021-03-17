@@ -17,6 +17,7 @@ export const generator = {
         { list: colors, cssProp: 'color' },
         { list: display, cssProp: 'display' },
         { list: flexDirection, cssProp: 'flex-direction' },
+        { list: fonts.families, cssProp: 'font-family' },
         { list: fonts.weights, cssProp: 'font-weight' }
     ],
 

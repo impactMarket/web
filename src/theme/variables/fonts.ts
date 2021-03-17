@@ -9,17 +9,18 @@ const weights = {
 };
 
 const families = {
-    sans: `'Inter', sans-serif`
+    manrope: `'Manrope', sans-serif`,
+    inter: `'Inter', sans-serif`
 };
 
 // [size, lineHeight, letterSpacing]
 const sizes = {
     h1: [48, 54],
-    h2: [48, 54],
-    h3: [40, 54],
-    h4: [28, 40],
-    h5: [24, 32],
-    h6: [20, 30],
+    h2: [32, 42],
+    h3: [24, 36],
+    h4: [24, 36],
+    h5: [15, 28],
+    h6: [24, 28],
 
     subtitle1: [18, 28],
     subtitle2: [18, 28],
