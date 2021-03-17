@@ -1,13 +1,15 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
 import { DataProvider, Footer, Header, SEO } from '../components';
+import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
+import { modals } from '../modals';
 import Head from 'next/head';
 import React from 'react';
+import config from '../../config';
 import theme from '../theme';
 
-// eslint-disable-next-line no-process-env
-const baseUrl = process.env.NEXT_PUBLIC_URL;
+const { baseUrl } = config;
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
@@ -28,6 +30,7 @@ export default function App(props: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
                 <DataProvider locale={locale} page={page} url={url}>
+                    <ModalManager modals={modals} />
                     <SEO />
                     <Main>
                         <Header />

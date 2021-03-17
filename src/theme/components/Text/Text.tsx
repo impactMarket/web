@@ -33,7 +33,6 @@ type FontSizeVariations = BoolProps<typeof fonts.sizes>;
 export const Text = styled.p.attrs((props: object) => ({
     as: getTag(props, { defaultTag: 'p' })
 }))<FontSizeVariations & GeneratedPropsTypes>`
-    font-family: ${fonts.families.sans};
     margin: unset;
     padding: unset;
 

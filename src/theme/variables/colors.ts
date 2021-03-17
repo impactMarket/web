@@ -11,5 +11,10 @@ export const colors = {
 
     // Defaults
     white: '#ffffff',
-    light: '#DCDFE4'
+    light: '#DCDFE4',
+    error: '#F54254',
+    backgroundSecondary: '#E9EDF4',
+    backgroundDark: '#1E3252',
+    foregroundDark: '#32325D',
+    dark: '#172B4D'
 };

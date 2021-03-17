@@ -2,6 +2,7 @@ import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
 import { ease, generateProps, transitions, variations } from 'styled-gen';
+import { fonts } from '../../variables/fonts';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -79,6 +80,7 @@ type ButtonBaseProps = {
     as?: any;
     children?: any | any[];
     href?: string;
+    onClick?: (e: Event) => void;
     isLoading?: boolean;
 };
 
@@ -100,7 +102,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
     border: 0;
     display: inline-flex;
     flex-shrink: 0;
-    font-family: 'Inter';
+    font-family: ${fonts.families.inter};
     font-weight: 700;
     justify-content: center;
     outline: 0;

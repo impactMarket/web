@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         box-sizing: border-box;
         color: ${colors.body};
-        font-family: ${fonts.families.sans};
+        font-family: ${fonts.families.inter};
         font-size: 1.125rem;
         line-height: 1.5;
         overflow-x: hidden;
@@ -61,5 +61,14 @@ export const GlobalStyle = createGlobalStyle`
 
     b {
         font-weight: ${fonts.weights.bold};
+    },
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: ${fonts.families.manrope};
     }
 `;
