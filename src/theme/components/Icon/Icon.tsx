@@ -4,8 +4,8 @@ import React from 'react';
 import icons from './ui';
 import styled from 'styled-components';
 
-const renderPaths = (icon: { paths: string[] }) =>
-    icon.paths.map((path, index) => <path d={path} fill="currentColor" key={`path-${index}`} />);
+const renderPaths = (icon: { paths: any }) =>
+    icon.paths.map((path: any, index: number) => <path {...path} fill="currentColor" key={`path-${index}`} />);
 
 type IconProps = {
     icon: keyof typeof icons;

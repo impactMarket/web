@@ -21,7 +21,7 @@ type GetListKeys<P> = P extends ListProp ? keyof P['list'] : never;
 type GetNames<P> = P extends ListObject ? keyof P['list'] : never;
 
 type PropsFromList<PropList extends ReadonlyArray<ListProp>> = {
-    [i in IndexKeys<PropList> as GetName<PropList[i]>]?: MqProp<GetListKeys<PropList[i]>> | MqProp<number>;
+    [i in IndexKeys<PropList> as GetName<PropList[i]>]?: MqProp<GetListKeys<PropList[i]>> | MqProp<number | string>;
 };
 
 type NamedPropsFromList<PropList extends ReadonlyArray<ListObject>> = {

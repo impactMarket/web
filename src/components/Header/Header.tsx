@@ -1,5 +1,5 @@
-import { Col, Grid, Logo, Row } from '../../theme/components';
-import { HeaderContent, HeaderLink, HeaderMenuWrapper, HeaderWrapper } from './Header.style';
+import { Col, Grid, Logo, Row, TextLink } from '../../theme/components';
+import { HeaderContent, HeaderMenuWrapper, HeaderWrapper } from './Header.style';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -27,7 +27,7 @@ export const Header = () => {
                                 {menu &&
                                     menu.map((item, index) => (
                                         <Link href={item?.to || ''} key={index}>
-                                            <HeaderLink isActive={checkActiveRoute(item?.to)}>{item?.label}</HeaderLink>
+                                            <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
                                         </Link>
                                     ))}
                             </HeaderMenuWrapper>

@@ -38,6 +38,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     a {
+        display: inline-block;
         outline: 0;
         text-decoration: none;
         cursor: default;

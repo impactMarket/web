@@ -1,7 +1,7 @@
 import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
-import { generateProps, variations } from 'styled-gen';
+import { ease, generateProps, transitions, variations } from 'styled-gen';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -12,6 +12,20 @@ const colorVariations = {
 
         &:not(:disabled) {
             &:hover {
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+            }
+        }
+    `,
+
+    lined: css`
+        background-color: transparent;
+        color: ${colors.primary};
+        border: 0.125rem solid ${colors.primary};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${colors.primary};
+                color: ${colors.white};
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
             }
         }
@@ -40,6 +54,12 @@ const sizeVariations = {
         font-size: 18px;
         height: 44px;
         padding: 0 26px;
+    `,
+
+    large: css`
+        font-size: 18px;
+        height: 62px;
+        padding: 0 24px;
     `,
 
     small: css`
@@ -73,10 +93,13 @@ type ButtonMiscVariations = BoolProps<typeof miscVariations>;
 type ButtonSizeVariations = BoolProps<typeof sizeVariations>;
 
 const ButtonWrapper = styled.button<ButtonProps>`
+    ${transitions('all', 250, ease.outSine)};
+
     align-items: center;
     border-radius: 8px;
     border: 0;
     display: inline-flex;
+    flex-shrink: 0;
     font-family: 'Inter';
     font-weight: 700;
     justify-content: center;
