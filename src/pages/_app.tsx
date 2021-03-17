@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
-import { DataProvider, Header, SEO } from '../components';
-import { GlobalStyle } from '../theme/components';
+import { Content, GlobalStyle, Main } from '../theme/components';
+import { DataProvider, Footer, Header, SEO } from '../components';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 import React from 'react';
@@ -13,9 +13,9 @@ export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
-    const { page } = pageProps;
+    const { page, statusCode } = pageProps;
 
-    if (!page) {
+    if (!page && statusCode !== 404) {
         return <h1>Did you forgot to pass a page name?</h1>;
     }
 
@@ -29,8 +29,13 @@ export default function App(props: AppProps) {
             <ThemeProvider theme={theme}>
                 <DataProvider locale={locale} page={page} url={url}>
                     <SEO />
-                    <Header />
-                    <Component {...pageProps} />
+                    <Main>
+                        <Header />
+                        <Content>
+                            <Component {...pageProps} />
+                        </Content>
+                        <Footer />
+                    </Main>
                 </DataProvider>
             </ThemeProvider>
         </>

@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@psoares/svg-list": "^1.1.4",
+    "@psoares/svg-list": "^1.1.6",
     "lodash": "^4.17.21",
     "next": "latest",
     "next-manifest": "^3.0.1",

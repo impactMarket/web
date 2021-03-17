@@ -14,6 +14,13 @@ export const en = {
             keywords: 'Lorem ipsum',
             title: 'Impact Market'
         },
+        social: {
+            facebook: 'https://www.facebook.com/IPCTmarket',
+            github: 'https://github.com/impactMarket',
+            linkedin: 'https://www.linkedin.com/company/impactmarket',
+            telegram: 'https://t.me/impactMarket',
+            twitter: 'https://twitter.com/IPCTmarket'
+        },
         strings: {
             copyAddress: 'Copy address',
             donate: 'Donate',
