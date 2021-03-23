@@ -9,6 +9,7 @@ import { flexAlignments } from './flexAlignments';
 import { flexDirection } from './flexDirection';
 import { fontSize } from '../helpers/fontSize';
 import { fonts } from './fonts';
+import { padding } from 'polished';
 
 /* eslint-disable sort-keys */
 export const generator = {
@@ -45,6 +46,7 @@ export const generator = {
         { name: 'sWidth', cssProp: 'width', units: 'rem' },
 
         // Function props
-        { name: 'fontSize', helperFn: fontSize, units: 'px' }
+        { name: 'fontSize', helperFn: fontSize, units: 'px' },
+        { name: 'sPadding', helperFn: padding, units: 'rem' }
     ]
 } as const;
