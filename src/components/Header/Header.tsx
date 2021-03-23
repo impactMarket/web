@@ -19,7 +19,7 @@ export const Header = () => {
                     <Col xs={12}>
                         <HeaderContent>
                             <Link href="/">
-                                <a className={checkActiveRoute('/') ? 'is-disabled' : ''}>
+                                <a className={checkActiveRoute('/') ? 'is-disabled' : ''} style={{ fontSize: 0 }}>
                                     <Logo />
                                 </a>
                             </Link>

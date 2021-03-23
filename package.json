@@ -11,6 +11,7 @@
   "dependencies": {
     "@psoares/svg-list": "^1.1.6",
     "axios": "^0.21.1",
+    "html-react-parser": "^1.2.4",
     "lodash": "^4.17.21",
     "next": "latest",
     "next-manifest": "^3.0.1",

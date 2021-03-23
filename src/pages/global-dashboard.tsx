@@ -1,5 +1,5 @@
-import { Col, Grid, Row, Text } from '../theme/components';
-import { useData } from '../components';
+import { Col, Grid, Heading, Row } from '../theme/components';
+import { useData } from '../components/DataProvider/DataProvider';
 import React from 'react';
 
 const GlobalDashboard = () => {
@@ -9,9 +9,9 @@ const GlobalDashboard = () => {
         <Grid pt={{ md: 5, xs: 3 }}>
             <Row>
                 <Col xs={12}>
-                    <Text h1 semibold>
+                    <Heading h1 semibold>
                         {page?.hero?.heading}
-                    </Text>
+                    </Heading>
                 </Col>
             </Row>
         </Grid>

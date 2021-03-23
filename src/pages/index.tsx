@@ -1,22 +1,4 @@
-import { Col, Grid, Row, Text } from '../theme/components';
-import { useData } from '../components';
-import React from 'react';
-
-const Homepage = () => {
-    const { page } = useData();
-
-    return (
-        <Grid pt={{ md: 5, xs: 3 }}>
-            <Row>
-                <Col xs={12}>
-                    <Text h1 semibold>
-                        {page?.hero?.heading}
-                    </Text>
-                </Col>
-            </Row>
-        </Grid>
-    );
-};
+import { Homepage } from '../page-components';
 
 export const getStaticProps = () => {
     return {

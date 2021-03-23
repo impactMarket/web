@@ -30,9 +30,9 @@ export const en = {
             required: 'A valid email is required',
             somethingWrong: 'Something went wrong. Try again later...',
             subscribe: 'Subscribe',
+            subscribeSuccess: 'Thanks for subscribing!',
             subscribingNote:
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
-            subscribeSuccess: 'Thanks for subscribing!',
             wrongEmail: 'Wrong email'
         },
         wallets: [
@@ -54,18 +54,24 @@ export const en = {
         /* eslint-disable sort-keys */
         homepage: {
             hero: {
-                heading: 'Open and decentralized anti-poverty system.',
+                heading: 'Open and decentralized anti&#8209;poverty system.',
+                image: '/img/kids.png',
                 text:
                     'impactMarket enables any community to have its own Unconditional Basic Income (UBI) for their beneficiaries. Anyone can back those communities by sending/donating $cUSD directly to their UBI contracts.'
             },
-            keyPartners: {
-                heading: 'Key partners',
-                partners: [
-                    { image: '/img/partners/celo.svg', name: 'celo', url: 'https://celo.org/' },
-                    { image: '/img/partners/esolidar.svg.svg', name: 'eSolidar', url: 'https://www.esolidar.com' },
-                    { image: '/img/partners/alight.svg', name: 'alight', url: 'https://alight.com/' }
-                ]
-            },
+            partners: [
+                {
+                    heading: 'Key partners',
+                    items: [
+                        { image: '/img/partners/celo.svg', name: 'celo', url: 'https://celo.org/' },
+                        { image: '/img/partners/esolidar.svg.svg', name: 'eSolidar', url: 'https://www.esolidar.com' }
+                    ]
+                },
+                {
+                    heading: 'Key partners',
+                    items: [{ image: '/img/partners/copa.svg', name: 'copa', url: 'https://www.opencrypto.org/' }]
+                }
+            ],
             numbers: {
                 buttonLabel: 'View Global Dashboard',
                 heading: 'Numbers that make a difference',

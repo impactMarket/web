@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ModalChipsWrapper, ModalCol, ModalCopyLink, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
 import { QrCode } from './QrCode';
 import { Subscribe } from './Subscribe';
-import { useData } from '../../components';
+import { useData } from '../../components/DataProvider/DataProvider';
 import { withModal } from '../../HOC';
 import React, { useState } from 'react';
 

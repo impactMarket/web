@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
-import { DataProvider, Footer, Header, SEO } from '../components';
+import { DataProvider } from '../components/DataProvider/DataProvider';
+import { Footer, Header, SEO } from '../components';
 import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
 import { modals } from '../modals';
