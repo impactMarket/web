@@ -1,11 +1,11 @@
 import { GeneratedPropsTypes } from '../../Types';
-import { generateProps } from 'styled-gen';
+import { generateProps, mq } from 'styled-gen';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type ItemsRowProps = {
     children?: any;
-    distribute?: boolean;
+    distribute?: boolean | 'tablet' | 'tabletLandscape' | 'desktop';
     spacing?: number;
 };
 
@@ -17,8 +17,17 @@ const ItemsCol = styled.div<ItemsRowProps>`
 
 const ItemsRowWrapper = styled.div<ItemsRowProps>`
     display: flex;
+    flex-direction: ${({ distribute }) => (distribute && distribute !== true ? 'column' : 'row')};
     justify-content: ${({ distribute }) => (distribute ? 'space-between' : 'flex-start')};
     margin: 0 -${({ spacing }) => (spacing || 0) / 2}px;
+
+    ${({ distribute }) =>
+        typeof distribute === 'string' &&
+        css`
+            ${mq[distribute](css`
+                flex-direction: row;
+            `)}
+        `}
 
     ${generateProps};
 `;

@@ -1,7 +1,7 @@
 import { Button, Input, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { generateProps, mq } from 'styled-gen';
-import { useData } from '../../components';
+import { useData } from '../../components/DataProvider/DataProvider';
 import { validateEmail } from '../../helpers/validateEmail';
 import Api from '../../apis/api';
 import React, { useState } from 'react';

@@ -1,26 +1,20 @@
-import { Button, Col, Currency, Div, Grid, Row, Text, TextLink } from '../../theme/components';
+import { Col, Div, Grid, Row, Text, TextLink } from '../../theme/components';
+import { DonateButton } from '../DonateButton/DonateButton';
 import { FooterLogo, FooterWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
-import { modal } from 'react-modal-handler';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import React, { useCallback } from 'react';
-
-const currencies = ['btc', 'eth', 'celo'] as const;
+import React from 'react';
 
 export const Footer = () => {
-    const { config, getString } = useData();
+    const { config } = useData();
     const { asPath } = useRouter();
 
     const donationFootnote = config?.footer?.footnote;
     const menu = config?.footer?.menu;
 
     const checkActiveRoute = (route: string | undefined) => route === asPath;
-
-    const handleDonateClick = useCallback(() => {
-        modal.open('donate', { heading: getString('donate'), withCloseButton: true });
-    }, []);
 
     return (
         <FooterWrapper>
@@ -55,12 +49,7 @@ export const Footer = () => {
                     <Col xs={12}>
                         <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
                             <Div sWidth={{ sm: 'unset', xs: '100%' }}>
-                                <Button fluid large lined onClick={handleDonateClick} pl={1.375} pr={1.375}>
-                                    {getString('donate')}
-                                    {currencies.map((currency: typeof currencies[number], index: number) => (
-                                        <Currency currency={currency} key={currency} ml={index ? 0.5 : 1} />
-                                    ))}
-                                </Button>
+                                <DonateButton pl={1.375} pr={1.375} />
                             </Div>
                             <Text
                                 ml={{ sm: 2, xs: 0 }}

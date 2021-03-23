@@ -1,4 +1,4 @@
-const tags = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'quote'] as const;
+export const tags = ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'p', 'quote'] as const;
 
 type Options = {
     defaultTag?: typeof tags[number] | string;

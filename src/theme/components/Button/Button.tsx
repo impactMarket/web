@@ -95,7 +95,7 @@ type ButtonMiscVariations = BoolProps<typeof miscVariations>;
 type ButtonSizeVariations = BoolProps<typeof sizeVariations>;
 
 const ButtonWrapper = styled.button<ButtonProps>`
-    ${transitions('all', 250, ease.outSine)};
+    ${transitions(['background-color', 'box-shadow', 'color'], 250, ease.outSine)};
 
     align-items: center;
     border-radius: 8px;

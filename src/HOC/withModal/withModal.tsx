@@ -1,4 +1,4 @@
-import { Icon, Text } from '../../theme/components';
+import { Heading, Icon } from '../../theme/components';
 import {
     ModalBackdrop,
     ModalCloseButton,
@@ -59,9 +59,9 @@ export const withModal = (ModalComponent: any, options: any = {}) =>
                             {(this.props.heading || this.props.withCloseButton) && (
                                 <ModalHeading>
                                     {this.props.heading && (
-                                        <Text extrabold h4>
+                                        <Heading extrabold h4>
                                             {this.props.heading}
-                                        </Text>
+                                        </Heading>
                                     )}
                                     {this.props.withCloseButton && (
                                         <ModalCloseButton onClick={this.handleClose}>

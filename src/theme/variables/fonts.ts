@@ -13,22 +13,14 @@ const families = {
     inter: `'Inter', sans-serif`
 };
 
-// [size, lineHeight, letterSpacing]
-const sizes = {
-    h1: [48, 54],
-    h2: [32, 42],
-    h3: [24, 36],
-    h4: [24, 36],
-    h5: [15, 28],
-    h6: [24, 28],
-
+export const bodySizes = {
     subtitle1: [18, 28],
     subtitle2: [18, 28],
 
     lead1: [18, 32],
     lead2: [14, 24],
 
-    body: [16, 26],
+    body: [16, 32],
     small: [14, 22],
     XXSmall: [12, 16, 0],
 
@@ -39,8 +31,16 @@ const sizes = {
     badge: [20, 24]
 };
 
+export const headingSizes = {
+    h1: { md: [48, 54], xs: [36, 45] },
+    h2: [32, 42],
+    h3: [24, 36],
+    h4: [24, 36],
+    h5: [15, 28],
+    h6: [24, 28]
+};
+
 export const fonts = {
     families,
-    sizes,
     weights
 };
