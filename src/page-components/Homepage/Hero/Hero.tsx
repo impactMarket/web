@@ -13,7 +13,7 @@ export const Hero = () => {
                 <Row middle="xs" reverse>
                     {/* eslint-disable-next-line react/jsx-sort-props */}
                     <Col xs={12} sm={5} md={6}>
-                        <Div>
+                        <Div sAlignItems="start">
                             <Img src={page?.hero?.image} />
                         </Div>
                     </Col>
