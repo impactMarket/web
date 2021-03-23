@@ -40,15 +40,15 @@ export const Partners = () => {
                                 >
                                     <Heading h6>{heading}</Heading>
                                     <Div mt={{ sm: 0, xs: 1 }}>
-                                        {items.map(({ image, name, url }) => (
+                                        {items.map(({ image, name, url }, indexImage) => (
                                             <ATag
                                                 href={url}
                                                 key={name}
-                                                ml={3}
+                                                ml={{ sm: 3, xs: indexImage ? 1 : 0 }}
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                <Img alt={`${name} logo`} sHeight={2.25} sWidth="auto" src={image} />
+                                                <Img alt={`${name} logo`} sHeight={{ sm: 2.25, xs: 2}} sWidth="auto" src={image} />
                                             </ATag>
                                         ))}
                                     </Div>
