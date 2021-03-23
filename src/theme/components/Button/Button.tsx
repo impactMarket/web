@@ -71,7 +71,7 @@ const sizeVariations = {
 
     tight: css`
         font-size: 18px;
-        height: 44px;
+        height: 40px;
         padding: 0 8px;
     `
 };
@@ -84,7 +84,7 @@ type ButtonBaseProps = {
     isLoading?: boolean;
 };
 
-type ButtonProps = GeneratedPropsTypes &
+export type ButtonProps = GeneratedPropsTypes &
     ButtonBaseProps &
     ButtonColorVariations &
     ButtonMiscVariations &

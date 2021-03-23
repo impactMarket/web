@@ -14,5 +14,6 @@ export * from './Logo/Logo';
 export * from './Main/Main';
 export * from './Section/Section';
 export * from './Spinner/Spinner';
+export * from './StoreButtons';
 export * from './TextLink/TextLink';
 export * from './Typography/Typography';
