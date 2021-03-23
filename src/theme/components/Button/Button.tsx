@@ -32,7 +32,7 @@ const colorVariations = {
         }
     `,
 
-    white: css`
+    whitePrimary: css`
         background-color: ${colors.white};
         color: ${colors.primary};
 
