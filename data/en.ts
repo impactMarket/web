@@ -1,5 +1,11 @@
 export const en = {
     config: {
+        cta: {
+            heading: 'Install our app',
+            image: '/img/app-mockup',
+            text:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
+        },
         footer: {
             footnote:
                 'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.',
@@ -20,6 +26,10 @@ export const en = {
             linkedin: 'https://www.linkedin.com/company/impactmarket',
             telegram: 'https://t.me/impactMarket',
             twitter: 'https://twitter.com/IPCTmarket'
+        },
+        storeLinks: {
+            appstore: 'https://testflight.apple.com/join/o19f5StV',
+            playstore: 'https://play.google.com/store/apps/details?id=com.impactmarket.mobile'
         },
         strings: {
             copyAddress: 'Copy address',
@@ -84,11 +94,6 @@ export const en = {
                 ],
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
-            },
-            cta: {
-                heading: 'Install our app',
-                text:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
             }
         },
         globalDashboard: {
