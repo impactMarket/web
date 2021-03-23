@@ -77,8 +77,8 @@ export const en = {
                 heading: 'Numbers that make a difference',
                 items: [
                     { heading: '+200K', name: 'totalRaised', text: 'Total Raised' },
-                    { heading: '+10K', name: 'beneficiaries', text: 'Beneficiaries' },
                     { heading: '5', name: 'countries', text: 'Countries' },
+                    { heading: '+10K', name: 'beneficiaries', text: 'Beneficiaries' },
                     { heading: '80', name: 'backers', text: 'Backers' },
                     { heading: '53', name: 'communities', text: 'Communities' }
                 ],

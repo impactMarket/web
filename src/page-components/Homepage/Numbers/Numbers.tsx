@@ -31,7 +31,7 @@ const NumbersWrapper = styled.div`
         justify-content: space-between;
 
         & > div {
-            width: unset;
+            width: 20%;
         }
     `)}
 
@@ -40,7 +40,7 @@ const NumbersWrapper = styled.div`
     `)}
 
     ${mq.desktop(css`
-        max-width: unset;
+        max-width: 64rem;
     `)}
 `;
 
@@ -66,7 +66,7 @@ export const Numbers = () => {
                         <NumbersWrapper>
                             {numbers?.items.map(({ heading, text }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
-                                    <Heading h2 white>
+                                    <Heading fontSize={{ md: '48 54', xs: '32 42' }} h2 white>
                                         {heading}
                                     </Heading>
                                     <Text body white>
