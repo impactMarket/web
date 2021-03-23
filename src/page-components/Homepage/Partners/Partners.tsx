@@ -48,7 +48,12 @@ export const Partners = () => {
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                <Img alt={`${name} logo`} sHeight={{ sm: 2.25, xs: 2}} sWidth="auto" src={image} />
+                                                <Img
+                                                    alt={`${name} logo`}
+                                                    sHeight={{ sm: 2.25, xs: 2 }}
+                                                    sWidth="auto"
+                                                    src={image}
+                                                />
                                             </ATag>
                                         ))}
                                     </Div>
