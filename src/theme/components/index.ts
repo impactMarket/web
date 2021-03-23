@@ -1,3 +1,4 @@
+export * from './ATag/ATag';
 export * from './Button/Button';
 export * from './Chip/Chip';
 export * from './Content/Content';

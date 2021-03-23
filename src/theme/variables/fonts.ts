@@ -37,7 +37,7 @@ export const headingSizes = {
     h3: [24, 36],
     h4: [24, 36],
     h5: [15, 28],
-    h6: [24, 28]
+    h6: [14, 22]
 };
 
 export const fonts = {

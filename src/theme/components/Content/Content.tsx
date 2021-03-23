@@ -2,5 +2,5 @@ import styled from 'styled-components';
 
 export const Content = styled.main`
     display: block;
-    width: 100;
+    width: 100%;
 `;

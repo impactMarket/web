@@ -63,13 +63,13 @@ export const en = {
                 {
                     heading: 'Key partners',
                     items: [
-                        { image: '/img/partners/celo.svg', name: 'celo', url: 'https://celo.org/' },
-                        { image: '/img/partners/esolidar.svg.svg', name: 'eSolidar', url: 'https://www.esolidar.com' }
+                        { image: '/img/partners/celo.png', name: 'Celo', url: 'https://celo.org/' },
+                        { image: '/img/partners/esolidar.png', name: 'eSolidar', url: 'https://www.esolidar.com' }
                     ]
                 },
                 {
-                    heading: 'Key partners',
-                    items: [{ image: '/img/partners/copa.svg', name: 'copa', url: 'https://www.opencrypto.org/' }]
+                    heading: 'Member of',
+                    items: [{ image: '/img/partners/copa.png', name: 'copa', url: 'https://www.opencrypto.org/' }]
                 }
             ],
             numbers: {
