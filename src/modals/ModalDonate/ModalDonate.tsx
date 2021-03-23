@@ -67,7 +67,7 @@ export const Modal = () => {
                         </Text>
                         <ModalCopyLink style={{ marginTop: 16 }}>
                             <CopyToClipboard text={getSelectedCurrencyAddress()}>
-                                <Text bold primary>
+                                <Text bold brandPrimary>
                                     {getString('copyAddress')}
                                 </Text>
                             </CopyToClipboard>

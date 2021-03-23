@@ -1,13 +1,6 @@
-import { ATag, Col, Div, Grid, Heading, Img, Row, Section as SectionBase } from '../../../theme/components';
-import { colors } from '../../../theme';
-import { rgba } from 'polished';
+import { ATag, Col, Div, Grid, Heading, Img, Row, Section } from '../../../theme/components';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import React from 'react';
-import styled from 'styled-components';
-
-const Section = styled(SectionBase)`
-    background-color: ${rgba(colors.light, 0.31)};
-`;
 
 type PartnersType = {
     heading: string;
@@ -24,7 +17,7 @@ export const Partners = () => {
     const partners: PartnersType = page?.partners;
 
     return (
-        <Section>
+        <Section sBackground="backgroundLight">
             <Grid>
                 <Row>
                     <Col center sPadding={{ sm: '2.5 null', xs: '2 null' }} xs={12}>

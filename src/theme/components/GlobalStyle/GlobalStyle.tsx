@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         box-sizing: border-box;
-        color: ${colors.body};
+        color: ${colors.textPrimary};
         font-family: ${fonts.families.inter};
         font-size: 1.125rem;
         line-height: 1.5;

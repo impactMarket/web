@@ -2,19 +2,20 @@
 
 export const colors = {
     // brand
-    primary: '#2362FB',
-    secondary: '#73839D',
+    brandPrimary: '#2362FB',
+    brandBlack: '#172B4D',
+    brandSecondary: '#73839D',
 
     // text
-    body: '#333239',
+    textPrimary: '#333239',
     textSecondary: '#73839D',
+
+    // backgrounds
+    backgroundBlack: '#1E3252',
+    backgroundSecondary: '#E9EDF4',
+    backgroundLight: 'rgba(220, 223, 228, 0.31)',
 
     // Defaults
     white: '#ffffff',
-    light: '#DCDFE4',
-    error: '#F54254',
-    backgroundSecondary: '#E9EDF4',
-    backgroundDark: '#1E3252',
-    foregroundDark: '#32325D',
-    dark: '#172B4D'
+    error: '#F54254'
 };

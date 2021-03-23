@@ -18,7 +18,11 @@ type SpinnerProps = {
     spinnerColor?: string;
 };
 
-export const Spinner = ({ backgroundColor = colors.white, spinnerColor = colors.primary, isLoading }: SpinnerProps) => (
+export const Spinner = ({
+    backgroundColor = colors.white,
+    spinnerColor = colors.brandPrimary,
+    isLoading
+}: SpinnerProps) => (
     <SpinnerWrapper>
         <SpinnerContainer backgroundColor={backgroundColor} isLoading={isLoading}>
             <SpinnerElement fill={spinnerColor} viewBox="-1 -1 40 40">

@@ -38,12 +38,12 @@ const ModalCloseButton = styled.a`
     align-items: center;
     background-color: ${colors.backgroundSecondary};
     border-radius: 50%;
-    color: ${colors.dark};
+    color: ${colors.brandBlack};
     display: inline-flex;
     justify-content: center;
 
     &:hover {
-        background-color: ${colors.dark};
+        background-color: ${colors.brandBlack};
         cursor: pointer;
         color: ${colors.white};
     }

@@ -28,7 +28,7 @@ const SVG = styled.svg.attrs({
     viewBox: '0 0 146 48',
     xmlns: 'http://www.w3.org/2000/svg'
 })`
-    fill: ${colors.primary};
+    fill: ${colors.brandPrimary};
     height: 100%;
     width: auto;
 `;

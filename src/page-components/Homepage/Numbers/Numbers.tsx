@@ -53,7 +53,7 @@ export const Numbers = () => {
     const handleDashboardButtonClick = useCallback(() => push('/global-dashboard'), []);
 
     return (
-        <Section sBackground="primary">
+        <Section sBackground="brandPrimary">
             <Grid sPadding="4 null">
                 <Row>
                     <Col center xs={12}>

@@ -14,14 +14,14 @@ const SocialLink = styled.a.attrs({
 })`
     ${transitions(['color', 'text-shadow'], 250, ease.outSine)};
 
-    color: ${colors.secondary};
+    color: ${colors.brandSecondary};
 
     & + & {
         margin-left: 1rem;
     }
 
     &:hover {
-        color: ${colors.body};
+        color: ${colors.textPrimary};
         text-shadw: 0 0.5rem 1rem rgba(0, 0, 0, 0.24);
     }
 `;
