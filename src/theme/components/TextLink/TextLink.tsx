@@ -10,7 +10,7 @@ type TextLinkProps = {
 export const TextLink = styled.a<TextLinkProps>`
     ${transitions(['text-shadow'], 250, ease.outSine)};
 
-    color: ${({ isActive }) => (isActive ? colors.primary : colors.body)};
+    color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
     display: block;
     font-size: 0.9375rem;

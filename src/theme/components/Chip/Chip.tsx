@@ -13,7 +13,7 @@ export const Chip = styled.div<ChipProps>`
     align-items: center;
     background-color: ${colors.backgroundSecondary};
     border-radius: 22px;
-    color: ${colors.foregroundDark};
+    color: ${colors.backgroundSecondary};
     display: inline-flex;
     font-family: ${fonts.families.inter};
     font-weight: ${fonts.weights.medium};
@@ -28,7 +28,7 @@ export const Chip = styled.div<ChipProps>`
     ${({ isActive }) =>
         isActive &&
         css`
-            background-color: ${colors.backgroundDark};
+            background-color: ${colors.backgroundBlack};
             color: ${colors.white};
         `}
 

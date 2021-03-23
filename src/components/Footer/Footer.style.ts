@@ -1,17 +1,16 @@
 import { Icon } from '../../theme/components';
 import { colors } from '../../theme';
 import { mq } from 'styled-gen';
-import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const FooterLogo = styled(Icon).attrs({ icon: 'im' })`
-    color: ${colors.primary};
+    color: ${colors.brandPrimary};
     height: 2.75rem;
     width: auto;
 `;
 
 export const FooterWrapper = styled.div`
-    background-color: ${rgba(colors.light, 0.31)};
+    background-color: ${colors.backgroundLight};
     margin-top: auto;
     padding: 3.75rem 0 2.625rem;
     width: 100%;

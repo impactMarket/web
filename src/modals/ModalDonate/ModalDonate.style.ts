@@ -1,6 +1,5 @@
 import { colors } from '../../theme';
 import { mq } from 'styled-gen';
-import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const ModalChipsWrapper = styled.div`
@@ -39,7 +38,7 @@ export const ModalCopyLink = styled.div`
 
 export const ModalFooter = styled.div`
     padding: 2rem;
-    background-color: ${rgba(colors.light, 0.31)};
+    background-color: ${colors.backgroundLight};
 `;
 
 export const ModalRow = styled.div`
