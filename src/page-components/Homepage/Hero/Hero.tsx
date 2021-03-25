@@ -15,7 +15,7 @@ const scrollOptions = {
 export const Hero = () => {
     const { page, getString } = useData();
 
-    const handleDlownloadButtonClick = useCallback(() => scroller.scrollTo('cta', scrollOptions));
+    const handleDlownloadButtonClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
 
     return (
         <Section pb={2}>
