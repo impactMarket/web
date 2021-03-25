@@ -1,11 +1,21 @@
 import { Button, Col, Div, Grid, Heading, Icon, Img, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import { DonateButton } from '../../../components';
+import { scroller } from 'react-scroll';
 import { useData } from '../../../components/DataProvider/DataProvider';
-import React from 'react';
+import React, { useCallback } from 'react';
 import parse from 'html-react-parser';
+
+const scrollOptions = {
+    delay: 10,
+    duration: 600,
+    offset: -100,
+    smooth: 'easeInOutCubic'
+};
 
 export const Hero = () => {
     const { page, getString } = useData();
+
+    const handleDlownloadButtonClick = useCallback(() => scroller.scrollTo('cta', scrollOptions));
 
     return (
         <Section pb={2}>
@@ -27,7 +37,7 @@ export const Hero = () => {
                                 {page?.hero?.text}
                             </Text>
                             <ItemsRow distribute="tabletLandscape" mt={2}>
-                                <Button fluid large medium>
+                                <Button fluid large medium onClick={handleDlownloadButtonClick}>
                                     <Icon icon="download" mr={0.625} sHeight={1.375} />
                                     {getString('downloadApp')}
                                 </Button>
