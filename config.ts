@@ -12,6 +12,11 @@ export default {
     baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api`!,
 
     /**
+     * cUSD decimals to use in ui format
+     */
+    cUSDDecimals: 18,
+
+    /**
      * Base URL to api
      */
     chainExplorer: process.env.NEXT_PUBLIC_CHAIN_EXPLORER_URL!,

@@ -13,7 +13,7 @@ export const Chip = styled.div<ChipProps>`
     align-items: center;
     background-color: ${colors.backgroundSecondary};
     border-radius: 22px;
-    color: ${colors.backgroundSecondary};
+    color: ${colors.textPrimary};
     display: inline-flex;
     font-family: ${fonts.families.inter};
     font-weight: ${fonts.weights.medium};

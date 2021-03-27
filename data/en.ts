@@ -32,11 +32,14 @@ export const en = {
             playstore: 'https://play.google.com/store/apps/details?id=com.impactmarket.mobile'
         },
         strings: {
+            beneficiary: 'Beneficiary',
             copyAddress: 'Copy address',
+            day: 'Day',
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
             invalidEmail: 'The email is not valid',
+            months: 'Months',
             required: 'A valid email is required',
             somethingWrong: 'Something went wrong. Try again later...',
             subscribe: 'Subscribe',
@@ -97,8 +100,39 @@ export const en = {
             }
         },
         globalDashboard: {
-            hero: {
-                heading: 'Lorem 2'
+            global: {
+                heading: 'Global dashboard',
+                text:
+                    'Explore the main indicators of impactMarket system both on inflow of funds and distribution of basic income to beneficiaries through their UBI community contracts.',
+                rows: [
+                    {
+                        heading: 'Inflow / Outflow',
+                        items: [
+                            { heading: 'Total Raised', helper: 'totalRaised' },
+                            { heading: 'Total Distributed', helper: 'totalDistributed' },
+                            { heading: '# Backers', helper: 'backers' },
+                            { heading: '# Beneficiaries', helper: 'beneficiaries' }
+                        ]
+                    },
+                    {
+                        heading: 'UBI Pulse',
+                        items: [
+                            { heading: 'Giving Rate per Backer', helper: 'ratePerBacker' },
+                            { heading: 'UBI Rate per Beneficiary', helper: 'ratePerBeneficiary' },
+                            { heading: 'Avg Cumulative UBI', helper: 'avgCumulativeUbi' },
+                            { heading: 'Avg UBI duration', helper: 'avgUbiDuration' }
+                        ]
+                    },
+                    {
+                        heading: "Economic beneficiaries' activity",
+                        items: [
+                            { heading: 'Total Volume', helper: 'totalVolume' },
+                            { heading: '# Transfers', helper: 'transfers' },
+                            { heading: 'Reach', helper: 'reach' },
+                            { heading: 'Spending Rate', helper: 'spendingRate' }
+                        ]
+                    }
+                ]
             }
         }
         /* eslint-enable sort-keys */

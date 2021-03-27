@@ -9,6 +9,7 @@ export const justifyContentAlignments = {
 };
 
 export const alignItemsAligments = {
+    baseline: 'baseline',
     center: 'center',
     end: 'flex-end',
     start: 'flex-start',

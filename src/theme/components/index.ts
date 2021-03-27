@@ -3,6 +3,7 @@ export * from './Button/Button';
 export * from './Chip/Chip';
 export * from './Content/Content';
 export * from './Currency/Currency';
+export * from './DashboardCard/DashboardCard';
 export * from './Div/Div';
 export * from './GlobalStyle/GlobalStyle';
 export * from './Grid/Grid';
