@@ -30,28 +30,38 @@ const setSizeVariations = (sizeVariations: any) =>
         {}
     );
 
-const headingSizeVariations = setSizeVariations(headingSizes);
+const miscVariations = {
+    ellipsis: css`
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    `
+};
 
-const BodySizeVariations = setSizeVariations(bodySizes);
+const bodySizeVariations = setSizeVariations(bodySizes);
+const headingSizeVariations = setSizeVariations(headingSizes);
 
 type FontBodySizeVariations = BoolProps<typeof bodySizes>;
 type FontHeadingSizeVariations = BoolProps<typeof headingSizes>;
+type MiscVariations = BoolProps<typeof miscVariations>;
 
 export const Heading = styled.h1.attrs((props: object) => ({
     as: getTag(props, { defaultTag: 'h1' })
-}))<FontHeadingSizeVariations & GeneratedPropsTypes>`
+}))<FontHeadingSizeVariations & GeneratedPropsTypes & MiscVariations>`
     font-weight: ${fonts.weights.extrabold};
     font-family: ${fonts.families.manrope};
 
     ${variations(headingSizeVariations)};
+    ${variations(miscVariations)};
     ${generateProps};
 `;
 
 export const Text = styled.p.attrs((props: object) => ({
     as: getTag(props, { defaultTag: 'p' })
-}))<FontBodySizeVariations & GeneratedPropsTypes>`
+}))<FontBodySizeVariations & GeneratedPropsTypes & MiscVariations>`
     font-family: ${fonts.families.inter};
 
-    ${variations(BodySizeVariations)};
+    ${variations(bodySizeVariations)};
+    ${variations(miscVariations)};
     ${generateProps};
 `;

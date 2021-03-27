@@ -7,7 +7,7 @@ const spaceNames = ['mb', 'ml', 'mr', 'mt', 'pb', 'pl', 'pr', 'pt'] as const;
  * Helper Types
  */
 export type BoolProps<T extends Object> = Partial<Record<keyof T, boolean>>;
-type MqProp<T> = Partial<Record<typeof breakpoints[number], T>> | T;
+export type MqProp<T> = Partial<Record<typeof breakpoints[number], T>> | T;
 
 /**
  * GeneratedPropsTypes

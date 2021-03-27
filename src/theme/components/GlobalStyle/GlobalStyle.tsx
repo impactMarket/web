@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         color: ${colors.textPrimary};
         font-family: ${fonts.families.inter};
-        font-size: 1.125rem;
+        font-size: 1rem;
         line-height: 1.5;
         overflow-x: hidden;
         overflow-y: scroll;

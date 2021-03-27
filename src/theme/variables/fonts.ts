@@ -22,7 +22,8 @@ export const bodySizes = {
 
     body: [16, 32],
     small: [14, 22],
-    XXSmall: [12, 16, 0],
+    XSmall: [12, 16],
+    XXSmall: [10, 19],
 
     label1: [20, 30],
     label2: [14, 20],
