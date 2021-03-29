@@ -133,6 +133,11 @@ export const en = {
                         ]
                     }
                 ]
+            },
+            healingMap: {
+                heading: 'Healing the world, ending poverty',
+                text:
+                    'Discover active communities and their beneficiaries’ activity on accessing/claiming a basic income that is empowering them out of poverty.'
             }
         }
         /* eslint-enable sort-keys */

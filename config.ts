@@ -17,6 +17,16 @@ export default {
     cUSDDecimals: 18,
 
     /**
+     * MapBox API Key
+     */
+    mapBoxApiKey: process.env.NEXT_PUBLIC_MAPBOX_KEY!,
+
+    /**
+     * MapBox API style
+     */
+    mapBoxStyle: process.env.NEXT_PUBLIC_MAPBOX_STYLE!,
+
+    /**
      * Base URL to api
      */
     chainExplorer: process.env.NEXT_PUBLIC_CHAIN_EXPLORER_URL!,
