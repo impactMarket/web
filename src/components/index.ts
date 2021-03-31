@@ -1,4 +1,5 @@
 export * from './Cta/Cta';
+export * from './DashboardChart/DashboardChart';
 export * from './DashboardNumericContent/DashboardNumericContent';
 export * from './DonateButton/DonateButton';
 export * from './Footer/Footer';

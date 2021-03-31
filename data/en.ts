@@ -149,6 +149,11 @@ export const en = {
                     { label: 'Running out of funds first', value: 'out_of_funds' }
                 ],
                 heading: 'Helping {{ communitiesCount }} Communities',
+                ssi: {
+                    heading: 'Average Self-sustainability Index (SSI)',
+                    text:
+                        "*SSI measures communities' collective financial self-sustainability, and average progress. It is inversely correlated with their beneficiaries UBI dependency/need and urgency."
+                },
                 text:
                     'UBI communities are usually managed and promoted by community leaders and social, governamental, or local organizations, who set up the initial UBI parameters, and add/remove which beneficiaries they believe would most benefit from it.',
                 table: {
