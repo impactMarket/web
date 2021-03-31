@@ -33,14 +33,17 @@ export const en = {
         },
         strings: {
             beneficiary: 'Beneficiary',
+            communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
             copyAddress: 'Copy address',
             day: 'Day',
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
             invalidEmail: 'The email is not valid',
+            many: 'many',
             months: 'Months',
             required: 'A valid email is required',
+            rowsPerPage: 'Rows per page',
             somethingWrong: 'Something went wrong. Try again later...',
             subscribe: 'Subscribe',
             subscribeSuccess: 'Thanks for subscribing!',
@@ -138,6 +141,31 @@ export const en = {
                 heading: 'Healing the world, ending poverty',
                 text:
                     'Discover active communities and their beneficiaries’ activity on accessing/claiming a basic income that is empowering them out of poverty.'
+            },
+            communities: {
+                filterOptions: [
+                    { label: 'Newest first', value: 'newest' },
+                    { label: 'Bigger first', value: 'bigger' },
+                    { label: 'Running out of funds first', value: 'out_of_funds' }
+                ],
+                heading: 'Helping {{ communitiesCount }} Communities',
+                text:
+                    'UBI communities are usually managed and promoted by community leaders and social, governamental, or local organizations, who set up the initial UBI parameters, and add/remove which beneficiaries they believe would most benefit from it.',
+                table: {
+                    header: [
+                        { label: 'Community name', name: 'communityName' },
+                        { label: 'Allowance per Beneficiary', name: 'allowancePerBeneficiary' },
+                        { label: 'UBI Rate per Beneficiary', name: 'ubiRatePerBeneficiary' },
+                        { label: 'Estimated UBI Duration', name: 'estimatedUbiDuration' },
+                        { label: 'SSI*', name: 'ssi' },
+                        { label: 'Beneficiaries', name: 'beneficiaries' },
+                        { label: 'Claimed', name: 'claimed' },
+                        { label: 'Backers', name: 'backers' },
+                        { label: 'Raised', name: 'raised' },
+                        { label: 'Ubi Contract', name: 'ubiContract' }
+                    ],
+                    initialRows: 3
+                }
             }
         }
         /* eslint-enable sort-keys */

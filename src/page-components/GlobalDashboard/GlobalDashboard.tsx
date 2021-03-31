@@ -1,5 +1,6 @@
+import { Communities } from './Communities/Communities';
 import { Global } from './Global/Global';
-import { HealingMap } from '../HealingMap/HealingMap';
+import { HealingMap } from './HealingMap/HealingMap';
 import { IGlobalDashboard } from '../../apis/types';
 import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
@@ -15,11 +16,13 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
 
     const global = page?.global;
     const healingMap = page?.healingMap;
+    const communities = page?.communities;
 
     return (
         <>
             <Global data={data} {...global} />
-            <HealingMap data={data} {...healingMap} />
+            <HealingMap {...healingMap} />
+            <Communities data={data} {...communities} />
         </>
     );
 };
