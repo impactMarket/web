@@ -13,9 +13,10 @@ export const colors = {
     // backgrounds
     backgroundBlack: '#1E3252',
     backgroundSecondary: '#E9EDF4',
-    backgroundLight: 'rgba(220, 223, 228, 0.31)',
+    backgroundLight: '#F4F5F7',
 
     // Defaults
     white: '#ffffff',
-    error: '#F54254'
+    error: '#F54254',
+    border: '#EBEBEB'
 };

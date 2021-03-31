@@ -1,11 +1,10 @@
-import { Col, DashboardCard, Div, Grid, Heading, Row, Section, Text } from '../../theme/components';
-import { IClaimLocation, IGlobalDashboard } from '../../apis/types';
-import { Map } from '../../components';
-import Api from '../../apis/api';
+import { Col, DashboardCard, Div, Grid, Heading, Row, Section, Text } from '../../../theme/components';
+import { IClaimLocation } from '../../../apis/types';
+import { Map } from '../../../components';
+import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
 
 type HealingMapProps = {
-    data?: IGlobalDashboard;
     heading?: string;
     text?: string;
 };

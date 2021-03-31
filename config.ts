@@ -2,7 +2,7 @@
 /* eslint-disable no-process-env */
 export default {
     /**
-     * Base URL to api
+     * Base URL
      */
     baseUrl: process.env.NEXT_PUBLIC_URL!,
 

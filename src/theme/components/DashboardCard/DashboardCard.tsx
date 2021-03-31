@@ -10,7 +10,6 @@ export const DashboardCard = styled.div<GeneratedPropsTypes>`
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
     padding: 1rem 1.375rem;
 
     ${generateProps}

@@ -6,7 +6,6 @@ export const Section = styled.section<GeneratedPropsTypes>`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    overflow: hidden;
 
     ${generateProps}
 `;
