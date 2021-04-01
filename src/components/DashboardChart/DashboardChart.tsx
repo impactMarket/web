@@ -1,27 +1,59 @@
+import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import { DashboardChartTooltip } from '../DashboardChartTooltip/DashboardChartTooltip';
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import { colors } from '../../theme';
 import React from 'react';
 
 type DashboardChartProps = {
-    data: any;
-    dataKey: string;
-    height: number;
-    line?: boolean;
-    tooltip: Function;
-    xAxysDataKey: string;
+    data?: any;
+    dataKey?: string;
+    height?: number;
+    type?: 'bar' | 'line';
+    tooltip?: Function;
+    xAxysDataKey?: string;
+};
+
+const chartDefaultHeight = 120;
+
+const chartComponents = {
+    bar: {
+        Chart: BarChart,
+        ChartItem: Bar,
+        itemProps: {
+            barSize: 4,
+            fill: colors.brandPrimary,
+            radius: [4, 4, 4, 4]
+        },
+        tooltipProps: {
+            cursor: { fill: colors.backgroundSecondary, radius: [4, 4, 4, 4] }
+        }
+    },
+    line: {
+        Chart: LineChart,
+        ChartItem: Line,
+        itemProps: {
+            dot: <></>,
+            stroke: colors.brandPrimary,
+            strokeWidth: 2,
+            type: 'monotone'
+        }
+    }
 };
 
 export const DashboardChart = (props: DashboardChartProps) => {
-    const { height = 130, tooltip, dataKey, data, xAxysDataKey } = props;
+    const { data, dataKey = 'uv', height = chartDefaultHeight, tooltip, type = 'line', xAxysDataKey = 'name' } = props;
+    const { Chart, ChartItem, itemProps, tooltipProps = {} }: { [key: string]: any } = chartComponents[type] || {};
+
+    if (!Chart) {
+        return null;
+    }
 
     return (
         <ResponsiveContainer height={height} width="100%">
-            <LineChart data={data}>
+            <Chart data={data}>
                 <XAxis dataKey={xAxysDataKey} hide />
-                <Tooltip content={<DashboardChartTooltip tooltip={tooltip} />} />
-                <Line dataKey={dataKey} dot={<></>} stroke={colors.brandPrimary} strokeWidth={2} type="monotone" />
-            </LineChart>
+                {tooltip && <Tooltip content={<DashboardChartTooltip tooltip={tooltip} />} {...tooltipProps} />}
+                <ChartItem dataKey={dataKey} {...itemProps} />
+            </Chart>
         </ResponsiveContainer>
     );
 };

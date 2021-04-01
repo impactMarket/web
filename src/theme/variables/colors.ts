@@ -17,6 +17,7 @@ export const colors = {
 
     // Defaults
     white: '#ffffff',
-    error: '#F54254',
-    border: '#EBEBEB'
+    error: '#EB5757',
+    border: '#EBEBEB',
+    success: '#2DCE89'
 };
