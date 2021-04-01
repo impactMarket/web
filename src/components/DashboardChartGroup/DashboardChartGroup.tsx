@@ -1,6 +1,7 @@
 import { Col, DashboardCard, Div, Grid, Heading, Icon, Row, Section, Text } from '../../theme/components';
 import { DashboardChart } from '../DashboardChart/DashboardChart';
 import { DashboardNumericContent } from '../DashboardNumericContent/DashboardNumericContent';
+import { GeneratedPropsTypes } from '../../theme/Types';
 import { useData } from '../DataProvider/DataProvider';
 import React from 'react';
 
@@ -15,16 +16,16 @@ type DashboardChartGroupProps = {
     text?: string;
 };
 
-export const DashboardChartGroup = (props: DashboardChartGroupProps) => {
-    const { charts, heading, text } = props;
+export const DashboardChartGroup = (props: DashboardChartGroupProps & GeneratedPropsTypes) => {
+    const { charts, heading, text, ...forwardProps } = props;
     const { getString } = useData();
 
     return (
-        <Section pt={{ xs: 2 }} sBackground="backgroundLight">
+        <Section pt={{ sm: 4, xs: 2 }} sBackground="backgroundLight" {...forwardProps}>
             <Grid>
                 <Row>
                     <Col xs={12}>
-                        <Heading h2>{heading}</Heading>
+                        <Heading h3>{heading}</Heading>
                         <Text mt={0.5} small>
                             {text}
                         </Text>

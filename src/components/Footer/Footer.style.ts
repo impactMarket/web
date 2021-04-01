@@ -10,7 +10,7 @@ export const FooterLogo = styled(Icon).attrs({ icon: 'im' })`
 `;
 
 export const FooterWrapper = styled.div`
-    background-color: ${colors.backgroundLight};
+    background-color: ${colors.white};
     margin-top: auto;
     padding: 3.75rem 0 2.625rem;
     width: 100%;
