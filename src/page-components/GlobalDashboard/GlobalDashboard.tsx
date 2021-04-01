@@ -1,4 +1,5 @@
 import { Communities } from './Communities/Communities';
+import { Distribution } from './Distribution/Distribution';
 import { Global } from './Global/Global';
 import { HealingMap } from './HealingMap/HealingMap';
 import { IGlobalDashboard } from '../../apis/types';
@@ -17,12 +18,14 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
     const global = page?.global;
     const healingMap = page?.healingMap;
     const communities = page?.communities;
+    const distribution = page?.distribution;
 
     return (
         <>
             <Global data={data} {...global} />
             <HealingMap {...healingMap} />
             <Communities data={data} {...communities} />
+            <Distribution data={data} {...distribution} />
         </>
     );
 };

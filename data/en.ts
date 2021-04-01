@@ -33,6 +33,8 @@ export const en = {
         },
         strings: {
             beneficiary: 'Beneficiary',
+            claimedOn: '${{ value }} claimed on {{ date }}',
+            claimsOn: '{{ value }} claims on {{ date }}',
             communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
             copyAddress: 'Copy address',
             day: 'Day',
@@ -42,6 +44,7 @@ export const en = {
             invalidEmail: 'The email is not valid',
             many: 'many',
             months: 'Months',
+            newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
             required: 'A valid email is required',
             rowsPerPage: 'Rows per page',
             somethingWrong: 'Something went wrong. Try again later...',
@@ -49,6 +52,7 @@ export const en = {
             subscribeSuccess: 'Thanks for subscribing!',
             subscribingNote:
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
+            vsPrevious30Days: 'vs previous 30 days',
             wrongEmail: 'Wrong email'
         },
         wallets: [
@@ -171,6 +175,16 @@ export const en = {
                     ],
                     initialRows: 3
                 }
+            },
+            distribution: {
+                heading: 'Monthly Distribution',
+                text:
+                    "Beneficiaries from different communities can claim $cUSD on a regular basis from their community contracts. UBI parameters take into consideration their beneficiaries' basic needs, and assessment by local social organizations and community leaders.",
+                charts: [
+                    { heading: 'Claimed', helper: 'claimed' },
+                    { heading: '# Claims', helper: 'claims' },
+                    { heading: 'New Beneficiaries', helper: 'newBeneficiaries' }
+                ]
             }
         }
         /* eslint-enable sort-keys */

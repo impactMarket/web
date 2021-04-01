@@ -135,7 +135,6 @@ export const Communities = (props: CommunitiesProps) => {
                                         {ssi?.heading}
                                     </Text>
                                     <Heading h3 mt={0.25}>
-                                        {console.log(globalData)}
                                         {globalData?.monthly[0]?.avgMedianSSI}%
                                     </Heading>
                                     <Text XXSmall mt={0.5} textSecondary>
