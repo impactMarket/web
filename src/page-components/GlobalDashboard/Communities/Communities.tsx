@@ -13,12 +13,11 @@ import {
 import { CommunitiesTable } from './CommunitiesTable';
 import { DashboardChart } from '../../../components';
 import { ICommunity, IGlobalDashboard } from '../../../apis/types';
-import { bracked } from '../../../helpers/bracked';
 import { communitiesTable } from '../../../apis/communitiesTable';
+import { getChartDateValueTooltip } from '../../../helpers/getChartDateValueTooltip';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 
 type CommunitiesProps = {
     data: IGlobalDashboard;
@@ -39,16 +38,6 @@ type CommunitiesProps = {
         initialRows: number;
     };
     text: string;
-};
-
-const ssiTooltip = (payload: any, label: any): string => {
-    const tooltip = '{{date}} average SSI was {{value}}';
-
-    // eslint-disable-next-line radix
-    const date = moment(parseInt(label!)).format('MMMM Do');
-    const value = payload[0]?.value || '--';
-
-    return bracked(tooltip, { date, value });
 };
 
 export const Communities = (props: CommunitiesProps) => {
@@ -78,7 +67,7 @@ export const Communities = (props: CommunitiesProps) => {
 
     useEffect(() => {
         const ssiData = globalData.lastQuarterAvgSSI
-            .map(group => ({ name: new Date(group.date).getTime(), uv: group.avgMedianSSI }))
+            .map(({ avgMedianSSI, date }) => ({ name: new Date(date).getTime(), uv: avgMedianSSI }))
             .reverse();
 
         setSsiData(ssiData);
@@ -144,10 +133,9 @@ export const Communities = (props: CommunitiesProps) => {
                                 {ssiData && (
                                     <DashboardChart
                                         data={ssiData}
-                                        dataKey="uv"
-                                        height={110}
-                                        tooltip={ssiTooltip}
-                                        xAxysDataKey="name"
+                                        tooltip={(payload: any, label: any) =>
+                                            getChartDateValueTooltip(getString('averageSsiWas'), payload, label)
+                                        }
                                     />
                                 )}
                             </ItemsRow>
