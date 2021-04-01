@@ -33,6 +33,7 @@ export const en = {
         },
         strings: {
             addressReachedOn: '{{ value }} addresses reached on {{ date }}',
+            averageSsiWas: '{{ date }} average SSI was {{ value }}',
             beneficiary: 'Beneficiary',
             claimedOn: '${{ value }} claimed on {{ date }}',
             claimsOn: '{{ value }} claims on {{ date }}',
@@ -42,10 +43,10 @@ export const en = {
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
-            fundingRateOn: '{{value}}% funding rate on {{date}}',
+            fundingRateOn: '{{ value }}% funding rate on {{ date }}',
             invalidEmail: 'The email is not valid',
             many: 'many',
-            monthlyActiveBackers: '{{ value }} monthly active backers on {{ date} }',
+            monthlyActiveBackers: '{{ value }} monthly active backers on {{ date }}',
             months: 'Months',
             newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
             raisedOn: '${{ value }} raised on {{ date }}',
@@ -57,7 +58,7 @@ export const en = {
             subscribingNote:
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
             transactedOn: '${{ value }} transacted on {{ date }}',
-            transactionsOn: '{{ value }} transactions on {{ date }}',
+            transactionsOn: '{{ value }} transactions on {{ date }}',
             vsPrevious30Days: 'vs previous 30 days',
             wrongEmail: 'Wrong email'
         },
