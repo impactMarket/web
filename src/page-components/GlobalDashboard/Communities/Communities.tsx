@@ -98,7 +98,7 @@ export const Communities = (props: CommunitiesProps) => {
             <Grid>
                 <Row>
                     <Col xs={12}>
-                        <Heading h2>
+                        <Heading h3>
                             {heading.replace(
                                 '{{ communitiesCount }}',
                                 `${communities?.length || getString('many') || ''}`

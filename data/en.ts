@@ -41,10 +41,13 @@ export const en = {
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
+            fundingRateOn: '{{value}}% funding rate on {{date}}',
             invalidEmail: 'The email is not valid',
             many: 'many',
+            monthlyActiveBackers: '{{value}} monthly active backers on {{date}}',
             months: 'Months',
             newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
+            raisedOn: '${{value}} raised on {{date}}',
             required: 'A valid email is required',
             rowsPerPage: 'Rows per page',
             somethingWrong: 'Something went wrong. Try again later...',
@@ -185,8 +188,19 @@ export const en = {
                     { heading: '# Claims', helper: 'claims' },
                     { heading: 'New Beneficiaries', helper: 'newBeneficiaries' }
                 ]
+            },
+            fundraising: {
+                heading: 'Monthly Fundraising',
+                text:
+                    'Anyone can back those communities by sending $cUSD (Celo Dollar) directly to their contracts. This measures global monthly inflow, and its rate vs distribution.',
+                charts: [
+                    { heading: 'Raised', helper: 'raised' },
+                    { heading: '# Backers', helper: 'backers' },
+                    { heading: 'Funding Rate', helper: 'fundingRate' }
+                ]
             }
         }
         /* eslint-enable sort-keys */
     }
 };
+

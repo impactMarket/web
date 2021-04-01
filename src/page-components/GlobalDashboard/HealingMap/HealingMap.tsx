@@ -28,7 +28,7 @@ export const HealingMap = (props: HealingMapProps) => {
             <Grid>
                 <Row>
                     <Col xs={12}>
-                        <Heading h2>{heading}</Heading>
+                        <Heading h3>{heading}</Heading>
                         <Text mt={0.5} small>
                             {text}
                         </Text>
