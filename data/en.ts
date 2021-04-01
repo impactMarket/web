@@ -32,6 +32,7 @@ export const en = {
             playstore: 'https://play.google.com/store/apps/details?id=com.impactmarket.mobile'
         },
         strings: {
+            addressReachedOn: '{{ value }} addresses reached on {{ date }}',
             beneficiary: 'Beneficiary',
             claimedOn: '${{ value }} claimed on {{ date }}',
             claimsOn: '{{ value }} claims on {{ date }}',
@@ -44,10 +45,10 @@ export const en = {
             fundingRateOn: '{{value}}% funding rate on {{date}}',
             invalidEmail: 'The email is not valid',
             many: 'many',
-            monthlyActiveBackers: '{{value}} monthly active backers on {{date}}',
+            monthlyActiveBackers: '{{ value }} monthly active backers on {{ date} }',
             months: 'Months',
             newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
-            raisedOn: '${{value}} raised on {{date}}',
+            raisedOn: '${{ value }} raised on {{ date }}',
             required: 'A valid email is required',
             rowsPerPage: 'Rows per page',
             somethingWrong: 'Something went wrong. Try again later...',
@@ -55,6 +56,8 @@ export const en = {
             subscribeSuccess: 'Thanks for subscribing!',
             subscribingNote:
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
+            transactedOn: '${{ value }} transacted on {{ date }}',
+            transactionsOn: '{{ value }} transactions on {{ date }}',
             vsPrevious30Days: 'vs previous 30 days',
             wrongEmail: 'Wrong email'
         },
@@ -198,9 +201,18 @@ export const en = {
                     { heading: '# Backers', helper: 'backers' },
                     { heading: 'Funding Rate', helper: 'fundingRate' }
                 ]
+            },
+            economic: {
+                heading: 'Monthly Economic Development',
+                text:
+                    "Main indicators on beneficiaries' direct financial activity including volume transacted last month, number of transactions, and how many people they have reached/transacted with.",
+                charts: [
+                    { heading: 'Volume', helper: 'volume' },
+                    { heading: '# Transfers', helper: 'transfers' },
+                    { heading: 'Reach', helper: 'reach' }
+                ]
             }
         }
         /* eslint-enable sort-keys */
     }
 };
-
