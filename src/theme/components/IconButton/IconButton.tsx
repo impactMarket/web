@@ -31,10 +31,6 @@ const ButtonWrapper = styled.button`
         }
     `)}
 
-    svg { 
-        height: 0.75rem;
-    }
-
     & + & {
         margin-left: 0.5rem;
     }
@@ -47,7 +43,7 @@ export const IconButton: React.FC<any> = props => {
 
     return (
         <ButtonWrapper {...forwardProps}>
-            <Icon icon={icon} />
+            <Icon icon={icon} sHeight={0.75} />
         </ButtonWrapper>
     );
 };

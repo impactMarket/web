@@ -11,6 +11,7 @@ export const DashboardCard = styled.div<GeneratedPropsTypes>`
     flex-direction: column;
     height: 100%;
     padding: 1rem 1.375rem;
+    position: relative;
 
     ${generateProps}
 `;

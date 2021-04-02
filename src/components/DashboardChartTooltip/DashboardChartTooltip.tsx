@@ -1,8 +1,5 @@
-import { Text } from '../../theme/components';
-import { colors } from '../../theme';
-import { rgba } from 'polished';
+import { Text, TooltipWrapper } from '../../theme/components';
 import React from 'react';
-import styled from 'styled-components';
 
 type DashboardChartTooltipProps = {
     active?: boolean;
@@ -10,13 +7,6 @@ type DashboardChartTooltipProps = {
     payload?: any[];
     tooltip: Function;
 };
-
-const TooltipWrapper = styled.div`
-    background-color: ${colors.white};
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 0 0.5rem ${rgba(colors.textPrimary, 0.16)};
-`;
 
 export const DashboardChartTooltip = (props: DashboardChartTooltipProps) => {
     const { active, payload, label, tooltip } = props;

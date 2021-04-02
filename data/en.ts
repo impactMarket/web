@@ -60,7 +60,8 @@ export const en = {
             transactedOn: '${{ value }} transacted on {{ date }}',
             transactionsOn: '{{ value }} transactions on {{ date }}',
             vsPrevious30Days: 'vs previous 30 days',
-            wrongEmail: 'Wrong email'
+            wrongEmail: 'Wrong email',
+            xOfCountries: '{{ first }} - {{ last }} of {{ total }} Countries'
         },
         wallets: [
             { address: 'bc1qe7ksg8va9uzfu4pl9ea8zyftad94p0tgtuavk4', code: 'btc', label: 'Bitcoin' },
@@ -182,6 +183,18 @@ export const en = {
                     ],
                     initialRows: 3
                 }
+            },
+            demographics: {
+                charts: {
+                    ageRange: {
+                        heading: 'Age Range'
+                    },
+                    countries: {
+                        heading: 'Country (Number of beneficiaries)'
+                    }
+                },
+                heading: 'Demographics',
+                tooltip: 'This data is based on a self-reported sample size of {{ totalPercentage }}%'
             },
             distribution: {
                 heading: 'Monthly Distribution',
