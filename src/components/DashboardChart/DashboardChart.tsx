@@ -12,7 +12,7 @@ type DashboardChartProps = {
     xAxysDataKey?: string;
 };
 
-const chartDefaultHeight = 120;
+const chartDefaultHeight = 110;
 
 const chartComponents = {
     bar: {
@@ -49,7 +49,7 @@ export const DashboardChart = (props: DashboardChartProps) => {
 
     return (
         <ResponsiveContainer height={height} width="100%">
-            <Chart data={data}>
+            <Chart data={data} margin={{ bottom: 0, left: 0, right: 0, top: 0 }}>
                 <XAxis dataKey={xAxysDataKey} hide />
                 {tooltip && <Tooltip content={<DashboardChartTooltip tooltip={tooltip} />} {...tooltipProps} />}
                 <ChartItem dataKey={dataKey} {...itemProps} />

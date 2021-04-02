@@ -171,8 +171,13 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
             <BeneficiariesCountries>
                 {data.map((chartData: any, index: number) => (
                     <BeneficiariesCountriesPage activePage={pagination.page} key={index}>
-                        <ResponsiveContainer height={140}>
-                            <BarChart data={chartData} layout="vertical" margin={{ right: 30 }}>
+                        <ResponsiveContainer height={140} width="100%">
+                            <BarChart
+                                barSize={10}
+                                data={chartData}
+                                layout="vertical"
+                                margin={{ bottom: 0, left: 0, right: 30, top: 0 }}
+                            >
                                 <XAxis hide type="number" />
                                 <YAxis
                                     axisLine={false}
@@ -185,23 +190,21 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
                                 />
                                 <Tooltip
                                     content={<CustomTooltip />}
-                                    cursor={{ fill: colors.backgroundLight, radius: [8, 8, 8, 8] }}
+                                    cursor={{ fill: colors.backgroundLight, radius: 8 }}
                                 />
                                 {Object.keys(gender).map((genderType, index) => {
                                     const isLast = Object.keys(gender).length === index + 1;
                                     const isFirst = !index;
-                                    const radius = [isFirst ? 4 : 0, isLast ? 4 : 0, isLast ? 4 : 0, isFirst ? 4 : 0];
 
                                     return (
                                         <Bar
-                                            barSize={10}
                                             dataKey={genderType}
                                             fill={genderColors[genderType]}
                                             key={index}
-                                            radius={radius}
+                                            radius={[isFirst ? 4 : 0, isLast ? 4 : 0, isLast ? 4 : 0, isFirst ? 4 : 0]}
                                             stackId="a"
                                         >
-                                            {isLast && <LabelList dataKey="total" offset={5} position="right" />}
+                                            {isLast && <LabelList dataKey="total" offset={8} position="right" />}
                                         </Bar>
                                     );
                                 })}
