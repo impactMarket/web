@@ -29,7 +29,7 @@ export const AgeRange = (props: AgeRangeProps) => {
     return (
         <Div mt="auto" pt={1}>
             <ResponsiveContainer height={140} width="100%">
-                <BarChart data={data} margin={{ top: 16 }}>
+                <BarChart data={data} margin={{ bottom: 0, left: 0, right: 0, top: 16 }}>
                     <XAxis
                         axisLine={false}
                         dataKey="label"
@@ -37,7 +37,7 @@ export const AgeRange = (props: AgeRangeProps) => {
                         tick={{ fill: colors.brandSecondary, fontSize: '0.625rem' }}
                         tickLine={false}
                     />
-                    <Bar barSize={32} dataKey="percentage" fill="rgba(116, 114, 243, 0.5)" radius={[4, 4, 4, 4]}>
+                    <Bar dataKey="percentage" fill="rgba(116, 114, 243, 0.5)" maxBarSize={32} radius={[4, 4, 4, 4]}>
                         <LabelList content={labelProps => <CustomizedLabel {...labelProps} />} dataKey="percentage" />
                     </Bar>
                 </BarChart>
