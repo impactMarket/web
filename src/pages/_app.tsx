@@ -1,12 +1,12 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
-import { Footer, Header, SEO } from '../components';
+import { Footer, Header, Loading, SEO } from '../components';
 import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
 import { modals } from '../modals';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import config from '../../config';
 import theme from '../theme';
 
@@ -17,6 +17,25 @@ export default function App(props: AppProps) {
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
     const { page, statusCode } = pageProps;
+    const [showSpinner, setShowSpinner] = useState(false);
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            setShowSpinner(true);
+        };
+
+        const handleRouteComplete = () => {
+            setShowSpinner(false);
+        };
+
+        router.events.on('routeChangeStart', handleRouteChange);
+        router.events.on('routeChangeComplete', handleRouteComplete);
+
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+            router.events.on('routeChangeComplete', handleRouteComplete);
+        };
+    }, []);
 
     if (!page && statusCode !== 404) {
         return <h1>Did you forgot to pass a page name?</h1>;
@@ -31,6 +50,7 @@ export default function App(props: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
                 <DataProvider locale={locale} page={page} url={url}>
+                    <Loading isActive={showSpinner} />
                     <ModalManager modals={modals} />
                     <SEO />
                     <Main>
