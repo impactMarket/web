@@ -8,13 +8,11 @@ import styled, { css } from 'styled-components';
 const ButtonWrapper = styled.button`
     ${size('2em')};
 
-    align-items: center;
     background-color: ${colors.white};
     border-radius: 0.125rem;
     border: 0;
     color: ${colors.textSecondary};
-    display: inline-flex;
-    justify-content: center;
+    display: inline-block;
     outline: 0;
 
     &:disabled {
