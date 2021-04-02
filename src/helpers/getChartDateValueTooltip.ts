@@ -6,5 +6,5 @@ export const getChartDateValueTooltip = (tooltip: string, payload: any, label: a
     const date = moment(parseInt(label!)).format('MMMM Do');
     const value = payload[0]?.value || '--';
 
-    return bracked(tooltip, { date, value });
+    return bracked(tooltip || '', { date, value }) || '';
 };

@@ -98,7 +98,7 @@ export const Communities = (props: CommunitiesProps) => {
                         </Text>
                     </Col>
                 </Row>
-                <Row mt={0.5}>
+                <Row mt={1}>
                     <Col xs={12}>
                         <DashboardCard sPadding="0">
                             <Div sJustifyContent="end" sPadding="1">

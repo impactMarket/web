@@ -49,6 +49,7 @@ export const OptionList = styled.div<{ isVisible?: boolean }>`
 `;
 
 export const OptionSelected = styled.a`
+    align-items: center;
     display: inline-flex;
     margin-left: auto;
     white-space: nowrap;

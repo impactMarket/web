@@ -1,4 +1,5 @@
 import { Communities } from './Communities/Communities';
+import { Demographics } from './Demographics/Demographics';
 import { Distribution } from './Distribution/Distribution';
 import { Economic } from './Economic/Economic';
 import { Fundraising } from './Fundraising/Fundraising';
@@ -20,6 +21,7 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
     const global = page?.global;
     const healingMap = page?.healingMap;
     const communities = page?.communities;
+    const demographics = page?.demographics;
     const distribution = page?.distribution;
     const fundraising = page?.fundraising;
     const economic = page?.economic;
@@ -29,6 +31,7 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
             <Global data={data} {...global} />
             <HealingMap {...healingMap} />
             <Communities data={data} {...communities} />
+            <Demographics data={data} {...demographics} />
             <Distribution data={data} {...distribution} />
             <Fundraising data={data} {...fundraising} />
             <Economic data={data} {...economic} />
