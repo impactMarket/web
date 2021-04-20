@@ -8,5 +8,7 @@ export * from './Footer/Footer';
 export * from './Header/Header';
 export * from './Loading/Loading';
 export * from './Map/Map';
+export * from './Pagination/Pagination';
+export * from './ProgressBar/ProgressBar';
 export * from './SEO/SEO';
 export * from './SocialMenu/SocialMenu';

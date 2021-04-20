@@ -3,8 +3,9 @@ import { fonts } from '../../variables/fonts';
 import styled, { css } from 'styled-components';
 
 type ChipProps = {
-    isActive: boolean;
-    as: string;
+    as?: string;
+    isActive?: boolean;
+    textUppercase?: boolean;
 };
 
 export const Chip = styled.div<ChipProps>`
@@ -21,7 +22,7 @@ export const Chip = styled.div<ChipProps>`
     justify-content: center;
     letter-spacing: 0.3px;
     padding: 0 16px;
-    text-transform: uppercase;
+    text-transform: ${({ textUppercase }) => (textUppercase ? 'uppercase' : undefined)};
     user-select: none;
     white-space: nowrap;
 
@@ -42,3 +43,7 @@ export const Chip = styled.div<ChipProps>`
             }
         `}
 `;
+
+Chip.defaultProps = {
+    textUppercase: true
+};

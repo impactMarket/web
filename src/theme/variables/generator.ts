@@ -42,6 +42,7 @@ export const generator = {
         { name: 'sJustifyContent', list: flexAlignments.justifyContentAlignments, cssProp: 'justify-content' },
         { name: 'sLineHeight', cssProp: 'line-height', units: 'rem' },
         { name: 'sMaxWidth', cssProp: 'max-width', units: 'rem' },
+        { name: 'sMinHeight', cssProp: 'min-height', units: 'rem' },
         { name: 'sMinWidth', cssProp: 'min-width', units: 'rem' },
         { name: 'sTextAlign', list: alignments, cssProp: 'text-align' },
         { name: 'sWidth', cssProp: 'width', units: 'rem' },

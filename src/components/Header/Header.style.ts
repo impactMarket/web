@@ -8,11 +8,19 @@ export const HeaderContent = styled.div`
     justify-content: space-between;
 `;
 
+export const HeaderMenuItem = styled.div`
+    ${mq.tablet(css`
+        & + & {
+            margin-left: 2rem;
+        }
+    `)}
+`;
+
 export const HeaderMenuWrapper = styled.div`
     display: none;
 
     ${mq.tablet(css`
-        display: block;
+        display: flex;
     `)}
 `;
 

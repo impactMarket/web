@@ -5,6 +5,7 @@ export const colors = {
     brandPrimary: '#2362FB',
     brandBlack: '#172B4D',
     brandSecondary: '#73839D',
+    brandSecondaryLight: '#8A9FC2',
 
     // text
     textPrimary: '#333239',
@@ -20,5 +21,6 @@ export const colors = {
     white: '#ffffff',
     error: '#EB5757',
     border: '#EBEBEB',
-    success: '#2DCE89'
+    success: '#2DCE89',
+    yellow: '#FFC278'
 };

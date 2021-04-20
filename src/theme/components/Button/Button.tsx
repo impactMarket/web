@@ -32,6 +32,19 @@ const colorVariations = {
         }
     `,
 
+    pagination: css`
+        background-color: ${colors.backgroundSecondary};
+        color: ${colors.textPrimary};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${colors.brandPrimary};
+                color: ${colors.white};
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+            }
+        }
+    `,
+
     whitePrimary: css`
         background-color: ${colors.white};
         color: ${colors.brandPrimary};
@@ -61,6 +74,13 @@ const sizeVariations = {
         font-size: 18px;
         height: 62px;
         padding: 0 24px;
+    `,
+
+    pagination: css`
+        font-size: 14px;
+        height: 44px;
+        padding: 0 16px;
+        min-width: 44px;
     `,
 
     small: css`

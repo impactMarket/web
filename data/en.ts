@@ -17,7 +17,10 @@ export const en = {
             ]
         },
         header: {
-            menu: [{ label: 'Global Dashboard', to: '/global-dashboard' }]
+            menu: [
+                { label: 'Global Dashboard', to: '/global-dashboard' },
+                { label: 'Communities', to: '/communities' }
+            ]
         },
         seo: {
             description:
@@ -42,11 +45,14 @@ export const en = {
             addressReachedOn: '{{ value }} addresses reached on {{ date }}',
             allCommunities: 'All Communities',
             averageSsiWas: '{{ date }} average SSI was {{ value }}',
+            beneficiaries: 'Beneficiaries',
             beneficiary: 'Beneficiary',
             claimedOn: '${{ value }} claimed on {{ date }}',
             claimsOn: '{{ value }} claims on {{ date }}',
             communities: 'Communities',
             communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
+            communityDashboard: 'Community Dashboard',
+            communityManagers: 'Community Managers',
             cookieConsentMessage:
                 'We use our own cookies as well as third-party cookies on our website to enhance your experience, analyze our traffic, and for security and marketing. For more info, see our',
             cookiePolicy: 'Cookie Policy',
@@ -54,20 +60,27 @@ export const en = {
             day: 'Day',
             donate: 'Donate',
             downloadApp: 'Download App',
+            eachClaimingPerDay: 'each claiming {{ value }} per {{ frequency }}',
             enterYourEmail: 'Enter your email...',
             featured: 'Featured',
             fundingRateOn: '{{ value }}% funding rate on {{ date }}',
+            goal: 'Goal',
             invalidEmail: 'The email is not valid',
             learnMoreAboutUs: 'Learn more about us',
             lowOnFunds: 'Low on funds',
+            managerSince: 'Manager since',
             many: 'many',
             monthlyActiveBackers: '{{ value }} monthly active backers on {{ date }}',
             months: 'Months',
             newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
+            next: 'Next',
+            prev: 'Prev',
+            raisedFromDonors: 'Raised from {{ donors }} Donors',
             raisedOn: '${{ value }} raised on {{ date }}',
             recentlyAdded: 'Recently added',
             required: 'A valid email is required',
             rowsPerPage: 'Rows per page',
+            seeMore: 'See more',
             somethingWrong: 'Something went wrong. Try again later...',
             subscribe: 'Subscribe',
             subscribeSuccess: 'Thanks for subscribing!',
@@ -138,6 +151,40 @@ export const en = {
                 { label: 'Recently added', name: 'recent' },
                 { label: 'Low on funds', name: 'lowFunds' }
             ]
+        },
+        community: {
+            dashboard: {
+                distribution: {
+                    heading: 'Monthly Distribution',
+                    text:
+                        "Beneficiaries from different communities can claim $cUSD on a regular basis from their community contracts. UBI parameters take into consideration their beneficiaries' basic needs, and assessment by local social organizations and community leaders.",
+                    charts: [
+                        { heading: 'Claimed', helper: 'claimed' },
+                        { heading: '# Claims', helper: 'claims' },
+                        { heading: 'New Beneficiaries', helper: 'newBeneficiaries' }
+                    ]
+                },
+                fundraising: {
+                    heading: 'Monthly Fundraising',
+                    text:
+                        'Anyone can back those communities by sending $cUSD (Celo Dollar) directly to their contracts. This measures global monthly inflow, and its rate vs distribution.',
+                    charts: [
+                        { heading: 'Raised', helper: 'raised' },
+                        { heading: '# Backers', helper: 'backers' },
+                        { heading: 'Funding Rate', helper: 'fundingRate' }
+                    ]
+                },
+                economic: {
+                    heading: 'Monthly Economic Development',
+                    text:
+                        "Main indicators on beneficiaries' direct financial activity including volume transacted last month, number of transactions, and how many people they have reached/transacted with.",
+                    charts: [
+                        { heading: 'Volume', helper: 'volume' },
+                        { heading: '# Transfers', helper: 'transfers' },
+                        { heading: 'Reach', helper: 'reach' }
+                    ]
+                }
+            }
         },
         globalDashboard: {
             global: {

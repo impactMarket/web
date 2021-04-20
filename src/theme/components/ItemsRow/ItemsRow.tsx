@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 type ItemsRowProps = {
     children?: any;
     distribute?: boolean | 'tablet' | 'tabletLandscape' | 'desktop';
+    scrollable?: boolean;
     spacing?: number;
 };
 
@@ -27,6 +28,19 @@ const ItemsRowWrapper = styled.div<ItemsRowProps>`
             ${mq[distribute](css`
                 flex-direction: row;
             `)}
+        `}
+
+    ${({ scrollable, spacing }) =>
+        scrollable &&
+        css`
+            ${mq.upTo(
+                'tablet',
+                css`
+                    margin: 0 -${32}px;
+                    overflow: auto;
+                    padding: 0 ${32 - (spacing || 0)}px;
+                `
+            )}
         `}
 
     ${generateProps};
