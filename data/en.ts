@@ -2,7 +2,7 @@ export const en = {
     config: {
         cta: {
             heading: 'Install our app',
-            image: '/img/app-mockup',
+            image: '/img/app-mockup.png',
             text:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
         },
@@ -12,7 +12,10 @@ export const en = {
             menu: [{ label: 'Privacy Policy', to: '/privacy-policy' }]
         },
         header: {
-            menu: [{ label: 'Global Dashboard', to: '/global-dashboard' }]
+            menu: [
+                { label: 'Communities', to: '/communities' },
+                { label: 'Global Dashboard', to: '/global-dashboard' }
+            ]
         },
         seo: {
             description: 'Lorem ipsum',
@@ -33,23 +36,28 @@ export const en = {
         },
         strings: {
             addressReachedOn: '{{ value }} addresses reached on {{ date }}',
+            allCommunities: 'All Communities',
             averageSsiWas: '{{ date }} average SSI was {{ value }}',
             beneficiary: 'Beneficiary',
             claimedOn: '${{ value }} claimed on {{ date }}',
             claimsOn: '{{ value }} claims on {{ date }}',
+            communities: 'Communities',
             communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
             copyAddress: 'Copy address',
             day: 'Day',
             donate: 'Donate',
             downloadApp: 'Download App',
             enterYourEmail: 'Enter your email...',
+            featured: 'Featured',
             fundingRateOn: '{{ value }}% funding rate on {{ date }}',
             invalidEmail: 'The email is not valid',
+            lowOnFunds: 'Low on funds',
             many: 'many',
             monthlyActiveBackers: '{{ value }} monthly active backers on {{ date }}',
             months: 'Months',
             newBeneficiariesOn: '{{ value }} new beneficiaries on {{ date }}',
             raisedOn: '${{ value }} raised on {{ date }}',
+            recentlyAdded: 'Recently added',
             required: 'A valid email is required',
             rowsPerPage: 'Rows per page',
             somethingWrong: 'Something went wrong. Try again later...',
@@ -59,6 +67,7 @@ export const en = {
                 'By subscribing you will get updates about our progress, new features and impact measurement.',
             transactedOn: '${{ value }} transacted on {{ date }}',
             transactionsOn: '{{ value }} transactions on {{ date }}',
+            viewAll: 'View All',
             vsPrevious30Days: 'vs previous 30 days',
             wrongEmail: 'Wrong email',
             xOfCountries: '{{ first }} - {{ last }} of {{ total }} Countries'
@@ -113,6 +122,14 @@ export const en = {
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
             }
+        },
+        communities: {
+            heading: 'Communities',
+            filters: [
+                { label: 'Featured', name: 'featured' },
+                { label: 'Recently added', name: 'recent' },
+                { label: 'Low on funds', name: 'lowFunds' }
+            ]
         },
         globalDashboard: {
             global: {
