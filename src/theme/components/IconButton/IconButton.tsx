@@ -5,14 +5,20 @@ import { rgba, size } from 'polished';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const ButtonWrapper = styled.button`
-    ${size('2em')};
+type ButtonProps = {
+    round?: boolean;
+};
 
+const ButtonWrapper = styled.button<ButtonProps>`
+    ${size('2rem')};
+
+    align-items: center;
     background-color: ${colors.white};
-    border-radius: 0.125rem;
+    border-radius: ${({ round }) => (round ? '50%' : '0.125rem')};
     border: 0;
     color: ${colors.textSecondary};
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
     outline: 0;
 
     &:disabled {
