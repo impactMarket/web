@@ -1,5 +1,5 @@
 import { Col, Grid, Logo, Row, TextLink } from '../../theme/components';
-import { HeaderContent, HeaderMenuWrapper, HeaderWrapper } from './Header.style';
+import { HeaderContent, HeaderMenuItem, HeaderMenuWrapper, HeaderWrapper } from './Header.style';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -10,7 +10,8 @@ export const Header = () => {
     const { asPath } = useRouter();
     const menu = config?.header?.menu;
 
-    const checkActiveRoute = (route: string | undefined) => route === asPath;
+    const checkActiveRoute = (route: string | undefined) =>
+        typeof route === 'string' ? asPath.includes(route) : false;
 
     return (
         <HeaderWrapper>
@@ -26,9 +27,11 @@ export const Header = () => {
                             <HeaderMenuWrapper>
                                 {menu &&
                                     menu.map((item, index) => (
-                                        <Link href={item?.to || ''} key={index}>
-                                            <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
-                                        </Link>
+                                        <HeaderMenuItem key={index}>
+                                            <Link href={item?.to || ''}>
+                                                <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
+                                            </Link>
+                                        </HeaderMenuItem>
                                     ))}
                             </HeaderMenuWrapper>
                         </HeaderContent>

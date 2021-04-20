@@ -19,6 +19,11 @@ export interface IClaimLocation {
     };
 }
 
+export interface ICommunities {
+    count: number;
+    data: ICommunity[];
+}
+
 export interface IGlobalDailyState {
     date: Date;
     avgMedianSSI: number;
@@ -71,6 +76,7 @@ export interface IGlobalValue {
 
 // API and app
 export interface CommunityAttributes {
+    id: string | number;
     publicId: string;
     requestByAddress: string;
     contractAddress: string | null;
@@ -93,32 +99,56 @@ export interface CommunityAttributes {
 }
 
 export interface CommunityStateAttributes {
+    backers: number;
+    beneficiaries: number;
     claimed: string;
     claims: number;
-    beneficiaries: number;
     raised: string;
-    backers: number;
 }
 
 export interface CommunityContractAttributes {
-    claimAmount: string;
-    maxClaim: string;
     baseInterval: number;
+    claimAmount: string;
     incrementInterval: number;
+    maxClaim: string;
 }
 
 export interface CommunityDailyMetricsAttributes {
-    ssiDayAlone: number;
-    ssi: number;
-    ubiRate: number;
-    estimatedDuration: number;
     date: Date;
+    estimatedDuration: number;
+    ssi: number;
+    ssiDayAlone: number;
+    ubiRate: number;
+}
+
+export interface IUser {
+    address: string;
+    avatar?: {
+        url?: string;
+    };
+    createdAt: string;
+    username?: string;
+}
+
+export interface IManager {
+    active: boolean;
+    address: string;
+    id: string | number;
+    user: IUser;
+}
+
+export interface ICommunityDashboard {
+    dailyState: IGlobalDailyState[];
+    metrics: CommunityDailyMetricsAttributes[];
 }
 
 export interface ICommunity extends CommunityAttributes {
-    state: CommunityStateAttributes;
     contract: CommunityContractAttributes;
+    managers?: IManager[];
     metrics?: CommunityDailyMetricsAttributes;
+    state: CommunityStateAttributes;
+    dashboard: ICommunityDashboard;
+    reachedLastMonth?: any;
 }
 
 // in app
@@ -153,3 +183,9 @@ export interface IDemographics {
     undisclosed: number;
     updatedAt: Date;
 }
+
+export type DataResponseType<T> = {
+    count?: number;
+    success?: boolean;
+    data?: T;
+};

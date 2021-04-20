@@ -6,6 +6,7 @@ import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
 import { modals } from '../modals';
 import { pageview } from '../lib/gtag';
+import ErrorPage from 'next/error';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
@@ -41,8 +42,8 @@ export default function App(props: AppProps) {
         };
     }, []);
 
-    if (!page && statusCode !== 404) {
-        return <h1>Did you forgot to pass a page name?</h1>;
+    if (!page) {
+        return <ErrorPage statusCode={statusCode} />;
     }
 
     return (
