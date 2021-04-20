@@ -34,5 +34,10 @@ export default {
     /**
      * MaxAge for caching claims on users browser
      */
-    cacheClaimsMaxAge: parseInt(process.env.NEX_PUBLIC_CACHE_CLAIMS_MAX_AGE!, 10)
+    cacheClaimsMaxAge: parseInt(process.env.NEX_PUBLIC_CACHE_CLAIMS_MAX_AGE!, 10),
+
+    /**
+     * Google Analytics
+     */
+    gaId: process.env.NEXT_PUBLIC_GA
 };

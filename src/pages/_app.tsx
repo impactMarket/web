@@ -1,16 +1,20 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
+import { CookieConsent, Footer, Header, Loading, SEO } from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
-import { Footer, Header, Loading, SEO } from '../components';
 import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
 import { modals } from '../modals';
+import { pageview } from '../lib/gtag';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
 import config from '../../config';
 import theme from '../theme';
 
 const { baseUrl } = config;
+
+Router.events.on('routeChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
@@ -60,6 +64,7 @@ export default function App(props: AppProps) {
                         </Content>
                         <Footer />
                     </Main>
+                    <CookieConsent />
                 </DataProvider>
             </ThemeProvider>
         </>

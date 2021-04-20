@@ -12,10 +12,7 @@ export const en = {
             menu: [{ label: 'Privacy Policy', to: '/privacy-policy' }]
         },
         header: {
-            menu: [
-                { label: 'Communities', to: '/communities' },
-                { label: 'Global Dashboard', to: '/global-dashboard' }
-            ]
+            menu: [{ label: 'Global Dashboard', to: '/global-dashboard' }]
         },
         seo: {
             description: 'Lorem ipsum',
@@ -43,6 +40,9 @@ export const en = {
             claimsOn: '{{ value }} claims on {{ date }}',
             communities: 'Communities',
             communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
+            cookieConsentMessage:
+                'We use our own cookies as well as third-party cookies on our website to enhance your experience, analyze our traffic, and for security and marketing. For more info, see our',
+            cookiePolicy: 'Cookie Policy',
             copyAddress: 'Copy address',
             day: 'Day',
             donate: 'Donate',

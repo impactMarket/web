@@ -1,4 +1,5 @@
 export * from './Cta/Cta';
+export * from './CookieConsent/CookieConsent';
 export * from './DashboardChart/DashboardChart';
 export * from './DashboardChartGroup/DashboardChartGroup';
 export * from './DashboardNumericContent/DashboardNumericContent';
