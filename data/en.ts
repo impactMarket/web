@@ -92,7 +92,7 @@ export const en = {
         homepage: {
             hero: {
                 heading: 'Open and decentralized anti&#8209;poverty system.',
-                image: '/img/kids.png',
+                image: '/img/hero.png',
                 text:
                     'impactMarket enables any community to have its own Unconditional Basic Income (UBI) for their beneficiaries. Anyone can back those communities by sending/donating $cUSD directly to their UBI contracts.'
             },
