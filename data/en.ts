@@ -1,15 +1,18 @@
 export const en = {
     config: {
         cta: {
-            heading: 'Install our app',
+            heading: 'Start helping now.',
             image: '/img/app-mockup.png',
             text:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
+                'With the impactMarket mobile Dapp you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
         },
         footer: {
             footnote:
                 'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.',
-            menu: [{ label: 'Privacy Policy', to: '/privacy-policy' }]
+            menu: [
+                { href: 'http://docs.impactmarket.com/', label: 'About Us' },
+                { href: 'http://docs.impactmarket.com/', label: 'Faqs' }
+            ]
         },
         header: {
             menu: [{ label: 'Global Dashboard', to: '/global-dashboard' }]
@@ -51,6 +54,7 @@ export const en = {
             featured: 'Featured',
             fundingRateOn: '{{ value }}% funding rate on {{ date }}',
             invalidEmail: 'The email is not valid',
+            learnMoreAboutUs: 'Learn more about us',
             lowOnFunds: 'Low on funds',
             many: 'many',
             monthlyActiveBackers: '{{ value }} monthly active backers on {{ date }}',
@@ -91,10 +95,10 @@ export const en = {
         /* eslint-disable sort-keys */
         homepage: {
             hero: {
-                heading: 'Open and decentralized anti&#8209;poverty system.',
+                heading: 'Decentralized anti&#8209;poverty system.',
                 image: '/img/hero.png',
                 text:
-                    'impactMarket enables any community to have its own Unconditional Basic Income (UBI) for their beneficiaries. Anyone can back those communities by sending/donating $cUSD directly to their UBI contracts.'
+                    'impactMarket enables any vulnerable community to implement poverty alleviation mechanisms, like Unconditional Basic Income.'
             },
             partners: [
                 {
@@ -111,16 +115,16 @@ export const en = {
             ],
             numbers: {
                 buttonLabel: 'View Global Dashboard',
-                heading: 'Numbers that make a difference',
+                heading: 'Full transparency. No intermediaries.',
                 items: [
-                    { heading: '+200K', name: 'totalRaised', text: 'Total Raised' },
+                    { heading: '+200K', name: 'totalClaimed', text: 'Total Claimed' },
                     { heading: '5', name: 'countries', text: 'Countries' },
                     { heading: '+10K', name: 'beneficiaries', text: 'Beneficiaries' },
                     { heading: '80', name: 'backers', text: 'Backers' },
                     { heading: '53', name: 'communities', text: 'Communities' }
                 ],
                 text:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio in et, lectus sit lorem id integer.'
+                    'The power of blockchain unlocks new possibilities both for donors to understant their impact, and beneficiaries to access finance.'
             }
         },
         communities: {

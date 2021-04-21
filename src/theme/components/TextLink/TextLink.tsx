@@ -1,5 +1,6 @@
+import { GeneratedPropsTypes } from '../../Types';
 import { colors } from '../../variables/colors';
-import { ease, transitions } from 'styled-gen';
+import { ease, generateProps, transitions } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
 import styled, { css } from 'styled-components';
 
@@ -7,7 +8,7 @@ type TextLinkProps = {
     isActive?: boolean;
 };
 
-export const TextLink = styled.a<TextLinkProps>`
+export const TextLink = styled.a<TextLinkProps & GeneratedPropsTypes>`
     ${transitions(['text-shadow'], 250, ease.outSine)};
 
     color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
@@ -23,4 +24,6 @@ export const TextLink = styled.a<TextLinkProps>`
                 text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.24);
             }
         `}
+
+    ${generateProps};
 `;
