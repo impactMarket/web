@@ -33,11 +33,24 @@ export const Footer = () => {
                         <Div>
                             <Div>
                                 {menu &&
-                                    menu.map((item, index) => (
-                                        <Link href={item?.to || ''} key={index}>
-                                            <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
-                                        </Link>
-                                    ))}
+                                    menu.map((item: any, index) =>
+                                        item?.to ? (
+                                            <Link href={item?.to || ''} key={index}>
+                                                <TextLink isActive={checkActiveRoute(item?.to)} ml={index ? 2 : 0}>
+                                                    {item?.label}
+                                                </TextLink>
+                                            </Link>
+                                        ) : (
+                                            <TextLink
+                                                href={item?.href}
+                                                ml={index ? 2 : 0}
+                                                rel="noopener noreferrer"
+                                                target="_blank"
+                                            >
+                                                {item?.label}
+                                            </TextLink>
+                                        )
+                                    )}
                             </Div>
                             <Div ml="auto" sDisplay={{ lg: 'flex', xs: 'none' }}>
                                 <SocialMenu ml="auto" />

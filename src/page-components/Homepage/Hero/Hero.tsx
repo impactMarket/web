@@ -1,9 +1,11 @@
 import { Button, Col, Div, Grid, Heading, Icon, Img, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import { DonateButton } from '../../../components';
+import { colors } from '../../../theme';
 import { scroller } from 'react-scroll';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import React, { useCallback } from 'react';
 import parse from 'html-react-parser';
+import styled from 'styled-components';
 
 const scrollOptions = {
     delay: 10,
@@ -11,6 +13,10 @@ const scrollOptions = {
     offset: -100,
     smooth: 'easeInOutCubic'
 };
+
+const TextLink = styled.a`
+    color: ${colors.brandPrimary};
+`;
 
 export const Hero = () => {
     const { page, getString } = useData();
@@ -34,7 +40,15 @@ export const Hero = () => {
                                 {parse(page?.hero?.heading)}
                             </Heading>
                             <Text body fontSize={{ md: '16 32', xs: '14 24' }} mt={1}>
-                                {page?.hero?.text}
+                                {page?.hero?.text}&nbsp;
+                                <TextLink
+                                    href="http://docs.impactmarket.com/"
+                                    rel="noreferrer noopener"
+                                    target="_blank"
+                                >
+                                    {getString('learnMoreAboutUs')}
+                                </TextLink>
+                                .
                             </Text>
                             <ItemsRow distribute="tabletLandscape" mt={2}>
                                 <Button fluid large medium onClick={handleDlownloadButtonClick}>

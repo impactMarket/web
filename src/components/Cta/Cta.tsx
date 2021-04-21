@@ -28,7 +28,7 @@ export const Cta = () => {
         <Section id="cta" sBackground="backgroundBlack">
             <Grid>
                 <Row middle="xs">
-                    <Col lg={5} pt={{ sm: 0, xs: 2 }} sm={5} xs={12}>
+                    <Col lg={5} md={6} pt={{ sm: 0, xs: 2 }} sm={5} xs={12}>
                         <Heading fontSize={{ md: '48 64', xs: '32 42' }} h2 white>
                             {cta?.heading}
                         </Heading>
@@ -41,7 +41,7 @@ export const Cta = () => {
                             ))}
                         </ItemsRow>
                     </Col>
-                    <Col sm={7} xs={12}>
+                    <Col md={6} sm={7} xs={12}>
                         <Img alt="Impact market mockup" src={cta?.image} />
                     </Col>
                 </Row>

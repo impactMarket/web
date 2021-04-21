@@ -60,9 +60,13 @@ export const Numbers = () => {
                         <Heading h2 white>
                             {numbers?.heading}
                         </Heading>
-                        <Text body mt={1} white>
+                        <Text body ml="auto" mr="auto" mt={1} sMaxWidth={32.75} white>
                             {numbers?.text}
                         </Text>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col center xs={12}>
                         <NumbersWrapper>
                             {numbers?.items.map(({ heading, text }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
