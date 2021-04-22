@@ -18,10 +18,12 @@ export const en = {
             menu: [{ label: 'Global Dashboard', to: '/global-dashboard' }]
         },
         seo: {
-            description: 'Lorem ipsum',
+            description:
+                'impactMarket enables any vulnerable community to implement poverty alleviation mechanisms, like Unconditional Basic Income.',
             image: '/img/seo.jpg',
-            keywords: 'Lorem ipsum',
-            title: 'Impact Market'
+            keywords:
+                'impactMarket, community, unconditional, basic income, beneficiaries, cUSD, UBI, contracts, allowance, celo, blockchain, infrastructure, system, protocol',
+            title: 'impactMarket - Decentralized Anti-Poverty System'
         },
         social: {
             facebook: 'https://www.facebook.com/IPCTmarket',
@@ -117,11 +119,11 @@ export const en = {
                 buttonLabel: 'View Global Dashboard',
                 heading: 'Full transparency. No intermediaries.',
                 items: [
-                    { heading: '+200K', name: 'totalClaimed', text: 'Total Claimed' },
-                    { heading: '5', name: 'countries', text: 'Countries' },
-                    { heading: '+10K', name: 'beneficiaries', text: 'Beneficiaries' },
-                    { heading: '80', name: 'backers', text: 'Backers' },
-                    { heading: '53', name: 'communities', text: 'Communities' }
+                    { heading: '+600K', name: 'totalClaimed', text: 'Total Claimed' },
+                    { heading: '10', name: 'countries', text: 'Countries' },
+                    { heading: '+15K', name: 'beneficiaries', text: 'Beneficiaries' },
+                    { heading: '308', name: 'backers', text: 'Backers' },
+                    { heading: '67', name: 'communities', text: 'Communities' }
                 ],
                 text:
                     'The power of blockchain unlocks new possibilities both for donors to understant their impact, and beneficiaries to access finance.'
