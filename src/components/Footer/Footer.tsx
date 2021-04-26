@@ -43,6 +43,7 @@ export const Footer = () => {
                                         ) : (
                                             <TextLink
                                                 href={item?.href}
+                                                key={index}
                                                 ml={index ? 2 : 0}
                                                 rel="noopener noreferrer"
                                                 target="_blank"
