@@ -15,7 +15,7 @@ import React from 'react';
 
 const stores = [
     { StoreButton: ButtonPlaystore, name: 'playstore' },
-    { StoreButton: ButtonAppstore, name: 'applestore' }
+    { StoreButton: ButtonAppstore, name: 'appstore' }
 ];
 
 export const Cta = () => {
