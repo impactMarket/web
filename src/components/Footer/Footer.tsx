@@ -29,7 +29,7 @@ export const Footer = () => {
                     </Col>
                 </Row>
                 <Row mt={{ md: 1.5, xs: 2 }}>
-                    <Col xs={12}>
+                    <Col lg={12} xs={false}>
                         <Div>
                             <Div>
                                 {menu &&
@@ -53,11 +53,31 @@ export const Footer = () => {
                                         )
                                     )}
                             </Div>
-                            <Div ml="auto" sDisplay={{ lg: 'flex', xs: 'none' }}>
+                            <Div ml="auto">
                                 <SocialMenu ml="auto" />
                             </Div>
                         </Div>
                     </Col>
+                    {menu &&
+                        menu.map((item: any, index) => (
+                            <Col
+                                key={index}
+                                lg={false}
+                                mt={{ sm: index > 3 ? 1 : 0, xs: index > 1 ? 1 : 0 }}
+                                sm={3}
+                                xs={6}
+                            >
+                                {item?.to ? (
+                                    <Link href={item?.to || ''} key={index}>
+                                        <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
+                                    </Link>
+                                ) : (
+                                    <TextLink href={item?.href} key={index} rel="noopener noreferrer" target="_blank">
+                                        {item?.label}
+                                    </TextLink>
+                                )}
+                            </Col>
+                        ))}
                 </Row>
                 <Row mt={{ lg: 2, xs: 4 }}>
                     <Col xs={12}>
@@ -77,8 +97,8 @@ export const Footer = () => {
                         </Div>
                     </Col>
                 </Row>
-                <Row mt={4.625} sDisplay={{ lg: 'none' }}>
-                    <Col center xs={12}>
+                <Row>
+                    <Col center lg={false} mt={4.625} xs={12}>
                         <Div inlineBlock>
                             <SocialMenu />
                         </Div>
