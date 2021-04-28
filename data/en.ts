@@ -135,7 +135,7 @@ export const en = {
                 buttonLabel: 'View Global Dashboard',
                 heading: 'Full transparency. No intermediaries.',
                 items: [
-                    { heading: '+600K', name: 'totalClaimed', text: 'Total Claimed' },
+                    { heading: '+600K', name: 'claimed', text: 'Total Claimed' },
                     { heading: '10', name: 'countries', text: 'Countries' },
                     { heading: '+15K', name: 'beneficiaries', text: 'Beneficiaries' },
                     { heading: '308', name: 'backers', text: 'Backers' },

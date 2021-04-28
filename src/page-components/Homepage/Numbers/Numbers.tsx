@@ -44,7 +44,9 @@ const NumbersWrapper = styled.div`
     `)}
 `;
 
-export const Numbers = () => {
+type NumbersProps = any;
+
+export const Numbers = (props: NumbersProps | undefined) => {
     const { page } = useData();
     const { push } = useRouter();
 
@@ -68,10 +70,10 @@ export const Numbers = () => {
                 <Row>
                     <Col center xs={12}>
                         <NumbersWrapper>
-                            {numbers?.items.map(({ heading, text }, index) => (
+                            {numbers?.items.map(({ name, text }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
                                     <Heading fontSize={{ md: '48 54', xs: '32 42' }} h2 white>
-                                        {heading}
+                                        {props?.numbers?.[name] || '--'}
                                     </Heading>
                                     <Text body white>
                                         {text}

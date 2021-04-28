@@ -2876,6 +2876,11 @@ https-browserify@1.0.0, https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
+humanify-numbers@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/humanify-numbers/-/humanify-numbers-1.1.5.tgz#6d0fd484952855c2796f8c0c2ade3b2553a90d8d"
+  integrity sha512-kmhhdPWFPymWtxPLqWCVrlWsavZKy0C5n3i7RFVdcTt+/9lbPN+00KodUvV4rdq4i/Nu7xxI1rxEx4xnaVS+lg==
+
 iconv-lite@0.4.24, iconv-lite@^0.4.17, iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"

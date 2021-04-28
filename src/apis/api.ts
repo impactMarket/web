@@ -7,8 +7,10 @@ import {
     IDemographics,
     IGlobalApiResult,
     IGlobalDashboard,
+    IGlobalNumbers,
     IManager
 } from './types';
+import { Numbers } from 'humanify-numbers';
 import { getRequest, postRequest } from './client';
 
 export default class Api {
@@ -46,6 +48,22 @@ export default class Api {
         };
 
         return communityResponse?.success ? data : undefined;
+    }
+
+    static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {
+        const response = await getRequest<IGlobalNumbers | undefined>('/global/numbers');
+
+        const data = response?.data;
+
+        const result = {
+            backers: data?.backers,
+            beneficiaries: `+${Numbers.stringify(+(data?.beneficiaries || 0))}`,
+            claimed: `+${Numbers.stringify(+(data?.claimed || 0))}`,
+            communities: data?.communities,
+            countries: data?.countries
+        };
+
+        return result || {};
     }
 
     static async getGlobalValues(): Promise<IGlobalDashboard | {}> {

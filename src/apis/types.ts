@@ -68,6 +68,16 @@ export interface IGlobalDashboard extends IGlobalApiResult {
     demographics?: IDemographics[];
 }
 
+export interface IGlobalNumbers {
+    data: {
+        claimed: string;
+        countries: number;
+        beneficiaries: number;
+        backers: number;
+        communities: number;
+    };
+}
+
 export interface IGlobalValue {
     title: string;
     subtitle: string;
