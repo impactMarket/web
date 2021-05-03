@@ -128,7 +128,7 @@ export const en = {
                     { heading: '67', name: 'communities', text: 'Communities' }
                 ],
                 text:
-                    'The power of blockchain unlocks new possibilities both for donors to understant their impact, and beneficiaries to access finance.'
+                    'The power of blockchain unlocks new possibilities both for donors to understand their impact, and beneficiaries to access finance.'
             }
         },
         communities: {
