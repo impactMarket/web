@@ -45,6 +45,13 @@ const getAddress = (address: string | null) =>
           }
         : '';
 
+const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
+    const rate = currencyValue(metrics?.ubiRate);
+    const frequency = claimFrequencyToText(baseInterval.toString());
+
+    return !metrics ? '-' : `~${rate} / ${frequency}`;
+};
+
 export const communitiesTable: { [key: string]: Function } = {
     getRows: (data: ICommunity[], getString: Function) => {
         return data.map(
@@ -66,9 +73,7 @@ export const communitiesTable: { [key: string]: Function } = {
                 raised: getRaised(state, maxClaim),
                 ssi: !metrics ? '-' : metrics?.ssi,
                 ubiContract: getAddress(contractAddress),
-                ubiRatePerBeneficiary: !metrics
-                    ? '-'
-                    : `~${metrics?.ubiRate} / ${claimFrequencyToText(baseInterval.toString())}`
+                ubiRatePerBeneficiary: getUbiRatePerBeneficiary(metrics, baseInterval)
             })
         );
     }
