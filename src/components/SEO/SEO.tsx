@@ -52,6 +52,7 @@ export const SEO = () => {
     return (
         <Head>
             <title>{title}</title>
+            <meta content="website" property="og:type" />
             {meta.map((metaprops: any, index: any) => (
                 <meta key={index} {...metaprops} />
             ))}
