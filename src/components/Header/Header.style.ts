@@ -4,17 +4,14 @@ import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const HeaderContent = styled.div`
-    ${position('fixed', 0, 0, null, 0)};
-
     align-items: center;
+    background-color: ${colors.white};
     display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    width: 100%;
-    background-color: ${colors.white};
-    z-index: 10;
-    max-width: 1280px;
     margin: auto;
+    max-width: 1280px;
+    padding: 1rem 0;
+    width: 100%;
 `;
 
 export const HeaderMenuItem = styled.div`
@@ -75,7 +72,9 @@ export const HeaderMobileMenuFooter = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
+    ${position('fixed', 0, 0, null, 0)};
+
     background-color: ${colors.white};
-    padding-top: 4.75rem;
     width: 100%;
+    z-index: 10;
 `;
