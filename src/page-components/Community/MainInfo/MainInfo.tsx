@@ -65,7 +65,7 @@ export const MainInfo = (props: ICommunity) => {
                                             {!user?.avatar?.url && <Icon icon="user" textSecondary />}
                                         </Avatar>
                                         <Div column ml={1}>
-                                            <Heading h6>{user?.username}</Heading>
+                                            <Heading h6>{user?.username || user?.address}</Heading>
                                             <Text XSmall textSecondary>
                                                 {getString('managerSince')} {dateHelpers.short(user?.createdAt)}
                                             </Text>
@@ -94,7 +94,7 @@ export const MainInfo = (props: ICommunity) => {
                             <Div>
                                 <Heading h6>
                                     {communityDashboardResume.getRaised(state)} (
-                                    {communityDashboardResume.getGoalProgress(props)}%)
+                                    {communityDashboardResume.getGoalProgress(props, '%')})
                                 </Heading>
                                 <Heading h6 ml="auto">
                                     {communityDashboardResume.getGoal(props)}

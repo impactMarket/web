@@ -10,6 +10,8 @@ export const bracked = (str: string, vars: any = {}) => {
 
         const replacePattern = new RegExp(`{({|%)( |)${key}( |)(%|})}`);
 
-        return result.replace(replacePattern, vars[key]);
+        const newPattern = result.replace(replacePattern, `___${key}___`)
+
+        return newPattern.replace(`___${key}___`, vars[key]);
     }, str);
 };
