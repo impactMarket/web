@@ -22,7 +22,7 @@ export const communityDashboardResume = {
       return currencyValue(value)
     },
 
-    getGoalProgress: (community: ICommunity, symbol) => {
+    getGoalProgress: (community: ICommunity, symbol?: string) => {
         const raised = humanifyNumber(community?.state?.raised);
         const goal = humanifyNumber(
             new BigNumber(community?.contract?.maxClaim).multipliedBy(community?.state?.beneficiaries)
