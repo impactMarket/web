@@ -19,7 +19,7 @@ export const en = {
         },
         header: {
             menu: [
-                { label: 'Global Dashboard', to: '/global-dashboard' },
+                { label: 'Global Dashboard', to: '/global-dashboard' }
                 // { label: 'Communities', to: '/communities' }
             ]
         },
