@@ -39,7 +39,7 @@ export const en = {
             twitter: 'https://twitter.com/IPCTmarket'
         },
         storeLinks: {
-            appstore: 'https://testflight.apple.com/join/o19f5StV',
+            appstore: 'https://apps.apple.com/app/impactmarket/id1530870911',
             playstore: 'https://play.google.com/store/apps/details?id=com.impactmarket.mobile'
         },
         strings: {
