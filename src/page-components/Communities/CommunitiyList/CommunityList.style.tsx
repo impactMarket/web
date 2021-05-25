@@ -10,7 +10,11 @@ export const CommunityListChipSeparator = styled.div`
     margin-right: 1rem;
 `;
 
-export const CommunityListItem = styled.li`
+type CommunityListItemProps = {
+    withLink?: boolean;
+};
+
+export const CommunityListItem = styled.li<CommunityListItemProps>`
     ${transitions(['box-shadow', 'z-index'], 250, ease.outSine)};
 
     background-color: ${colors.white};
@@ -28,8 +32,8 @@ export const CommunityListItem = styled.li`
     ${mq.tabletLandscape(css`
         width: 20%;
 
-        ${({ onClick }: any) =>
-            typeof onClick === 'function' &&
+        ${({ withLink }: any) =>
+            withLink &&
             css`
                 &:hover {
                     box-shadow: 0 0 2rem ${rgba(colors.brandBlack, 0.16)};

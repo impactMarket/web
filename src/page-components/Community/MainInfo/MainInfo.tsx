@@ -1,7 +1,6 @@
-import { Col, DashboardCard, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
+import { Col, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
 import { ICommunity } from '../../../apis/types';
-import { ProgressBar } from '../../../components';
-import { communityDashboardResume } from '../../../apis/communityDashboardResume';
+import { ResumeBox } from './ResumeBox';
 import { dateHelpers } from '../../../helpers/dateHelpers';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { size } from 'polished';
@@ -39,11 +38,15 @@ export const MainInfo = (props: ICommunity) => {
                         {/* Heading info */}
                         <Heading h2>{name}</Heading>
                         <Div textSecondary>
-                            <Icon icon="community" sWidth={0.75} />
+                            <Div sHeight={1.375}>
+                                <Icon icon="community" sHeight="auto" sWidth={0.75} />
+                            </Div>
                             <Text ml={0.25} small>
                                 {numericalValue(state?.beneficiaries)}
                             </Text>
-                            <Icon icon="location" ml={0.5} sWidth={0.5} />
+                            <Div sHeight={1.375}>
+                                <Icon icon="location" ml={0.5} sHeight="auto" sWidth={0.5} />
+                            </Div>
                             <Text ml={0.25} small>
                                 {countries?.[country]?.name}
                             </Text>
@@ -52,6 +55,11 @@ export const MainInfo = (props: ICommunity) => {
                         {/* Description */}
                         <Div mt={1}>
                             <Text small>{description}</Text>
+                        </Div>
+
+                        {/* Mobile Resume */}
+                        <Div column mt={1.5} sDisplay={{ sm: 'none', xs: 'flex' }}>
+                            <ResumeBox contract={contract} state={state} />
                         </Div>
 
                         {/* Managers */}
@@ -75,33 +83,8 @@ export const MainInfo = (props: ICommunity) => {
                             </Div>
                         </Div>
                     </Col>
-                    <Col md={4} mt={{ sm: 0, xs: 1 }} sm={6} xs={12}>
-                        <DashboardCard fluidHeight>
-                            <Heading center h3>
-                                {numericalValue(state?.beneficiaries)} {getString('beneficiaries')}
-                            </Heading>
-                            <Text center small>
-                                ({communityDashboardResume.getClaimingValuePerFrequence(contract, getString)})
-                            </Text>
-                            <Div mt={1.5}>
-                                <Text small textSecondary>
-                                    {getString('raisedFromDonors', { donors: state?.backers })}
-                                </Text>
-                                <Text ml="auto" small textSecondary>
-                                    {getString('goal')}
-                                </Text>
-                            </Div>
-                            <Div>
-                                <Heading h6>
-                                    {communityDashboardResume.getRaised(state)} (
-                                    {communityDashboardResume.getGoalProgress(props, '%')})
-                                </Heading>
-                                <Heading h6 ml="auto">
-                                    {communityDashboardResume.getGoal(props)}
-                                </Heading>
-                            </Div>
-                            <ProgressBar mb={1} mt={1} progress={communityDashboardResume.getGoalProgress(props)} />
-                        </DashboardCard>
+                    <Col md={4} sm={6} xs={false}>
+                        <ResumeBox contract={contract} state={state} />
                     </Col>
                 </Row>
             </Grid>

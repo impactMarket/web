@@ -195,18 +195,22 @@ export const CommunitiyList = () => {
                             ) : (
                                 <CommunityListWrapper>
                                     {communities.map((community: any, index: number) => (
-                                        <CommunityListItem key={index}>
+                                        <CommunityListItem key={index} withLink>
                                             <CommunityListItemLink onClick={() => handleCommunityClick(community?.id)}>
                                                 <CommunityListItemImage image={community?.coverImage} />
                                                 <Text bold ellipsis manrope mt={0.5} small>
                                                     {community?.name}
                                                 </Text>
                                                 <Div textSecondary>
-                                                    <Icon icon="community" sWidth={0.75} />
+                                                    <Div sHeight={1.375}>
+                                                        <Icon icon="community" sHeight="auto" sWidth={0.75} />
+                                                    </Div>
                                                     <Text ml={0.25} small>
                                                         {numericalValue(community?.state?.beneficiaries)}
                                                     </Text>
-                                                    <Icon icon="location" ml={0.5} sWidth={0.5} />
+                                                    <Div sHeight={1.375}>
+                                                        <Icon icon="location" ml={0.5} sHeight="auto" sWidth={0.5} />
+                                                    </Div>
                                                     <Text ml={0.25} small>
                                                         {countries?.[community?.country]?.name}
                                                     </Text>
