@@ -28,14 +28,19 @@ export const CommunityListItem = styled.li`
     ${mq.tabletLandscape(css`
         width: 20%;
 
-        &:hover {
-            box-shadow: 0 0 2rem ${rgba(colors.brandBlack, 0.16)};
-            z-index: 1;
-        }
+        ${({ onClick }: any) =>
+            typeof onClick === 'function' &&
+            css`
+                &:hover {
+                    box-shadow: 0 0 2rem ${rgba(colors.brandBlack, 0.16)};
+                    z-index: 1;
+                }
+            `}
     `)}
 `;
 
 export const CommunityListItemImage = styled.div<{ image?: string }>`
+    background-color: ${colors.backgroundSecondary};
     background-image: ${({ image }) => `url("${image}")`};
     background-position: center;
     background-repeat: no-repeat;
@@ -49,12 +54,6 @@ export const CommunityListItemImage = styled.div<{ image?: string }>`
 export const CommunityListItemLink = styled.a`
     display: flex;
     flex-direction: column;
-`;
-
-export const CommunityListLoading = styled.div`
-    position: relative;
-    height: 7rem;
-    margin: 3rem 0;
 `;
 
 export const CommunityListWrapper = styled.ul`

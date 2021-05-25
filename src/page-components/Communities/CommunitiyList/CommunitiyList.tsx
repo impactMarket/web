@@ -1,12 +1,12 @@
-import { Chip, Col, Div, Grid, Heading, Icon, ItemsRow, Row, Section, Spinner, Text } from '../../../theme/components';
+import { Chip, Col, Div, Grid, Heading, Icon, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import {
     CommunityListChipSeparator,
     CommunityListItem,
     CommunityListItemImage,
     CommunityListItemLink,
-    CommunityListLoading,
     CommunityListWrapper
 } from './CommunityList.style';
+import { CommunitySkeleton } from './CommunitySkeleton';
 import { Pagination } from '../../../components';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useData } from '../../../components/DataProvider/DataProvider';
@@ -19,11 +19,16 @@ const countries: { [key: string]: any } = countriesJson;
 
 const filters = ['allCommunities', 'featured'] as const;
 
-const limitPerWindowSize = {
+const limitPerWindowSize: { [key: string]: any } = {
     desktop: 10,
     phone: 3,
     tablet: 6
 };
+
+const skeletons = Object.keys(limitPerWindowSize).reduce(
+    (result: any, key: string) => ({ ...result, [key]: new Array(limitPerWindowSize[key]).fill('') }),
+    {}
+);
 
 export const CommunitiyList = () => {
     const { getString } = useData();
@@ -32,6 +37,7 @@ export const CommunitiyList = () => {
     const [communities, setCommunities] = useState([]);
     const [count, setCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [skeleton, setSkeleton] = useState([]);
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
     const { isReady, pathname, push, replace, query } = router;
@@ -77,8 +83,21 @@ export const CommunitiyList = () => {
         if (windowWidth) {
             const limit = limitPerWindowSize[windowWidth];
 
-            if (!activeFilter || !activePage) {
-                return;
+            if (activeFilter && activePage) {
+                const getCommunites = async () => {
+                    setIsLoading(true);
+                    const { count, items } = await Api.getCommunities({
+                        filter: activeFilter,
+                        limit,
+                        page: activePage
+                    });
+
+                    setCommunities(items);
+                    setCount(count);
+                    setIsLoading(false);
+                };
+
+                getCommunites();
             }
 
             const getCommunites = async () => {
@@ -97,6 +116,8 @@ export const CommunitiyList = () => {
             };
 
             getCommunites();
+
+            setSkeleton(skeletons[windowWidth]);
         }
     }, [activeFilter, activePage, windowWidth]);
 
@@ -164,9 +185,13 @@ export const CommunitiyList = () => {
                     <Col xs={12}>
                         <Div>
                             {!communities || isLoading ? (
-                                <CommunityListLoading>
-                                    <Spinner isLoading />
-                                </CommunityListLoading>
+                                <CommunityListWrapper>
+                                    {skeleton.map((_, index) => (
+                                        <CommunityListItem key={index}>
+                                            <CommunitySkeleton />
+                                        </CommunityListItem>
+                                    ))}
+                                </CommunityListWrapper>
                             ) : (
                                 <CommunityListWrapper>
                                     {communities.map((community: any, index: number) => (
