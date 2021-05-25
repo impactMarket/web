@@ -51,6 +51,7 @@ export const Dashboard = (props: ICommunity) => {
                     charts={getCharts(name)}
                     key={index}
                     pb={Object.keys(chartHelpers).length === index + 1 ? 4 : 0}
+                    pt={{ sm: index === 0 ? 2 : 4 }}
                 />
             ))}
         </>
