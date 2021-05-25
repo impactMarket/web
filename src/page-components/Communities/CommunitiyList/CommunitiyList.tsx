@@ -34,7 +34,7 @@ export const CommunitiyList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
-    const { isReady, pathname, push, query } = router;
+    const { isReady, pathname, push, replace, query } = router;
 
     useEffect(() => {
         const { filter, page } = query;
@@ -85,6 +85,12 @@ export const CommunitiyList = () => {
                 setIsLoading(true);
                 const { count, items } = await Api.getCommunities({ filter: activeFilter, limit, page: activePage });
 
+                if (!items.length && activePage > 1) {
+                    replace({ pathname, query: { ...query, page: 1 } }, undefined, {
+                        shallow: true
+                    });
+                }
+
                 setCommunities(items);
                 setCount(count);
                 setIsLoading(false);
@@ -99,7 +105,7 @@ export const CommunitiyList = () => {
             return;
         }
 
-        push({ pathname, query: { ...query, filter: filterName } }, undefined, { shallow: true });
+        push({ pathname, query: { ...query, filter: filterName, page: 1 } }, undefined, { shallow: true });
     };
 
     const handlePageChange = (page: number) => {
