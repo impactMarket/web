@@ -98,6 +98,7 @@ const sizeVariations = {
 
 type ButtonBaseProps = {
     as?: any;
+    className?: string;
     children?: any | any[];
     href?: string;
     onClick?: (e: Event) => void;

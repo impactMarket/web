@@ -21,7 +21,7 @@ export default class Api {
     }
 
     static async getCommunities(
-        { filter = '', limit = 10, page = 0 } = { filter: '', limit: 10, page: 0 }
+        { filter = '', limit = 10, page = 1 }: any = { filter: '', limit: 10, page: 1 }
     ): Promise<any> {
         const offset = (page - 1) * limit;
 

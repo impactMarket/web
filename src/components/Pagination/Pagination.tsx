@@ -17,11 +17,13 @@ type ButtonRenderProps = {
     current?: number;
     element?: any;
     getString: Function;
+    page?: number | string;
     type?: string;
 };
 
 const buttonItemRender = (buttonRenderProps: ButtonRenderProps) => {
-    const { element, getString, type } = buttonRenderProps;
+    const { current, element, getString, page, type } = buttonRenderProps;
+    const isActive = current == page;
 
     if (type === 'prev') {
         return (
@@ -48,7 +50,7 @@ const buttonItemRender = (buttonRenderProps: ButtonRenderProps) => {
     }
 
     return (
-        <Button pagination regular small>
+        <Button className={isActive ? 'is-active' : ''} pagination regular small>
             {element?.props?.children}
         </Button>
     );
@@ -67,10 +69,8 @@ const PaginationWrapper = styled.div`
             & + li {
                 margin-left: 0.5rem;
             }
-        }
 
-        li.rc-pagination-item-active {
-            button {
+            button.is-active {
                 background-color: ${colors.brandPrimary};
                 box-shadow: none !important;
                 color: ${colors.white};
@@ -123,7 +123,7 @@ export const Pagination = (props: PaginationProps) => {
         <PaginationWrapper>
             <PaginationComp
                 current={page}
-                itemRender={(current, type, element) => buttonItemRender({ current, element, getString, type })}
+                itemRender={(current, type, element) => buttonItemRender({ current, element, getString, page, type })}
                 onChange={(pageNumber: number) => onPageChange(pageNumber)}
                 pageSize={limit}
                 showTitle={false}

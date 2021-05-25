@@ -27,13 +27,32 @@ const limitPerWindowSize = {
 
 export const CommunitiyList = () => {
     const { getString } = useData();
-    const [activeFilter, setActiveFilter] = useState<typeof filters[number]>(filters[0]);
-    const [activePage, setActivePage] = useState(1);
+    const [activeFilter, setActiveFilter] = useState<any>();
+    const [activePage, setActivePage] = useState<any>();
     const [communities, setCommunities] = useState([]);
     const [count, setCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
+    const { isReady, pathname, push, query } = router;
+
+    useEffect(() => {
+        const { filter, page } = query;
+
+        if (isReady && (!filter || !page)) {
+            push({ pathname, query: { ...query, filter: filter || filters[0], page: page || 1 } }, undefined, {
+                shallow: true
+            });
+        }
+
+        if (isReady && filter !== activeFilter) {
+            setActiveFilter(filter);
+        }
+
+        if (isReady && page !== activePage) {
+            setActivePage(page);
+        }
+    }, [query]);
 
     useEffect(() => {
         const handleWindowSize = () => {
@@ -58,6 +77,10 @@ export const CommunitiyList = () => {
         if (windowWidth) {
             const limit = limitPerWindowSize[windowWidth];
 
+            if (!activeFilter || !activePage) {
+                return;
+            }
+
             const getCommunites = async () => {
                 setIsLoading(true);
                 const { count, items } = await Api.getCommunities({ filter: activeFilter, limit, page: activePage });
@@ -76,7 +99,7 @@ export const CommunitiyList = () => {
             return;
         }
 
-        setActiveFilter(filterName);
+        push({ pathname, query: { ...query, filter: filterName } }, undefined, { shallow: true });
     };
 
     const handlePageChange = (page: number) => {
@@ -84,7 +107,7 @@ export const CommunitiyList = () => {
             return;
         }
 
-        setActivePage(page);
+        push({ pathname, query: { ...query, page } }, undefined, { shallow: true });
     };
 
     const handleCommunityClick = (communityId: string | number) => {
