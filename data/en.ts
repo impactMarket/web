@@ -11,7 +11,7 @@ export const en = {
                 'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.',
             menu: [
                 { href: 'http://docs.impactmarket.com/', label: 'About Us' },
-                // { label: 'Communities', to: '/communities' },
+                { label: 'Communities', to: '/communities' },
                 { href: 'http://docs.impactmarket.com/', label: 'Faqs' },
                 { href: 'https://requests.impactmarket.com/feature-requests', label: 'Feature Requests' },
                 { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', label: 'Bug Report' }
@@ -19,8 +19,8 @@ export const en = {
         },
         header: {
             menu: [
-                { label: 'Global Dashboard', to: '/global-dashboard' }
-                // { label: 'Communities', to: '/communities' }
+                { label: 'Global Dashboard', to: '/global-dashboard' },
+                { label: 'Communities', to: '/communities' }
             ]
         },
         seo: {
