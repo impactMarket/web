@@ -1,6 +1,5 @@
-import { Header } from './Header/Header';
-// import { useData } from '../../components/DataProvider/DataProvider';
 import { Dashboard } from './Dashboard/Dashboard';
+import { Header } from './Header/Header';
 import { ICommunity } from '../../apis/types';
 import { MainInfo } from './MainInfo/MainInfo';
 import React from 'react';
