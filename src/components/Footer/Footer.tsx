@@ -22,7 +22,13 @@ export const Footer = () => {
                 <Row>
                     <Col xs={12}>
                         <Link href="/">
-                            <a className={checkActiveRoute('/') ? 'is-disabled' : ''}>
+                            <a
+                                className={checkActiveRoute('/') ? 'is-disabled' : ''}
+                                style={{
+                                    cursor: checkActiveRoute('/') ? 'default' : 'pointer',
+                                    fontSize: 0
+                                }}
+                            >
                                 <FooterLogo />
                             </a>
                         </Link>

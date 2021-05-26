@@ -11,20 +11,32 @@ import {
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import React, { useState } from 'react';
 
 export const Header = () => {
     const { config } = useData();
-    const { asPath } = useRouter();
+    const { asPath, push } = useRouter();
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
     const donationFootnote = config?.footer?.footnote;
 
-    const checkActiveRoute = (route: string | undefined) =>
-        typeof route === 'string' ? asPath.includes(route) : false;
+    const checkActiveRoute = (route: string | undefined) => (typeof route === 'string' ? asPath === route : false);
 
     const handleMenuButtonClick = () => setIsMenuVisible(!isMenuVisible);
+
+    const handleLinkClick = (to: any) => {
+        const isSameRoute = checkActiveRoute(to);
+
+        if (isSameRoute) {
+            return;
+        }
+
+        push(to);
+
+        if (isMenuVisible) {
+            setIsMenuVisible(false);
+        }
+    };
 
     return (
         <HeaderWrapper>
@@ -32,14 +44,16 @@ export const Header = () => {
                 <Row>
                     <Col xs={12}>
                         <HeaderContent>
-                            <Link href="/">
-                                <a
-                                    className={checkActiveRoute('/') ? 'is-disabled' : ''}
-                                    style={{ fontSize: 0, zIndex: 100 }}
-                                >
-                                    <Logo />
-                                </a>
-                            </Link>
+                            <a
+                                onClick={() => handleLinkClick('/')}
+                                style={{
+                                    cursor: checkActiveRoute('/') ? 'default' : 'pointer',
+                                    fontSize: 0,
+                                    zIndex: 100
+                                }}
+                            >
+                                <Logo />
+                            </a>
                             <HeaderMobileMenuButton onClick={handleMenuButtonClick}>
                                 <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
                             </HeaderMobileMenuButton>
@@ -48,11 +62,12 @@ export const Header = () => {
                                     {menu &&
                                         menu.map((item, index) => (
                                             <HeaderMenuItem key={index}>
-                                                <Link href={item?.to || ''}>
-                                                    <TextLink isActive={checkActiveRoute(item?.to)}>
-                                                        {item?.label}
-                                                    </TextLink>
-                                                </Link>
+                                                <TextLink
+                                                    isActive={checkActiveRoute(item?.to)}
+                                                    onClick={() => handleLinkClick(item?.to)}
+                                                >
+                                                    {item?.label}
+                                                </TextLink>
                                             </HeaderMenuItem>
                                         ))}
                                 </Div>
