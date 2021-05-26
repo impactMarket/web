@@ -12,11 +12,13 @@ export interface GlobalGrowth {
     reachOut: number;
 }
 
+export interface IClaimLocationGps {
+    latitude: number;
+    longitude: number;
+}
+
 export interface IClaimLocation {
-    gps: {
-        latitude: number;
-        longitude: number;
-    };
+    gps: IClaimLocationGps;
 }
 
 export interface ICommunities {
@@ -153,7 +155,7 @@ export interface ICommunityDashboard {
 }
 
 export interface ICommunity extends CommunityAttributes {
-    claimLocations?: IClaimLocation[];
+    claimLocations?: IClaimLocationGps[];
     contract: CommunityContractAttributes;
     managers?: IManager[];
     metrics?: CommunityDailyMetricsAttributes;

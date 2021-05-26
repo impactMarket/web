@@ -1,5 +1,5 @@
 import { Col, Grid, Row, Section } from '../../../theme/components';
-import { IClaimLocation } from '../../../apis/types';
+import { IClaimLocationGps } from '../../../apis/types';
 import { Map } from '../../../components';
 import { mq } from 'styled-gen';
 import React from 'react';
@@ -7,7 +7,8 @@ import styled, { css } from 'styled-components';
 
 type HeaderProps = {
     coverImage?: string;
-    claimLocations?: IClaimLocation[];
+    claimLocations?: IClaimLocationGps[];
+    gps?: IClaimLocationGps;
 };
 
 type ImageProps = {
@@ -37,9 +38,9 @@ const MapWrapper = styled.div`
 `;
 
 export const Header = (props: HeaderProps) => {
-    const { coverImage, claimLocations } = props;
+    const { coverImage, claimLocations, gps } = props;
 
-    const claims = claimLocations?.map((claim: any) => ({ gps: claim }));
+    const claims = claimLocations?.length ? claimLocations?.map((claim: any) => ({ gps: claim })) : [{ gps }];
 
     return (
         <Section>
@@ -50,7 +51,7 @@ export const Header = (props: HeaderProps) => {
                             <Image image={coverImage} />
                         </Col>
                     )}
-                    {claims?.length && (
+                    {!!claims?.length && (
                         <Col md={8} mt={{ sm: 0, xs: 1 }} sm={6} xs={12}>
                             <MapWrapper>
                                 <Map claims={claims} />
