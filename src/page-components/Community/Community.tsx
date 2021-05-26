@@ -12,8 +12,8 @@ type CommunityProps = {
 export const Community = (props: CommunityProps) => {
     const { data } = props;
 
-    const { claimLocations, coverImage } = data;
-    const header = { claimLocations, coverImage };
+    const { claimLocations, coverImage, gps } = data;
+    const header = { claimLocations, coverImage, gps };
 
     return (
         <>
