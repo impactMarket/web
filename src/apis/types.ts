@@ -153,6 +153,7 @@ export interface ICommunityDashboard {
 }
 
 export interface ICommunity extends CommunityAttributes {
+    claimLocations?: IClaimLocation[];
     contract: CommunityContractAttributes;
     managers?: IManager[];
     metrics?: CommunityDailyMetricsAttributes;

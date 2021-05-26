@@ -40,9 +40,13 @@ export default class Api {
         const dashboardResponse = await getRequest<DataResponseType<ICommunityDashboard[]>>(
             `/community/${communityId}/dashboard`
         );
+        const claimLocations = await getRequest<DataResponseType<IClaimLocation[]>>(
+            `/community/${communityId}/claim-location`
+        );
 
         const data = {
             ...communityResponse?.data,
+            claimLocations: claimLocations?.data || [],
             dashboard: dashboardResponse?.data || {},
             managers: managersResponse?.data || {}
         };

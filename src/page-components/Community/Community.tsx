@@ -10,11 +10,10 @@ type CommunityProps = {
 };
 
 export const Community = (props: CommunityProps) => {
-    // const { page } = useData();
     const { data } = props;
 
-    const { coverImage, gps } = data;
-    const header = { coverImage, gps };
+    const { claimLocations, coverImage } = data;
+    const header = { claimLocations, coverImage };
 
     return (
         <>
