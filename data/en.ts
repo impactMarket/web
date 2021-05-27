@@ -4,7 +4,7 @@ export const en = {
             heading: 'Start helping now.',
             image: '/img/app-mockup.png',
             text:
-                'With the impactMarket mobile Dapp you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
+                'With the impactMarket mobile app you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
         },
         footer: {
             footnote:
