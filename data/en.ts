@@ -4,7 +4,7 @@ export const en = {
             heading: 'Start helping now.',
             image: '/img/app-mockup.png',
             text:
-                'With the impactMarket mobile Dapp you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
+                'With the impactMarket mobile app you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
         },
         footer: {
             footnote:
@@ -14,7 +14,8 @@ export const en = {
                 { label: 'Communities', to: '/communities' },
                 { href: 'http://docs.impactmarket.com/', label: 'Faqs' },
                 { href: 'https://requests.impactmarket.com/feature-requests', label: 'Feature Requests' },
-                { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', label: 'Bug Report' }
+                { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', label: 'Bug Report' },
+                { href: 'https://careers.impactmarket.com/', label: 'We are hiring!' }
             ]
         },
         header: {
