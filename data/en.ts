@@ -14,7 +14,8 @@ export const en = {
                 { label: 'Communities', to: '/communities' },
                 { href: 'http://docs.impactmarket.com/', label: 'Faqs' },
                 { href: 'https://requests.impactmarket.com/feature-requests', label: 'Feature Requests' },
-                { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', label: 'Bug Report' }
+                { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', label: 'Bug Report' },
+                { href: 'https://careers.impactmarket.com/', label: 'We are hiring!' }
             ]
         },
         header: {
