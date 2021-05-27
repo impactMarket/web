@@ -123,7 +123,7 @@ export const en = {
                     heading: 'Key partners',
                     items: [
                         { image: '/img/partners/celo.png', name: 'Celo', url: 'https://celo.org/' },
-                        { image: '/img/partners/esolidar.png', name: 'eSolidar', url: 'https://www.esolidar.com' }
+                        { image: '/img/partners/esolidar.svg', name: 'eSolidar', url: 'https://www.esolidar.com' }
                     ]
                 },
                 {
