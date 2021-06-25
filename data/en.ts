@@ -55,6 +55,7 @@ export const en = {
             communitiesPagination: '{{ first }}-{{ last }} of {{ total }} Communities',
             communityDashboard: 'Community Dashboard',
             communityManagers: 'Community Managers',
+            communityTitle: '{{ name }} - ImpactMarket Community',
             cookieConsentMessage:
                 'We use our own cookies as well as third-party cookies on our website to enhance your experience, analyze our traffic, and for security and marketing. For more info, see our',
             cookiePolicy: 'Cookie Policy',

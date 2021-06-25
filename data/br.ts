@@ -7,6 +7,9 @@ export const br = {
             keywords:
                 'impactMarket, community, unconditional, basic income, beneficiaries, cUSD, UBI, contracts, allowance, celo, blockchain, infrastructure, system, protocol',
             title: 'impactMarket - Decentralized Anti-Poverty System'
+        },
+        strings: {
+          communityTitle: '{{ name }} - Comunidade ImpactMarket',
         }
     },
     pages: {
