@@ -2,6 +2,8 @@ import { useData } from '../DataProvider/DataProvider';
 import Head from 'next/head';
 import React from 'react';
 
+type SeoProps = any;
+
 const getMetaData: any = (metaData: any) =>
     Object.keys(metaData).reduce((meta: any, metaName: any) => {
         const metaValue = metaData[metaName];
@@ -43,11 +45,14 @@ const getMetaData: any = (metaData: any) =>
         ];
     }, []);
 
-export const SEO = () => {
+export const SEO = (props: SeoProps) => {
     const { seo } = useData();
+    const { meta: metaFromProps } = props;
 
-    const meta = getMetaData(seo);
-    const title = seo?.title;
+    const metaObject = Object.assign({}, seo, metaFromProps);
+
+    const meta = getMetaData(metaObject);
+    const title = metaObject?.title;
 
     return (
         <Head>

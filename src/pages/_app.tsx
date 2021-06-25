@@ -21,7 +21,7 @@ export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
-    const { page, statusCode } = pageProps;
+    const { meta, page, statusCode } = pageProps;
     const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function App(props: AppProps) {
                 <DataProvider locale={locale} page={page} url={url}>
                     <Loading isActive={showSpinner} />
                     <ModalManager modals={modals} />
-                    <SEO />
+                    <SEO meta={meta} />
                     <Main>
                         <Header />
                         <Content>

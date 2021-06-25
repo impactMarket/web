@@ -13,6 +13,8 @@ type StringsType = keyof typeof defaultData.config.strings;
 
 const allLangsData: AllLangsData = allLangs;
 
+const getLangShortCode = (locale: string) => langConfig.find(({ code }) => code === locale)?.shortCode || defaultLang;
+
 const intialData: {
     lang?: string;
     page?: string;
@@ -41,6 +43,8 @@ const getDataPropByLang: any = (lang: string, prop: string) => {
 
     return result;
 };
+
+export const getServerSideString = (locale: string, key: string, variables?: object ) => bracked(getDataPropByLang(getLangShortCode(locale), `config.strings.${key}`), variables);
 
 const getDataContentByLang: any = (lang: string, key: string) => {
     let results;
