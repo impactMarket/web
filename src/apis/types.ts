@@ -91,6 +91,7 @@ export interface CommunityAttributes {
     id: string | number;
     publicId: string;
     requestByAddress: string;
+    contract?: CommunityContractAttributes;
     contractAddress: string | null;
     name: string;
     description: string;

@@ -51,7 +51,8 @@ export const Communities = (props: CommunitiesProps) => {
 
     useEffect(() => {
         const getCommunities = async () => {
-            const communities = await Api.listCommunities(communitiesFilter);
+            const result = await Api.getCommunities({ extended: true, limit: 999999, orderBy: communitiesFilter });
+            const communities = result?.items;
 
             setCommunities(communities);
         };

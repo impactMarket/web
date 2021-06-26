@@ -1,4 +1,5 @@
 import { Text } from '../../../theme/components';
+import Link from 'next/link';
 import React from 'react';
 
 type TableCellProps = {
@@ -29,8 +30,14 @@ export const TableCell = (props: TableCellProps) => {
     if (Array.isArray(value)) {
         return (
             <>
-                <Text bold small>
-                    {value[0]}
+                <Text bold brandPrimary={!!value[0]?.href} small>
+                    {value[0]?.href ? (
+                      <Link href={value[0].href}>
+                        <a style={{ color: 'inherit' }}>
+                            {value[0].label}
+                        </a>
+                      </Link>
+                    ) : value[0]}
                 </Text>
                 <Text XSmall ellipsis medium textSecondary>
                     {value[1]}
