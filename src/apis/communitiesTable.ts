@@ -21,8 +21,8 @@ const getClaimed = ({ claimed, raised }: { claimed: string | BigNumber; raised: 
         .decimalPlaces(0)
         .toString()}%)`;
 
-const getComunityName = (city: string, country: string, name: string) => [
-    name,
+const getComunityName = (city: string, country: string, name: string, id: string | number) => [
+    { label: name, href: `/communities/${id}` },
     `${city}, ${countries[country]?.name || ''} ${countries[country]?.emoji || ''}`
 ];
 
@@ -60,6 +60,7 @@ export const communitiesTable: { [key: string]: Function } = {
                 contractAddress,
                 contract: { baseInterval, claimAmount, maxClaim },
                 country,
+                id,
                 metrics,
                 name,
                 state
@@ -68,7 +69,7 @@ export const communitiesTable: { [key: string]: Function } = {
                 backers: state.backers,
                 beneficiaries: state?.beneficiaries,
                 claimed: getClaimed(state),
-                communityName: getComunityName(city, country, name),
+                communityName: getComunityName(city, country, name, id),
                 estimatedUbiDuration: getEstimatedUbiDuration(metrics, getString),
                 raised: getRaised(state, maxClaim),
                 ssi: !metrics ? '-' : metrics?.ssi,

@@ -21,12 +21,12 @@ export default class Api {
     }
 
     static async getCommunities(
-        { filter = '', limit = 10, page = 1 }: any = { filter: '', limit: 10, page: 1 }
+        { extended = false, filter = '', limit = 10, orderBy = 'bigger', page = 1 }: any = { extended: false, filter: '', limit: 10, orderBy: 'bigger', page: 1 }
     ): Promise<any> {
         const offset = (page - 1) * limit;
 
         const response = await getRequest<ICommunities>(
-            `/community/list/?offset=${offset}&limit=${limit}&filter=${filter}`
+            `/community/list/?offset=${offset}&limit=${limit}&filter=${filter}&orderBy=${orderBy}${extended ? '&extended=true' : ''}`
         );
         const items = response?.data || [];
         const count = response?.count;
@@ -75,12 +75,6 @@ export default class Api {
         const demographics = await getRequest<IDemographics[] | undefined>('/global/demographics');
 
         return { ...result, demographics };
-    }
-
-    static async listCommunities(order: string): Promise<ICommunity[]> {
-        const result = await getRequest<ICommunity[]>(`/community/list/full/${order}`);
-
-        return result ? result : [];
     }
 
     static async subscribeEmail(email: string): Promise<any> {
