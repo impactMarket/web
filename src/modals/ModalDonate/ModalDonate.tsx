@@ -10,23 +10,20 @@ import React, { useState } from 'react';
 export const Modal = () => {
     const { config, getModal, getString } = useData();
     const { currencies, scanText, text } = getModal('donate');
-    const [isSelected, setIsSelected] = useState(currencies[0]);
+    const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
 
-    const getSelectedCurrencyAddress = () =>
-        config?.wallets?.find(wallet => isSelected === wallet?.code)?.address || '';
+    const getWallet = (code: any) => {
+      const wallet = config?.wallets?.find(wallet => code === wallet?.code);
 
-    const getCurrencyData = (code: any, key: 'address' | 'code' | 'label') => {
-        const walletObject = config?.wallets?.find(wallet => code === wallet?.code) || {};
-
-        return walletObject[key] || '';
-    };
+      return wallet;
+    }
 
     const handleChipClick = (code: any) => {
-        if (code === isSelected) {
+        if (code === wallet?.code) {
             return;
         }
 
-        setIsSelected(code);
+        setWallet(getWallet(code));
     };
 
     return (
@@ -38,11 +35,11 @@ export const Modal = () => {
                         {currencies.map((code: any) => (
                             <Chip
                                 as="a"
-                                isActive={isSelected === code}
+                                isActive={wallet?.code === code}
                                 key={code}
                                 onClick={() => handleChipClick(code)}
                             >
-                                {getCurrencyData(code, 'label')}
+                                {getWallet(code)?.label}
                                 <Currency currency={code} ml={0.5} />
                             </Chip>
                         ))}
@@ -51,7 +48,7 @@ export const Modal = () => {
                 <ModalRow style={{ marginTop: 16 }}>
                     <ModalCol>
                         <Text small>
-                            {scanText.replace('{{ currency }}', isSelected ? isSelected.toUpperCase() : '')}
+                            {scanText.replace('{{ currency }}', wallet?.extendedLabel || wallet?.code?.toUpperCase())}
                         </Text>
                         <Text
                             extrabold
@@ -63,10 +60,10 @@ export const Modal = () => {
                                 wordBreak: 'break-word'
                             }}
                         >
-                            {getSelectedCurrencyAddress()}
+                            {wallet?.address}
                         </Text>
                         <ModalCopyLink style={{ marginTop: 16 }}>
-                            <CopyToClipboard text={getSelectedCurrencyAddress()}>
+                            <CopyToClipboard text={wallet?.address}>
                                 <Text bold brandPrimary>
                                     {getString('copyAddress')}
                                 </Text>
@@ -74,7 +71,7 @@ export const Modal = () => {
                         </ModalCopyLink>
                     </ModalCol>
                     <ModalCol>
-                        <QrCode address={getSelectedCurrencyAddress()} />
+                        <QrCode address={wallet?.address} />
                     </ModalCol>
                 </ModalRow>
             </ModalWrapper>
