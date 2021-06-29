@@ -159,7 +159,7 @@ export interface ICommunity extends CommunityAttributes {
     claimLocations?: IClaimLocationGps[];
     contract: CommunityContractAttributes;
     managers?: IManager[];
-    metrics?: CommunityDailyMetricsAttributes;
+    metrics?: CommunityDailyMetricsAttributes | CommunityDailyMetricsAttributes[] | any;
     state: CommunityStateAttributes;
     dashboard: ICommunityDashboard;
     reachedLastMonth?: any;
