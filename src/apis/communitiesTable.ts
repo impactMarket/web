@@ -54,8 +54,6 @@ const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
 
 export const communitiesTable: { [key: string]: Function } = {
     getRows: (data: ICommunity[], getString: Function) => {
-        console.log(data);
-
         return data.map(
             ({
                 city,
