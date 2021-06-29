@@ -22,7 +22,7 @@ const getClaimed = ({ claimed, raised }: { claimed: string | BigNumber; raised: 
         .toString()}%)`;
 
 const getComunityName = (city: string, country: string, name: string, id: string | number) => [
-    { label: name, href: `/communities/${id}` },
+    { href: `/communities/${id}`, label: name },
     `${city}, ${countries[country]?.name || ''} ${countries[country]?.emoji || ''}`
 ];
 
@@ -54,6 +54,8 @@ const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
 
 export const communitiesTable: { [key: string]: Function } = {
     getRows: (data: ICommunity[], getString: Function) => {
+        console.log(data);
+
         return data.map(
             ({
                 city,
@@ -61,21 +63,25 @@ export const communitiesTable: { [key: string]: Function } = {
                 contract: { baseInterval, claimAmount, maxClaim },
                 country,
                 id,
-                metrics,
+                metrics: metricsArr,
                 name,
                 state
-            }) => ({
-                allowancePerBeneficiary: getAllowencePerBeneficiary(claimAmount, baseInterval),
-                backers: state.backers,
-                beneficiaries: state?.beneficiaries,
-                claimed: getClaimed(state),
-                communityName: getComunityName(city, country, name, id),
-                estimatedUbiDuration: getEstimatedUbiDuration(metrics, getString),
-                raised: getRaised(state, maxClaim),
-                ssi: !metrics ? '-' : metrics?.ssi,
-                ubiContract: getAddress(contractAddress),
-                ubiRatePerBeneficiary: getUbiRatePerBeneficiary(metrics, baseInterval)
-            })
+            }) => {
+                const metrics = metricsArr?.[0];
+
+                return {
+                    allowancePerBeneficiary: getAllowencePerBeneficiary(claimAmount, baseInterval),
+                    backers: state.backers,
+                    beneficiaries: state?.beneficiaries,
+                    claimed: getClaimed(state),
+                    communityName: getComunityName(city, country, name, id),
+                    estimatedUbiDuration: getEstimatedUbiDuration(metrics, getString),
+                    raised: getRaised(state, maxClaim),
+                    ssi: !metrics ? '-' : metrics?.ssi,
+                    ubiContract: getAddress(contractAddress),
+                    ubiRatePerBeneficiary: getUbiRatePerBeneficiary(metrics, baseInterval)
+                };
+            }
         );
     }
 };
