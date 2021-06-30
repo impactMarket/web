@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../config';
 import styled, { css } from 'styled-components';
 
-const { gaId } = config;
+const { gaId, hubspotId } = config;
 
 type CookiesConsentWrapperProps = {
     isActive: boolean;
@@ -78,6 +78,13 @@ export const CookieConsent = () => {
               });
             `
                     }}
+                />
+                <script
+                    async
+                    defer
+                    id="hs-script-loader"
+                    src={`//js.hs-scripts.com/${hubspotId}.js`}
+                    type="text/javascript"
                 />
             </Head>
             {shouldCookiesConsentAppend && (

@@ -1,4 +1,5 @@
 import { Cta } from '../../components';
+import { EmailSubscribe } from './EmailSubscribe/EmailSubscribe';
 import { Hero } from './Hero/Hero';
 import { Numbers } from './Numbers/Numbers';
 import { Partners } from './Partners/Partners';
@@ -15,6 +16,7 @@ export const Homepage = (props: HomepageProps) => {
             <Partners />
             <Numbers numbers={numbers} />
             <Cta />
+            <EmailSubscribe />
         </>
     );
 };
