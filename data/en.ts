@@ -6,6 +6,9 @@ export const en = {
             text:
                 'With the impactMarket mobile app you can engage directly with all communities, learn about their progress, and empower them out of poverty.'
         },
+        emailSubscribe: {
+            heading: 'Get updates about our progress, new features and impact measurement.'
+        },
         footer: {
             footnote:
                 'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.',
@@ -64,8 +67,10 @@ export const en = {
             donate: 'Donate',
             downloadApp: 'Download App',
             eachClaimingPerDay: 'each claiming {{ value }} per {{ frequency }}',
+            emailAddress: 'Email address',
             enterYourEmail: 'Enter your email...',
             featured: 'Featured',
+            firstName: 'First name',
             fundingRateOn: '{{ value }}% funding rate on {{ date }}',
             goal: 'Goal',
             invalidEmail: 'The email is not valid',
@@ -82,6 +87,7 @@ export const en = {
             raisedOn: '${{ value }} raised on {{ date }}',
             recentlyAdded: 'Recently added',
             required: 'A valid email is required',
+            requiredFields: 'All the fields are required',
             rowsPerPage: 'Rows per page',
             seeMore: 'See more',
             somethingWrong: 'Something went wrong. Try again later...',

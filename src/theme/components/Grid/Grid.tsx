@@ -1,5 +1,5 @@
 import * as FlexboxGrid from 'react-styled-flexboxgrid';
-import { GeneratedPropsTypes, MqProp } from '../../Types';
+import { GeneratedPropsTypes } from '../../Types';
 import { breakpoints } from '../../variables/breakpoints';
 import { generateProps, mq } from 'styled-gen';
 import styled, { css } from 'styled-components';
@@ -58,11 +58,7 @@ export const Grid = styled(FlexboxGrid.Grid)<GeneratedPropsTypes>`
     ${generateProps};
 `;
 
-type RowProps = {
-    vGutter?: MqProp<number | string>;
-};
-
-export const Row = styled(FlexboxGrid.Row)<GeneratedPropsTypes & RowProps>`
+export const Row = styled(FlexboxGrid.Row)<any>`
     ${padded};
     ${generateProps};
 `;

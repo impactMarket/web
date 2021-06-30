@@ -39,5 +39,15 @@ export default {
     /**
      * Google Analytics
      */
-    gaId: process.env.NEXT_PUBLIC_GA
+    gaId: process.env.NEXT_PUBLIC_GA,
+
+    /**
+     * Hubspot
+     */
+    hubspotId: process.env.NEXT_PUBLIC_HUBSPOT,
+
+    /**
+     * Hubspot contact form
+     */
+    hubspotContactFormId: process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM
 };
