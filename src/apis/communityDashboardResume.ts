@@ -13,13 +13,15 @@ export const communityDashboardResume = {
     },
 
     getGoal: (community: ICommunity) => {
-      const value = humanifyNumber(new BigNumber(community?.contract?.maxClaim).multipliedBy(community?.state?.beneficiaries));
+        const value = humanifyNumber(
+            new BigNumber(community?.contract?.maxClaim).multipliedBy(community?.state?.beneficiaries)
+        );
 
-      if (!value || value === '0') {
-        return '--';
-      }
+        if (!value || value === '0') {
+            return '--';
+        }
 
-      return currencyValue(value)
+        return currencyValue(value);
     },
 
     getGoalProgress: (community: ICommunity, symbol?: string) => {
@@ -30,8 +32,7 @@ export const communityDashboardResume = {
 
         const result = new BigNumber(raised).dividedBy(goal).multipliedBy(100).decimalPlaces(0).toString();
 
-
-        return `${result === 'Infinity' ? 0 : result }${symbol || ''}`
+        return `${result === 'Infinity' ? 0 : result}${symbol || ''}`;
     },
 
     getRaised: (state: CommunityStateAttributes) => currencyValue(humanifyNumber(state?.raised))

@@ -1,6 +1,6 @@
 import { Community } from '../../page-components';
-import Api from '../../apis/api';
 import { getServerSideString } from '../../components/DataProvider/DataProvider';
+import Api from '../../apis/api';
 
 type ServerSideProps = {
     query?: {
@@ -28,18 +28,18 @@ export const getServerSideProps = async (serverSideProps: ServerSideProps) => {
         };
     }
 
-    const { name, description, coverImage: image } = data;
+    const { name, description, coverImage: image } = data;
     const title = getServerSideString(locale, 'communityTitle', { name });
 
     return {
         props: {
             data,
             meta: {
-              description,
-              image,
-              title
+                description,
+                image,
+                title
             },
-            page: 'community',
+            page: 'community'
         }
     };
 };

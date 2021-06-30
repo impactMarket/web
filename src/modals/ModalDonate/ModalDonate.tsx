@@ -13,10 +13,10 @@ export const Modal = () => {
     const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
 
     const getWallet = (code: any) => {
-      const wallet = config?.wallets?.find(wallet => code === wallet?.code);
+        const wallet = config?.wallets?.find(wallet => code === wallet?.code);
 
-      return wallet;
-    }
+        return wallet;
+    };
 
     const handleChipClick = (code: any) => {
         if (code === wallet?.code) {
