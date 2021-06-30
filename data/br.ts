@@ -9,7 +9,7 @@ export const br = {
             title: 'impactMarket - Decentralized Anti-Poverty System'
         },
         strings: {
-          communityTitle: '{{ name }} - Comunidade ImpactMarket',
+            communityTitle: '{{ name }} - Comunidade ImpactMarket'
         }
     },
     pages: {

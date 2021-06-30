@@ -44,7 +44,8 @@ const getDataPropByLang: any = (lang: string, prop: string) => {
     return result;
 };
 
-export const getServerSideString = (locale: string, key: string, variables?: object ) => bracked(getDataPropByLang(getLangShortCode(locale), `config.strings.${key}`), variables);
+export const getServerSideString = (locale: string, key: string, variables?: object) =>
+    bracked(getDataPropByLang(getLangShortCode(locale), `config.strings.${key}`), variables);
 
 const getDataContentByLang: any = (lang: string, key: string) => {
     let results;

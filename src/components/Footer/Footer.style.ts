@@ -4,7 +4,7 @@ import { mq } from 'styled-gen';
 import styled, { css } from 'styled-components';
 
 export const FooterLogo = styled(Icon).attrs({ icon: 'im' })`
-    color: ${colors.brandPrimary};
+    color: ${colors.backgroundLight};
     height: 2.75rem;
     width: auto;
 `;

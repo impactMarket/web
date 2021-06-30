@@ -32,12 +32,12 @@ export const TableCell = (props: TableCellProps) => {
             <>
                 <Text bold brandPrimary={!!value[0]?.href} small>
                     {value[0]?.href ? (
-                      <Link href={value[0].href}>
-                        <a style={{ color: 'inherit' }}>
-                            {value[0].label}
-                        </a>
-                      </Link>
-                    ) : value[0]}
+                        <Link href={value[0].href}>
+                            <a style={{ color: 'inherit' }}>{value[0].label}</a>
+                        </Link>
+                    ) : (
+                        value[0]
+                    )}
                 </Text>
                 <Text XSmall ellipsis medium textSecondary>
                     {value[1]}
