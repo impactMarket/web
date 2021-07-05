@@ -11,6 +11,7 @@ export const Modal = () => {
     const { config, getModal, getString } = useData();
     const { currencies, scanText, text } = getModal('donate');
     const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
+    const subscribeText = config?.emailSubscribe?.heading;
 
     const getWallet = (code: any) => {
         const wallet = config?.wallets?.find(wallet => code === wallet?.code);
@@ -77,7 +78,7 @@ export const Modal = () => {
             </ModalWrapper>
             <ModalFooter>
                 <Text extrabold manrope small>
-                    {getString('subscribingNote')}
+                    {subscribeText}
                 </Text>
                 <Subscribe mt={0.5} />
             </ModalFooter>
