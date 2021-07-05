@@ -1,4 +1,4 @@
-import { Button, Input, Text } from '../../theme/components';
+import { Button, Input, ItemsRow, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { generateProps, mq } from 'styled-gen';
 import { useData } from '../../components/DataProvider/DataProvider';
@@ -8,47 +8,41 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
+    display: block;
 
     ${mq.tablet(css`
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
         flex-direction: row;
     `)}
 
     ${generateProps};
 `;
 
-const ButtonWrapper = styled.div`
-    margin-top: 16px;
-    width: 100%;
-
-    ${mq.tablet(css`
-        margin-left: 14px;
-        margin-top: 0;
-        width: unset;
-    `)}
-`;
-
 export const Subscribe = (props: GeneratedPropsTypes) => {
     const { getString } = useData();
-    const [email, setEmail] = useState('');
+    const [fields, setFields] = useState({ email: '', name: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const { name, email } = fields;
+
     const handleChange = (event: any) => {
-        setEmail(event?.target?.value);
+        const { name, value } = event.target;
+
+        setFields(fields => ({ ...fields, [name]: value }));
         if (errorMessage) {
             setErrorMessage('');
         }
     };
 
     const handleSubscribe = async () => {
-        if (!email) {
-            return setErrorMessage(getString('required'));
+        if (!name || !email) {
+            return setErrorMessage(getString('requiredFields'));
         }
 
         if (!validateEmail(email)) {
@@ -56,7 +50,7 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
         }
 
         setIsLoading(true);
-        const { success } = await Api.subscribeEmail(email);
+        const { success } = await Api.submitHubspotContact({ email, name });
 
         setIsLoading(false);
 
@@ -74,12 +68,28 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
                     <Text>{getString('subscribeSuccess')}</Text>
                 ) : (
                     <>
-                        <Input onChange={handleChange} placeholder={getString('enterYourEmail')} value={email || ''} />
-                        <ButtonWrapper>
-                            <Button fluid isLoading={isLoading} onClick={handleSubscribe} small>
+                        <ItemsRow distribute="tablet">
+                            <Input
+                                lg
+                                name="name"
+                                onChange={handleChange}
+                                placeholder={getString('firstName')}
+                                type="text"
+                                value={name || ''}
+                            />
+                            <Input
+                                lg
+                                mt={{ sm: 0, xs: 1 }}
+                                name="email"
+                                onChange={handleChange}
+                                placeholder={getString('emailAddress')}
+                                type="text"
+                                value={email || ''}
+                            />
+                            <Button isLoading={isLoading} large medium mt={{ sm: 0, xs: 1 }} onClick={handleSubscribe}>
                                 {getString('subscribe')}
                             </Button>
-                        </ButtonWrapper>
+                        </ItemsRow>
                     </>
                 )}
             </Wrapper>
