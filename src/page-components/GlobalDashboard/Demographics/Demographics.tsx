@@ -8,7 +8,7 @@ import {
     getDemographicsBeneficiariesByCountry,
     getDemographicsTotalPercentage
 } from '../../../apis/demographics';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type DemographicsProps = {
     charts?: {
@@ -24,6 +24,17 @@ export const Demographics = (props: DemographicsProps) => {
     const { charts, data, heading, tooltip } = props;
     const demographics = data?.demographics;
     const totalPercentage = getDemographicsTotalPercentage(demographics);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoaded(true);
+        }, 150);
+    }, []);
+
+    if (!isLoaded) {
+        return null;
+    }
 
     return (
         <Section pt={{ md: 4, xs: 2 }} sBackground="backgroundLight">
