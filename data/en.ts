@@ -11,7 +11,7 @@ export const en = {
         },
         footer: {
             footnote:
-                'Your donation will be used as reserve and converted to cUSD overtime to fund communities in urgent need and running out of funds.',
+                'impactMarket is an open, free, borderless, censorship-resistant, and transparent crowdfinance infrastructure to fight poverty. It operates on top of Celo protocol, uses cUSD (Celo Dollar) as the main underlying digital currency, and runs autonomously through smart contracts.',
             menu: [
                 { href: 'http://docs.impactmarket.com/', label: 'About Us' },
                 { label: 'Communities', to: '/communities' },
@@ -131,7 +131,7 @@ export const en = {
         /* eslint-disable sort-keys */
         homepage: {
             hero: {
-                heading: 'Decentralized anti&#8209;poverty system.',
+                heading: 'Decentralized Poverty Alleviation Protocol.',
                 image: '/img/hero.png',
                 text:
                     'impactMarket enables any vulnerable community to implement poverty alleviation mechanisms, like Unconditional Basic Income.'
@@ -153,7 +153,7 @@ export const en = {
                 buttonLabel: 'View Global Dashboard',
                 heading: 'Full transparency. No intermediaries.',
                 items: [
-                    { heading: '+600K', name: 'claimed', text: 'Total Claimed' },
+                    { heading: '+600K', name: 'claimed', text: 'Claimed as UBI' },
                     { heading: '10', name: 'countries', text: 'Countries' },
                     { heading: '+15K', name: 'beneficiaries', text: 'Beneficiaries' },
                     { heading: '308', name: 'backers', text: 'Backers' },

@@ -71,7 +71,7 @@ export default class Api {
 
         const result = {
             backers: data?.backers,
-            beneficiaries: `+${Numbers.stringify(+(data?.beneficiaries || 0))}`,
+            beneficiaries: Numbers.stringify(+(data?.beneficiaries || 0)),
             claimed: `$${Numbers.stringify(+(data?.claimed || 0))}`,
             communities: data?.communities,
             countries: data?.countries
