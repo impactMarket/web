@@ -1,5 +1,6 @@
 import { Button, Col, Grid, Heading, Img, Input, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import { useData } from '../../../components/DataProvider/DataProvider';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { validateEmail } from '../../../helpers/validateEmail';
 import Api from '../../../apis/api';
 import React, { useState } from 'react';
@@ -10,6 +11,7 @@ export const EmailSubscribe = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     const { name, email } = fields;
 
@@ -26,7 +28,21 @@ export const EmailSubscribe = () => {
         }
     };
 
+    const getRecaptchaToken = async () => {
+        try {
+            return await executeRecaptcha('Form: subscribe');
+        } catch (error) {
+            return console.log(error);
+        }
+    };
+
     const handleSubscribe = async () => {
+        const token = await getRecaptchaToken();
+
+        if (!token) {
+            return setErrorMessage('Ups! reCAPTCHA error...');
+        }
+
         if (!name || !email) {
             return setErrorMessage(getString('requiredFields'));
         }
