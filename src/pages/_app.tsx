@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
 import { CookieConsent, Footer, Header, Loading, SEO } from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
 import { modals } from '../modals';
@@ -13,7 +14,7 @@ import Router from 'next/router';
 import config from '../../config';
 import theme from '../theme';
 
-const { baseUrl } = config;
+const { baseUrl, recaptchaKey } = config;
 
 Router.events.on('routeChangeComplete', url => pageview(url));
 
@@ -54,19 +55,21 @@ export default function App(props: AppProps) {
             </Head>
             <GlobalStyle />
             <ThemeProvider theme={theme}>
-                <DataProvider locale={locale} page={page} url={url}>
-                    <Loading isActive={showSpinner} />
-                    <ModalManager modals={modals} />
-                    <SEO meta={meta} />
-                    <Main>
-                        <Header />
-                        <Content>
-                            <Component {...pageProps} />
-                        </Content>
-                        <Footer />
-                    </Main>
-                    <CookieConsent />
-                </DataProvider>
+                <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                    <DataProvider locale={locale} page={page} url={url}>
+                        <Loading isActive={showSpinner} />
+                        <ModalManager modals={modals} />
+                        <SEO meta={meta} />
+                        <Main>
+                            <Header />
+                            <Content>
+                                <Component {...pageProps} />
+                            </Content>
+                            <Footer />
+                        </Main>
+                        <CookieConsent />
+                    </DataProvider>
+                </GoogleReCaptchaProvider>
             </ThemeProvider>
         </>
     );

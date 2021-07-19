@@ -49,5 +49,10 @@ export default {
     /**
      * Hubspot contact form
      */
-    hubspotContactFormId: process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM
+    hubspotContactFormId: process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM,
+
+    /**
+     * ReCaptcha key
+     */
+    recaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_KEY
 };
