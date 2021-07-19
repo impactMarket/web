@@ -2,6 +2,7 @@ import { Col, Div, Grid, Row, Text, TextLink } from '../../theme/components';
 import { DonateButton } from '../DonateButton/DonateButton';
 import { FooterLogo, FooterWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
+import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ export const Footer = () => {
     const { config } = useData();
     const { asPath } = useRouter();
 
-    const donationFootnote = config?.footer?.footnote;
     const menu = config?.footer?.menu;
 
     const checkActiveRoute = (route: string | undefined) => route === asPath;
@@ -43,7 +43,7 @@ export const Footer = () => {
                                         item?.to ? (
                                             <Link href={item?.to || ''} key={index}>
                                                 <TextLink isActive={checkActiveRoute(item?.to)} ml={index ? 2 : 0}>
-                                                    {item?.label}
+                                                    <String id={item.labelKey} />
                                                 </TextLink>
                                             </Link>
                                         ) : (
@@ -54,7 +54,7 @@ export const Footer = () => {
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                {item?.label}
+                                                <String id={item.labelKey} />
                                             </TextLink>
                                         )
                                     )}
@@ -98,7 +98,7 @@ export const Footer = () => {
                                 small
                                 textSecondary
                             >
-                                {donationFootnote}
+                                <String id="footer.note" />
                             </Text>
                         </Div>
                     </Col>

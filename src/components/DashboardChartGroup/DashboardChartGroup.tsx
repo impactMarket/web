@@ -2,7 +2,7 @@ import { Col, DashboardCard, Div, Grid, Heading, Icon, Row, Section, Text } from
 import { DashboardChart } from '../DashboardChart/DashboardChart';
 import { DashboardNumericContent } from '../DashboardNumericContent/DashboardNumericContent';
 import { GeneratedPropsTypes } from '../../theme/Types';
-import { useData } from '../DataProvider/DataProvider';
+import { String } from '../String/String';
 import React from 'react';
 
 type DashboardChartGroupProps = {
@@ -18,7 +18,6 @@ type DashboardChartGroupProps = {
 
 export const DashboardChartGroup = (props: DashboardChartGroupProps & GeneratedPropsTypes) => {
     const { charts, heading, text, ...forwardProps } = props;
-    const { getString } = useData();
 
     return (
         <Section pt={{ sm: 4, xs: 2 }} sBackground="backgroundLight" {...forwardProps}>
@@ -55,7 +54,7 @@ export const DashboardChartGroup = (props: DashboardChartGroupProps & GeneratedP
                                             {growth}%
                                         </Text>
                                         <Text XXSmall ml={0.25} textSecondary>
-                                            {getString('vsPrevious30Days')}
+                                            <String id="vsPrevious30Days" />
                                         </Text>
                                     </Div>
                                 )}

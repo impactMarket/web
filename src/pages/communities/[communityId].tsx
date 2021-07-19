@@ -1,5 +1,5 @@
 import { Community } from '../../page-components';
-import { getServerSideString } from '../../components/DataProvider/DataProvider';
+import { getServerSideString } from '../../components/TranslationProvider/TranslationProvider';
 import Api from '../../apis/api';
 
 type ServerSideProps = {

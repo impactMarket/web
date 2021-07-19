@@ -1,10 +1,9 @@
 /* eslint-disable radix */
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Div, IconButton, Text, TooltipWrapper } from '../../../theme/components';
-import { bracked } from '../../../helpers/bracked';
+import { String } from '../../../components';
 import { colors } from '../../../theme/variables/colors';
 import { ease, mq, transitions } from 'styled-gen';
-import { useData } from '../../../components/DataProvider/DataProvider';
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -145,7 +144,6 @@ type PaginationStateProps = {
 
 export const Beneficiaries = (props: BeneficiariesProps) => {
     const { data, countriesCount } = props;
-    const { getString } = useData();
     const [pagination, setPagination] = useState<PaginationStateProps>({ first: 1, last: 6, page: 0 });
 
     const changePage = (page: number) => {
@@ -219,11 +217,14 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
                 sPadding={{ sm: '0 1 1', xs: 1 }}
             >
                 <Text XXSmall>
-                    {bracked(getString('xOfCountries'), {
-                        first: pagination.first,
-                        last: pagination.last,
-                        total: countriesCount
-                    })}
+                    <String
+                        id="xOfCountries"
+                        variables={{
+                            first: pagination.first,
+                            last: pagination.last,
+                            total: countriesCount
+                        }}
+                    />
                 </Text>
                 <Div ml={1.5}>
                     <IconButton

@@ -1,10 +1,10 @@
 import { Col, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
 import { ICommunity } from '../../../apis/types';
 import { ResumeBox } from './ResumeBox';
+import { String } from '../../../components';
 import { dateHelpers } from '../../../helpers/dateHelpers';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { size } from 'polished';
-import { useData } from '../../../components/DataProvider/DataProvider';
 import React from 'react';
 import countriesJson from '../../../constants/countries.json';
 import styled from 'styled-components';
@@ -28,7 +28,6 @@ const Avatar = styled.div<AvatarProps>`
 
 export const MainInfo = (props: ICommunity) => {
     const { contract, country, description, managers, name, state } = props;
-    const { getString } = useData();
 
     return (
         <Section mt={2}>
@@ -64,7 +63,9 @@ export const MainInfo = (props: ICommunity) => {
 
                         {/* Managers */}
                         <Div column mt={2}>
-                            <Heading h3>{getString('communityManagers')}</Heading>
+                            <Heading h3>
+                                <String id="communityManagers" />
+                            </Heading>
 
                             <Div column mt={1}>
                                 {managers?.map(({ user }, index) => (
@@ -75,7 +76,7 @@ export const MainInfo = (props: ICommunity) => {
                                         <Div column ml={1}>
                                             <Heading h6>{user?.username || user?.address}</Heading>
                                             <Text XSmall textSecondary>
-                                                {getString('managerSince')} {dateHelpers.short(user?.createdAt)}
+                                                <String id="managerSince" /> {dateHelpers.short(user?.createdAt)}
                                             </Text>
                                         </Div>
                                     </Div>

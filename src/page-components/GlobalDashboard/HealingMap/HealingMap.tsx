@@ -1,16 +1,10 @@
 import { Col, DashboardCard, Div, Grid, Heading, Row, Section, Text } from '../../../theme/components';
 import { IClaimLocation } from '../../../apis/types';
-import { Map } from '../../../components';
+import { Map, String } from '../../../components';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
 
-type HealingMapProps = {
-    heading?: string;
-    text?: string;
-};
-
-export const HealingMap = (props: HealingMapProps) => {
-    const { heading, text } = props;
+export const HealingMap = () => {
     const [claims, setClaims] = useState<IClaimLocation[] | undefined>();
 
     useEffect(() => {
@@ -28,9 +22,11 @@ export const HealingMap = (props: HealingMapProps) => {
             <Grid>
                 <Row>
                     <Col xs={12}>
-                        <Heading h3>{heading}</Heading>
+                        <Heading h3>
+                            <String id="page.globalDashboard.healingMap.heading" />
+                        </Heading>
                         <Text mt={0.5} small>
-                            {text}
+                            <String id="page.globalDashboard.healingMap.text" />
                         </Text>
                     </Col>
                 </Row>

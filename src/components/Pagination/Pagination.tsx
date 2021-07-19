@@ -1,6 +1,6 @@
 import { Button } from '../../theme/components';
+import { String } from '../String/String';
 import { colors, fonts } from '../../theme';
-import { useData } from '../DataProvider/DataProvider';
 import PaginationComp from 'rc-pagination';
 import React from 'react';
 import styled from 'styled-components';
@@ -16,19 +16,18 @@ type PaginationProps = {
 type ButtonRenderProps = {
     current?: number;
     element?: any;
-    getString: Function;
     page?: number | string;
     type?: string;
 };
 
 const buttonItemRender = (buttonRenderProps: ButtonRenderProps) => {
-    const { current, element, getString, page, type } = buttonRenderProps;
+    const { current, element, page, type } = buttonRenderProps;
     const isActive = current == page;
 
     if (type === 'prev') {
         return (
             <Button pagination regular small>
-                {getString('prev')}
+                <String id="prev" />
             </Button>
         );
     }
@@ -36,7 +35,7 @@ const buttonItemRender = (buttonRenderProps: ButtonRenderProps) => {
     if (type === 'next') {
         return (
             <Button pagination regular small>
-                {getString('next')}
+                <String id="next" />
             </Button>
         );
     }
@@ -113,7 +112,6 @@ const PaginationWrapper = styled.div`
 
 export const Pagination = (props: PaginationProps) => {
     const { count, isPhone, limit, onPageChange, page } = props;
-    const { getString } = useData();
 
     if (count < limit) {
         return null;
@@ -123,7 +121,7 @@ export const Pagination = (props: PaginationProps) => {
         <PaginationWrapper>
             <PaginationComp
                 current={page}
-                itemRender={(current, type, element) => buttonItemRender({ current, element, getString, page, type })}
+                itemRender={(current, type, element) => buttonItemRender({ current, element, page, type })}
                 onChange={(pageNumber: number) => onPageChange(pageNumber)}
                 pageSize={limit}
                 showTitle={false}

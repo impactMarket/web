@@ -1,4 +1,5 @@
 import { Button, Col, Div, Grid, Heading, Row, Section, Text } from '../../../theme/components';
+import { String } from '../../../components';
 import { mq } from 'styled-gen';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import { useRouter } from 'next/router';
@@ -6,14 +7,10 @@ import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 
 type NumbersPropTypes = {
-    buttonLabel: string;
-    heading: string;
     items: {
-        heading: string;
+        labelKey?: string;
         name: string;
-        text: string;
     }[];
-    text: string;
 };
 
 const NumbersWrapper = styled.div`
@@ -60,23 +57,23 @@ export const Numbers = (props: NumbersProps | undefined) => {
                 <Row>
                     <Col center xs={12}>
                         <Heading h2 white>
-                            {numbers?.heading}
+                            <String id="page.homepage.numbers.heading" />
                         </Heading>
                         <Text body ml="auto" mr="auto" mt={1} sMaxWidth={32.75} white>
-                            {numbers?.text}
+                            <String id="page.homepage.numbers.text" />
                         </Text>
                     </Col>
                 </Row>
                 <Row>
                     <Col center xs={12}>
                         <NumbersWrapper>
-                            {numbers?.items.map(({ name, text }, index) => (
+                            {numbers?.items.map(({ labelKey, name }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
                                     <Heading fontSize={{ md: '48 54', xs: '32 42' }} h2 white>
                                         {props?.numbers?.[name] || '--'}
                                     </Heading>
                                     <Text body white>
-                                        {text}
+                                        <String id={labelKey || name} />
                                     </Text>
                                 </Div>
                             ))}
@@ -89,7 +86,7 @@ export const Numbers = (props: NumbersProps | undefined) => {
                             sWidth={{ sm: 'unset', xs: '100%' }}
                             whitePrimary
                         >
-                            {numbers?.buttonLabel}
+                            <String id="viewGlobalDashboard" />
                         </Button>
                     </Col>
                 </Row>

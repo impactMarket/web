@@ -1,9 +1,9 @@
 /* eslint-disable react/no-danger */
 import { Col, Div, Grid, IconButton, Row, Text } from '../../theme/components';
+import { String } from '../String/String';
 import { colors } from '../../theme';
 import { ease, transitions } from 'styled-gen';
 import { hasCookieConsentDismissed, setCookieConsentDismissed } from '../../lib/localStorage';
-import { useData } from '../DataProvider/DataProvider';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import config from '../../../config';
@@ -41,7 +41,6 @@ const TextLink = styled.a`
 export const CookieConsent = () => {
     const [isCookiesConsentVisible, setIsCookiesConsentVisible] = useState(false);
     const [shouldCookiesConsentAppend, setShouldCookiesConsentAppend] = useState(true);
-    const { getString } = useData();
 
     useEffect(() => {
         const cookieConsentDismissed = hasCookieConsentDismissed();
@@ -98,9 +97,10 @@ export const CookieConsent = () => {
                                     sJustifyContent="space-between"
                                 >
                                     <Text XSmall medium>
-                                        {getString('cookieConsentMessage')}&nbsp;
+                                        <String id="cookieConsentMessage" />
+                                        &nbsp;
                                         <TextLink href="/cookies" rel="noreferrer noopener" target="_blank">
-                                            {getString('cookiePolicy')}
+                                            <String id="cookiePolicy" />
                                         </TextLink>
                                     </Text>
                                     <Div pl={1}>

@@ -1,5 +1,5 @@
 import { Div, IconButton, Select, Text } from '../../../theme/components';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { String } from '../../../components';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -39,14 +39,15 @@ type PaginationProps = {
 
 export const CommunitiesTablePagination = (props: PaginationProps) => {
     const { canNextPage, canPreviousPage, count, nextPage, pageIndex, pageSize, previousPage, setPageSize } = props;
-    const { getString } = useData();
     const first = pageIndex * pageSize + 1;
     const last = pageIndex * pageSize + pageSize;
 
     return (
         <PaginationWrapper>
             <Div sAlignItems="center" sDisplay={{ md: 'flex', xs: 'none' }}>
-                <Text XXSmall>{getString('rowsPerPage')}:</Text>
+                <Text XXSmall>
+                    <String id="rowsPerPage" />:
+                </Text>
                 <Select
                     initialSelected={pageSize}
                     ml={0.5}
@@ -57,7 +58,7 @@ export const CommunitiesTablePagination = (props: PaginationProps) => {
             </Div>
             <Div ml="auto" sAlignItems="center">
                 <Text XXSmall sDisplay="inline-flex">
-                    {getString('communitiesPagination', { first, last, total: count })}
+                    <String id="communitiesPagination" variables={{ first, last, total: count }} />
                 </Text>
                 <Div ml={1.5}>
                     <IconButton disabled={!canPreviousPage} icon="left" onClick={previousPage} />

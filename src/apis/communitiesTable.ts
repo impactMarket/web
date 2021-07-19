@@ -26,8 +26,8 @@ const getComunityName = (city: string, country: string, name: string, id: string
     `${city}, ${countries[country]?.name || ''} ${countries[country]?.emoji || ''}`
 ];
 
-const getEstimatedUbiDuration = (metrics: CommunityDailyMetricsAttributes | undefined, getString: Function) =>
-    !metrics ? '-' : `~${Math.floor(metrics?.estimatedDuration)} ${getString('months').toLowerCase()}`;
+const getEstimatedUbiDuration = (metrics: CommunityDailyMetricsAttributes | undefined, t: Function) =>
+    !metrics ? '-' : `~${Math.floor(metrics?.estimatedDuration)} ${t('months').toLowerCase()}`;
 
 const getRaised = (
     { beneficiaries, raised }: { beneficiaries: number; raised: string | BigNumber },
@@ -53,7 +53,7 @@ const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
 };
 
 export const communitiesTable: { [key: string]: Function } = {
-    getRows: (data: ICommunity[], getString: Function) => {
+    getRows: (data: ICommunity[], t: Function) => {
         return data.map(
             ({
                 city,
@@ -73,7 +73,7 @@ export const communitiesTable: { [key: string]: Function } = {
                     beneficiaries: state?.beneficiaries,
                     claimed: getClaimed(state),
                     communityName: getComunityName(city, country, name, id),
-                    estimatedUbiDuration: getEstimatedUbiDuration(metrics, getString),
+                    estimatedUbiDuration: getEstimatedUbiDuration(metrics, t),
                     raised: getRaised(state, maxClaim),
                     ssi: !metrics ? '-' : metrics?.ssi,
                     ubiContract: getAddress(contractAddress),

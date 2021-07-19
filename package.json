@@ -36,6 +36,7 @@
     "styled-components": "^5.0.0",
     "styled-gen": "^1.4.4",
     "styled-reset": "^4.3.4",
+    "translations": "impactMarket/translations",
     "type-fest": "^0.21.3"
   },
   "devDependencies": {
@@ -52,6 +53,7 @@
     "babel-plugin-styled-components": "^1.8.0",
     "eslint": "^7.21.0",
     "eslint-config-im": "impactMarket/eslint-config-im",
+    "eslint-config-next": "^11.0.1",
     "prettier": "^2.2.1",
     "typescript": "^4.2.2"
   },

@@ -1,4 +1,5 @@
 import { useData } from '../DataProvider/DataProvider';
+import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import Head from 'next/head';
 import React from 'react';
 
@@ -46,10 +47,17 @@ const getMetaData: any = (metaData: any) =>
     }, []);
 
 export const SEO = (props: SeoProps) => {
-    const { seo } = useData();
+    const { url } = useData();
     const { meta: metaFromProps } = props;
 
-    const metaObject = Object.assign({}, seo, metaFromProps);
+    const { t } = useTranslation();
+
+    const defaultMeta = ['description', 'keyword', 'title'].reduce(
+        (result, key) => ({ ...result, [key]: t(`seo.${key}`) }),
+        { url }
+    );
+
+    const metaObject = Object.assign({}, defaultMeta, metaFromProps);
 
     const meta = getMetaData(metaObject);
     const title = metaObject?.title;

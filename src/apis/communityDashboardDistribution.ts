@@ -6,7 +6,7 @@ import { numericalValue } from '../helpers/numericalValue';
 import BigNumber from 'bignumber.js';
 
 export const communityDashboardDistribution: { [key: string]: Function } = {
-    claimed: (community: ICommunity, getString: Function) => ({
+    claimed: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ date, claimed }: any) => ({
@@ -14,8 +14,7 @@ export const communityDashboardDistribution: { [key: string]: Function } = {
                     uv: parseFloat(humanifyNumber(claimed))
                 }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('claimedOn'), payload, label),
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('claimedOn'), payload, label),
             type: 'bar'
         },
         numeric: {
@@ -30,13 +29,12 @@ export const communityDashboardDistribution: { [key: string]: Function } = {
         }
     }),
 
-    claims: (community: ICommunity, getString: Function) => ({
+    claims: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ date, claims }) => ({ name: new Date(date).getTime(), uv: claims }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('claimsOn'), payload, label)
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('claimsOn'), payload, label)
         },
         numeric: {
             value: numericalValue(
@@ -45,13 +43,13 @@ export const communityDashboardDistribution: { [key: string]: Function } = {
         }
     }),
 
-    newBeneficiaries: (community: ICommunity, getString: Function) => ({
+    newBeneficiaries: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ beneficiaries, date }) => ({ name: new Date(date).getTime(), uv: beneficiaries }))
                 .reverse(),
             tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('newBeneficiariesOn'), payload, label)
+                getChartDateValueTooltip(t('newBeneficiariesOn'), payload, label)
         },
         numeric: {
             value: numericalValue(

@@ -1,14 +1,15 @@
 import { ATag, Col, Div, Grid, Heading, Img, Row, Section } from '../../../theme/components';
+import { String } from '../../../components';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import React from 'react';
 
 type PartnersType = {
-    heading: string;
     items: {
         image: string;
         name: string;
         url: string;
     }[];
+    keyLabel: string;
 }[];
 
 export const Partners = () => {
@@ -22,7 +23,7 @@ export const Partners = () => {
                 <Row>
                     <Col center sPadding={{ sm: '2.5 null', xs: '2 null' }} xs={12}>
                         <Div inlineFlex sAlignItems="center" sFlexDirection={{ md: 'row', xs: 'column' }}>
-                            {partners.map(({ heading, items }, itemsIndex) => (
+                            {partners.map(({ items, keyLabel }, itemsIndex) => (
                                 <Div
                                     inlineFlex
                                     key={itemsIndex}
@@ -31,7 +32,9 @@ export const Partners = () => {
                                     sAlignItems="center"
                                     sFlexDirection={{ sm: 'row', xs: 'column' }}
                                 >
-                                    <Heading h6>{heading}</Heading>
+                                    <Heading h6>
+                                        <String id={keyLabel} />
+                                    </Heading>
                                     <Div mt={{ sm: 0, xs: 1 }}>
                                         {items.map(({ image, name, url }, indexImage) => (
                                             <ATag

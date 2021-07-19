@@ -1,8 +1,8 @@
 import { Button, Input, ItemsRow, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { generateProps, mq } from 'styled-gen';
-import { useData } from '../../components/DataProvider/DataProvider';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
 import { validateEmail } from '../../helpers/validateEmail';
 import Api from '../../apis/api';
 import React, { useState } from 'react';
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 `;
 
 export const Subscribe = (props: GeneratedPropsTypes) => {
-    const { getString } = useData();
+    const { t } = useTranslation();
     const [fields, setFields] = useState({ email: '', name: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
@@ -58,11 +58,11 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
         }
 
         if (!name || !email) {
-            return setErrorMessage(getString('requiredFields'));
+            return setErrorMessage(t('requiredFields'));
         }
 
         if (!validateEmail(email)) {
-            return setErrorMessage(getString('invalidEmail'));
+            return setErrorMessage(t('invalidEmail'));
         }
 
         setIsLoading(true);
@@ -71,7 +71,7 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
         setIsLoading(false);
 
         if (!success) {
-            return setErrorMessage(getString('somethingWrong'));
+            return setErrorMessage(t('somethingWrong'));
         }
 
         return setSubscribed(true);
@@ -81,7 +81,7 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
         <>
             <Wrapper {...props}>
                 {subscribed ? (
-                    <Text>{getString('subscribeSuccess')}</Text>
+                    <Text>{t('subscribeSuccess')}</Text>
                 ) : (
                     <>
                         <ItemsRow distribute="tablet">
@@ -89,7 +89,7 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
                                 lg
                                 name="name"
                                 onChange={handleChange}
-                                placeholder={getString('firstName')}
+                                placeholder={t('firstName')}
                                 type="text"
                                 value={name || ''}
                             />
@@ -98,12 +98,12 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
                                 mt={{ sm: 0, xs: 1 }}
                                 name="email"
                                 onChange={handleChange}
-                                placeholder={getString('emailAddress')}
+                                placeholder={t('emailAddress')}
                                 type="text"
                                 value={email || ''}
                             />
                             <Button isLoading={isLoading} large medium mt={{ sm: 0, xs: 1 }} onClick={handleSubscribe}>
-                                {getString('subscribe')}
+                                {t('subscribe')}
                             </Button>
                         </ItemsRow>
                     </>
