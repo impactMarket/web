@@ -12,3 +12,4 @@ export * from './Pagination/Pagination';
 export * from './ProgressBar/ProgressBar';
 export * from './SEO/SEO';
 export * from './SocialMenu/SocialMenu';
+export * from './String/String';

@@ -7,9 +7,8 @@ import {
     CommunityListWrapper
 } from './CommunityList.style';
 import { CommunitySkeleton } from './CommunitySkeleton';
-import { Pagination } from '../../../components';
+import { Pagination, String } from '../../../components';
 import { numericalValue } from '../../../helpers/numericalValue';
-import { useData } from '../../../components/DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
@@ -31,7 +30,6 @@ const skeletons = Object.keys(limitPerWindowSize).reduce(
 );
 
 export const CommunitiyList = () => {
-    const { getString } = useData();
     const [activeFilter, setActiveFilter] = useState<any>();
     const [activePage, setActivePage] = useState<any>();
     const [communities, setCommunities] = useState([]);
@@ -146,7 +144,9 @@ export const CommunitiyList = () => {
             <Grid>
                 <Row>
                     <Col xs={12}>
-                        <Heading h2>{getString('communities')}</Heading>
+                        <Heading h2>
+                            <String id="communities" />
+                        </Heading>
                     </Col>
                 </Row>
                 <Row mt={1.5}>
@@ -173,7 +173,7 @@ export const CommunitiyList = () => {
                                                     sHeight={1}
                                                 />
                                             )}
-                                            {getString(filterName)}
+                                            <String id={filterName} />
                                         </Text>
                                     </Chip>
                                 </React.Fragment>

@@ -10,6 +10,7 @@ import {
     Section,
     Text
 } from '../../theme/components';
+import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
 import React from 'react';
 
@@ -30,10 +31,10 @@ export const Cta = () => {
                 <Row middle="xs">
                     <Col lg={5} md={6} pt={{ sm: 0, xs: 2 }} sm={5} xs={12}>
                         <Heading fontSize={{ md: '48 64', xs: '32 42' }} h2 white>
-                            {cta?.heading}
+                            <String id="cta.heading" />
                         </Heading>
                         <Text mt={1} small style={{ lineHeight: '24px' }} white>
-                            {cta?.text}
+                            <String id="cta.text" />
                         </Text>
                         <ItemsRow distribute mt={{ sm: 3, xs: 2 }} sMaxWidth={{ sm: 18 }} spacing={12}>
                             {stores.map(({ name, StoreButton }) => (

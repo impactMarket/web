@@ -1,10 +1,11 @@
 import { Col, Grid, Heading, Row, Section } from '../../../theme/components';
-import { DashboardChartGroup } from '../../../components';
+import { DashboardChartGroup, String } from '../../../components';
 import { ICommunity } from '../../../apis/types';
 import { communityDashboardDistribution } from '../../../apis/communityDashboardDistribution';
 import { communityDashboardEconomic } from '../../../apis/communityDashboardEconomic';
 import { communityDashboardFundraising } from '../../../apis/communityDashboardFundraising';
 import { useData } from '../../../components/DataProvider/DataProvider';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React from 'react';
 
 const chartHelpers: { [key: string]: any } = {
@@ -15,19 +16,24 @@ const chartHelpers: { [key: string]: any } = {
 };
 
 export const Dashboard = (props: ICommunity) => {
-    const { getString, page } = useData();
+    const { page } = useData();
+    const { t } = useTranslation();
 
-    const getChartGroupData = (name: string) => page?.dashboard?.[name] || {};
+    const getChartGroupData = (name: string) => ({
+        ...page?.dashboard?.[name],
+        heading: t(`page.community.dashboard.${name}.heading`),
+        text: t(`page.community.dashboard.${name}.text`)
+    });
 
     const getCharts = (name: string) => {
         const item = getChartGroupData(name);
 
-        const charts = item.charts.map(({ heading, helper }: { heading: string; helper: string }) => {
-            const helperData = chartHelpers[name][helper] ? chartHelpers[name][helper](props, getString) : {};
+        const charts = item.charts.map(({ labelKey, name: helper }: { labelKey?: string; name: string }) => {
+            const helperData = chartHelpers[name][helper] ? chartHelpers[name][helper](props, t) : {};
 
             return {
                 ...helperData,
-                heading
+                heading: t(labelKey || helper)
             };
         });
 
@@ -40,7 +46,9 @@ export const Dashboard = (props: ICommunity) => {
                 <Grid>
                     <Row>
                         <Col xs={12}>
-                            <Heading h2>{getString('communityDashboard')}</Heading>
+                            <Heading h2>
+                                <String id="communityDashboard" />
+                            </Heading>
                         </Col>
                     </Row>
                 </Grid>

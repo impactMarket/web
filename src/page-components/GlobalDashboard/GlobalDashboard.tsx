@@ -1,8 +1,6 @@
+import { ChartGroups } from './ChartGroups/ChartGroups';
 import { Communities } from './Communities/Communities';
 import { Demographics } from './Demographics/Demographics';
-import { Distribution } from './Distribution/Distribution';
-import { Economic } from './Economic/Economic';
-import { Fundraising } from './Fundraising/Fundraising';
 import { Global } from './Global/Global';
 import { HealingMap } from './HealingMap/HealingMap';
 import { IGlobalDashboard } from '../../apis/types';
@@ -22,9 +20,12 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
     const healingMap = page?.healingMap;
     const communities = page?.communities;
     const demographics = page?.demographics;
-    const distribution = page?.distribution;
-    const fundraising = page?.fundraising;
-    const economic = page?.economic;
+
+    const charts = {
+        distribution: page?.distribution,
+        economic: page?.economic,
+        fundraising: page?.fundraising
+    };
 
     return (
         <>
@@ -32,9 +33,7 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
             <HealingMap {...healingMap} />
             <Communities data={data} {...communities} />
             <Demographics data={data} {...demographics} />
-            <Distribution data={data} {...distribution} />
-            <Fundraising data={data} {...fundraising} />
-            <Economic data={data} {...economic} />
+            <ChartGroups data={data} items={charts} />
         </>
     );
 };

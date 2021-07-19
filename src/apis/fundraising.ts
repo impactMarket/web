@@ -6,11 +6,11 @@ import { numericalValue } from '../helpers/numericalValue';
 import BigNumber from 'bignumber.js';
 
 export const fundraising: { [key: string]: Function } = {
-    backers: (data: IGlobalDashboard, getString: Function) => ({
+    backers: (data: IGlobalDashboard, t: Function) => ({
         chart: {
             data: data.monthly.map(({ backers, date }) => ({ name: new Date(date).getTime(), uv: backers })).reverse(),
             tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('monthlyActiveBackers'), payload, label)
+                getChartDateValueTooltip(t('monthlyActiveBackers'), payload, label)
         },
         growth: data.growth.backers,
         numeric: {
@@ -18,13 +18,12 @@ export const fundraising: { [key: string]: Function } = {
         }
     }),
 
-    fundingRate: (data: IGlobalDashboard, getString: Function) => ({
+    fundingRate: (data: IGlobalDashboard, t: Function) => ({
         chart: {
             data: data.monthly
                 .map(({ date, fundingRate }) => ({ name: new Date(date).getTime(), uv: fundingRate }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('fundingRateOn'), payload, label)
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('fundingRateOn'), payload, label)
         },
         growth: data.growth.fundingRate,
         numeric: {
@@ -33,7 +32,7 @@ export const fundraising: { [key: string]: Function } = {
         }
     }),
 
-    raised: (data: IGlobalDashboard, getString: Function) => ({
+    raised: (data: IGlobalDashboard, t: Function) => ({
         chart: {
             data: data.monthly
                 .map(({ date, raised }) => ({
@@ -41,8 +40,7 @@ export const fundraising: { [key: string]: Function } = {
                     uv: parseFloat(humanifyNumber(raised))
                 }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('raisedOn'), payload, label),
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('raisedOn'), payload, label),
             type: 'bar'
         },
         growth: data.growth.raised,

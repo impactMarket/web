@@ -6,26 +6,25 @@ import { numericalValue } from '../helpers/numericalValue';
 import BigNumber from 'bignumber.js';
 
 export const communityDashboardFundraising: { [key: string]: Function } = {
-    backers: (community: ICommunity, getString: Function) => ({
+    backers: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ backers, date }) => ({ name: new Date(date).getTime(), uv: backers }))
                 .reverse(),
             tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('monthlyActiveBackers'), payload, label)
+                getChartDateValueTooltip(t('monthlyActiveBackers'), payload, label)
         },
         numeric: {
             value: numericalValue(community?.dashboard?.dailyState[0].backers.toString())
         }
     }),
 
-    fundingRate: (community: ICommunity, getString: Function) => ({
+    fundingRate: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ date, fundingRate }) => ({ name: new Date(date).getTime(), uv: fundingRate }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('fundingRateOn'), payload, label)
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('fundingRateOn'), payload, label)
         },
         numeric: {
             suffix: '%',
@@ -33,7 +32,7 @@ export const communityDashboardFundraising: { [key: string]: Function } = {
         }
     }),
 
-    raised: (community: ICommunity, getString: Function) => ({
+    raised: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
                 .map(({ date, raised }) => ({
@@ -41,8 +40,7 @@ export const communityDashboardFundraising: { [key: string]: Function } = {
                     uv: parseFloat(humanifyNumber(raised))
                 }))
                 .reverse(),
-            tooltip: (payload: any, label: any): string =>
-                getChartDateValueTooltip(getString('raisedOn'), payload, label),
+            tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('raisedOn'), payload, label),
             type: 'bar'
         },
         numeric: {

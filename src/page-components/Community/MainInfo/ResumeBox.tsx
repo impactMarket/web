@@ -1,28 +1,28 @@
 import { DashboardCard, Div, Heading, Text } from '../../../theme/components';
-import { ProgressBar } from '../../../components';
+import { ProgressBar, String } from '../../../components';
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
 import { numericalValue } from '../../../helpers/numericalValue';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React from 'react';
 
 export const ResumeBox = (props: any) => {
     const { contract, state } = props;
-    const { getString } = useData();
+    const { t } = useTranslation();
 
     return (
         <DashboardCard fluidHeight>
             <Heading center h3>
-                {numericalValue(state?.beneficiaries)} {getString('beneficiaries')}
+                {numericalValue(state?.beneficiaries)} <String id="beneficiaries" />
             </Heading>
             <Text center small>
-                ({communityDashboardResume.getClaimingValuePerFrequence(contract, getString)})
+                ({communityDashboardResume.getClaimingValuePerFrequence(contract, t)})
             </Text>
             <Div mt={1.5}>
                 <Text small textSecondary>
-                    {getString('raisedFromDonors', { donors: state?.backers })}
+                    <String id="raisedFromDonors" variables={{ donors: state?.backers }} />
                 </Text>
                 <Text ml="auto" small textSecondary>
-                    {getString('goal')}
+                    <String id="goal" />
                 </Text>
             </Div>
             <Div>

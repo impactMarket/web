@@ -11,38 +11,32 @@ import {
     Text
 } from '../../../theme/components';
 import { CommunitiesTable } from './CommunitiesTable';
-import { DashboardChart } from '../../../components';
+import { DashboardChart, String } from '../../../components';
 import { ICommunity, IGlobalDashboard } from '../../../apis/types';
 import { communitiesTable } from '../../../apis/communitiesTable';
 import { getChartDateValueTooltip } from '../../../helpers/getChartDateValueTooltip';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
 
 type CommunitiesProps = {
     data: IGlobalDashboard;
-    heading: string;
     filterOptions: {
-        label: string;
+        labelKey: string;
         value: string;
     }[];
-    ssi: {
-        heading: string;
-        text: string;
-    };
     table: {
         header: {
-            label: string;
+            labelAppend?: string;
             name: string;
         }[];
         initialRows: number;
     };
-    text: string;
 };
 
 export const Communities = (props: CommunitiesProps) => {
-    const { data: globalData, filterOptions, heading, ssi, table, text } = props;
-    const { getString } = useData();
+    const { data: globalData, filterOptions, table } = props;
+    const { t } = useTranslation();
     const initialSelectedFilter = filterOptions.find(({ value }) => value === 'bigger')?.value || 'bigger';
     const [communities, setCommunities] = useState<ICommunity[] | undefined>();
     const [communitiesFilter, setCommunitiesFilter] = useState(initialSelectedFilter);
@@ -61,7 +55,7 @@ export const Communities = (props: CommunitiesProps) => {
     }, [communitiesFilter]);
 
     useEffect(() => {
-        const data = communitiesTable.getRows(communities || [], getString);
+        const data = communitiesTable.getRows(communities || [], t);
 
         setData(data);
     }, [communities]);
@@ -75,7 +69,11 @@ export const Communities = (props: CommunitiesProps) => {
     }, [globalData.lastQuarterAvgSSI]);
 
     const columns = React.useMemo(
-        () => table.header.map(({ label: Header, name: accessor }) => ({ Header, accessor })),
+        () =>
+            table.header.map(({ labelAppend, name: accessor }) => ({
+                Header: `${t(accessor)}${labelAppend || ''}`,
+                accessor
+            })),
         []
     );
 
@@ -89,13 +87,13 @@ export const Communities = (props: CommunitiesProps) => {
                 <Row>
                     <Col xs={12}>
                         <Heading h3>
-                            {heading.replace(
-                                '{{ communitiesCount }}',
-                                `${communities?.length || getString('many') || ''}`
-                            )}
+                            <String
+                                id="page.globalDashboard.communities.heading"
+                                variables={{ communitiesCount: `${communities?.length || t('many') || ''}` }}
+                            />
                         </Heading>
                         <Text mt={0.5} small>
-                            {text}
+                            <String id="page.globalDashboard.communities.text" />
                         </Text>
                     </Col>
                 </Row>
@@ -106,7 +104,10 @@ export const Communities = (props: CommunitiesProps) => {
                                 <Select
                                     initialSelected={initialSelectedFilter}
                                     onChange={(value: string) => setCommunitiesFilter(value)}
-                                    options={filterOptions}
+                                    options={filterOptions.map(({ labelKey, ...filter }) => ({
+                                        ...filter,
+                                        label: t(labelKey)
+                                    }))}
                                     sMinWidth={12.25}
                                 />
                             </Div>
@@ -122,20 +123,20 @@ export const Communities = (props: CommunitiesProps) => {
                             <ItemsRow distribute="tablet">
                                 <Div column>
                                     <Text small textSecondary>
-                                        {ssi?.heading}
+                                        <String id="page.globalDashboard.communities.ssi.heading" />
                                     </Text>
                                     <Heading h3 mt={0.25}>
                                         {globalData?.monthly[0]?.avgMedianSSI}%
                                     </Heading>
                                     <Text XXSmall mt={0.5} textSecondary>
-                                        {ssi?.text}
+                                        <String id="page.globalDashboard.communities.ssi.text" />
                                     </Text>
                                 </Div>
                                 {ssiData && (
                                     <DashboardChart
                                         data={ssiData}
                                         tooltip={(payload: any, label: any) =>
-                                            getChartDateValueTooltip(getString('averageSsiWas'), payload, label)
+                                            getChartDateValueTooltip(t('averageSsiWas'), payload, label)
                                         }
                                     />
                                 )}

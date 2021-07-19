@@ -5,15 +5,15 @@ import { numericalValue } from '../helpers/numericalValue';
 import BigNumber from 'bignumber.js';
 
 export const dashboard: { [key: string]: Function } = {
-    getAvgCumulativeUbi: (data: IGlobalDashboard, getString: Function) => ({
+    getAvgCumulativeUbi: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
-        suffix: `/${getString('beneficiary')}`,
+        suffix: `/${t('beneficiary')}`,
         value: currencyValue(humanifyNumber(data?.monthly[0]?.avgComulativeUbi), false)
     }),
 
-    getAvgUbiDuration: (data: IGlobalDashboard, getString: Function) => ({
+    getAvgUbiDuration: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
-        suffix: `${getString('months')} / ${getString('beneficiary')}`,
+        suffix: `${t('months')} / ${t('beneficiary')}`,
         value: numericalValue(data?.monthly[0]?.avgUbiDuration.toString(), false)
     }),
 
@@ -25,7 +25,7 @@ export const dashboard: { [key: string]: Function } = {
         value: numericalValue((data?.monthly[0]?.totalBeneficiaries + data?.today?.totalBeneficiaries).toString())
     }),
 
-    getHelper: (helper: string, data: IGlobalDashboard, getString: Function): Function => {
+    getHelper: (helper: string, data: IGlobalDashboard, t: Function): Function => {
         const method: string = `get${`${helper.charAt(0).toUpperCase()}${helper.slice(1)}`}`;
 
         const helperFunction: any = dashboard[method];
@@ -34,18 +34,18 @@ export const dashboard: { [key: string]: Function } = {
             return () => {};
         }
 
-        return helperFunction(data, getString);
+        return helperFunction(data, t);
     },
 
-    getRatePerBacker: (data: IGlobalDashboard, getString: Function) => ({
+    getRatePerBacker: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
-        suffix: `/${getString('day')}`,
+        suffix: `/${t('day')}`,
         value: currencyValue(data?.monthly[0]?.givingRate.toString())
     }),
 
-    getRatePerBeneficiary: (data: IGlobalDashboard, getString: Function) => ({
+    getRatePerBeneficiary: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
-        suffix: `/${getString('day')}`,
+        suffix: `/${t('day')}`,
         value: currencyValue(data?.monthly[0]?.ubiRate.toString())
     }),
 

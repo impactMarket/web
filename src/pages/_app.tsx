@@ -5,6 +5,7 @@ import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ModalManager } from 'react-modal-handler';
 import { ThemeProvider } from 'styled-components';
+import { TranslationProvider } from '../components/TranslationProvider/TranslationProvider';
 import { modals } from '../modals';
 import { pageview } from '../lib/gtag';
 import ErrorPage from 'next/error';
@@ -55,21 +56,23 @@ export default function App(props: AppProps) {
             </Head>
             <GlobalStyle />
             <ThemeProvider theme={theme}>
-                <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
-                    <DataProvider locale={locale} page={page} url={url}>
-                        <Loading isActive={showSpinner} />
-                        <ModalManager modals={modals} />
-                        <SEO meta={meta} />
-                        <Main>
-                            <Header />
-                            <Content>
-                                <Component {...pageProps} />
-                            </Content>
-                            <Footer />
-                        </Main>
-                        <CookieConsent />
+                <TranslationProvider locale={locale}>
+                    <DataProvider page={page} url={url}>
+                        <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                            <Loading isActive={showSpinner} />
+                            <ModalManager modals={modals} />
+                            <SEO meta={meta} />
+                            <Main>
+                                <Header />
+                                <Content>
+                                    <Component {...pageProps} />
+                                </Content>
+                                <Footer />
+                            </Main>
+                            <CookieConsent />
+                        </GoogleReCaptchaProvider>
                     </DataProvider>
-                </GoogleReCaptchaProvider>
+                </TranslationProvider>
             </ThemeProvider>
         </>
     );

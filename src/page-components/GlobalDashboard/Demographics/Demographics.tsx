@@ -2,7 +2,7 @@ import { AgeRange } from './AgeRange';
 import { Beneficiaries } from './Beneficiaries';
 import { Col, DashboardCard, Grid, Heading, InfoTooltip, Row, Section, Text } from '../../../theme/components';
 import { IGlobalDashboard } from '../../../apis/types';
-import { bracked } from '../../../helpers/bracked';
+import { String } from '../../../components';
 import {
     getDemographicsAgeRange,
     getDemographicsBeneficiariesByCountry,
@@ -11,17 +11,11 @@ import {
 import React, { useEffect, useState } from 'react';
 
 type DemographicsProps = {
-    charts?: {
-        ageRange: { heading: string };
-        countries: { heading: string };
-    };
     data?: IGlobalDashboard;
-    heading?: string;
-    tooltip?: string;
 };
 
 export const Demographics = (props: DemographicsProps) => {
-    const { charts, data, heading, tooltip } = props;
+    const { data } = props;
     const demographics = data?.demographics;
     const totalPercentage = getDemographicsTotalPercentage(demographics);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -42,10 +36,13 @@ export const Demographics = (props: DemographicsProps) => {
                 <Row>
                     <Col xs={12}>
                         <Heading h3>
-                            {heading}
+                            <String id="page.globalDashboard.demographics.heading" />
                             <InfoTooltip>
                                 <Text regular small>
-                                    {bracked(tooltip || '', { totalPercentage })}
+                                    <String
+                                        id="page.globalDashboard.demographics.tooltip"
+                                        variables={{ totalPercentage }}
+                                    />
                                 </Text>
                             </InfoTooltip>
                         </Heading>
@@ -55,7 +52,7 @@ export const Demographics = (props: DemographicsProps) => {
                     <Col md={4} xs={12}>
                         <DashboardCard>
                             <Text small textSecondary>
-                                {charts?.ageRange?.heading}
+                                <String id="page.globalDashboard.demographics.charts.ageRange.heading" />
                             </Text>
                             <AgeRange data={getDemographicsAgeRange(demographics)} />
                         </DashboardCard>
@@ -63,7 +60,7 @@ export const Demographics = (props: DemographicsProps) => {
                     <Col md={8} mt={{ md: 0, xs: 2 }} xs={12}>
                         <DashboardCard sPadding={0}>
                             <Text sPadding="1 1 null 1" small textSecondary>
-                                {charts?.countries?.heading}
+                                <String id="page.globalDashboard.demographics.charts.countries.heading" />
                             </Text>
                             <Beneficiaries
                                 countriesCount={demographics?.length}

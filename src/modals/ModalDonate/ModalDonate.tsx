@@ -2,16 +2,18 @@ import { Chip, Currency, ItemsRow, Text } from '../../theme/components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ModalChipsWrapper, ModalCol, ModalCopyLink, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
 import { QrCode } from './QrCode';
+import { String } from '../../components';
 import { Subscribe } from './Subscribe';
 import { useData } from '../../components/DataProvider/DataProvider';
+import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
 import { withModal } from '../../HOC';
 import React, { useState } from 'react';
 
 export const Modal = () => {
-    const { config, getModal, getString } = useData();
-    const { currencies, scanText, text } = getModal('donate');
+    const { config, modals } = useData();
+    const { currencies } = modals?.donate;
     const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
-    const subscribeText = config?.emailSubscribe?.heading;
+    const { t } = useTranslation();
 
     const getWallet = (code: any) => {
         const wallet = config?.wallets?.find(wallet => code === wallet?.code);
@@ -30,7 +32,9 @@ export const Modal = () => {
     return (
         <>
             <ModalWrapper>
-                <Text small>{text}</Text>
+                <Text small>
+                    <String id="modal.donate.text" />
+                </Text>
                 <ModalChipsWrapper>
                     <ItemsRow>
                         {currencies.map((code: any) => (
@@ -49,7 +53,10 @@ export const Modal = () => {
                 <ModalRow style={{ marginTop: 16 }}>
                     <ModalCol>
                         <Text small>
-                            {scanText.replace('{{ currency }}', wallet?.extendedLabel || wallet?.code?.toUpperCase())}
+                            <String
+                                id="modal.donate.scanText"
+                                variables={{ currency: t(`wallet.extendedLabel.${wallet?.code}`) }}
+                            />
                         </Text>
                         <Text
                             extrabold
@@ -66,7 +73,7 @@ export const Modal = () => {
                         <ModalCopyLink style={{ marginTop: 16 }}>
                             <CopyToClipboard text={wallet?.address}>
                                 <Text bold brandPrimary>
-                                    {getString('copyAddress')}
+                                    <String id="copyAddress" />
                                 </Text>
                             </CopyToClipboard>
                         </ModalCopyLink>
@@ -78,7 +85,7 @@ export const Modal = () => {
             </ModalWrapper>
             <ModalFooter>
                 <Text extrabold manrope small>
-                    {subscribeText}
+                    <String id="emailSubscribe.heading" />
                 </Text>
                 <Subscribe mt={0.5} />
             </ModalFooter>

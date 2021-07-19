@@ -5,11 +5,11 @@ import { humanifyNumber } from '../helpers/humanifyNumber';
 import BigNumber from 'bignumber.js';
 
 export const communityDashboardResume = {
-    getClaimingValuePerFrequence: (contract: CommunityContractAttributes, getString: Function) => {
+    getClaimingValuePerFrequence: (contract: CommunityContractAttributes, t: Function) => {
         const value = currencyValue(humanifyNumber(contract?.claimAmount));
         const frequency = claimFrequencyToText(contract?.baseInterval.toString());
 
-        return getString('eachClaimingPerDay', { frequency, value });
+        return t('eachClaimingPerDay', { frequency, value });
     },
 
     getGoal: (community: ICommunity) => {

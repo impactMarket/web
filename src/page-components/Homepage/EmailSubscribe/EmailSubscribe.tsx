@@ -1,12 +1,13 @@
 import { Button, Col, Grid, Heading, Img, Input, ItemsRow, Row, Section, Text } from '../../../theme/components';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { String } from '../../../components';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import { validateEmail } from '../../../helpers/validateEmail';
 import Api from '../../../apis/api';
 import React, { useState } from 'react';
 
 export const EmailSubscribe = () => {
-    const { config, getString } = useData();
+    const { t } = useTranslation();
     const [fields, setFields] = useState({ email: '', name: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
@@ -14,10 +15,6 @@ export const EmailSubscribe = () => {
     const { executeRecaptcha } = useGoogleReCaptcha();
 
     const { name, email } = fields;
-
-    const emailSubscribe: any = config?.emailSubscribe;
-
-    const heading = emailSubscribe?.heading;
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -44,11 +41,11 @@ export const EmailSubscribe = () => {
         }
 
         if (!name || !email) {
-            return setErrorMessage(getString('requiredFields'));
+            return setErrorMessage(t('requiredFields'));
         }
 
         if (!validateEmail(email)) {
-            return setErrorMessage(getString('invalidEmail'));
+            return setErrorMessage(t('invalidEmail'));
         }
 
         setIsLoading(true);
@@ -57,7 +54,7 @@ export const EmailSubscribe = () => {
         setIsLoading(false);
 
         if (!success) {
-            return setErrorMessage(getString('somethingWrong'));
+            return setErrorMessage(t('somethingWrong'));
         }
 
         return setSubscribed(true);
@@ -71,9 +68,13 @@ export const EmailSubscribe = () => {
                         <Img alt="Random community people jumping" src="/img/subscribe.png" />
                     </Col>
                     <Col md={5} mt={{ md: 0, xs: 2 }} xs={12}>
-                        <Heading h3>{heading}</Heading>
+                        <Heading h3>
+                            <String id="emailSubscribe.heading" />
+                        </Heading>
                         {subscribed ? (
-                            <Text mt={{ md: 1, xs: 2 }}>{getString('subscribeSuccess')}</Text>
+                            <Text mt={{ md: 1, xs: 2 }}>
+                                <String id="subscribeSuccess" />
+                            </Text>
                         ) : (
                             <>
                                 <ItemsRow distribute="tablet" mt={{ md: 1, xs: 2 }}>
@@ -81,7 +82,7 @@ export const EmailSubscribe = () => {
                                         lg
                                         name="name"
                                         onChange={handleChange}
-                                        placeholder={getString('firstName')}
+                                        placeholder={t('firstName')}
                                         type="text"
                                         value={name || ''}
                                         withLightBackground
@@ -91,14 +92,14 @@ export const EmailSubscribe = () => {
                                         mt={{ sm: 0, xs: 1 }}
                                         name="email"
                                         onChange={handleChange}
-                                        placeholder={getString('emailAddress')}
+                                        placeholder={t('emailAddress')}
                                         type="text"
                                         value={email || ''}
                                         withLightBackground
                                     />
                                 </ItemsRow>
                                 <Button fluid isLoading={isLoading} large mt={1} onClick={handleSubscribe}>
-                                    {getString('subscribe')}
+                                    <String id="subscribe" />
                                 </Button>
                             </>
                         )}

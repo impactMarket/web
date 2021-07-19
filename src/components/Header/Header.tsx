@@ -9,6 +9,7 @@ import {
     HeaderWrapper
 } from './Header.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
+import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -18,7 +19,6 @@ export const Header = () => {
     const { asPath, push } = useRouter();
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
-    const donationFootnote = config?.footer?.footnote;
 
     const checkActiveRoute = (route: string | undefined) => (typeof route === 'string' ? asPath === route : false);
 
@@ -66,7 +66,7 @@ export const Header = () => {
                                                     isActive={checkActiveRoute(item?.to)}
                                                     onClick={() => handleLinkClick(item?.to)}
                                                 >
-                                                    {item?.label}
+                                                    <String id={item.labelKey} />
                                                 </TextLink>
                                             </HeaderMenuItem>
                                         ))}
@@ -83,7 +83,7 @@ export const Header = () => {
                                             small
                                             textSecondary
                                         >
-                                            {donationFootnote}
+                                            <String id="footer.note" />
                                         </Text>
                                         <Div inlineBlock>
                                             <SocialMenu mt={4} />
