@@ -29,6 +29,10 @@ export const EmailSubscribe = () => {
     };
 
     const getRecaptchaToken = async () => {
+        if (!executeRecaptcha) {
+            return console.log('No reCAPTCHA ready!');
+        }
+
         try {
             return await executeRecaptcha('Form: subscribe');
         } catch (error) {

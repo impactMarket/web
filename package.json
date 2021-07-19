@@ -52,6 +52,7 @@
     "babel-plugin-styled-components": "^1.8.0",
     "eslint": "^7.21.0",
     "eslint-config-im": "impactMarket/eslint-config-im",
+    "eslint-config-next": "^11.0.1",
     "prettier": "^2.2.1",
     "typescript": "^4.2.2"
   },
