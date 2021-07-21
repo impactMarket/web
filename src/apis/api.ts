@@ -13,7 +13,6 @@ import {
 import { Numbers } from 'humanify-numbers';
 import { getRequest, postRequest } from './client';
 import axios from 'axios';
-import config from '../../config';
 
 export default class Api {
     static async getAllClaimLocation(): Promise<IClaimLocation[]> {
@@ -87,7 +86,15 @@ export default class Api {
         return { ...result, demographics };
     }
 
-    static async submitHubspotContact({ email, name }: { email: string; name: string }): Promise<any> {
+    static async submitHubspotContact({
+        email,
+        name,
+        recaptchaToken
+    }: {
+        email: string;
+        name: string;
+        recaptchaToken: string;
+    }): Promise<any> {
         const fields = [
             { name: 'email', value: email },
             { name: 'firstname', value: name }
@@ -101,14 +108,11 @@ export default class Api {
         const date = new Date();
         const submittedAt = date.getTime();
 
-        const result = await axios.post(
-            `https://api.hsforms.com/submissions/v3/integration/submit/${config.hubspotId}/${config.hubspotContactFormId}`,
-            { context, fields, submittedAt }
-        );
+        const data = { context, fields, submittedAt };
 
-        const success = result.status === 200;
+        const result = await axios.post('api/subscribe', { data, recaptchaToken });
 
-        return { success };
+        return { success: result?.data?.success };
     }
 
     static async subscribeEmail(email: string): Promise<any> {
