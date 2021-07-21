@@ -44,16 +44,16 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
 
     const getRecaptchaToken = async () => {
         try {
-            return await executeRecaptcha('Form: subscribe');
+            return await executeRecaptcha('donate_modal_subscribe');
         } catch (error) {
             return console.log(error);
         }
     };
 
     const handleSubscribe = async () => {
-        const token = await getRecaptchaToken();
+        const recaptchaToken = await getRecaptchaToken();
 
-        if (!token) {
+        if (!recaptchaToken) {
             return setErrorMessage('Ups! reCAPTCHA error...');
         }
 
@@ -66,7 +66,7 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
         }
 
         setIsLoading(true);
-        const { success } = await Api.submitHubspotContact({ email, name });
+        const { success } = await Api.submitHubspotContact({ email, name, recaptchaToken });
 
         setIsLoading(false);
 
