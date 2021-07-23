@@ -15,7 +15,7 @@ export const communityDashboardEconomic: { [key: string]: Function } = {
                 getChartDateValueTooltip(t('addressReachedOn'), payload, label)
         },
         numeric: {
-            value: numericalValue((community?.reachedLastMonth?.reach || 0).toString())
+            value: numericalValue((community?.dashboard?.reachedLastMonth?.reach || 0).toString())
         }
     }),
 
