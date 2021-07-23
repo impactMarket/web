@@ -15,7 +15,7 @@ export const communityDashboardFundraising: { [key: string]: Function } = {
                 getChartDateValueTooltip(t('monthlyActiveBackers'), payload, label)
         },
         numeric: {
-            value: numericalValue(community?.dashboard?.dailyState[0].backers.toString())
+            value: numericalValue(community?.dashboard?.dailyState[0].monthlyBackers.toString())
         }
     }),
 
