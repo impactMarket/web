@@ -154,6 +154,10 @@ export interface IManager {
 export interface ICommunityDashboard {
     dailyState: IGlobalDailyState[];
     metrics: CommunityDailyMetricsAttributes[];
+    reachedLastMonth: {
+        reach: number;
+        reachOut: number;
+    };
 }
 
 export interface ICommunity extends CommunityAttributes {
@@ -163,7 +167,6 @@ export interface ICommunity extends CommunityAttributes {
     metrics?: CommunityDailyMetricsAttributes | CommunityDailyMetricsAttributes[] | any;
     state: CommunityStateAttributes;
     dashboard: ICommunityDashboard;
-    reachedLastMonth?: any;
 }
 
 // in app
