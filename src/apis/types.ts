@@ -27,31 +27,32 @@ export interface ICommunities {
 }
 
 export interface IGlobalDailyState {
-    date: Date;
+    avgComulativeUbi: string;
     avgMedianSSI: number;
+    avgUbiDuration: number;
+    backers: number;
+    beneficiaries: number;
     claimed: string;
     claims: number;
-    beneficiaries: number;
+    date: Date;
+    fundingRate: number;
+    givingRate: number;
+    monthlyBackers: number;
     raised: string;
-    backers: number;
-    volume: string;
-    transactions: number;
     reach: number;
     reachOut: number;
-    totalRaised: string;
-    totalDistributed: string;
+    spendingRate: number;
     totalBackers: number;
     totalBeneficiaries: number;
-    givingRate: number;
-    ubiRate: number;
-    fundingRate: number;
-    spendingRate: number;
-    avgComulativeUbi: string;
-    avgUbiDuration: number;
-    totalVolume: string;
-    totalTransactions: BigInt;
+    totalDistributed: string;
+    totalRaised: string;
     totalReach: BigInt;
     totalReachOut: BigInt;
+    totalTransactions: BigInt;
+    totalVolume: string;
+    transactions: number;
+    ubiRate: number;
+    volume: string;
 }
 
 export interface IGlobalApiResult {
