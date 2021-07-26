@@ -9,7 +9,7 @@ export const communityDashboardFundraising: { [key: string]: Function } = {
     backers: (community: ICommunity, t: Function) => ({
         chart: {
             data: community?.dashboard?.dailyState
-                .map(({ backers, date }) => ({ name: new Date(date).getTime(), uv: backers }))
+                .map(({ date, monthlyBackers }) => ({ name: new Date(date).getTime(), uv: monthlyBackers }))
                 .reverse(),
             tooltip: (payload: any, label: any): string =>
                 getChartDateValueTooltip(t('monthlyActiveBackers'), payload, label)
