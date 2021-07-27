@@ -5520,7 +5520,7 @@ tr46@^1.0.1:
 
 translations@impactMarket/translations:
   version "1.0.0"
-  resolved "https://codeload.github.com/impactMarket/translations/tar.gz/f281a2cd4b5802763250aaf4e2795a068994a1e2"
+  resolved "https://codeload.github.com/impactMarket/translations/tar.gz/a4088fb390bb5bfc8cf05101864a7429a322ee1a"
 
 ts-pnp@^1.1.6:
   version "1.2.0"
