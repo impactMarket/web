@@ -75,11 +75,13 @@ export const Footer = () => {
                             >
                                 {item?.to ? (
                                     <Link href={item?.to || ''} key={index}>
-                                        <TextLink isActive={checkActiveRoute(item?.to)}>{item?.label}</TextLink>
+                                        <TextLink isActive={checkActiveRoute(item?.to)}>
+                                            <String id={item.labelKey} />
+                                        </TextLink>
                                     </Link>
                                 ) : (
                                     <TextLink href={item?.href} key={index} rel="noopener noreferrer" target="_blank">
-                                        {item?.label}
+                                        <String id={item.labelKey} />
                                     </TextLink>
                                 )}
                             </Col>

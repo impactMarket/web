@@ -27,7 +27,7 @@ export const Warning = (props: WarningProps) => {
     return (
         <WarningWrapper sBorderColor={type} {...forwardProps}>
             <Div pt={0.2}>
-                <Icon icon="warning" sColor={type} sWidth={1} />
+                <Icon icon="warning" sColor={type} sHeight={1} sWidth={1} />
             </Div>
             <Text ml={0.5} small>
                 {children}
