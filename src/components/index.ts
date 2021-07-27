@@ -13,3 +13,4 @@ export * from './ProgressBar/ProgressBar';
 export * from './SEO/SEO';
 export * from './SocialMenu/SocialMenu';
 export * from './String/String';
+export * from './Warning/Warning';
