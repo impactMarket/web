@@ -73,7 +73,7 @@ export const MainInfo = (props: ICommunity) => {
                                         <Avatar image={user?.avatar?.url}>
                                             {!user?.avatar?.url && <Icon icon="user" textSecondary />}
                                         </Avatar>
-                                        <Div column ml={1}>
+                                        <Div column ml={1} sWidth="100%">
                                             <Heading h6>{user?.username || user?.address}</Heading>
                                             <Text XSmall textSecondary>
                                                 <String id="managerSince" /> {dateHelpers.short(user?.createdAt)}
