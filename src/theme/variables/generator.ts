@@ -33,6 +33,7 @@ export const generator = {
     variableProps: [
         { name: 'sAlignItems', list: flexAlignments.alignItemsAligments, cssProp: 'align-items' },
         { name: 'sBackground', list: colors, cssProp: 'background-color' },
+        { name: 'sBorderColor', list: colors, cssProp: 'border-color' },
         { name: 'sColor', list: colors, cssProp: 'color' },
         { name: 'sDisplay', list: display, cssProp: 'display' },
         { name: 'sFontSize', cssProp: 'font-size', units: 'rem' },

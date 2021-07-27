@@ -22,5 +22,6 @@ export const colors = {
     error: '#EB5757',
     border: '#EBEBEB',
     success: '#2DCE89',
+    warning: '#FE9A22',
     yellow: '#FFC278'
 };

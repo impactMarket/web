@@ -1,5 +1,5 @@
 import { Col, Grid, Heading, Row, Section } from '../../../theme/components';
-import { DashboardChartGroup, String } from '../../../components';
+import { DashboardChartGroup, String, Warning } from '../../../components';
 import { ICommunity } from '../../../apis/types';
 import { communityDashboardDistribution } from '../../../apis/communityDashboardDistribution';
 import { communityDashboardEconomic } from '../../../apis/communityDashboardEconomic';
@@ -18,6 +18,7 @@ const chartHelpers: { [key: string]: any } = {
 export const Dashboard = (props: ICommunity) => {
     const { page } = useData();
     const { t } = useTranslation();
+    const withDashboard = !!props?.dashboard?.dailyState?.length;
 
     const getChartGroupData = (name: string) => ({
         ...page?.dashboard?.[name],
@@ -42,7 +43,12 @@ export const Dashboard = (props: ICommunity) => {
 
     return (
         <>
-            <Section mt={2} sBackground="backgroundLight" sPadding="2 0 0">
+            <Section
+                mt={2}
+                pb={{ sm: !withDashboard ? 4 : 0, xs: !withDashboard ? 2 : 0 }}
+                sBackground={withDashboard && 'backgroundLight'}
+                sPadding="2 0 0"
+            >
                 <Grid>
                     <Row>
                         <Col xs={12}>
@@ -51,17 +57,23 @@ export const Dashboard = (props: ICommunity) => {
                             </Heading>
                         </Col>
                     </Row>
+                    {!withDashboard && (
+                        <Warning mt={1}>
+                            <String id="page.community.dashboard.recentCommunityWarning" />
+                        </Warning>
+                    )}
                 </Grid>
             </Section>
-            {Object.keys(chartHelpers).map((name, index) => (
-                <DashboardChartGroup
-                    {...getChartGroupData(name)}
-                    charts={getCharts(name)}
-                    key={index}
-                    pb={Object.keys(chartHelpers).length === index + 1 ? 4 : 0}
-                    pt={{ sm: index === 0 ? 2 : 4, xs: 2 }}
-                />
-            ))}
+            {withDashboard &&
+                Object.keys(chartHelpers).map((name, index) => (
+                    <DashboardChartGroup
+                        {...getChartGroupData(name)}
+                        charts={getCharts(name)}
+                        key={index}
+                        pb={Object.keys(chartHelpers).length === index + 1 ? 4 : 0}
+                        pt={{ sm: index === 0 ? 2 : 4, xs: 2 }}
+                    />
+                ))}
         </>
     );
 };
