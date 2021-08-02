@@ -22,10 +22,11 @@ export default class Api {
     }
 
     static async getCommunities(
-        { extended = false, filter = '', limit = 10, orderBy = 'bigger', page = 1 }: any = {
+        { extended = false, filter = '', limit = 10, name = '', orderBy = 'bigger', page = 1 }: any = {
             extended: false,
             filter: '',
             limit: 10,
+            name: '',
             orderBy: 'bigger',
             page: 1
         }
@@ -35,7 +36,7 @@ export default class Api {
         const response = await getRequest<ICommunities>(
             `/community/list/?offset=${offset}&limit=${limit}&filter=${filter}&orderBy=${orderBy}${
                 extended ? '&extended=true' : ''
-            }`
+            }${name ? `&name=${name}` : ''}`
         );
         const items = response?.data || [];
         const count = response?.count;
