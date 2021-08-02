@@ -10,6 +10,7 @@ export * from './Loading/Loading';
 export * from './Map/Map';
 export * from './Pagination/Pagination';
 export * from './ProgressBar/ProgressBar';
+export * from './SearchInput/SearchInput';
 export * from './SEO/SEO';
 export * from './SocialMenu/SocialMenu';
 export * from './String/String';

@@ -18,6 +18,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
     border: 0;
     color: ${colors.textSecondary};
     display: inline-flex;
+    flex-shrink: 0;
     justify-content: center;
     outline: 0;
 
