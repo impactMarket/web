@@ -1,7 +1,8 @@
 import { bracked } from '../../helpers/bracked';
 import React, { createContext } from 'react';
 import langConfig from '../../../lang-config';
-import translations from 'translations';
+// @ts-ignore
+import translations from '../../../i18n/translations';
 
 const defaultLang = langConfig.find(({ isDefault }) => isDefault)?.shortCode || 'en';
 const getLangShortCode = (locale: string) => langConfig.find(({ code }) => code === locale)?.shortCode || defaultLang;

@@ -2,11 +2,12 @@
   "name": "impact-market-web",
   "version": "1.0.0",
   "scripts": {
-    "build": "next build",
-    "dev": "next",
+    "build": "yarn translations && next build",
+    "dev": "yarn translations && next",
     "generate:icons": "yarn svglist generate",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "translations": "node ./utils/getTranslationsFromRepo"
   },
   "dependencies": {
     "@psoares/svg-list": "^1.1.6",
@@ -36,7 +37,6 @@
     "styled-components": "^5.0.0",
     "styled-gen": "^1.4.4",
     "styled-reset": "^4.3.4",
-    "translations": "impactMarket/translations",
     "type-fest": "^0.21.3"
   },
   "devDependencies": {
