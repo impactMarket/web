@@ -1,4 +1,6 @@
 import {
+    CommunityListRequestArguments,
+    CommunityListRequestResponseType,
     DataResponseType,
     IClaimLocation,
     ICommunities,
@@ -11,6 +13,7 @@ import {
     IManager
 } from './types';
 import { Numbers } from 'humanify-numbers';
+import { createQueryParamsFromObj } from '../helpers/createQueryParamsFromObj';
 import { getRequest, postRequest } from './client';
 import axios from 'axios';
 
@@ -22,22 +25,19 @@ export default class Api {
     }
 
     static async getCommunities(
-        { extended = false, filter = '', limit = 10, name = '', orderBy = 'bigger', page = 1 }: any = {
-            extended: false,
-            filter: '',
-            limit: 10,
-            name: '',
-            orderBy: 'bigger',
-            page: 1
-        }
-    ): Promise<any> {
-        const offset = (page - 1) * limit;
+        requestOptions: CommunityListRequestArguments
+    ): Promise<CommunityListRequestResponseType> {
+        const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
+        const baseOptions = { extended: false, limit: 10, orderBy: 'bigger', page: 1 };
+        const options = Object.assign({}, baseOptions, requestOptions);
+        const { page, limit } = options;
 
-        const response = await getRequest<ICommunities>(
-            `/community/list/?offset=${offset}&limit=${limit}&filter=${filter}&orderBy=${orderBy}${
-                extended ? '&extended=true' : ''
-            }${name ? `&name=${name}` : ''}`
-        );
+        const offset = (page - 1) * limit;
+        const query = createQueryParamsFromObj({ offset, ...options }, params);
+        const url = `/community/list/${query}`;
+
+        const response = await getRequest<ICommunities>(url);
+
         const items = response?.data || [];
         const count = response?.count;
 
@@ -62,6 +62,12 @@ export default class Api {
         };
 
         return communityResponse?.success ? data : undefined;
+    }
+
+    static async getCommunityCount(groupBy: string = 'country'): Promise<any> {
+        const response = await getRequest<DataResponseType<any>>(`/community/count?groupBy=${groupBy}`);
+
+        return response?.data;
     }
 
     static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {

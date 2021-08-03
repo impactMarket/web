@@ -17,6 +17,9 @@ export const colors = {
     backgroundLight: '#F4F5F7',
     backgroundDark: '#172032',
 
+    // borders
+    borderLight: '#DCDFE4',
+
     // Defaults
     white: '#ffffff',
     error: '#EB5757',
