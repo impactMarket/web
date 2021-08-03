@@ -1,3 +1,19 @@
+export type CommunityListRequestArguments = {
+    country?: string;
+    extended?: boolean;
+    filter?: string;
+    limit?: string | number;
+    name?: string;
+    orderBy?: string;
+    page?: string | number;
+};
+
+export type CommunityListRequestResponseType = {
+    count: number;
+    items?: ICommunity[];
+    page: number;
+};
+
 export interface GlobalGrowth {
     date: Date;
     claimed: number;

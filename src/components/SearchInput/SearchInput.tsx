@@ -6,8 +6,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 type SearchInputProps = GeneratedPropsTypes & {
-    defaultValue?: string | string[];
+    defaultValue?: string;
     onChange: Function;
+    onReset?: Function;
     placeholder?: string;
 };
 
@@ -30,7 +31,7 @@ const InputWrapper = styled.div<GeneratedPropsTypes>`
 `;
 
 export const SearchInput = (props: SearchInputProps) => {
-    const { defaultValue, onChange, placeholder, ...forwardProps } = props;
+    const { defaultValue, onChange, onReset, placeholder, ...forwardProps } = props;
     const [inputValue, setInputValue] = useState(defaultValue);
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export const SearchInput = (props: SearchInputProps) => {
 
     const handleClear = () => {
         setInputValue('');
-        onChange('');
+        onReset();
     };
 
     return (
