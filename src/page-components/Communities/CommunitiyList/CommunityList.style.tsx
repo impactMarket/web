@@ -1,20 +1,9 @@
 import { colors } from '../../../theme';
 import { ease, mq, transitions } from 'styled-gen';
-import { rgba, size } from 'polished';
+import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 
 const span = 1.375;
-
-export const CommunityEmpytyListMessageWrapper = styled.div`
-    ${size('100%')};
-
-    align-items: center;
-    background-color: ${colors.white};
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-    padding: 6rem 0;
-`;
 
 export const CommunityListChipSeparator = styled.div`
     border-left: 1px solid ${colors.brandSecondaryLight};
@@ -76,5 +65,4 @@ export const CommunityListWrapper = styled.ul`
     flex-wrap: wrap;
     margin: -1rem -${span / 2}rem;
     min-width: 100%;
-    position: relative;
 `;

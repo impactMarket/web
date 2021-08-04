@@ -15,7 +15,6 @@ type IconProps = {
 
 const IconSvg = styled.svg<GeneratedPropsTypes>`
     fill: currentColor;
-    flex-shrink: 0;
     height: ${({ sHeight }) => (!sHeight ? 'auto' : undefined)};
     vertical-align: middle;
     width: ${({ sWidth }) => (!sWidth ? 'auto' : undefined)};

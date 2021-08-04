@@ -1,6 +1,5 @@
 import { Chip, Col, Div, Grid, Heading, Icon, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import {
-    CommunityEmpytyListMessageWrapper,
     CommunityListChipSeparator,
     CommunityListItem,
     CommunityListItemImage,
@@ -8,8 +7,7 @@ import {
     CommunityListWrapper
 } from './CommunityList.style';
 import { CommunitySkeleton } from './CommunitySkeleton';
-import { Pagination, SearchInput, String } from '../../../components';
-import { debounce } from 'lodash';
+import { Pagination, String } from '../../../components';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useRouter } from 'next/router';
 import Api from '../../../apis/api';
@@ -22,7 +20,7 @@ const filters = ['allCommunities', 'featured'] as const;
 
 const limitPerWindowSize: { [key: string]: any } = {
     desktop: 10,
-    phone: 1,
+    phone: 3,
     tablet: 6
 };
 
@@ -32,14 +30,33 @@ const skeletons = Object.keys(limitPerWindowSize).reduce(
 );
 
 export const CommunitiyList = () => {
+    const [activeFilter, setActiveFilter] = useState<any>();
+    const [activePage, setActivePage] = useState<any>();
     const [communities, setCommunities] = useState([]);
     const [count, setCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [skeleton, setSkeleton] = useState([]);
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
-    const { isReady, pathname, replace, query, push } = router;
-    const { filter, name, page } = query;
+    const { isReady, pathname, push, replace, query } = router;
+
+    useEffect(() => {
+        const { filter, page } = query;
+
+        if (isReady && (!filter || !page)) {
+            push({ pathname, query: { ...query, filter: filter || filters[0], page: page || 1 } }, undefined, {
+                shallow: true
+            });
+        }
+
+        if (isReady && filter !== activeFilter) {
+            setActiveFilter(filter);
+        }
+
+        if (isReady && page !== activePage) {
+            setActivePage(page);
+        }
+    }, [query]);
 
     useEffect(() => {
         const handleWindowSize = () => {
@@ -61,23 +78,31 @@ export const CommunitiyList = () => {
     }, [windowWidth]);
 
     useEffect(() => {
-        const { filter, name, page } = query;
-
-        if (windowWidth && isReady) {
+        if (windowWidth) {
             const limit = limitPerWindowSize[windowWidth];
 
-            setSkeleton(skeletons[windowWidth]);
+            if (activeFilter && activePage) {
+                const getCommunites = async () => {
+                    setIsLoading(true);
+                    const { count, items } = await Api.getCommunities({
+                        filter: activeFilter,
+                        limit,
+                        page: activePage
+                    });
+
+                    setCommunities(items);
+                    setCount(count);
+                    setIsLoading(false);
+                };
+
+                getCommunites();
+            }
 
             const getCommunites = async () => {
                 setIsLoading(true);
-                const { count, items } = await Api.getCommunities({
-                    filter,
-                    limit,
-                    name,
-                    page
-                });
+                const { count, items } = await Api.getCommunities({ filter: activeFilter, limit, page: activePage });
 
-                if (!items.length && +page > 1) {
+                if (!items.length && activePage > 1) {
                     replace({ pathname, query: { ...query, page: 1 } }, undefined, {
                         shallow: true
                     });
@@ -89,54 +114,39 @@ export const CommunitiyList = () => {
             };
 
             getCommunites();
+
+            setSkeleton(skeletons[windowWidth]);
         }
-    }, [query, windowWidth]);
+    }, [activeFilter, activePage, windowWidth]);
 
     const handleFilterClick = (filterName: typeof filters[number]) => {
-        if (filterName === filter) {
+        if (filterName === activeFilter) {
             return;
         }
 
-        replace({ pathname, query: { ...query, filter: filterName, page: 1 } }, undefined, { shallow: true });
+        push({ pathname, query: { ...query, filter: filterName, page: 1 } }, undefined, { shallow: true });
     };
 
-    const handlePageChange = (selectedPage: number) => {
-        if (selectedPage === +page) {
+    const handlePageChange = (page: number) => {
+        if (page === activePage) {
             return;
         }
 
-        replace({ pathname, query: { ...query, page: selectedPage } }, undefined, { shallow: true });
+        push({ pathname, query: { ...query, page } }, undefined, { shallow: true });
     };
 
     const handleCommunityClick = (communityId: string | number) => {
-        push(`communities/${communityId}`);
+        router.push(`communities/${communityId}`);
     };
-
-    const handleSearch = debounce(name => {
-        replace({ pathname, query: { ...query, name, page: 1 } }, undefined, { shallow: true });
-    }, 500);
 
     return (
         <Section mt={2}>
             <Grid>
-                <Row middle="xs">
-                    <Col sm={7} xs={12}>
+                <Row>
+                    <Col xs={12}>
                         <Heading h2>
                             <String id="communities" />
                         </Heading>
-                    </Col>
-                    <Col mt={{ sm: 0, xs: 1 }} sm={5} xs={12}>
-                        <String id="searchByCommunityName">
-                            {(placeholder: string) => (
-                                <SearchInput
-                                    defaultValue={name}
-                                    ml={{ sm: 'auto' }}
-                                    onChange={handleSearch}
-                                    placeholder={placeholder}
-                                    sMaxWidth={{ sm: 14 }}
-                                />
-                            )}
-                        </String>
                     </Col>
                 </Row>
                 <Row mt={1.5}>
@@ -147,7 +157,7 @@ export const CommunitiyList = () => {
                                     {index === 1 && <CommunityListChipSeparator />}
                                     <Chip
                                         as="a"
-                                        isActive={filter === filterName || (index === 0 && !filter)}
+                                        isActive={activeFilter === filterName}
                                         key={index}
                                         onClick={() => handleFilterClick(filterName)}
                                         textUppercase={false}
@@ -157,7 +167,9 @@ export const CommunitiyList = () => {
                                                 <Icon
                                                     icon="star"
                                                     mr={0.25}
-                                                    sColor={filter === filterName ? 'yellow' : 'brandSecondaryLight'}
+                                                    sColor={
+                                                        activeFilter === filterName ? 'yellow' : 'brandSecondaryLight'
+                                                    }
                                                     sHeight={1}
                                                 />
                                             )}
@@ -172,8 +184,7 @@ export const CommunitiyList = () => {
                 <Row mt={2} pb={2}>
                     <Col xs={12}>
                         <Div>
-                            {/* Loading */}
-                            {isLoading && (
+                            {!communities || isLoading ? (
                                 <CommunityListWrapper>
                                     {skeleton.map((_, index) => (
                                         <CommunityListItem key={index}>
@@ -181,19 +192,7 @@ export const CommunitiyList = () => {
                                         </CommunityListItem>
                                     ))}
                                 </CommunityListWrapper>
-                            )}
-
-                            {/* Empty state */}
-                            {!communities?.length && !isLoading && (
-                                <CommunityEmpytyListMessageWrapper>
-                                    <Heading h3>
-                                        <String id="noCommunitiesMatchCriteria" />
-                                    </Heading>
-                                </CommunityEmpytyListMessageWrapper>
-                            )}
-
-                            {/* Communities list */}
-                            {!isLoading && !!communities?.length && (
+                            ) : (
                                 <CommunityListWrapper>
                                     {communities.map((community: any, index: number) => (
                                         <CommunityListItem key={index} withLink>
@@ -228,7 +227,7 @@ export const CommunitiyList = () => {
                                 isPhone={windowWidth === 'phone'}
                                 limit={windowWidth ? limitPerWindowSize[windowWidth] : limitPerWindowSize.desktop}
                                 onPageChange={handlePageChange}
-                                page={+page || 1}
+                                page={activePage}
                             />
                         )}
                     </Col>
