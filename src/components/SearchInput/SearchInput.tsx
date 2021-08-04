@@ -17,6 +17,7 @@ const Input = styled.input`
     font-family: ${fonts.families.inter};
     height: 2rem;
     line-height: 2rem;
+    font-size: 0.875rem;
     outline: 0;
     padding-right: 0.5rem;
     width: 100%;
