@@ -16,13 +16,11 @@ import React, { useState } from 'react';
 
 export const Header = () => {
     const { config } = useData();
-    const router = useRouter();
-    const { asPath, push } = router;
+    const { asPath, push } = useRouter();
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
 
-    const checkActiveRoute = (route: string | undefined) =>
-        typeof route === 'string' ? asPath.split('?')[0] === route : false;
+    const checkActiveRoute = (route: string | undefined) => (typeof route === 'string' ? asPath === route : false);
 
     const handleMenuButtonClick = () => setIsMenuVisible(!isMenuVisible);
 

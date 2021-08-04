@@ -69,8 +69,8 @@ export const CountryFilterField = (props: CountryFilterFieldProps) => {
         <FilterButton
             flyoutProps={{ small: true }}
             label={
-                <Div sAlignItems="center">
-                    <Icon icon="world" sHeight={1} sWidth={1} textSecondary />
+                <Div>
+                    <Icon icon="world" sWidth={1} textSecondary />
                     <Text left medium ml={0.625} sWidth="100%" small textPrimary>
                         {!!selected?.length ? (
                             <>
@@ -80,7 +80,7 @@ export const CountryFilterField = (props: CountryFilterFieldProps) => {
                             <String id="allCountries" />
                         )}
                     </Text>
-                    <Icon icon="caret" ml={0.625} sHeight={0.7} sWidth={0.7} textSecondary />
+                    <Icon icon="caret" ml={0.625} sWidth={0.7} textSecondary />
                 </Div>
             }
         >
