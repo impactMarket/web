@@ -4,10 +4,11 @@ import { colors, fonts } from '../../../theme';
 import { mq } from 'styled-gen';
 import { remove } from 'lodash';
 import { rgba } from 'polished';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type FilterListProps = {
+    defaultSearchValue?: string;
     defaultValue?: string[];
     isResetable?: boolean;
     isSelectable?: boolean;
@@ -107,6 +108,7 @@ const ListWrapper = styled.div``;
 
 export const FilterList = (props: FilterListProps) => {
     const {
+        defaultSearchValue,
         defaultValue,
         handleChange,
         handleSearch,
@@ -117,6 +119,7 @@ export const FilterList = (props: FilterListProps) => {
         withCounter
     } = props;
     const [selected, setSelected] = useState(defaultValue || []);
+    const [searchInputValue, setSearchInputValue] = useState(defaultSearchValue || '');
 
     useEffect(() => {
         if (typeof handleChange === 'function' && isSelectable) {
@@ -124,13 +127,11 @@ export const FilterList = (props: FilterListProps) => {
         }
     }, [selected]);
 
-    const handleReset = () => {
-        if (!selected?.length) {
-            return;
+    useEffect(() => {
+        if (typeof handleSearch === 'function') {
+            handleSearch(searchInputValue);
         }
-
-        setSelected([]);
-    };
+    }, [searchInputValue]);
 
     const checkIfIsSelected = (value?: string) => {
         if (!isSelectable) {
@@ -138,6 +139,16 @@ export const FilterList = (props: FilterListProps) => {
         }
 
         return !!selected?.find(val => val === value);
+    };
+
+    const handleReset = () => {
+        if (!!selected?.length) {
+            setSelected([]);
+        }
+
+        if (searchInputValue) {
+            setSearchInputValue('');
+        }
     };
 
     const handleToggle = (value?: string) => {
@@ -154,13 +165,22 @@ export const FilterList = (props: FilterListProps) => {
         setSelected(selectedItems);
     };
 
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchInputValue(event?.target?.value);
+    };
+
     return (
         <ListWrapper>
             {typeof handleSearch === 'function' && (
                 <Div sPadding={1}>
                     <ListSearchInputWrapper>
                         <Icon brandSecondaryLight icon="magnifier" sHeight={1} />
-                        <ListSearchInput onChange={handleSearch} placeholder={searchPlaceholder} type="text" />
+                        <ListSearchInput
+                            onChange={handleSearchChange}
+                            placeholder={searchPlaceholder}
+                            type="text"
+                            value={searchInputValue || ''}
+                        />
                     </ListSearchInputWrapper>
                 </Div>
             )}

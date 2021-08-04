@@ -6,7 +6,7 @@ import { multipleItemString } from '../../../helpers/multipleItemString';
 import { sortBy } from 'lodash';
 import { useTranslation } from '../../TranslationProvider/TranslationProvider';
 import Api from '../../../apis/api';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import countriesJson from '../../../constants/countries.json';
 
 const countriesCollection: { [key: string]: any } = countriesJson;
@@ -54,10 +54,8 @@ export const CountryFilterField = (props: CountryFilterFieldProps) => {
         setFilteredCountries(searchString ? filteredCountries : countries);
     }, [searchString, countries]);
 
-    const handleSearchFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event?.target?.value;
-
-        setSearchString(value);
+    const handleSearchFieldChange = (value?: string) => {
+        setSearchString(value || '');
     };
 
     const handleChange = (items: string[]) => {
