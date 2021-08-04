@@ -59,7 +59,7 @@ export const CommunitiyList = () => {
     }, [windowWidth]);
 
     useEffect(() => {
-        if (isReady) {
+        if (windowWidth && isReady) {
             const limit = limitPerWindowSize[windowWidth];
 
             setSkeleton(skeletons[windowWidth]);
