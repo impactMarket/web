@@ -36,7 +36,7 @@ export const CountryFilterField = (props: CountryFilterFieldProps) => {
                 })
             );
 
-            const countries = sortBy(unsortedCountries, ['name', 'code']);
+            const countries = sortBy(unsortedCountries, ['label', 'value']);
 
             setCountries(countries);
         };
