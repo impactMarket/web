@@ -5,9 +5,7 @@ import icons from './ui';
 import styled from 'styled-components';
 
 const renderPaths = (icon: { paths: any }) =>
-    icon.paths.map((path: any, index: number) => (
-        <path {...path} fill="currentColor" key={`path-${index}`} style={undefined} />
-    ));
+    icon.paths.map((path: any, index: number) => <path {...path} fill="currentColor" key={`path-${index}`} />);
 
 type IconProps = {
     icon: keyof typeof icons;
@@ -37,7 +35,7 @@ export const Icon = (props: IconProps & GeneratedPropsTypes): any => {
     }
 
     return (
-        <IconSvg role="img" style={undefined} viewBox={selectedIcon.viewbox} {...otherProps}>
+        <IconSvg role="img" viewBox={selectedIcon.viewbox} {...otherProps}>
             {renderPaths(selectedIcon)}
         </IconSvg>
     );
