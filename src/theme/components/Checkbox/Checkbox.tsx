@@ -1,6 +1,6 @@
 import { Icon } from '../Icon/Icon';
 import { colors } from '../../variables/colors';
-import { size } from 'polished';
+import { position, size } from 'polished';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -14,6 +14,14 @@ const CheckboxBox = styled.div`
     flex-shrink: 0;
     justify-content: center;
     border: 1px solid ${colors.borderLight};
+    position: relative;
+
+    &::after {
+        ${position('absolute', 0)};
+
+        content: '';
+        z-index: 1;
+    }
 `;
 
 type CheckboxProps = {
