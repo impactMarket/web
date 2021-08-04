@@ -16,27 +16,6 @@ const flyoutSizeVariations = {
     `)
 };
 
-const FilterButtonBackdrop = styled.div<any>`
-    ${position('fixed', 0)};
-    ${transitions(['opacity', 'visibility'], 500, ease.outCubic)};
-
-    background-color: ${rgba(colors.brandBlack, 0.25)};
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1;
-
-    ${({ isFlyoutActive }: { isFlyoutActive?: boolean }) =>
-        isFlyoutActive &&
-        css`
-            opacity: 1;
-            visibility: visible;
-        `}
-
-    ${mq.tablet(css`
-        display: none;
-    `)}
-`;
-
 const FilterButtonElement = styled.button<any>`
     background-color: transparent;
     border-color: ${colors.borderLight};
@@ -149,7 +128,6 @@ export const FilterButton = (props: FilterButtonProps) => {
             <FilterButtonElement isActive={isActive} isFlyoutActive={flyoutActive} onClick={handleButtonClick}>
                 {label}
             </FilterButtonElement>
-            <FilterButtonBackdrop isFlyoutActive={flyoutActive} onClick={() => setFlyoutActive(false)} />
             {children && (
                 <FilterButtonFlyout isActive={flyoutActive} {...flyoutProps}>
                     {children}

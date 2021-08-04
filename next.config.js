@@ -14,6 +14,8 @@ const i18n = {
   locales: langConfig.map(({ code }) => code)
 };
 
+console.log(redirects())
+
 const manifest = {
   background_color: '#ffffff',
   display: 'standalone',

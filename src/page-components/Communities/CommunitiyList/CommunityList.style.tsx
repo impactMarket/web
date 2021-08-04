@@ -27,7 +27,6 @@ export const CommunityListItem = styled.li<CommunityListItemProps>`
     border-radius: 1.25rem;
     display: inline-block;
     overflow: hidden;
-    padding: 1rem 0;
     position: relative;
     width: 100%;
 
@@ -70,7 +69,6 @@ export const CommunityListItemLink = styled.a`
 export const CommunityListWrapper = styled.ul`
     display: flex;
     flex-wrap: wrap;
-    margin: -1rem 0;
     min-width: 100%;
     position: relative;
 
