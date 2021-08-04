@@ -1,20 +1,10 @@
 const withManifest = require('next-manifest');
 const langConfig = require('./lang-config');
 
-const languageRedirects = [
-    { source: '/en', destination: '/' },
-    { source: '/fr', destination: '/fr-FR' },
-    { source: '/es', destination: '/es-ES' }
-].map(redirect => ({ ...redirect, locale: false, permanent: false }));
-
-const redirects = async () => languageRedirects;
-
 const i18n = {
   defaultLocale: langConfig.find(({ isDefault }) => isDefault)?.code || 'en-us',
   locales: langConfig.map(({ code }) => code)
 };
-
-console.log(redirects())
 
 const manifest = {
   background_color: '#ffffff',
@@ -38,6 +28,6 @@ const manifest = {
   theme_color: '#2362FB'
 };
 
-const config = withManifest({ i18n, manifest, redirects });
+const config = withManifest({ i18n, manifest });
 
 module.exports = config;
