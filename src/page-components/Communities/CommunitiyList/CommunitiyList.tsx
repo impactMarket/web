@@ -18,9 +18,11 @@ import countriesJson from '../../../constants/countries.json';
 
 const countries: { [key: string]: any } = countriesJson;
 
+// const filters = ['allCommunities', 'featured'] as const;
+
 const limitPerWindowSize: { [key: string]: any } = {
     desktop: 10,
-    phone: 3,
+    phone: 1,
     tablet: 6
 };
 
@@ -37,7 +39,7 @@ export const CommunitiyList = () => {
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
     const { isReady, pathname, replace, query, push } = router;
-    const { country, filter, name, page } = query;
+    const { name, page } = query;
 
     useEffect(() => {
         const handleWindowSize = () => {
@@ -59,7 +61,9 @@ export const CommunitiyList = () => {
     }, [windowWidth]);
 
     useEffect(() => {
-        if (isReady) {
+        const { filter, name, country, page } = query;
+
+        if (windowWidth && isReady) {
             const limit = limitPerWindowSize[windowWidth];
 
             setSkeleton(skeletons[windowWidth]);
@@ -89,7 +93,7 @@ export const CommunitiyList = () => {
 
             getCommunites();
         }
-    }, [windowWidth, country, filter, name, page]);
+    }, [query, windowWidth]);
 
     const handleCommunityClick = (communityId: string | number) => {
         push(`communities/${communityId}`);
@@ -114,6 +118,10 @@ export const CommunitiyList = () => {
     };
 
     const handleDebouncedChange = debounce(handleChange, 250);
+
+    if (!isReady) {
+        return null;
+    }
 
     return (
         <Section mt={2}>
