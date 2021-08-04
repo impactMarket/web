@@ -1,6 +1,6 @@
 {
   "name": "impact-market-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "yarn translations && next build",
     "dev": "yarn translations && next",
