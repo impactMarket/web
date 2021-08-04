@@ -1,6 +1,5 @@
 export * from './ATag/ATag';
 export * from './Button/Button';
-export * from './Checkbox/Checkbox';
 export * from './Chip/Chip';
 export * from './Content/Content';
 export * from './Currency/Currency';

@@ -13,11 +13,6 @@ const sizeVariations = {
     lg: css`
         height: 3.875rem;
         padding: 0 1rem;
-    `,
-
-    md: css`
-        height: 3.25rem;
-        padding: 0 1rem;
     `
 };
 

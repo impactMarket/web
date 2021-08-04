@@ -16,6 +16,11 @@ export const CommunityEmpytyListMessageWrapper = styled.div`
     padding: 6rem 0;
 `;
 
+export const CommunityListChipSeparator = styled.div`
+    border-left: 1px solid ${colors.brandSecondaryLight};
+    margin-right: 1rem;
+`;
+
 type CommunityListItemProps = {
     withLink?: boolean;
 };
@@ -27,11 +32,11 @@ export const CommunityListItem = styled.li<CommunityListItemProps>`
     border-radius: 1.25rem;
     display: inline-block;
     overflow: hidden;
+    padding: 1rem ${span / 2}rem;
     position: relative;
     width: 100%;
 
     ${mq.tablet(css`
-        padding: 1rem ${span / 2}rem;
         width: 33.33%;
     `)}
 
@@ -69,10 +74,7 @@ export const CommunityListItemLink = styled.a`
 export const CommunityListWrapper = styled.ul`
     display: flex;
     flex-wrap: wrap;
+    margin: -1rem -${span / 2}rem;
     min-width: 100%;
     position: relative;
-
-    ${mq.tablet(css`
-        margin: -1rem -${span / 2}rem;
-    `)}
 `;

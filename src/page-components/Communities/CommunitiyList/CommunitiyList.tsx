@@ -1,13 +1,13 @@
-import { Col, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
+import { Chip, Col, Div, Grid, Heading, Icon, ItemsRow, Row, Section, Text } from '../../../theme/components';
 import {
     CommunityEmpytyListMessageWrapper,
+    CommunityListChipSeparator,
     CommunityListItem,
     CommunityListItemImage,
     CommunityListItemLink,
     CommunityListWrapper
 } from './CommunityList.style';
 import { CommunitySkeleton } from './CommunitySkeleton';
-import { Filters } from './Filters';
 import { Pagination, SearchInput, String } from '../../../components';
 import { debounce } from 'lodash';
 import { numericalValue } from '../../../helpers/numericalValue';
@@ -18,7 +18,7 @@ import countriesJson from '../../../constants/countries.json';
 
 const countries: { [key: string]: any } = countriesJson;
 
-// const filters = ['allCommunities', 'featured'] as const;
+const filters = ['allCommunities', 'featured'] as const;
 
 const limitPerWindowSize: { [key: string]: any } = {
     desktop: 10,
@@ -39,7 +39,7 @@ export const CommunitiyList = () => {
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
     const { isReady, pathname, replace, query, push } = router;
-    const { name, page } = query;
+    const { filter, name, page } = query;
 
     useEffect(() => {
         const handleWindowSize = () => {
@@ -61,24 +61,21 @@ export const CommunitiyList = () => {
     }, [windowWidth]);
 
     useEffect(() => {
-        const { filter, name, country, page } = query;
+        const { filter, name, page } = query;
 
         if (windowWidth && isReady) {
             const limit = limitPerWindowSize[windowWidth];
 
             setSkeleton(skeletons[windowWidth]);
 
-            const options = {
-                country: country?.toString(),
-                filter: filter?.toString(),
-                limit: limit?.toString(),
-                name: name?.toString(),
-                page: page?.toString()
-            };
-
             const getCommunites = async () => {
                 setIsLoading(true);
-                const { count, items } = await Api.getCommunities(options);
+                const { count, items } = await Api.getCommunities({
+                    filter,
+                    limit,
+                    name,
+                    page
+                });
 
                 if (!items.length && +page > 1) {
                     replace({ pathname, query: { ...query, page: 1 } }, undefined, {
@@ -95,33 +92,29 @@ export const CommunitiyList = () => {
         }
     }, [query, windowWidth]);
 
+    const handleFilterClick = (filterName: typeof filters[number]) => {
+        if (filterName === filter) {
+            return;
+        }
+
+        replace({ pathname, query: { ...query, filter: filterName, page: 1 } }, undefined, { shallow: true });
+    };
+
+    const handlePageChange = (selectedPage: number) => {
+        if (selectedPage === +page) {
+            return;
+        }
+
+        replace({ pathname, query: { ...query, page: selectedPage } }, undefined, { shallow: true });
+    };
+
     const handleCommunityClick = (communityId: string | number) => {
         push(`communities/${communityId}`);
     };
 
-    const handleChange = (param: string, value: string | number) => {
-        if (query[param] === value) {
-            return;
-        }
-
-        const newQuery = {
-            ...query,
-            page: 1,
-            [param]: value
-        };
-
-        if (!value) {
-            delete newQuery[param];
-        }
-
-        replace({ pathname, query: newQuery }, undefined, { shallow: true });
-    };
-
-    const handleDebouncedChange = debounce(handleChange, 250);
-
-    if (!isReady) {
-        return null;
-    }
+    const handleSearch = debounce(name => {
+        replace({ pathname, query: { ...query, name, page: 1 } }, undefined, { shallow: true });
+    }, 500);
 
     return (
         <Section mt={2}>
@@ -136,10 +129,9 @@ export const CommunitiyList = () => {
                         <String id="searchByCommunityName">
                             {(placeholder: string) => (
                                 <SearchInput
-                                    defaultValue={name?.toString()}
+                                    defaultValue={name}
                                     ml={{ sm: 'auto' }}
-                                    onChange={(name?: string) => handleDebouncedChange('name', name)}
-                                    onReset={() => handleChange('name', '')}
+                                    onChange={handleSearch}
                                     placeholder={placeholder}
                                     sMaxWidth={{ sm: 14 }}
                                 />
@@ -149,10 +141,35 @@ export const CommunitiyList = () => {
                 </Row>
                 <Row mt={1.5}>
                     <Col xs={12}>
-                        <Filters handleChange={handleChange} query={query} />
+                        <ItemsRow scrollable>
+                            {filters.map((filterName, index) => (
+                                <React.Fragment key={index}>
+                                    {index === 1 && <CommunityListChipSeparator />}
+                                    <Chip
+                                        as="a"
+                                        isActive={filter === filterName || (index === 0 && !filter)}
+                                        key={index}
+                                        onClick={() => handleFilterClick(filterName)}
+                                        textUppercase={false}
+                                    >
+                                        <Text flex medium sAlignItems="center" small>
+                                            {filterName === filters[1] && (
+                                                <Icon
+                                                    icon="star"
+                                                    mr={0.25}
+                                                    sColor={filter === filterName ? 'yellow' : 'brandSecondaryLight'}
+                                                    sHeight={1}
+                                                />
+                                            )}
+                                            <String id={filterName} />
+                                        </Text>
+                                    </Chip>
+                                </React.Fragment>
+                            ))}
+                        </ItemsRow>
                     </Col>
                 </Row>
-                <Row mt={{ sm: 2, xs: 1 }} pb={2}>
+                <Row mt={2} pb={2}>
                     <Col xs={12}>
                         <Div>
                             {/* Loading */}
@@ -210,7 +227,7 @@ export const CommunitiyList = () => {
                                 count={count}
                                 isPhone={windowWidth === 'phone'}
                                 limit={windowWidth ? limitPerWindowSize[windowWidth] : limitPerWindowSize.desktop}
-                                onPageChange={(selectedPage?: string | number) => handleChange('page', +selectedPage)}
+                                onPageChange={handlePageChange}
                                 page={+page || 1}
                             />
                         )}
