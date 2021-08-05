@@ -10,6 +10,16 @@ type OptionType = {
     value: any;
 };
 
+export type OptionListProps = {
+    anchor: 'left' | 'right';
+    type: 'slide' | 'grow';
+} & typeof optionListDefaultProps;
+
+const optionListDefaultProps = {
+    anchor: 'left',
+    type: 'slide'
+};
+
 type SelectProps = {
     name?: string;
     onChange: Function;
@@ -17,7 +27,8 @@ type SelectProps = {
     placeholder?: string;
     renderSelected?: Function;
     initialSelected?: any;
-} & GeneratedPropsTypes;
+} & OptionListProps &
+    GeneratedPropsTypes;
 
 const getSelectedLabel = (selected: OptionType | undefined, placeholder: string | undefined) => {
     if (!selected?.value) {
@@ -40,7 +51,8 @@ const getSelectedOption = (initialSelected: any, options: OptionType[]) => {
 };
 
 export const Select = (props: SelectProps) => {
-    const { initialSelected, name, onChange, options, placeholder, renderSelected, ...forwardProps } = props;
+    const { anchor, initialSelected, name, onChange, options, placeholder, renderSelected, type, ...forwardProps } =
+        props;
     const [selected, setSelected] = useState<OptionType | undefined>(getSelectedOption(initialSelected, options));
     const [optionsVisible, setOptionsVisible] = useState<boolean>(false);
     const selectRef = useRef<any>();
@@ -76,9 +88,9 @@ export const Select = (props: SelectProps) => {
                 ) : (
                     <Text small>{getSelectedLabel(selected, placeholder)}</Text>
                 )}
-                <Icon icon="caret" ml={0.5} sHeight="auto" sWidth={0.75} />
+                <Icon icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} textSecondary />
             </OptionSelected>
-            <OptionList isVisible={optionsVisible}>
+            <OptionList anchor={anchor} isVisible={optionsVisible} type={type}>
                 {options.map(({ label, value }) => (
                     <OptionItem
                         isActive={selected?.value === value}
@@ -92,3 +104,5 @@ export const Select = (props: SelectProps) => {
         </SelectWrapper>
     );
 };
+
+Select.defaultProps = { ...optionListDefaultProps };

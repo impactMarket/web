@@ -14,8 +14,8 @@ export const config = {
     },
     header: {
         menu: [
-            { labelKey: 'globalDashboard', to: '/global-dashboard' },
-            { labelKey: 'communities', to: '/communities' }
+            { labelKey: 'communities', to: '/communities' },
+            { labelKey: 'globalDashboard', to: '/global-dashboard' }
         ]
     },
     seo: {
