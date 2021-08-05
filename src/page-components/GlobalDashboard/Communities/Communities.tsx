@@ -102,13 +102,14 @@ export const Communities = (props: CommunitiesProps) => {
                         <DashboardCard sPadding="0">
                             <Div sJustifyContent="end" sPadding="1">
                                 <Select
+                                    anchor="right"
                                     initialSelected={initialSelectedFilter}
                                     onChange={(value: string) => setCommunitiesFilter(value)}
                                     options={filterOptions.map(({ labelKey, ...filter }) => ({
                                         ...filter,
                                         label: t(labelKey)
                                     }))}
-                                    sMinWidth={12.25}
+                                    type="grow"
                                 />
                             </Div>
                             {communities && (

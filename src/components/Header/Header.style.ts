@@ -14,6 +14,21 @@ export const HeaderContent = styled.div`
     width: 100%;
 `;
 
+export const HeaderLanguageWrapper = styled.div`
+    margin-top: 1.25rem;
+    width: 100%;
+
+    ${mq.tablet(css`
+        margin-top: 0;
+        align-items: center;
+        display: flex;
+        border-left: 1px solid ${colors.borderDarker};
+        margin-left: 1rem;
+        padding-left: 1rem;
+        width: unset;
+    `)}
+`;
+
 export const HeaderMenuItem = styled.div`
     width: 50%;
 

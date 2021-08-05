@@ -1,7 +1,8 @@
-import { Col, Div, Grid, Icon, Logo, Row, Text, TextLink } from '../../theme/components';
+import { Col, Div, Grid, Icon, Logo, Row, Select, Text, TextLink } from '../../theme/components';
 import { DonateButton } from '../DonateButton/DonateButton';
 import {
     HeaderContent,
+    HeaderLanguageWrapper,
     HeaderMenuItem,
     HeaderMenuWrapper,
     HeaderMobileMenuButton,
@@ -13,11 +14,12 @@ import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import langConfig from '../../../lang-config';
 
 export const Header = () => {
     const { config } = useData();
     const router = useRouter();
-    const { asPath, push } = router;
+    const { asPath, locale, push, replace } = router;
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
 
@@ -39,6 +41,10 @@ export const Header = () => {
             setIsMenuVisible(false);
         }
     };
+
+    const handleLanguageChange = (locale: string) => replace(asPath, undefined, { locale });
+
+    const languageOptions = langConfig.map(({ code: value, label }) => ({ label, value }));
 
     return (
         <HeaderWrapper>
@@ -73,6 +79,24 @@ export const Header = () => {
                                             </HeaderMenuItem>
                                         ))}
                                 </Div>
+                                <HeaderLanguageWrapper>
+                                    {languageOptions && (
+                                        <Select
+                                            anchor="right"
+                                            initialSelected={locale}
+                                            onChange={handleLanguageChange}
+                                            options={languageOptions}
+                                            renderSelected={(label: string) => (
+                                                <>
+                                                    <Icon icon="world" sHeight={1} sWidth={1} textSecondary />
+                                                    <Text medium ml={0.5} small>
+                                                        {label}
+                                                    </Text>
+                                                </>
+                                            )}
+                                        />
+                                    )}
+                                </HeaderLanguageWrapper>
                                 <HeaderMobileMenuFooter>
                                     <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
                                         <Div sWidth={{ sm: 'unset', xs: '100%' }}>
