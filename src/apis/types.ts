@@ -42,6 +42,12 @@ export interface ICommunities {
     data: ICommunity[];
 }
 
+export interface ICommunityCampaign {
+    id: string | number;
+    communityId: string | number;
+    campaignUrl: string;
+}
+
 export interface IGlobalDailyState {
     avgComulativeUbi: string;
     avgMedianSSI: number;
@@ -177,6 +183,7 @@ export interface ICommunityDashboard {
 }
 
 export interface ICommunity extends CommunityAttributes {
+    campaign?: ICommunityCampaign;
     claimLocations?: IClaimLocationGps[];
     contract: CommunityContractAttributes;
     managers?: IManager[];

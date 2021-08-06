@@ -18,7 +18,6 @@ export const colors = {
     backgroundDark: '#172032',
 
     // borders
-    borderDarker: '#8A9FC2',
     borderLight: '#DCDFE4',
 
     // Defaults

@@ -19,11 +19,11 @@ export const HeaderLanguageWrapper = styled.div`
     width: 100%;
 
     ${mq.tablet(css`
-        margin-top: 0;
         align-items: center;
+        border-left: 1px solid ${colors.brandSecondaryLight};
         display: flex;
-        border-left: 1px solid ${colors.borderDarker};
         margin-left: 1rem;
+        margin-top: 0;
         padding-left: 1rem;
         width: unset;
     `)}
