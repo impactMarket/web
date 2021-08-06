@@ -24,7 +24,7 @@ export default function App(props: AppProps) {
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
     const { meta, page, statusCode } = pageProps;
-    const [showSpinner, setShowSpinner] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
         const handleRouteChange = () => {

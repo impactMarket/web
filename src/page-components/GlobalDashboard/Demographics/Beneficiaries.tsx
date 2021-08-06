@@ -4,7 +4,7 @@ import { Div, IconButton, Text, TooltipWrapper } from '../../../theme/components
 import { String } from '../../../components';
 import { colors } from '../../../theme/variables/colors';
 import { ease, mq, transitions } from 'styled-gen';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type BeneficiariesProps = {
@@ -163,6 +163,28 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
         return setPagination({ first, last, page: nextPage });
     };
 
+    const rightOffset = useMemo(() => {
+        const offsetArr = data.reduce((result: any, arr: any) => {
+            const innerResults = arr.reduce((arrResult: any, innerData: any) => {
+                if (!innerData) {
+                    return arrResult;
+                }
+
+                const offset = Math.floor(innerData?.total?.toString()?.length) * 10 || 10;
+
+                if (offset > arrResult) {
+                    return offset;
+                }
+
+                return arrResult;
+            }, []);
+
+            return [...result, innerResults];
+        }, []);
+
+        return offsetArr;
+    }, [data]);
+
     return (
         <BeneficiariesCountriesWrapper>
             <Legend />
@@ -174,7 +196,7 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
                                 barSize={10}
                                 data={chartData}
                                 layout="vertical"
-                                margin={{ bottom: 0, left: 0, right: 30, top: 0 }}
+                                margin={{ bottom: 0, left: 0, right: rightOffset[index] || 0, top: 0 }}
                             >
                                 <XAxis hide type="number" />
                                 <YAxis
