@@ -20,10 +20,13 @@ export const Demographics = (props: DemographicsProps) => {
     const totalPercentage = getDemographicsTotalPercentage(demographics);
     const [isLoaded, setIsLoaded] = useState(false);
 
+    const demographicsCountriesData = getDemographicsBeneficiariesByCountry(demographics);
+    const demographicsAgeData = getDemographicsAgeRange(demographics);
+
     useEffect(() => {
         setTimeout(() => {
             setIsLoaded(true);
-        }, 150);
+        }, 1000);
     }, []);
 
     if (!isLoaded) {
@@ -54,7 +57,7 @@ export const Demographics = (props: DemographicsProps) => {
                             <Text small textSecondary>
                                 <String id="page.globalDashboard.demographics.charts.ageRange.heading" />
                             </Text>
-                            <AgeRange data={getDemographicsAgeRange(demographics)} />
+                            <AgeRange data={demographicsAgeData} />
                         </DashboardCard>
                     </Col>
                     <Col md={8} mt={{ md: 0, xs: 2 }} xs={12}>
@@ -62,10 +65,7 @@ export const Demographics = (props: DemographicsProps) => {
                             <Text sPadding="1 1 null 1" small textSecondary>
                                 <String id="page.globalDashboard.demographics.charts.countries.heading" />
                             </Text>
-                            <Beneficiaries
-                                countriesCount={demographics?.length}
-                                data={getDemographicsBeneficiariesByCountry(demographics)}
-                            />
+                            <Beneficiaries countriesCount={demographics?.length} data={demographicsCountriesData} />
                         </DashboardCard>
                     </Col>
                 </Row>
