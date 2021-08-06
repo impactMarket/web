@@ -5,6 +5,7 @@ import {
     IClaimLocation,
     ICommunities,
     ICommunity,
+    ICommunityCampaign,
     ICommunityDashboard,
     IDemographics,
     IGlobalApiResult,
@@ -53,9 +54,13 @@ export default class Api {
         const claimLocations = await getRequest<DataResponseType<IClaimLocation[]>>(
             `/community/${communityId}/claim-location`
         );
+        const campaignResponse = await getRequest<DataResponseType<ICommunityCampaign>>(
+            `/community/${communityId}/campaign`
+        );
 
         const data = {
             ...communityResponse?.data,
+            campaign: campaignResponse?.data,
             claimLocations: claimLocations?.data || [],
             dashboard: dashboardResponse?.data || {},
             managers: managersResponse?.data || {}

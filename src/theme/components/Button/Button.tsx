@@ -26,8 +26,9 @@ const colorVariations = {
         &:not(:disabled) {
             &:hover {
                 background-color: ${colors.brandPrimary};
-                color: ${colors.white};
+                border-color: transparent;
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+                color: ${colors.white};
             }
         }
     `,
@@ -87,6 +88,13 @@ const sizeVariations = {
         font-size: 14px;
         height: 44px;
         padding: 0 16px;
+    `,
+
+    thin: css`
+        border-width: 1px;
+        font-size: 16;
+        height: 44px;
+        padding: 0 26px;
     `,
 
     tight: css`
