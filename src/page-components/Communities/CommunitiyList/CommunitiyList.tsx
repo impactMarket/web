@@ -9,12 +9,12 @@ import {
 import { CommunitySkeleton } from './CommunitySkeleton';
 import { Filters } from './Filters';
 import { Pagination, SearchInput, String } from '../../../components';
-import { debounce } from 'lodash';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useRouter } from 'next/router';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
 import countriesJson from '../../../constants/countries.json';
+import debounce from 'lodash/debounce';
 
 const countries: { [key: string]: any } = countriesJson;
 

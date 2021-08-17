@@ -3,11 +3,11 @@ import { FilterButton } from '../components/FilterButton';
 import { FilterList } from '../components/FilterList';
 import { String } from '../../String/String';
 import { multipleItemString } from '../../../helpers/multipleItemString';
-import { sortBy } from 'lodash';
 import { useTranslation } from '../../TranslationProvider/TranslationProvider';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
 import countriesJson from '../../../constants/countries.json';
+import sortBy from 'lodash/sortBy';
 
 const countriesCollection: { [key: string]: any } = countriesJson;
 

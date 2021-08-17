@@ -7,7 +7,6 @@ import {
     ModalInnerContent,
     ModalWrapper
 } from './withModal.style';
-import { get } from 'lodash';
 import React, { Component } from 'react';
 
 export type ModalComponentProps = {
@@ -49,7 +48,7 @@ export const withModal = (ModalComponent: any, options: any = {}) =>
         };
 
         render() {
-            const isActive = get(this.props, 'controller.isActive');
+            const isActive = this.props?.controller?.isActive;
 
             return (
                 <ModalWrapper>

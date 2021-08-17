@@ -1,6 +1,7 @@
 import { IDemographics } from './types';
-import { chunk, sortBy } from 'lodash';
+import chunk from 'lodash/chunk';
 import countriesJSON from '../constants/countries.json';
+import sortBy from 'lodash/sortBy';
 
 interface IDataItem {
     label: string;
