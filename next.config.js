@@ -2,10 +2,11 @@ const withManifest = require('next-manifest');
 const langConfig = require('./lang-config');
 
 const languageRedirects = [
-    { source: '/en', destination: '/' },
-    { source: '/fr', destination: '/fr-FR' },
-    { source: '/es', destination: '/es-ES' }
-].map(redirect => ({ ...redirect, locale: false, permanent: false }));
+    { source: '/en/:path*', destination: '/:path*' },
+    { source: '/fr/:path*', destination: '/fr-FR/:path*' },
+    { source: '/es/:path*', destination: '/es-ES/:path*' },
+    { source: '/pt-br/:path*', destination: '/pt-BR/:path*' },
+].map(redirect => ({ ...redirect, permanent: true }));
 
 const redirects = async () => languageRedirects;
 

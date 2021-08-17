@@ -27,6 +27,9 @@ export default function App(props: AppProps) {
     const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
+        // eslint-disable-next-line no-underscore-dangle
+        window.__localeId__ = locale;
+
         const handleRouteChange = () => {
             setShowSpinner(true);
         };

@@ -2,9 +2,9 @@ import { Checkbox, Div, Icon, Input, Text } from '../../../theme/components';
 import { String } from '../../String/String';
 import { colors, fonts } from '../../../theme';
 import { mq } from 'styled-gen';
-import { remove } from 'lodash';
 import { rgba } from 'polished';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import remove from 'lodash/remove';
 import styled, { css } from 'styled-components';
 
 type FilterListProps = {
