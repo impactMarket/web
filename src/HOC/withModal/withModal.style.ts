@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 
 type ModalProps = {
     isActive?: boolean;
+    size?: any;
 };
 
 const ModalBackdrop = styled.div<ModalProps>`
@@ -77,7 +78,7 @@ const ModalContent = styled.div<ModalProps>`
             background-color: ${colors.white};
             border-radius: 12px;
             overflow: hidden;
-            width: 630px;
+            width: ${({ size }: any) => size || 0}px;
         `
     )}
 `;

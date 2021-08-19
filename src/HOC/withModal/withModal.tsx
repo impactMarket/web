@@ -23,7 +23,9 @@ type ModalComponentState = {
 export const withModal = (ModalComponent: any, options: any = {}) =>
     class Modal extends Component<ModalComponentProps, ModalComponentState> {
         state = {
-            options: {}
+            options: {
+                size: 630
+            }
         };
 
         componentDidMount() {
@@ -54,7 +56,7 @@ export const withModal = (ModalComponent: any, options: any = {}) =>
             return (
                 <ModalWrapper>
                     <ModalBackdrop isActive={isActive} />
-                    <ModalContent isActive={isActive}>
+                    <ModalContent isActive={isActive} size={this.state?.options?.size}>
                         <ModalInnerContent>
                             {(this.props.heading || this.props.withCloseButton) && (
                                 <ModalHeading>
