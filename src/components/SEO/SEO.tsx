@@ -47,17 +47,18 @@ const getMetaData: any = (metaData: any) =>
     }, []);
 
 export const SEO = (props: SeoProps) => {
-    const { url } = useData();
+    const { url, config } = useData();
+    const { seo } = config;
     const { meta: metaFromProps } = props;
 
     const { t } = useTranslation();
 
-    const defaultMeta = ['description', 'keyword', 'title'].reduce(
+    const defaultMeta = ['description', 'keywords', 'title'].reduce(
         (result, key) => ({ ...result, [key]: t(`seo.${key}`) }),
         { url }
     );
 
-    const metaObject = Object.assign({}, defaultMeta, metaFromProps);
+    const metaObject = Object.assign({}, { ...seo, ...defaultMeta }, metaFromProps);
 
     const meta = getMetaData(metaObject);
     const title = metaObject?.title;
