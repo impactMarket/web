@@ -35,6 +35,10 @@ const miscVariations = {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    `,
+
+    noSelect: css`
+        user-select: none;
     `
 };
 
