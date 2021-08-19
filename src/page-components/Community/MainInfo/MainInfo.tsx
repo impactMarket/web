@@ -27,7 +27,7 @@ const Avatar = styled.div<AvatarProps>`
 `;
 
 export const MainInfo = (props: ICommunity) => {
-    const { campaign, contract, country, description, managers, name, state } = props;
+    const { campaign, contract, contractAddress, country, description, managers, name, state } = props;
     const campaignUrl = useMemo(() => campaign?.campaignUrl, [campaign]);
 
     return (
@@ -59,7 +59,12 @@ export const MainInfo = (props: ICommunity) => {
 
                         {/* Mobile Resume */}
                         <Div column mt={1.5} sDisplay={{ sm: 'none', xs: 'flex' }}>
-                            <ResumeBox campaignUrl={campaignUrl} contract={contract} state={state} />
+                            <ResumeBox
+                                campaignUrl={campaignUrl}
+                                contract={contract}
+                                contractAddress={contractAddress}
+                                state={state}
+                            />
                         </Div>
 
                         {/* Managers */}
@@ -86,7 +91,12 @@ export const MainInfo = (props: ICommunity) => {
                         </Div>
                     </Col>
                     <Col md={4} sm={6} xs={false}>
-                        <ResumeBox campaignUrl={campaignUrl} contract={contract} state={state} />
+                        <ResumeBox
+                            campaignUrl={campaignUrl}
+                            contract={contract}
+                            contractAddress={contractAddress}
+                            state={state}
+                        />
                     </Col>
                 </Row>
             </Grid>

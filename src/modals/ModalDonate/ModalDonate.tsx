@@ -1,8 +1,6 @@
+import { Address, QrCode, String } from '../../components';
 import { Chip, Currency, ItemsRow, Text } from '../../theme/components';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ModalChipsWrapper, ModalCol, ModalCopyLink, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
-import { QrCode } from './QrCode';
-import { String } from '../../components';
+import { ModalChipsWrapper, ModalCol, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
 import { Subscribe } from './Subscribe';
 import { useData } from '../../components/DataProvider/DataProvider';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
@@ -58,25 +56,7 @@ export const Modal = () => {
                                 variables={{ currency: t(`wallet.extendedLabel.${wallet?.code}`) }}
                             />
                         </Text>
-                        <Text
-                            extrabold
-                            manrope
-                            small
-                            style={{
-                                marginTop: 10,
-                                whiteSpace: 'pre-wrap',
-                                wordBreak: 'break-word'
-                            }}
-                        >
-                            {wallet?.address}
-                        </Text>
-                        <ModalCopyLink style={{ marginTop: 16 }}>
-                            <CopyToClipboard text={wallet?.address}>
-                                <Text bold brandPrimary>
-                                    <String id="copyAddress" />
-                                </Text>
-                            </CopyToClipboard>
-                        </ModalCopyLink>
+                        <Address address={wallet?.address} />
                     </ModalCol>
                     <ModalCol>
                         <QrCode address={wallet?.address} />

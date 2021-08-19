@@ -31,11 +31,6 @@ export const ModalCol = styled.div`
     `)}
 `;
 
-export const ModalCopyLink = styled.div`
-    display: inline-block;
-    cursor: pointer;
-`;
-
 export const ModalFooter = styled.div`
     padding: 2rem;
     background-color: ${colors.backgroundLight};
