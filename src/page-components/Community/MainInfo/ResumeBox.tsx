@@ -73,7 +73,7 @@ export const ResumeBox = (props: any) => {
                         sBorderColor="brandSecondaryLight"
                         thin
                     >
-                        <Text regular>
+                        <Text body medium>
                             <String id="page.community.miscDonationButtonLabel" />
                         </Text>
                     </Button>
