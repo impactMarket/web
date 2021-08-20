@@ -35,6 +35,11 @@ export const GlobalStyle = createGlobalStyle`
                 overflow-y: hidden;
             `)};
         }
+
+        &.with-modal {
+            overflow-y: hidden;
+        }
+
     }
 
     a {
