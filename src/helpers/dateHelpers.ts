@@ -11,14 +11,14 @@ declare global {
 const dateLocales: { [key: string]: any } = { es, fr, ptBR };
 
 const getLocale = () => {
-    if (!window) {
+    try {
+        // eslint-disable-next-line no-underscore-dangle
+        const dateFnsCode = langConfig.find(({ code }) => code === window?.__localeId__)?.dateFnsCode;
+
+        return dateLocales?.[dateFnsCode];
+    } catch (error) {
         return;
     }
-
-    // eslint-disable-next-line no-underscore-dangle
-    const dateFnsCode = langConfig.find(({ code }) => code === window?.__localeId__)?.dateFnsCode;
-
-    return dateLocales?.[dateFnsCode];
 };
 
 export const format = (date: any, formatString: string = 'PP') =>
