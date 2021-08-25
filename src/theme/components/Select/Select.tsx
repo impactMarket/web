@@ -21,7 +21,9 @@ const optionListDefaultProps = {
 };
 
 type SelectProps = {
+    asActionList?: boolean;
     name?: string;
+    noCaret?: boolean;
     onChange: Function;
     options: OptionType[];
     placeholder?: string;
@@ -51,8 +53,19 @@ const getSelectedOption = (initialSelected: any, options: OptionType[]) => {
 };
 
 export const Select = (props: SelectProps) => {
-    const { anchor, initialSelected, name, onChange, options, placeholder, renderSelected, type, ...forwardProps } =
-        props;
+    const {
+        anchor,
+        asActionList,
+        initialSelected,
+        name,
+        noCaret,
+        onChange,
+        options,
+        placeholder,
+        renderSelected,
+        type,
+        ...forwardProps
+    } = props;
     const [selected, setSelected] = useState<OptionType | undefined>(getSelectedOption(initialSelected, options));
     const [optionsVisible, setOptionsVisible] = useState<boolean>(false);
     const selectRef = useRef<any>();
@@ -88,12 +101,12 @@ export const Select = (props: SelectProps) => {
                 ) : (
                     <Text small>{getSelectedLabel(selected, placeholder)}</Text>
                 )}
-                <Icon icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} textSecondary />
+                {!noCaret && <Icon icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} textSecondary />}
             </OptionSelected>
             <OptionList anchor={anchor} isVisible={optionsVisible} type={type}>
                 {options.map(({ label, value }) => (
                     <OptionItem
-                        isActive={selected?.value === value}
+                        isActive={!asActionList && selected?.value === value}
                         key={value}
                         onClick={() => handleOptionClick({ label, value })}
                     >

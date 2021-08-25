@@ -2,7 +2,7 @@ import { dateHelpers } from '../../helpers/dateHelpers';
 import React, { useEffect, useState } from 'react';
 
 type CountdownProps = {
-    prefix?: string;
+    prefix?: string | Function;
     date: string;
     onEnd?: Function;
 };
@@ -53,8 +53,13 @@ export const Countdown = (props: CountdownProps) => {
     const timeString = `${dys ? `${dys.toString().padStart(2, '0')}d` : ''}${
         dys || hrs ? `${dys ? ' · ' : ''}${hrs.toString().padStart(2, '0')}h` : ''
     }${dys || hrs || mins ? `${dys || hrs ? ' · ' : ''}${mins.toString().padStart(2, '0')}m` : ''}${
-        dys || hrs || mins || secs ? `${dys || hrs ? ' · ' : ''}${secs.toString().padStart(2, '0')}s` : ''
+        dys || hrs || mins || secs ? `${dys || hrs || mins ? ' · ' : ''}${secs.toString().padStart(2, '0')}s` : ''
     }`;
 
-    return <>{`${prefix ? `${prefix} ` : ''}${timeString}`}</>;
+    return (
+        <>
+            {typeof prefix === 'function' ? prefix() : ''}
+            {`${typeof prefix === 'string' ? `${prefix} ` : ''}${timeString}`}
+        </>
+    );
 };

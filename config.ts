@@ -12,6 +12,11 @@ const config = {
     baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api`!,
 
     /**
+     * Base URL to staging api
+     */
+    stagingApiUrl: `https://impactmarket-api-staging.herokuapp.com`,
+
+    /**
      * cUSD decimals to use in ui format
      */
     cUSDDecimals: 18,
@@ -59,7 +64,12 @@ const config = {
     /*
      * is Production
      */
-    isProduction: process.env.NODE_ENV === 'production'
+    isProduction: process.env.NODE_ENV === 'production',
+
+    /*
+     * is Production
+     */
+    votingPlatformUrl: 'https://romulus-interface-jet.vercel.app/'
 };
 
 export default config;

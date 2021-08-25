@@ -1,12 +1,17 @@
 import { generator } from '../variables/generator';
+import icons from '../components/Icon/ui';
 
 const breakpoints = ['xs', 'sm', 'md', 'lg', 'phone', 'tablet', 'tabletLandscape', 'desktop'] as const;
 const spaceNames = ['mb', 'ml', 'mr', 'mt', 'pb', 'pl', 'pr', 'pt'] as const;
 
+type Truthy = boolean | 'true' | 'false';
+
 /**
  * Helper Types
  */
-export type BoolProps<T extends Object> = Partial<Record<keyof T, boolean>>;
+export type BoolPropsFromArray<propsArray extends ReadonlyArray<string>> = Partial<Record<propsArray[number], Truthy>>;
+export type BoolProps<T extends Object> = Partial<Record<keyof T, Truthy>>;
+export type StringProps<T extends Object> = Partial<Record<keyof T, string>>;
 export type MqProp<T> = Partial<Record<typeof breakpoints[number], T>> | T;
 
 /**
@@ -33,3 +38,8 @@ type SpaceProps = Partial<Record<typeof spaceNames[number], MqProp<number | stri
 type VariableProps = PropsFromList<typeof generator.variableProps>;
 
 export type GeneratedPropsTypes = NamedProps & SpaceProps & VariableProps;
+
+/**
+ * OtherTypes
+ */
+export type IconType = keyof typeof icons;

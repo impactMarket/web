@@ -24,7 +24,7 @@ export const CardContent = styled.div<GeneratedPropsTypes>`
     padding: 2.5rem 2rem 2rem;
 
     ${mq.tablet(css`
-        padding: 2;
+        padding: 2rem;
     `)}
 
     ${generateProps};

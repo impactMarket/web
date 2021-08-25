@@ -30,10 +30,10 @@ export const Balance = (props: BalanceProps) => {
                 setIsLoading(true);
                 const response = await axios.get('api/balance');
 
-                const { celo, eth } = response?.data;
+                const { celo, ethereum: eth } = response?.data;
 
                 setTotal(celo + eth);
-                setValues(response.data);
+                setValues({ celo, eth });
                 setIsLoading(false);
             } catch (error) {
                 setWithError(true);

@@ -5,7 +5,7 @@ export const flexboxgrid = {
     breakpoints,
     container,
     gridSize: 12,
-    gutterWidth: 1.25,
+    gutterWidth: 2,
     mediaQuery: 'only screen',
     outerMargin: 2
 };

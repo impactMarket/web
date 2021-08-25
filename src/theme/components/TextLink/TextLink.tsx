@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 
 type TextLinkProps = {
     isActive?: boolean;
+    onClick?: any;
 };
 
 export const TextLink = styled.a<TextLinkProps & GeneratedPropsTypes>`
@@ -13,7 +14,7 @@ export const TextLink = styled.a<TextLinkProps & GeneratedPropsTypes>`
 
     color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
-    display: block;
+    display: inline-block;
     font-size: 0.9375rem;
     font-weight: ${fonts.weights.medium};
 

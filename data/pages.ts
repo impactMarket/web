@@ -51,7 +51,7 @@ export const pages: { [key: string]: object } = {
             }
         }
     },
-    Fundraise: {
+    fundraise: {
         hero: {
             addresses: [
                 { address: '0xC483Cd9FC68e58074d1D82b7a9fFdE948Db6d119', name: 'celo' },
@@ -64,6 +64,7 @@ export const pages: { [key: string]: object } = {
             learnMoreUrl: ''
         },
         balance: {
+            // items: ['btc', 'celo', 'eth', 'esolidar']
             items: ['celo', 'eth']
         }
     },
@@ -130,5 +131,20 @@ export const pages: { [key: string]: object } = {
         economic: {
             charts: [{ name: 'volume' }, { labelKey: 'numberTransfers', name: 'transfers' }, { name: 'reach' }]
         }
+    },
+    governanceToken: {
+        dataDash: [
+            { name: 'totalSupply' },
+            { name: 'circulatingSupply' },
+            { name: 'pactTokenHolders' },
+            { name: 'totalDonated' },
+            { name: 'donatedLastMonth' }
+        ],
+        articles: [
+            { name: 'governanceToken', icon: 'im', url: 'https://google.com' },
+            { name: 'impactMarketDAO', icon: 'hands', url: 'https://google.com' },
+            { name: 'voteOnProposals', icon: 'vote', url: 'https://google.com' },
+            { name: 'makeYourVoiceHeard', icon: 'megaphone', url: 'https://google.com' }
+        ]
     }
 };

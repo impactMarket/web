@@ -5,4 +5,9 @@ type Options = {
 };
 
 export const getTag = (props?: any, { defaultTag = 'div' }: Options = {}): string =>
-    Object.keys(props).reduce((acc: string, prop: string) => (tags.find(tag => tag === prop) ? prop : acc), defaultTag);
+    props?.as
+        ? props.as
+        : Object.keys(props).reduce(
+              (acc: string, prop: typeof tags[number] | string) => (tags.find(tag => tag === prop) ? prop : acc),
+              defaultTag
+          );

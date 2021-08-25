@@ -3,20 +3,20 @@ import config from '../../config';
 
 let cachedClient: any = null;
 
-const getClient = () => {
+const getClient = (forceStaging?: boolean) => {
     if (cachedClient) {
         return cachedClient;
     }
 
     cachedClient = axios.create({
-        baseURL: config.baseApiUrl
+        baseURL: forceStaging ? config.stagingApiUrl : config.baseApiUrl
     });
 
     return cachedClient;
 };
 
-export async function getRequest<T>(endpoint: string): Promise<T | undefined> {
-    const client = getClient();
+export async function getRequest<T>(endpoint: string, forceStaging: boolean = false): Promise<T | undefined> {
+    const client = getClient(forceStaging);
     let response: T | undefined;
 
     try {

@@ -1,6 +1,7 @@
 import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
+import { darken, lighten } from 'polished';
 import { ease, generateProps, transitions, variations } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
 import React from 'react';
@@ -15,6 +16,10 @@ const colorVariations = {
             &:hover {
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
             }
+        }
+
+        &:disabled {
+            background-color: ${colors.innactive};
         }
     `,
 
@@ -33,6 +38,22 @@ const colorVariations = {
         }
     `,
 
+    linedSecondary: css`
+        background-color: transparent;
+        border-radius: 0.75rem;
+        border: 0.0625rem solid ${colors.backgroundSecondary};
+        color: ${colors.brandSecondaryLight};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${colors.brandPrimary};
+                border-color: transparent;
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+                color: ${colors.white};
+            }
+        }
+    `,
+
     pagination: css`
         background-color: ${colors.backgroundSecondary};
         color: ${colors.textPrimary};
@@ -40,9 +61,35 @@ const colorVariations = {
         &:not(:disabled) {
             &:hover {
                 background-color: ${colors.brandPrimary};
-                color: ${colors.white};
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+                color: ${colors.white};
             }
+        }
+    `,
+
+    secondaryLight: css`
+        background-color: ${colors.brandSecondaryLight};
+        color: ${colors.white};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.brandSecondaryLight)};
+            }
+        }
+    `,
+
+    successBkg: css`
+        background-color: ${colors.success};
+        color: ${colors.white};
+
+        &:not(:disabled) {
+            &:hover {
+                box-shadow: 0 0 24px rgba(0, 0, 0, 0.24);
+            }
+        }
+
+        &:disabled {
+            background-color: ${lighten(0.3, colors.success)};
         }
     `,
 
@@ -52,7 +99,8 @@ const colorVariations = {
 
         &:not(:disabled) {
             &:hover {
-                box-shadow: 0 0 24px rgba(0, 0, 0, 0.24);
+                background-color: ${darken(0.1, colors.success)};
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
             }
         }
     `
@@ -73,8 +121,9 @@ const sizeVariations = {
 
     large: css`
         font-size: 18px;
-        height: 62px;
-        padding: 0 24px;
+        line-height: 30px;
+        min-height: 62px;
+        padding: 16px 24px;
     `,
 
     pagination: css`
@@ -88,6 +137,18 @@ const sizeVariations = {
         font-size: 14px;
         height: 44px;
         padding: 0 16px;
+    `,
+
+    smaller: css`
+        font-size: 14px;
+        height: 36px;
+        padding: 0 1.5rem;
+    `,
+
+    smallest: css`
+        font-size: 14px;
+        height: 24px;
+        padding: 0 0.625rem;
     `,
 
     thin: css`
@@ -108,6 +169,7 @@ type ButtonBaseProps = {
     as?: any;
     className?: string;
     children?: any | any[];
+    disabled?: boolean;
     href?: string;
     onClick?: (e: Event) => void;
     isLoading?: boolean;
@@ -137,12 +199,15 @@ const ButtonWrapper = styled.button<ButtonProps>`
     outline: 0;
     overflow: hidden;
     position: relative;
-    white-space: nowrap;
 
     &:not(:disabled) {
         &:hover {
             cursor: pointer;
         }
+    }
+
+    &:disabled {
+        cursor: not-allowed !important;
     }
 
     ${variations(colorVariations)};

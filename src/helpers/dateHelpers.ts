@@ -1,4 +1,4 @@
-import { format as dateFnsFormat, differenceInMilliseconds } from 'date-fns';
+import { format as dateFnsFormat, differenceInMilliseconds, isPast } from 'date-fns';
 import { es, fr, ptBR } from 'date-fns/locale';
 import langConfig from '../../lang-config';
 
@@ -25,7 +25,9 @@ export const format = (date: any, formatString: string = 'PP') =>
     dateFnsFormat(date, formatString, { locale: getLocale() });
 
 export const dateHelpers = {
-    short: (date: string | Date) => format(new Date(date), 'MMM d, y'),
+    isPast: (date: string | Date) => isPast(new Date(date)),
+
+    short: (date: string | Date) => (date ? format(new Date(date), 'MMM d, y') : ''),
 
     timeLeft: (date: string | Date) => {
         const today = new Date();

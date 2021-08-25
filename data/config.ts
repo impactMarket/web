@@ -15,8 +15,15 @@ export const config = {
     header: {
         menu: [
             { labelKey: 'communities', to: '/communities' },
-            { labelKey: 'globalDashboard', to: '/global-dashboard' }
-        ]
+            { labelKey: 'governance', to: '/governance-token' },
+            { labelKey: 'dashboard', to: '/global-dashboard' }
+        ],
+        status: {
+            cta: {
+                labelKey: 'pactCta',
+                to: 'https://google.com'
+            }
+        }
     },
     seo: {
         image: 'https://impactmarket.com/img/seo.jpg'

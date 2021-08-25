@@ -37,6 +37,24 @@ const manifest = {
   theme_color: '#2362FB'
 };
 
-const config = withManifest({ i18n, manifest, redirects });
+const typescript = {
+    ignoreBuildErrors: false
+}
+
+const webpack = (config, { webpack }) => {
+    config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        child_process: false,
+        readline: false,
+    };
+
+    config.plugins.push(new webpack.IgnorePlugin(/^electron$/));
+
+    return config
+}
+
+const config = withManifest({ i18n, typescript, manifest, redirects, webpack });
 
 module.exports = config;

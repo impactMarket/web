@@ -8,17 +8,16 @@ import {
     HeaderMainBarMobileMenuButton,
     HeaderMainBarRightCol,
     HeaderMobileContent,
-    // TODO: Uncomment after IPCT connect iteration
-    // HeaderStatusBar,
-    // HeaderStatusBarLeftCol,
-    // HeaderStatusBarRightCol,
+    HeaderStatusBar,
+    HeaderStatusBarLeftCol,
+    HeaderStatusBarRightCol,
     HeaderWrapper
 } from './Header.style';
-// import { IPCTConnect } from './IPCTConnect';
-import { Icon, Logo, Text } from '../../theme/components';
+import { Icon, Logo, Text, TextLink } from '../../theme/components';
 import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { String } from '../String/String';
+import { WalletConnect } from './WalletConnect';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
@@ -30,9 +29,7 @@ export const Header = () => {
     const { asPath, push } = router;
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
-
-    // TODO: Uncomment after IPCT connect iteration
-    // const cta = config?.header?.status?.cta;
+    const cta = config?.header?.status?.cta;
 
     const checkActiveRoute = (route: string | undefined) =>
         typeof route === 'string' ? asPath.split('?')[0] === route : false;
@@ -57,8 +54,7 @@ export const Header = () => {
         <>
             <HeaderWrapper>
                 <HeaderContent>
-                    {/* TODO: Uncomment after IPCT connect iteration */}
-                    {/* <HeaderStatusBar>
+                    <HeaderStatusBar>
                         <HeaderBarContent>
                             <HeaderStatusBarLeftCol>
                                 <TextLink bold brandPrimary href={cta?.to}>
@@ -67,11 +63,11 @@ export const Header = () => {
                                 </TextLink>
                             </HeaderStatusBarLeftCol>
                             <HeaderStatusBarRightCol>
-                                <IPCTConnect />
+                                <WalletConnect />
                                 <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
                             </HeaderStatusBarRightCol>
                         </HeaderBarContent>
-                    </HeaderStatusBar> */}
+                    </HeaderStatusBar>
                     <HeaderMainBar>
                         <HeaderBarContent>
                             <HeaderMainBarLeftCol>
@@ -100,8 +96,6 @@ export const Header = () => {
                                                 {...item}
                                             />
                                         ))}
-                                    {/* TODO: remove after IPCT connect added */}
-                                    <LanguageSelect ml={1} sDisplay={{ sm: 'flex', xs: 'none' }} withSeparator />
                                 </HeaderMainBarMenu>
                             </HeaderMainBarRightCol>
                         </HeaderBarContent>

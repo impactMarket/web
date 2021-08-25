@@ -98,6 +98,24 @@ export default class Api {
         return { ...result, demographics };
     }
 
+    static async getPendingCommunities(requestOptions: CommunityListRequestArguments): Promise<any> {
+        const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
+        const baseOptions = { extended: false, limit: 4, orderBy: 'bigger', page: 1 };
+        const options = Object.assign({}, baseOptions, requestOptions);
+        const { page, limit } = options;
+
+        const offset = (page - 1) * limit;
+        const query = createQueryParamsFromObj({ offset, ...options }, params);
+        const response = await getRequest<any | undefined>(
+            `/community/list/${query}&status=pending&fields=id;requestByAddress;name;description;country;city;cover.*;contract.maxClaim;contract.baseInterval;contract.claimAmount;contract.incrementInterval;proposal.*`
+        );
+
+        const items = response?.data || [];
+        const count = response?.count;
+
+        return { count, items, page };
+    }
+
     static async submitHubspotContact({
         email,
         name,

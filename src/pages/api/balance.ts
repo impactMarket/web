@@ -1,4 +1,4 @@
-import { getWalletsBalance } from '../../lib/getWalletsBallance';
+import { getWalletsBalance } from '@impact-market/utils';
 import type { NextApiResponse } from 'next';
 
 type Data = {

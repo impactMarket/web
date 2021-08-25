@@ -28,6 +28,7 @@ export const colors = {
     border: '#EBEBEB',
     success: '#2DCE89',
     warning: '#FE9A22',
+    warningLight: '#FFEEDA',
     yellow: '#FFC278',
     innactive: '#DCDEE2',
 

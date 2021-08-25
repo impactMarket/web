@@ -3,9 +3,13 @@ import { Icon } from '../Icon/Icon';
 import { colors } from '../../variables/colors';
 import { ease, mq, transitions } from 'styled-gen';
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { ThemeProps, css } from 'styled-components';
 
-const TooltipWrapper = styled.div`
+type TypeWithPosition = {
+    position?: string;
+} & ThemeProps<any>;
+
+const TooltipWrapper = styled.div<TypeWithPosition>`
     align-items: flex-start;
     display: inline-flex;
     height: 100%;
@@ -15,10 +19,16 @@ const TooltipWrapper = styled.div`
 
     ${mq.tabletLandscape(css`
         justify-content: flex-start;
+
+        ${({ position }: TypeWithPosition) =>
+            position === 'bottom center' &&
+            css`
+                justify-content: center;
+            `};
     `)}
 `;
 
-const Tip = styled.div`
+const Tip = styled.div<TypeWithPosition>`
     ${transitions('all', 750, ease.outQuart)};
 
     background-color: #ffffff;
@@ -39,7 +49,13 @@ const Tip = styled.div`
         top: unset;
         transform: translate(2.875rem, -0.625rem);
         width: 20.25rem;
-    `)}
+
+        ${({ position }: TypeWithPosition) =>
+            position === 'bottom center' &&
+            css`
+                top: calc(100% + 1rem);
+            `};
+    `)};
 `;
 
 const TipIcon = styled.div`
@@ -60,17 +76,18 @@ const TipIcon = styled.div`
 
 type InfoTooltipProps = {
     children: any;
+    position?: string;
 };
 
 export const InfoTooltip = (props: InfoTooltipProps & GeneratedPropsTypes) => {
-    const { children, ...forwardProps } = props;
+    const { children, position, ...forwardProps } = props;
 
     return (
-        <TooltipWrapper {...forwardProps}>
+        <TooltipWrapper position={position} {...forwardProps}>
             <TipIcon>
                 <Icon icon="info" sHeight={1} />
             </TipIcon>
-            <Tip>{children}</Tip>
+            <Tip position={position}>{children}</Tip>
         </TooltipWrapper>
     );
 };

@@ -110,5 +110,9 @@ export const GlobalStyle = createGlobalStyle`
     /* Recaptcha */
     .grecaptcha-badge {
         display:none !important;
+
+    /* React modal */
+    .ReactModal__Overlay--after-open {
+        z-index: 99999999999;
     }
 `;
