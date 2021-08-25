@@ -15,6 +15,8 @@ import { padding } from 'polished';
 export const generator = {
     // Named props
     namedProps: [
+        { list: { relative: 'relative' }, cssProp: 'position' },
+        { list: { uppercase: 'uppercase' }, cssProp: 'text-transform' },
         { list: alignments, cssProp: 'text-align' },
         { list: colors, cssProp: 'color' },
         { list: display, cssProp: 'display' },

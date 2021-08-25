@@ -11,14 +11,14 @@ type CommunityProps = {
 export const Community = (props: CommunityProps) => {
     const { data } = props;
 
-    const { claimLocations, coverImage, gps } = data;
+    const { claimLocations, coverImage, gps, status } = data;
     const header = { claimLocations, coverImage, gps };
 
     return (
         <>
             <Header {...header} />
             <MainInfo {...data} />
-            <Dashboard {...data} />
+            {status !== 'pending' && <Dashboard {...data} />}
         </>
     );
 };

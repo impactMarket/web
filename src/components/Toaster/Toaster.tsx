@@ -1,8 +1,9 @@
 import 'react-toastify/dist/ReactToastify.min.css';
-import { Icon, IconType, Text } from '../../theme/components';
+import { Icon, Text } from '../../theme/components';
+import { IconType } from '../../theme/Types';
 import { ToastContainer, toast as toastifyToast } from 'react-toastify';
 import { colors } from '../../theme';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const ToastWrapper = styled.div`
@@ -29,7 +30,7 @@ const toastType: { [key in TypeOptions]: ToastTypeOptions } = {
 const Toast = ({ color, children, icon }: { children: any } & ToastTypeOptions) => (
     <ToastWrapper>
         <Icon icon={icon} mr={0.75} sColor={color} sHeight={1.375} />
-        <Text as="div" medium small textPrimary>
+        <Text div medium small textPrimary>
             {children}
         </Text>
     </ToastWrapper>
@@ -37,7 +38,7 @@ const Toast = ({ color, children, icon }: { children: any } & ToastTypeOptions) 
 
 const types = Object.keys(toastType) as (keyof typeof toastType)[];
 
-export const toast: { [key in TypeOptions]: (content: string | Function) => React.ReactText } = types.reduce(
+export const toast: { [key in TypeOptions]: (content: string | ReactElement) => React.ReactText } = types.reduce(
     (methods: any, type: TypeOptions) => ({
         ...methods,
         [type]: (content: string) => {

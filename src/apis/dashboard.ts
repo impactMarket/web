@@ -8,7 +8,7 @@ export const dashboard: { [key: string]: Function } = {
     getAvgCumulativeUbi: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('beneficiary')}`,
-        value: currencyValue(humanifyNumber(data?.monthly[0]?.avgComulativeUbi), false)
+        value: currencyValue(humanifyNumber(data?.monthly[0]?.avgComulativeUbi), { decimals: false })
     }),
 
     getAvgUbiDuration: (data: IGlobalDashboard, t: Function) => ({

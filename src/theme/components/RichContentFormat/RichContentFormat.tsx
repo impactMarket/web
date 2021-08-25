@@ -10,6 +10,7 @@ export const RichContentFormat = styled.div<GeneratedPropsTypes>`
 
     a {
         color: ${colors.brandPrimary};
+        display: inline;
     }
 
     ${generateProps};

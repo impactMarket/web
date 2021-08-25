@@ -90,6 +90,7 @@ export const HeaderStatusBarLeftCol = styled.div`
 
 export const HeaderStatusBarRightCol = styled.div`
     display: flex;
+    align-items: center;
 
     ${mq.upTo(
         'tabletLandscape',

@@ -27,7 +27,7 @@ const Avatar = styled.div<AvatarProps>`
 `;
 
 export const MainInfo = (props: ICommunity) => {
-    const { campaign, contract, contractAddress, country, description, managers, name, state } = props;
+    const { campaign, city, contract, contractAddress, country, description, managers, name, state, status } = props;
     const campaignUrl = useMemo(() => campaign?.campaignUrl, [campaign]);
 
     return (
@@ -37,17 +37,18 @@ export const MainInfo = (props: ICommunity) => {
                     <Col md={8} sm={6} xs={12}>
                         {/* Heading info */}
                         <Heading h2>{name}</Heading>
-                        <Div textSecondary>
+                        <Div mt={0.5} textSecondary>
                             <Div sHeight={1.375}>
                                 <Icon icon="community" sHeight="auto" sWidth={0.75} />
                             </Div>
                             <Text ml={0.25} small>
-                                {numericalValue(state?.beneficiaries)}
+                                {numericalValue(state?.beneficiaries || 0)}
                             </Text>
                             <Div sHeight={1.375}>
                                 <Icon icon="location" ml={0.5} sHeight="auto" sWidth={0.5} />
                             </Div>
                             <Text ml={0.25} small>
+                                {city ? `${city}, ` : ``}
                                 {countries?.[country]?.name}
                             </Text>
                         </Div>
@@ -96,6 +97,7 @@ export const MainInfo = (props: ICommunity) => {
                             contract={contract}
                             contractAddress={contractAddress}
                             state={state}
+                            status={status}
                         />
                     </Col>
                 </Row>

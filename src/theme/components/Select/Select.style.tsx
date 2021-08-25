@@ -102,6 +102,7 @@ export const OptionList = styled.div<{ isVisible?: boolean } & OptionListProps>`
 export const OptionSelected = styled.a`
     align-items: center;
     display: inline-flex;
+    height: 100%;
     white-space: nowrap;
 `;
 

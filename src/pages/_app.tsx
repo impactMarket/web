@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
-import { CookieConsent, Footer, Header, Loading, SEO } from '../components';
+import { CookieConsent, Footer, Header, ImpactMarketDaoProvider, Loading, SEO } from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ModalManager } from 'react-modal-handler';
@@ -61,22 +61,24 @@ export default function App(props: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
                 <TranslationProvider locale={locale}>
-                    <DataProvider page={page} url={url}>
-                        <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
-                            <Loading isActive={showSpinner} />
-                            <ModalManager modals={modals} />
-                            <SEO meta={meta} />
-                            <Toaster />
-                            <Main>
-                                <Header />
-                                <Content>
-                                    <Component {...pageProps} />
-                                </Content>
-                                <Footer {...footerOptions} />
-                            </Main>
-                            <CookieConsent />
-                        </GoogleReCaptchaProvider>
-                    </DataProvider>
+                    <ImpactMarketDaoProvider>
+                        <DataProvider page={page} url={url}>
+                            <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                                <Loading isActive={showSpinner} />
+                                <ModalManager modals={modals} />
+                                <SEO meta={meta} />
+                                <Toaster />
+                                <Main>
+                                    <Header />
+                                    <Content>
+                                        <Component {...pageProps} />
+                                    </Content>
+                                    <Footer {...footerOptions} />
+                                </Main>
+                                <CookieConsent />
+                            </GoogleReCaptchaProvider>
+                        </DataProvider>
+                    </ImpactMarketDaoProvider>
                 </TranslationProvider>
             </ThemeProvider>
         </>

@@ -7,7 +7,7 @@ export const getStaticProps = () => {
                 hideDonateButton: true,
                 whiteBackground: true
             },
-            page: 'Fundraise'
+            page: 'fundraise'
         }
     };
 };

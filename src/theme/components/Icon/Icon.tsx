@@ -1,10 +1,8 @@
-import { GeneratedPropsTypes } from '../../Types';
+import { GeneratedPropsTypes, IconType } from '../../Types';
 import { generateProps } from 'styled-gen';
 import React from 'react';
 import icons from './ui';
 import styled from 'styled-components';
-
-export type IconType = keyof typeof icons;
 
 const renderPaths = (icon: { paths: any }) =>
     icon.paths.map((path: any, index: number) => (

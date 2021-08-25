@@ -9,7 +9,7 @@ type ServerSideProps = {
     locale: string;
 };
 
-const communitiesErrorStatus = ['removed', 'pending'];
+const communitiesErrorStatus = ['removed'];
 const communitiesHiddenStatus = ['private'];
 
 export const getServerSideProps = async (serverSideProps: ServerSideProps) => {
