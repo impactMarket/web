@@ -35,11 +35,12 @@ const ModalCol = styled.div`
 `;
 
 type ModalProps = {
-    contractAddress?: string;
+    address?: string;
+    footer?: any;
 };
 
 export const Modal = (props: ModalProps) => {
-    const { contractAddress } = props;
+    const { address, footer } = props;
 
     return (
         <ModalWrapper>
@@ -47,13 +48,14 @@ export const Modal = (props: ModalProps) => {
                 <Text small>
                     <String id="modal.donate.scanText" variables={{ currency: 'Celo Dollar ($cUSD)' }} />
                 </Text>
-                <Address address={contractAddress} />
+                <Address address={address} />
             </ModalCol>
             <ModalCol>
-                <QrCode address={contractAddress} />
+                <QrCode address={address} />
             </ModalCol>
+            {footer || null}
         </ModalWrapper>
     );
 };
 
-export const ModalCommunityDonate = withModal(Modal, { size: 620 });
+export const ModalCeloDonation = withModal(Modal, { size: 620 });

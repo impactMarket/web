@@ -1,4 +1,5 @@
 export * from './Address/Address';
+export * from './CeloDonationButton/CeloDonationButton';
 export * from './Cta/Cta';
 export * from './CookieConsent/CookieConsent';
 export * from './Copied/Copied';

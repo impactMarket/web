@@ -1,4 +1,5 @@
 export * from './Communities/Communities';
 export * from './Community/Community';
 export * from './GlobalDashboard/GlobalDashboard';
+export * from './GovernanceToken/GovernanceToken';
 export * from './Homepage/Homepage';

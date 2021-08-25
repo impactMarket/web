@@ -1,7 +1,7 @@
-import { ModalCommunityDonate } from './ModalCommunityDonate/ModalCommunityDonate';
+import { ModalCeloDonation } from './ModalCeloDonation/ModalCeloDonation';
 import { ModalDonate } from './ModalDonate/ModalDonate';
 
 export const modals = {
-    communityDonate: ModalCommunityDonate,
+    celoDonation: ModalCeloDonation,
     donate: ModalDonate
 };

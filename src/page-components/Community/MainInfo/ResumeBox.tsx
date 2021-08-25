@@ -1,7 +1,6 @@
-import { Button, DashboardCard, Div, Heading, Img, Text } from '../../../theme/components';
-import { ProgressBar, String } from '../../../components';
+import { Button, DashboardCard, Div, Heading, Text } from '../../../theme/components';
+import { CeloDonationButton, ProgressBar, String } from '../../../components';
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
-import { modal } from 'react-modal-handler';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React from 'react';
@@ -18,10 +17,6 @@ export const ResumeBox = (props: any) => {
         }
 
         window.open(campaignUrl, '_blank');
-    };
-
-    const handleCeloDonationClick = () => {
-        modal.open('communityDonate', { contractAddress, heading: celoDollarLabel, withCloseButton: true });
     };
 
     return (
@@ -54,10 +49,7 @@ export const ResumeBox = (props: any) => {
             <Text mt={1} sTextAlign="center" small>
                 <String id="contributeWith" />
             </Text>
-            <Button fluid mt={1} onClick={handleCeloDonationClick}>
-                <Text medium>{celoDollarLabel}</Text>
-                <Img inlineFlex ml={0.5} sHeight={1.5} sWidth="auto" src="/img/cusd.png" />
-            </Button>
+            <CeloDonationButton address={contractAddress} fluid label={celoDollarLabel} mt={1} />
 
             {/* campaign button */}
             {campaignUrl && (

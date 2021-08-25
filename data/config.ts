@@ -15,7 +15,8 @@ export const config = {
     header: {
         menu: [
             { labelKey: 'communities', to: '/communities' },
-            { labelKey: 'globalDashboard', to: '/global-dashboard' }
+            { labelKey: 'globalDashboard', to: '/global-dashboard' },
+            { labelKey: 'governanceToken', to: '/governance-token' }
         ]
     },
     seo: {
