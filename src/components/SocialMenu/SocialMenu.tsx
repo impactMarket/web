@@ -6,7 +6,7 @@ import { useData } from '../DataProvider/DataProvider';
 import React from 'react';
 import styled from 'styled-components';
 
-const socialIcons = ['telegram', 'linkedin', 'github', 'facebook', 'twitter'] as const;
+const socialIcons = ['telegram', 'linkedin', 'github', 'facebook', 'twitter', 'discord', 'instagram', 'medium'] as const;
 
 const SocialLink = styled.a.attrs({
     rel: 'noreferrer noopener',
@@ -17,7 +17,7 @@ const SocialLink = styled.a.attrs({
     color: ${colors.brandSecondary};
 
     & + & {
-        margin-left: 1rem;
+        margin-left: 0.5rem;
     }
 
     &:hover {
@@ -37,7 +37,7 @@ export const SocialMenu = (props: SocialMenuProps) => {
             {socialNetworks &&
                 socialIcons.map((icon: typeof socialIcons[number]) => (
                     <SocialLink href={socialNetworks[icon]} key={icon}>
-                        <Icon icon={icon} sHeight={2} />
+                        <Icon icon={icon} sHeight={1.875} />
                     </SocialLink>
                 ))}
         </Div>
