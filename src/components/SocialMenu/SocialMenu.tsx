@@ -6,7 +6,16 @@ import { useData } from '../DataProvider/DataProvider';
 import React from 'react';
 import styled from 'styled-components';
 
-const socialIcons = ['telegram', 'linkedin', 'github', 'facebook', 'twitter', 'discord', 'instagram', 'medium'] as const;
+const socialIcons = [
+    'telegram',
+    'linkedin',
+    'github',
+    'facebook',
+    'twitter',
+    'discord',
+    'instagram',
+    'medium'
+] as const;
 
 const SocialLink = styled.a.attrs({
     rel: 'noreferrer noopener',
