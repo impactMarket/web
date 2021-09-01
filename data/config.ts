@@ -22,9 +22,12 @@ export const config = {
         image: 'https://impactmarket.com/img/seo.jpg'
     },
     social: {
+        discord: 'https://discord.gg/FYAwNYyc',
         facebook: 'https://www.facebook.com/IPCTmarket',
         github: 'https://github.com/impactMarket',
+        instagram: 'https://www.instagram.com/impactmarket_/',
         linkedin: 'https://www.linkedin.com/company/impactmarket',
+        medium: 'https://medium.com/impactmarket',
         telegram: 'https://t.me/impactMarket',
         twitter: 'https://twitter.com/IPCTmarket'
     },

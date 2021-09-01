@@ -10,7 +10,6 @@
     "translations": "node ./utils/getTranslationsFromRepo"
   },
   "dependencies": {
-    "@psoares/svg-list": "^1.1.6",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "date-fns": "^2.23.0",
@@ -40,6 +39,7 @@
     "type-fest": "^0.21.3"
   },
   "devDependencies": {
+    "@psoares/svg-list": "^1.1.8",
     "@types/bignumber.js": "^5.0.0",
     "@types/lodash": "^4.14.168",
     "@types/mapbox-gl": "^2.1.1",
