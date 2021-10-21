@@ -3,7 +3,6 @@ import { Button, DashboardCard, Div, Heading, Img, Text } from '../../../theme/c
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
-import Image from 'next/image';
 import React from 'react';
 
 const celoDollarLabel = 'Celo Dollar ($cUSD)';
@@ -85,7 +84,8 @@ export const ResumeBox = (props: any) => {
                             <String id="poweredBy" />
                         </Text>
                         <a href="https://esolidar.com" rel="noreferrer noopener" target="_blank">
-                            <Image alt="e-solidar logo" height="14px" src="/img/partners/esolidar.svg" width="65px" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img alt="e-solidar logo" height="14px" src="/img/partners/esolidar.svg" width="65px" />
                         </a>
                     </Div>
                 </>

@@ -56,7 +56,7 @@ export const Modal = () => {
                                 variables={{ currency: t(`wallet.extendedLabel.${wallet?.code}`) }}
                             />
                         </Text>
-                        <Address address={wallet?.address} />
+                        <Address address={wallet?.address} mt={1} />
                     </ModalCol>
                     <ModalCol>
                         <QrCode address={wallet?.address} />

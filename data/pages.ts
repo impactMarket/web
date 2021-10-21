@@ -47,6 +47,22 @@ export const pages: { [key: string]: object } = {
             }
         }
     },
+    Fundraise: {
+        hero: {
+            addresses: [
+                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'celo' },
+                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'btc' },
+                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'eth' }
+            ],
+            cover: '/img/Fundraise-cover.png',
+            esolidarCampaignUrl: 'https://esolidar.com',
+            endDate: '2021-10-31',
+            learnMoreUrl: 'https://google.com'
+        },
+        balance: {
+            items: ['btc', 'celo', 'eth', 'esolidar']
+        }
+    },
     globalDashboard: {
         global: {
             rows: [

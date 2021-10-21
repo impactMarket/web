@@ -23,7 +23,9 @@ export const HeaderMainBar = styled.div`
     padding: 1.5rem 0;
 `;
 
-export const HeaderMainBarLeftCol = styled.div``;
+export const HeaderMainBarLeftCol = styled.div`
+    line-height: 1;
+`;
 
 export const HeaderMainBarMenu = styled.div`
     display: none;

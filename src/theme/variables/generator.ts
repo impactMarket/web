@@ -20,7 +20,8 @@ export const generator = {
         { list: display, cssProp: 'display' },
         { list: flexDirection, cssProp: 'flex-direction' },
         { list: fonts.families, cssProp: 'font-family' },
-        { list: fonts.weights, cssProp: 'font-weight' }
+        { list: fonts.weights, cssProp: 'font-weight' },
+        { list: { relative: 'relative' }, cssProp: 'position' }
     ],
 
     // Space props

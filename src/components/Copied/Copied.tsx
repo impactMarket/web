@@ -62,7 +62,7 @@ export const Copied = (props: { trigger: number }) => {
                 setIsShowing(false);
             }, 2000);
         }
-    }, [isShowing, trigger]);
+    }, [trigger]);
 
     if (!isShowing) {
         return null;

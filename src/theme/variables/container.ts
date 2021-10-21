@@ -1,5 +1,5 @@
 export const container = {
-    lg: 80,
+    lg: 84,
     md: 64,
     sm: 48
 };

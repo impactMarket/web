@@ -29,5 +29,8 @@ export const colors = {
     success: '#2DCE89',
     warning: '#FE9A22',
     yellow: '#FFC278',
-    innactive: '#DCDEE2'
+    innactive: '#DCDEE2',
+
+    // others
+    esolidar: '#17C3B2'
 };

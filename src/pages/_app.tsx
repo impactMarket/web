@@ -23,7 +23,7 @@ export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
-    const { meta, page, statusCode } = pageProps;
+    const { footerOptions = {}, meta, page, statusCode } = pageProps;
     const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export default function App(props: AppProps) {
                                 <Content>
                                     <Component {...pageProps} />
                                 </Content>
-                                <Footer />
+                                <Footer {...footerOptions} />
                             </Main>
                             <CookieConsent />
                         </GoogleReCaptchaProvider>

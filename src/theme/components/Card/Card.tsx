@@ -16,7 +16,7 @@ export const Card = styled.div<GeneratedPropsTypes>`
     ${generateProps};
 `;
 
-export const CardContent = styled.div`
+export const CardContent = styled.div<GeneratedPropsTypes>`
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -26,4 +26,6 @@ export const CardContent = styled.div`
     ${mq.tablet(css`
         padding: 2;
     `)}
+
+    ${generateProps};
 `;

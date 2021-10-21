@@ -1,5 +1,6 @@
 export * from './ATag/ATag';
 export * from './Button/Button';
+export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Chip/Chip';
 export * from './Content/Content';
@@ -16,6 +17,7 @@ export * from './Input/Input';
 export * from './ItemsRow/ItemsRow';
 export * from './Logo/Logo';
 export * from './Main/Main';
+export * from './RichContentFormat/RichContentFormat';
 export * from './Section/Section';
 export * from './Select/Select';
 export * from './Spinner/Spinner';
