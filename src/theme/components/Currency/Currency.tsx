@@ -5,17 +5,23 @@ import styled from 'styled-components';
 
 const CurrencyWrapper = styled.div`
     display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 1.75rem;
 
     ${generateProps}
 `;
 
 type CurrencyProps = {
-    currency: 'btc' | 'celo' | 'eth' | 'cUSD';
+    currency: 'btc' | 'celo' | 'eth' | 'cUSD' | string;
 };
 
 const SVG = styled.svg.attrs<any>({
     xmlns: 'http://www.w3.org/2000/svg'
-})``;
+})`
+    height: 100%;
+    width: 100%;
+`;
 
 export const Currency = (props: CurrencyProps & GeneratedPropsTypes) => {
     const { currency, ...forwardProps } = props;
@@ -23,7 +29,7 @@ export const Currency = (props: CurrencyProps & GeneratedPropsTypes) => {
     return (
         <CurrencyWrapper {...forwardProps}>
             {currency === 'btc' && (
-                <SVG height="28" width="27">
+                <SVG viewBox="0 0 27 27">
                     <path
                         d="M13.5 27.197c7.456 0 13.5-6.044 13.5-13.5S20.956.197 13.5.197 0 6.241 0 13.697s6.044 13.5 13.5 13.5z"
                         fill="#F7931A"
@@ -36,7 +42,7 @@ export const Currency = (props: CurrencyProps & GeneratedPropsTypes) => {
             )}
 
             {currency === 'celo' && (
-                <SVG height="28" width="27">
+                <SVG viewBox="0 0 27 27">
                     <g clipPath="url(#currencyclip0)">
                         <path
                             d="M13.5 27.197c7.456 0 13.5-6.044 13.5-13.5S20.956.197 13.5.197 0 6.241 0 13.697s6.044 13.5 13.5 13.5z"
@@ -69,7 +75,7 @@ export const Currency = (props: CurrencyProps & GeneratedPropsTypes) => {
             )}
 
             {currency === 'eth' && (
-                <SVG height="28" width="27">
+                <SVG viewBox="0 0 27 27">
                     <path
                         d="M13.5 27.197c7.456 0 13.5-6.044 13.5-13.5S20.956.197 13.5.197 0 6.241 0 13.697s6.044 13.5 13.5 13.5z"
                         fill="#627EEA"
@@ -84,7 +90,7 @@ export const Currency = (props: CurrencyProps & GeneratedPropsTypes) => {
             )}
 
             {currency === 'cUSD' && (
-                <SVG height="27" viewBox="0 0 100 100" width="27" xmlSpace="preserve">
+                <SVG viewBox="0 0 100 100" xmlSpace="preserve">
                     <path d="M50 0c27.6 0 50 22.4 50 50s-22.4 50-50 50S0 77.6 0 50 22.4 0 50 0z" fill="#45cd85" />
                     <path
                         d="M47.9 77.2c10.4 0 19.6-6.9 22.6-17h-8.1c-2.5 5.7-8.2 9.4-14.5 9.4-8.8 0-15.9-7.1-15.9-15.9 0-6.3 3.7-12 9.4-14.5v-8.1c-10.1 3-17 12.2-17 22.6 0 12.9 10.6 23.5 23.5 23.5zm13.9-29.7v-5.7c2.2.7 3 1.5 3 2.7 0 1.4-1.1 2.5-3 3zM56 57.3h6v-3.2c5.9-1 9.7-4.7 9.7-9.6 0-6.8-5.2-8.6-9.9-9.5v-6.6c2.4.4 4.9 1.3 7.1 2.6v-7.4c-2.3-.9-4.6-1.4-6.9-1.6v-3.1h-6V22c-5.9 1-9.6 4.5-9.6 9.3 0 6.8 5.1 8.8 9.8 9.7v6.5c-2.7-.6-5.8-1.8-9.6-4v7.6c3.2 1.7 6.4 2.7 9.4 3v3.2zm.2-23.2c-2.1-.6-2.9-1.4-2.9-2.8s1-2.4 2.9-2.8v5.6z"

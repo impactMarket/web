@@ -25,9 +25,9 @@ export const format = (date: any, formatString: string = 'PP') =>
     dateFnsFormat(date, formatString, { locale: getLocale() });
 
 export const dateHelpers = {
-    short: (date: string) => format(new Date(date), 'MMM d, y'),
+    short: (date: string | Date) => format(new Date(date), 'MMM d, y'),
 
-    timeLeft: (date: string) => {
+    timeLeft: (date: string | Date) => {
         const today = new Date();
         const targetDate = new Date(date);
 

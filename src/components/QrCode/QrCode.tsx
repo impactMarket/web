@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -19,7 +18,8 @@ export const QrCode = (props: QrCodeProps) => {
 
     return (
         <Wrapper>
-            <Image alt={address} src={img} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt={address} src={img} />
         </Wrapper>
     );
 };

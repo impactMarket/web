@@ -10,7 +10,21 @@ const langsBaseUrl = 'https://impactmarket.github.io/translations/web/';
 const fileDir = './i18n'
 const filePath = './i18n/translations.json';
 
+const isLocalDevelopment = process.env.LOCAL_DEVELOPMENT;
+
 const getLang = async lang => {
+    if (isLocalDevelopment) {
+        try {
+            const translationData = await require(`../../translations/web/${lang}.json`);
+
+            return translationData;
+        } catch (error) {
+            return {};
+
+            console.log(error);
+        }
+    }
+
     const url = `${langsBaseUrl}${lang}.json`;
 
     try {

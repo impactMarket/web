@@ -2,13 +2,14 @@ import { dateHelpers } from '../../helpers/dateHelpers';
 import React, { useEffect, useState } from 'react';
 
 type CountdownProps = {
-    prefix: string;
+    prefix?: string;
     date: string;
     onEnd?: Function;
 };
 
 export const Countdown = (props: CountdownProps) => {
-    const { date, prefix = '', onEnd } = props;
+    const { date: dateFromProps, prefix = '', onEnd } = props;
+    const date = new Date(dateFromProps);
     const { days = 0, hours = 0, minutes = 0, seconds = 60 } = dateHelpers.timeLeft(date);
     const [time, setTime] = useState([days, hours, minutes, seconds]);
     const [dys, hrs, mins, secs] = time;
