@@ -9,13 +9,19 @@ export const FooterLogo = styled(Icon).attrs({ icon: 'im' })`
     width: auto;
 `;
 
-export const FooterWrapper = styled.div`
-    background-color: ${colors.backgroundLight};
+type FooterWrapperProps = {
+    whiteBackground?: boolean;
+    withDonateButton?: boolean;
+};
+
+export const FooterWrapper = styled.div<FooterWrapperProps>`
+    background-color: ${({ whiteBackground = false }) => (whiteBackground ? colors.white : colors.backgroundLight)};
     margin-top: auto;
     padding: 3.75rem 0 2.625rem;
     width: 100%;
 
-    ${mq.desktop(css`
-        padding: 3.75rem 0;
-    `)}
+    ${({ withDonateButton }) =>
+        mq.desktop(css`
+            padding: ${withDonateButton ? '3.75rem 0' : '6.25rem 0'};
+        `)};
 `;

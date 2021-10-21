@@ -45,7 +45,7 @@ export default function App(props: AppProps) {
             router.events.off('routeChangeStart', handleRouteChange);
             router.events.on('routeChangeComplete', handleRouteComplete);
         };
-    }, []);
+    }, [locale, router.events]);
 
     if (!page) {
         return <ErrorPage statusCode={statusCode} />;

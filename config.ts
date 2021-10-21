@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys */
 /* eslint-disable no-process-env */
-export default {
+const config = {
     /**
      * Base URL
      */
@@ -56,3 +56,5 @@ export default {
      */
     recaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_KEY
 };
+
+export default config;
