@@ -1,67 +1,43 @@
 import { colors } from '../../theme';
 import { ease, mq, transitions } from 'styled-gen';
-import { position, size } from 'polished';
+import { position, rgba, size } from 'polished';
 import styled, { css } from 'styled-components';
 
-export const HeaderContent = styled.div`
+export const HeaderBarContent = styled.div`
     align-items: center;
-    background-color: ${colors.white};
     display: flex;
     justify-content: space-between;
+    max-width: 84rem;
     margin: auto;
-    max-width: 1280px;
-    padding: 1rem 0;
-    width: 100%;
+    padding: 0 2rem;
 `;
 
-export const HeaderLanguageWrapper = styled.div`
-    margin-top: 1.25rem;
-    width: 100%;
+export const HeaderContent = styled.div`
+    background-color: ${colors.white};
+    position: relative;
+    z-index: 2;
+`;
+
+export const HeaderMainBar = styled.div`
+    background-color: ${colors.white};
+    padding: 1.5rem 0;
+`;
+
+export const HeaderMainBarLeftCol = styled.div``;
+
+export const HeaderMainBarMenu = styled.div`
+    display: none;
 
     ${mq.tablet(css`
-        align-items: center;
-        border-left: 1px solid ${colors.brandSecondaryLight};
         display: flex;
-        margin-left: 1rem;
-        margin-top: 0;
-        padding-left: 1rem;
-        width: unset;
-    `)}
-`;
 
-export const HeaderMenuItem = styled.div`
-    width: 50%;
-
-    ${mq.tablet(css`
-        width: auto;
-
-        & + & {
+        & > a + a {
             margin-left: 2rem;
         }
     `)}
 `;
 
-export const HeaderMenuWrapper = styled.div<{ isActive?: boolean }>`
-    transform: ${({ isActive }) => `translateX(${isActive ? 0 : '100%'})`};
-
-    ${mq.phone(css`
-        ${position('fixed', 0)};
-        ${transitions(['transform'], 500, ease.inOutCirc)};
-
-        background-color: ${colors.white};
-        display: flex;
-        flex-direction: column;
-        padding: 9rem 2rem 2rem;
-        z-index: 1;
-    `)};
-
-    ${mq.tablet(css`
-        display: flex;
-        transform: translateX(0);
-    `)}
-`;
-
-export const HeaderMobileMenuButton = styled.a`
+export const HeaderMainBarMobileMenuButton = styled.a`
     ${size('2.625rem')};
 
     align-items: center;
@@ -77,19 +53,54 @@ export const HeaderMobileMenuButton = styled.a`
     `)}
 `;
 
-export const HeaderMobileMenuFooter = styled.div`
-    display: block;
-    margin-top: 4rem;
+export const HeaderMainBarRightCol = styled.div``;
+
+export const HeaderMobileContent = styled.div<{ isActive?: boolean }>`
+    ${position('fixed', 0)};
+    ${transitions(['transform'], 500, ease.inOutCirc)};
+
+    background-color: ${colors.white};
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 11rem 2rem 2rem;
+    transform: ${({ isActive }) => `translateX(${isActive ? 0 : '100%'})`};
+    z-index: 1;
 
     ${mq.tablet(css`
         display: none;
     `)}
 `;
 
+export const HeaderStatusBar = styled.div`
+    background-color: ${rgba(colors.borderLight, 0.32)};
+    padding: 1rem 0;
+`;
+
+export const HeaderStatusBarLeftCol = styled.div`
+    ${mq.upTo(
+        'tabletLandscape',
+        css`
+            display: none;
+        `
+    )}
+`;
+
+export const HeaderStatusBarRightCol = styled.div`
+    display: flex;
+
+    ${mq.upTo(
+        'tabletLandscape',
+        css`
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        `
+    )}
+`;
+
 export const HeaderWrapper = styled.div`
     ${position('fixed', 0, 0, null, 0)};
 
-    background-color: ${colors.white};
-    width: 100%;
-    z-index: 10;
+    z-index: 99;
 `;

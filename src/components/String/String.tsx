@@ -11,10 +11,11 @@ type StringProps = {
 export const String = (props: StringProps) => {
     const { children, id, variables } = props;
     const { t } = useTranslation();
+    const str = t(id, variables) || '<span style="color: red; font-weight: 700">No translation!<span>';
 
     if (typeof children === 'function') {
-        return children(parse(t(id, variables)));
+        return children(parse(str));
     }
 
-    return <>{parse(t(id, variables))}</>;
+    return <>{parse(str)}</>;
 };
