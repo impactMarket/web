@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Content = styled.main`
     display: block;
-    padding-top: 4.75rem;
+    /* TODO: Update padding after IPCT Connection iteration */
+    padding-top: 6.5rem;
     width: 100%;
 `;
