@@ -1,9 +1,9 @@
+import { AddressDonationButton, ProgressBar, String } from '../../../components';
 import { Button, DashboardCard, Div, Heading, Img, Text } from '../../../theme/components';
-import { ProgressBar, String } from '../../../components';
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
-import { modal } from 'react-modal-handler';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
+import Image from 'next/image';
 import React from 'react';
 
 const celoDollarLabel = 'Celo Dollar ($cUSD)';
@@ -18,10 +18,6 @@ export const ResumeBox = (props: any) => {
         }
 
         window.open(campaignUrl, '_blank');
-    };
-
-    const handleCeloDonationClick = () => {
-        modal.open('communityDonate', { contractAddress, heading: celoDollarLabel, withCloseButton: true });
     };
 
     return (
@@ -54,10 +50,17 @@ export const ResumeBox = (props: any) => {
             <Text mt={1} sTextAlign="center" small>
                 <String id="contributeWith" />
             </Text>
-            <Button fluid mt={1} onClick={handleCeloDonationClick}>
+
+            <AddressDonationButton
+                address={contractAddress}
+                currency={celoDollarLabel}
+                fluid
+                heading={celoDollarLabel}
+                mt={1}
+            >
                 <Text medium>{celoDollarLabel}</Text>
                 <Img inlineFlex ml={0.5} sHeight={1.5} sWidth="auto" src="/img/cusd.png" />
-            </Button>
+            </AddressDonationButton>
 
             {/* campaign button */}
             {campaignUrl && (
@@ -82,7 +85,7 @@ export const ResumeBox = (props: any) => {
                             <String id="poweredBy" />
                         </Text>
                         <a href="https://esolidar.com" rel="noreferrer noopener" target="_blank">
-                            <img height="14px" src="/img/partners/esolidar.svg" width="65px" />
+                            <Image alt="e-solidar logo" height="14px" src="/img/partners/esolidar.svg" width="65px" />
                         </a>
                     </Div>
                 </>

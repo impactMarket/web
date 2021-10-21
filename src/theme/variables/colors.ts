@@ -14,6 +14,8 @@ export const colors = {
     // backgrounds
     backgroundBlack: '#1E3252',
     backgroundSecondary: '#E9EDF4',
+    backgroundSecondaryDisabled: '#F0F2F7',
+    backgroundShadow: '#E3E8F0',
     backgroundLight: '#F4F5F7',
     backgroundDark: '#172032',
 
@@ -26,5 +28,6 @@ export const colors = {
     border: '#EBEBEB',
     success: '#2DCE89',
     warning: '#FE9A22',
-    yellow: '#FFC278'
+    yellow: '#FFC278',
+    innactive: '#DCDEE2'
 };

@@ -33,12 +33,14 @@
     "react-styled-flexboxgrid": "^3.2.1",
     "react-table": "^7.6.3",
     "recharts": "^2.0.9",
+    "sharethis-reactjs": "^1.6.0",
     "styled-components": "^5.0.0",
     "styled-gen": "^1.4.4",
     "styled-reset": "^4.3.4",
     "type-fest": "^0.21.3"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^11.1.2",
     "@psoares/svg-list": "^1.1.8",
     "@types/bignumber.js": "^5.0.0",
     "@types/lodash": "^4.14.168",

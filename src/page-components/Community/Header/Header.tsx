@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Col, Grid, Row, Section } from '../../../theme/components';
 import { IClaimLocationGps } from '../../../apis/types';
 import { Map } from '../../../components';

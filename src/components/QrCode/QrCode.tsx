@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -18,7 +19,7 @@ export const QrCode = (props: QrCodeProps) => {
 
     return (
         <Wrapper>
-            <img alt={address} src={img} />
+            <Image alt={address} src={img} />
         </Wrapper>
     );
 };

@@ -1,3 +1,6 @@
-extends: eslint-config-im
+extends:
+  - eslint-config-im
+  - next
 rules:
   react/require-default-props: off
+  react-hooks/exhaustive-deps: off

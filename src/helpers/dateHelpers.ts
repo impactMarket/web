@@ -1,4 +1,4 @@
-import { format as dateFnsFormat } from 'date-fns';
+import { format as dateFnsFormat, differenceInMilliseconds } from 'date-fns';
 import { es, fr, ptBR } from 'date-fns/locale';
 import langConfig from '../../lang-config';
 
@@ -25,5 +25,28 @@ export const format = (date: any, formatString: string = 'PP') =>
     dateFnsFormat(date, formatString, { locale: getLocale() });
 
 export const dateHelpers = {
-    short: (date: string) => format(new Date(date), 'MMM d, y')
+    short: (date: string) => format(new Date(date), 'MMM d, y'),
+
+    timeLeft: (date: string) => {
+        const today = new Date();
+        const targetDate = new Date(date);
+
+        let diff = differenceInMilliseconds(targetDate, today) / 1000;
+
+        const days = Math.floor(diff / 86400);
+
+        diff -= days * 86400;
+
+        const hours = Math.floor(diff / 3600) % 24;
+
+        diff -= hours * 3600;
+
+        const minutes = Math.floor(diff / 60) % 60;
+
+        diff -= minutes * 60;
+
+        const seconds = Math.floor(diff / 60) % 60;
+
+        return { days, hours, minutes, seconds };
+    }
 };
