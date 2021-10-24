@@ -15,7 +15,7 @@ import Router from 'next/router';
 import config from '../../config';
 import theme from '../theme';
 
-const { baseUrl, recaptchaKey } = config;
+const { baseUrl, isProduction, recaptchaKey } = config;
 
 Router.events.on('routeChangeComplete', url => pageview(url));
 
@@ -23,7 +23,7 @@ export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
     const { pathname, locale } = router;
     const url = `${baseUrl}/${locale}${pathname}`;
-    const { footerOptions = {}, meta, page, statusCode } = pageProps;
+    const { footerOptions = {}, meta, page, statusCode, wip } = pageProps;
     const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
@@ -47,8 +47,8 @@ export default function App(props: AppProps) {
         };
     }, [locale, router.events]);
 
-    if (!page) {
-        return <ErrorPage statusCode={statusCode} />;
+    if (!page || (wip && isProduction)) {
+        return <ErrorPage statusCode={wip ? 404 : statusCode} />;
     }
 
     return (
