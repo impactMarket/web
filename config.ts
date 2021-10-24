@@ -54,7 +54,12 @@ const config = {
     /**
      * ReCaptcha key
      */
-    recaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_KEY
+    recaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_KEY,
+
+    /*
+     * is Production
+     */
+    isProduction: process.env.NODE_ENV === 'production'
 };
 
 export default config;
