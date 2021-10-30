@@ -53,9 +53,9 @@ export const Countdown = (props: CountdownProps) => {
     return (
         <>
             {`${prefix ? `${prefix} ` : ''}${dys ? `${dys.toString().padStart(2, '0')}d` : ''} · ${
-                dys && hrs ? `${hrs.toString().padStart(2, '0')}h` : ''
-            } · ${dys && hrs && mins ? `${mins.toString().padStart(2, '0')}m` : ''} · ${
-                dys && hrs && mins && secs ? `${secs.toString().padStart(2, '0')}s` : ''
+                dys === 0 || !!dys ? `${hrs.toString().padStart(2, '0')}h` : ''
+            } · ${dys && hrs ? `${mins.toString().padStart(2, '0')}m` : ''} · ${
+                dys && hrs && mins ? `${secs.toString().padStart(2, '0')}s` : ''
             }`}
         </>
     );

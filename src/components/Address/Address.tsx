@@ -62,7 +62,7 @@ export const Address = (
     return (
         <Wrapper {...forwardProps}>
             <AddressRow>
-                {!!currency && <Currency currency={currency} mr={0.5} sHeight={2.375} />}
+                {!!currency && <Currency currency={currency} mr={0.5} sHeight={2.375} sWidth={2.375} />}
                 <CopyToClipboard onCopy={() => setCopied(Date.now())} text={address}>
                     <AddressWrapper small={small}>
                         <Copied trigger={copied} />

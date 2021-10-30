@@ -1,17 +1,16 @@
-import { Card, CardContent, Col, Grid, Heading, Row, Section, Text } from '../../../theme/components';
+import { Card, CardContent, Col, Div, Grid, Heading, Row, Section, Spinner, Text } from '../../../theme/components';
 import { String } from '../../../components';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const mockedValues: { [key: string]: any } = {
-    btc: 1332,
-    celo: 1234,
-    esolidar: 12504,
-    eth: 16654
+const initialValues: { [key: string]: any } = {
+    btc: 0,
+    celo: 0,
+    esolidar: 0,
+    eth: 0
 };
-
-const mockedTotal = 152988;
 
 type BalanceProps = {
     items?: string[];
@@ -20,10 +19,32 @@ type BalanceProps = {
 export const Balance = (props: BalanceProps) => {
     const { items } = props;
     const { t } = useTranslation();
-    const [values] = useState(mockedValues);
-    const [total] = useState(mockedTotal);
+    const [isLoading, setIsLoading] = useState(false);
+    const [values, setValues] = useState(initialValues);
+    const [total, setTotal] = useState(0);
+    const [withError, setWithError] = useState(false);
 
-    if (!values) {
+    useEffect(() => {
+        const getValues = async () => {
+            try {
+                setIsLoading(true);
+                const response = await axios.get('api/balance');
+
+                const { celo, eth } = response?.data;
+
+                setTotal(celo + eth);
+                setValues(response.data);
+                setIsLoading(false);
+            } catch (error) {
+                setWithError(true);
+                setIsLoading(false);
+            }
+        };
+
+        getValues();
+    }, []);
+
+    if (!!withError) {
         return null;
     }
 
@@ -33,10 +54,16 @@ export const Balance = (props: BalanceProps) => {
                 <Row center="xs">
                     <Col md={6} sm={8} xs={12}>
                         <Heading center h4>
-                            <String
-                                id="page.fundraise.balance.heading"
-                                variables={{ amount: currencyValue(total.toString()) }}
-                            />
+                            {isLoading ? (
+                                <Div relative sHeight={2.25}>
+                                    <Spinner isLoading={isLoading} />
+                                </Div>
+                            ) : (
+                                <String
+                                    id="page.fundraise.balance.heading"
+                                    variables={{ amount: currencyValue(total.toString()) }}
+                                />
+                            )}
                         </Heading>
                         <Text center mt={1} small>
                             <String id="page.fundraise.balance.text" />
@@ -56,11 +83,17 @@ export const Balance = (props: BalanceProps) => {
                                         )}
                                     </Text>
                                     <Heading h4 mt={0.5}>
-                                        {currencyValue(values[currency]?.toString(), {
-                                            decimals: true,
-                                            suffix: 'USD',
-                                            symbol: '$'
-                                        })}
+                                        {isLoading ? (
+                                            <Div relative sHeight={2.25} sWidth={2.25}>
+                                                <Spinner isLoading={isLoading} />
+                                            </Div>
+                                        ) : (
+                                            currencyValue(values[currency]?.toString(), {
+                                                decimals: true,
+                                                suffix: 'USD',
+                                                symbol: '$'
+                                            })
+                                        )}
                                     </Heading>
                                 </CardContent>
                             </Card>

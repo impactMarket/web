@@ -50,17 +50,17 @@ export const pages: { [key: string]: object } = {
     Fundraise: {
         hero: {
             addresses: [
-                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'celo' },
-                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'btc' },
-                { address: '0xe8e42B8e996B74Bdca8f7b1a9E69Bdca8f7b1a9E69', name: 'eth' }
+                { address: '0xC483Cd9FC68e58074d1D82b7a9fFdE948Db6d119', name: 'celo' },
+                { address: 'bc1qe7ksg8va9uzfu4pl9ea8zyftad94p0tgtuavk4', name: 'btc' },
+                { address: '0x4D93536aa77FE4fDD48DC7f2c228410eC49c233C', name: 'eth' }
             ],
             cover: '/img/Fundraise-cover.png',
             esolidarCampaignUrl: 'https://esolidar.com',
-            endDate: '2021-10-31',
+            endDate: '2021-12-31',
             learnMoreUrl: 'https://google.com'
         },
         balance: {
-            items: ['btc', 'celo', 'eth', 'esolidar']
+            items: ['celo', 'eth']
         }
     },
     globalDashboard: {
