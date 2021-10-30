@@ -10,7 +10,7 @@
     "translations": "node ./utils/getTranslationsFromRepo"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.24.0",
     "bignumber.js": "^9.0.1",
     "date-fns": "^2.23.0",
     "html-react-parser": "^1.2.4",

@@ -7,7 +7,7 @@ const fs = require('fs');
 const { promises: fsPromises } = fs;
 
 const langsBaseUrl = 'https://impactmarket.github.io/translations/web/';
-const fileDir = './i18n'
+const fileDir = './i18n';
 const filePath = './i18n/translations.json';
 
 const isLocalDevelopment = process.env.LOCAL_DEVELOPMENT;
