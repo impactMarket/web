@@ -10,8 +10,7 @@ import {
     RichContentFormat,
     Row,
     Section,
-    Text,
-    TextLink
+    Text
 } from '../../../theme/components';
 import { colors } from '../../../theme';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -47,7 +46,7 @@ const HeroCardRow = styled.div`
 `;
 
 export const Hero = (props: HeroProps) => {
-    const { addresses, esolidarCampaignUrl, cover, endDate, learnMoreUrl } = props;
+    const { addresses, esolidarCampaignUrl, cover, endDate } = props;
     const { t } = useTranslation();
 
     const [ended, setEnded] = useState(false);
