@@ -99,7 +99,7 @@ export const Hero = (props: HeroProps) => {
 
                                 {addresses.map(({ address, name: currency }, index) => (
                                     <HeroCardRow key={index}>
-                                        {currency === 'celo' && (
+                                        {/* {currency === 'celo' && (
                                             <Text mb={0.5} semibold small>
                                                 <String id="page.fundraise.hero.addresses.text" />
                                                 {!!learnMoreUrl && (
@@ -118,7 +118,7 @@ export const Hero = (props: HeroProps) => {
                                                     </>
                                                 )}
                                             </Text>
-                                        )}
+                                        )} */}
                                         <Address
                                             address={address}
                                             currency={currency}
