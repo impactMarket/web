@@ -55,9 +55,9 @@ export const pages: { [key: string]: object } = {
                 { address: '0x4D93536aa77FE4fDD48DC7f2c228410eC49c233C', name: 'eth' }
             ],
             cover: '/img/Fundraise-cover.png',
-            esolidarCampaignUrl: 'https://esolidar.com',
-            endDate: '2021-12-31',
-            learnMoreUrl: 'https://google.com'
+            esolidarCampaignUrl: 'https://community.esolidar.com/npo/detail/1757-impactmarket',
+            endDate: '2021-11-30',
+            learnMoreUrl: ''
         },
         balance: {
             items: ['celo', 'eth']
