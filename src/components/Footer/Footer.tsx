@@ -97,7 +97,7 @@ export const Footer = (props: FooterProps) => {
                     <Row mt={{ lg: 2, xs: 4 }}>
                         <Col xs={12}>
                             <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
-                                <Div sWidth={{ sm: 'unset', xs: '100%' }}>
+                                <Div sWidth={{ lg: 'unset', xs: '100%' }}>
                                     <DonateButton pl={1.375} pr={1.375} />
                                 </Div>
                                 <Text
