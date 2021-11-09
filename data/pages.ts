@@ -8,7 +8,8 @@ export const pages: { [key: string]: object } = {
             {
                 items: [
                     { image: '/img/partners/celo.png', name: 'Celo', url: 'https://celo.org/' },
-                    { image: '/img/partners/esolidar.svg', name: 'eSolidar', url: 'https://www.esolidar.com' }
+                    { image: '/img/partners/esolidar.svg', name: 'eSolidar', url: 'https://www.esolidar.com' },
+                    { image: '/img/partners/keyko.svg', name: 'Keyko', url: 'https://www.keyko.io/' }
                 ],
                 keyLabel: 'keyPartners'
             },
