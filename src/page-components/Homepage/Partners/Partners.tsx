@@ -35,21 +35,21 @@ export const Partners = () => {
                                     <Heading h6>
                                         <String id={keyLabel} />
                                     </Heading>
-                                    <Div mt={{ sm: 0, xs: 1 }}>
+                                    <Div
+                                        mt={{ sm: 0, xs: 1 }}
+                                        sAlignItems="center"
+                                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                                    >
                                         {items.map(({ image, name, url }, indexImage) => (
                                             <ATag
                                                 href={url}
                                                 key={name}
-                                                ml={{ sm: 3, xs: indexImage ? 1 : 0 }}
+                                                ml={{ sm: 3 }}
+                                                mt={{ sm: 0, xs: indexImage ? 1.5 : 0 }}
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                <Img
-                                                    alt={`${name} logo`}
-                                                    sHeight={{ sm: 2.25, xs: 2 }}
-                                                    sWidth="auto"
-                                                    src={image}
-                                                />
+                                                <Img alt={`${name} logo`} sMaxWidth="100%" sWidth={7} src={image} />
                                             </ATag>
                                         ))}
                                     </Div>

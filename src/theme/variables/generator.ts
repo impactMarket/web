@@ -44,6 +44,7 @@ export const generator = {
         { name: 'sHeight', cssProp: 'height', units: 'rem' },
         { name: 'sJustifyContent', list: flexAlignments.justifyContentAlignments, cssProp: 'justify-content' },
         { name: 'sLineHeight', cssProp: 'line-height', units: 'rem' },
+        { name: 'sMaxHeight', cssProp: 'max-height', units: 'rem' },
         { name: 'sMaxWidth', cssProp: 'max-width', units: 'rem' },
         { name: 'sMinHeight', cssProp: 'min-height', units: 'rem' },
         { name: 'sMinWidth', cssProp: 'min-width', units: 'rem' },
