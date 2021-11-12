@@ -56,7 +56,5 @@ export const Countdown = (props: CountdownProps) => {
         dys || hrs || mins || secs ? `${dys || hrs ? ' · ' : ''}${secs.toString().padStart(2, '0')}s` : ''
     }`;
 
-    console.log(timeString);
-
     return <>{`${prefix ? `${prefix} ` : ''}${timeString}`}</>;
 };
