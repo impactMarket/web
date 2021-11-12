@@ -50,13 +50,13 @@ export const Countdown = (props: CountdownProps) => {
         return null;
     }
 
-    return (
-        <>
-            {`${prefix ? `${prefix} ` : ''}${dys ? `${dys.toString().padStart(2, '0')}d` : ''} · ${
-                dys === 0 || !!dys ? `${hrs.toString().padStart(2, '0')}h` : ''
-            } · ${dys && hrs ? `${mins.toString().padStart(2, '0')}m` : ''} · ${
-                dys && hrs && mins ? `${secs.toString().padStart(2, '0')}s` : ''
-            }`}
-        </>
-    );
+    const timeString = `${dys ? `${dys.toString().padStart(2, '0')}d` : ''}${
+        dys || hrs ? `${dys ? ' · ' : ''}${hrs.toString().padStart(2, '0')}h` : ''
+    }${dys || hrs || mins ? `${dys || hrs ? ' · ' : ''}${mins.toString().padStart(2, '0')}m` : ''}${
+        dys || hrs || mins || secs ? `${dys || hrs ? ' · ' : ''}${secs.toString().padStart(2, '0')}s` : ''
+    }`;
+
+    console.log(timeString);
+
+    return <>{`${prefix ? `${prefix} ` : ''}${timeString}`}</>;
 };
