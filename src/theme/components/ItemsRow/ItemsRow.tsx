@@ -14,6 +14,12 @@ const ItemsCol = styled.div<ItemsRowProps>`
     display: flex;
     padding: 0 ${({ spacing }) => (spacing || 0) / 2}px;
     width: ${({ distribute }) => (distribute ? '100%' : null)};
+
+    ${({ distribute }) =>
+        !distribute &&
+        css`
+            flex-shrink: 0;
+        `}
 `;
 
 const ItemsRowWrapper = styled.div<ItemsRowProps>`
