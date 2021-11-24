@@ -12,6 +12,7 @@ import ErrorPage from 'next/error';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
+import Toaster from '../components/Toaster/Toaster';
 import config from '../../config';
 import theme from '../theme';
 
@@ -65,6 +66,7 @@ export default function App(props: AppProps) {
                             <Loading isActive={showSpinner} />
                             <ModalManager modals={modals} />
                             <SEO meta={meta} />
+                            <Toaster />
                             <Main>
                                 <Header />
                                 <Content>

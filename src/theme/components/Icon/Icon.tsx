@@ -4,13 +4,15 @@ import React from 'react';
 import icons from './ui';
 import styled from 'styled-components';
 
+export type IconType = keyof typeof icons;
+
 const renderPaths = (icon: { paths: any }) =>
     icon.paths.map((path: any, index: number) => (
         <path {...path} fill="currentColor" key={`path-${index}`} style={undefined} />
     ));
 
 type IconProps = {
-    icon: keyof typeof icons;
+    icon: IconType;
 };
 
 const IconSvg = styled.svg<GeneratedPropsTypes>`
