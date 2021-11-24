@@ -2,6 +2,7 @@ import { colors } from '../../variables/colors';
 import { createGlobalStyle, css } from 'styled-components';
 import { fonts } from '../../variables/fonts';
 import { mq } from 'styled-gen';
+import { rgba } from 'polished';
 import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
@@ -75,5 +76,34 @@ export const GlobalStyle = createGlobalStyle`
     h5,
     h6 {
         font-family: ${fonts.families.manrope};
+    }
+
+    /* Toaster style */
+    .Toastify__progress-bar {
+        &--default {
+            background-color: ${colors.backgroundShadow};
+            background-image: unset;
+        }
+
+        &--error{
+            background-color: ${colors.error};
+        }
+
+        &--info{
+            background-color: ${colors.brandPrimary};
+        }
+
+        &--success {
+            background-color: ${colors.success};
+        }
+
+        &--warning{
+            background-color: ${colors.warning};
+        }
+    }
+
+    .Toastify__toast {
+        border-radius: 0.5rem;
+        box-shadow: 0 0 1.5rem ${rgba(colors.textPrimary, 0.08)};
     }
 `;
