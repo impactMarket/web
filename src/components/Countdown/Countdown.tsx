@@ -42,7 +42,7 @@ export const Countdown = (props: CountdownProps) => {
         return () => clearInterval(timerId);
     });
 
-    if (!dys && !hrs && !mins && !secs) {
+    if (dys < 0 || hrs < 0 || mins < 0 || secs < 0 || (!dys && !hrs && !mins && !secs)) {
         if (typeof onEnd === 'function') {
             onEnd();
         }
