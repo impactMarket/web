@@ -8,6 +8,7 @@ const CurrencyWrapper = styled.div`
     flex-grow: 0;
     flex-shrink: 0;
     height: 1.75rem;
+    width: 1.75rem;
 
     ${generateProps}
 `;
