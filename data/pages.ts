@@ -26,6 +26,10 @@ export const pages: { [key: string]: object } = {
                 { name: 'backers' },
                 { name: 'communities' }
             ]
+        },
+        promotionBanner: {
+            isActive: true,
+            url: 'https://polkastarter.com/projects/impactmarket'
         }
     },
     communities: {
