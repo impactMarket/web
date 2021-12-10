@@ -23,7 +23,7 @@ export const Hero = () => {
     const handleDlownloadButtonClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
 
     return (
-        <Section pb={{ sm: 4, xs: 2 }}>
+        <Section pb={{ xs: 2 }}>
             <Grid>
                 <Row middle="xs" reverse>
                     {/* eslint-disable-next-line react/jsx-sort-props */}
