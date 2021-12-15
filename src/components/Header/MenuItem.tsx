@@ -49,6 +49,7 @@ const SubmenuItem = styled.a<any>`
         ${transitions(['background-color'], 250, ease.outSine)};
 
         padding: 0.5rem;
+        white-space: nowrap;
 
         & + & {
             margin-top: 0.5rem;
@@ -127,6 +128,16 @@ export const MenuItem = (props: MenuItemProps) => {
     const handleLinkClick = (to: any | any[]) => {
         if (Array.isArray(to)) {
             return handleSubmenuToggle();
+        }
+
+        if (to.startsWith('http') || to.startsWith('mailto:') || to.startsWith('tel:')) {
+            setSubmenuActive(false);
+
+            if (isMenuVisible) {
+                setIsMenuVisible(false);
+            }
+
+            return window.open(to, '_blank');
         }
 
         const isSameRoute = checkActiveRoute(to);
