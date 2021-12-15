@@ -15,7 +15,13 @@ export const config = {
     header: {
         menu: [
             { labelKey: 'communities', to: '/communities' },
-            { labelKey: 'governance', to: '/governance-token' },
+            {
+                labelKey: 'governance',
+                submenu: [
+                    { labelKey: 'claimPactTokens', to: '/governance-token' },
+                    { labelKey: 'linkToOurDiscord', to: 'https://discord.gg/V6JWbM4ZQ3' }
+                ]
+            },
             { labelKey: 'dashboard', to: '/global-dashboard' }
         ],
         status: {
