@@ -15,14 +15,14 @@ import {
     HeaderWrapper
 } from './Header.style';
 // import { IPCTConnect } from './IPCTConnect';
-import { Icon, Logo, Text, TextLink } from '../../theme/components';
+import { Icon, Logo, Text } from '../../theme/components';
+import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
+import React, { useState } from 'react';
 
 export const Header = () => {
     const { config } = useData();
@@ -30,6 +30,7 @@ export const Header = () => {
     const { asPath, push } = router;
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const menu = config?.header?.menu;
+
     // TODO: Uncomment after IPCT connect iteration
     // const cta = config?.header?.status?.cta;
 
@@ -90,17 +91,14 @@ export const Header = () => {
                                     <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
                                 </HeaderMainBarMobileMenuButton>
                                 <HeaderMainBarMenu>
-                                    {menu &&
+                                    {menu?.length &&
                                         menu.map((item, index) => (
-                                            <TextLink
-                                                bold
-                                                isActive={checkActiveRoute(item?.to)}
+                                            <MenuItem
+                                                isMenuVisible={isMenuVisible}
                                                 key={index}
-                                                manrope
-                                                onClick={() => handleLinkClick(item?.to)}
-                                            >
-                                                <String id={item.labelKey} />
-                                            </TextLink>
+                                                setIsMenuVisible={setIsMenuVisible}
+                                                {...item}
+                                            />
                                         ))}
                                     {/* TODO: remove after IPCT connect added */}
                                     <LanguageSelect ml={1} sDisplay={{ sm: 'flex', xs: 'none' }} withSeparator />
@@ -111,18 +109,14 @@ export const Header = () => {
                 </HeaderContent>
                 <HeaderMobileContent isActive={isMenuVisible}>
                     {/* Menu */}
-                    {menu &&
+                    {menu?.length &&
                         menu.map((item, index) => (
-                            <TextLink
-                                bold
-                                isActive={checkActiveRoute(item?.to)}
+                            <MenuItem
+                                isMenuVisible={isMenuVisible}
                                 key={index}
-                                manrope
-                                mt={index ? 1 : 0}
-                                onClick={() => handleLinkClick(item?.to)}
-                            >
-                                <String id={item.labelKey} />
-                            </TextLink>
+                                setIsMenuVisible={setIsMenuVisible}
+                                {...item}
+                            />
                         ))}
                     <LanguageSelect mt={1.5} />
                     <DonateButton mt={2} pl={1.375} pr={1.375} />

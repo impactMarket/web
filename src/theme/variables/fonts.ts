@@ -22,6 +22,7 @@ export const bodySizes = {
     lead2: [14, 24],
 
     body: [16, 32],
+    sub: [15, 30],
     small: [14, 22],
     XSmall: [12, 16],
     XXSmall: [10, 19],
