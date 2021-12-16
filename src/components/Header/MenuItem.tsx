@@ -165,7 +165,6 @@ export const MenuItem = (props: MenuItemProps) => {
                 isActive={checkActiveRoute(submenu || to)}
                 manrope
                 onClick={() => handleLinkClick(submenu || to)}
-                sub
             >
                 <String id={labelKey} />
                 {submenu?.length && <Icon brandSecondary icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} />}
