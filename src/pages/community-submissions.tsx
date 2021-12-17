@@ -3,7 +3,8 @@ import { CommunitySubmissions } from '../page-components';
 export const getStaticProps = () => {
     return {
         props: {
-            page: 'communitiySubmissions'
+            page: 'communitiySubmissions',
+            wip: true
         }
     };
 };

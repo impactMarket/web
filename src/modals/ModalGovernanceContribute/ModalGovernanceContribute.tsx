@@ -13,7 +13,7 @@ const Modal = (props: any) => {
     const [values, setValues] = useState({ amount: 0, balance: 0 });
     const [isLoading, setIsLoading] = useState(false);
     const [contributionDone, setContributionDone] = useState(false);
-    const { approve, donate } = useDonationMiner();
+    const { approve, donateToTreasury } = useDonationMiner();
     const { t } = useTranslation();
 
     const handleAmountChange = useCallback((amount, balance) => {
@@ -71,7 +71,7 @@ const Modal = (props: any) => {
         setIsLoading(true);
 
         try {
-            const response = await donate(amount);
+            const response = await donateToTreasury(amount);
 
             setIsLoading(false);
 

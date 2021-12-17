@@ -1,5 +1,6 @@
 import { Cta } from '../../components';
 import { EmailSubscribe } from './EmailSubscribe/EmailSubscribe';
+import { GovernanceArticles } from '../../components/GovernanceArticles/GovernanceArticles';
 import { Hero } from './Hero/Hero';
 import { Numbers } from './Numbers/Numbers';
 import { Partners } from './Partners/Partners';
@@ -16,6 +17,7 @@ export const Homepage = (props: HomepageProps) => {
         <>
             <PromotionBanner {...promotionBanner} />
             <Hero />
+            <GovernanceArticles sPadding="1 0" />
             <Partners />
             <Numbers numbers={numbers} />
             <Cta />

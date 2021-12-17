@@ -17,10 +17,11 @@ import { dateHelpers } from '../../helpers/dateHelpers';
 import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';
 import { toast } from '../Toaster/Toaster';
-import { useEpoch, useRewards } from '@impact-market/utils';
+import { useEpoch, useMerkleDistributor, useRewards } from '@impact-market/utils';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback, useEffect, useState } from 'react';
+import merkleTree from '../../merkleTree.json';
 import styled, { css } from 'styled-components';
 
 const SummaryRow = styled.div`
@@ -67,13 +68,33 @@ export const Breakdown = () => {
     const { endPeriod } = epoch || {};
     const { t } = useTranslation();
     const [claimIsLoading, setClaimIsLoading] = useState(false);
+    const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
     const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
     const [, setUpdated] = useState(new Date().getMilliseconds());
+    const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(merkleTree);
 
     const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
 
-    // const handleAirgrabRewardClaimClick = useCallback(() => console.log('handleAirgrabRewardClaimClick'), []);
-    const hasAirgrabClaim = false;
+    const handleAirgrabRewardClaimClick = async () => {
+        if (airgrabClaimIsLoading) {
+            return;
+        }
+
+        try {
+            const response = await claimAirgrab();
+
+            setAirgrabClaimIsLoading(true);
+
+            if (!response?.status) {
+                return toast.error(t('toast.defaultError'));
+            }
+
+            return toast.success(t('toast.rewardClaimSuccess'));
+        } catch (error) {
+            setClaimIsLoading(false);
+            toast.error(t('toast.defaultError'));
+        }
+    };
 
     const handleContributionRewardClaimClick = useCallback(async () => {
         if (claimIsLoading) {
@@ -147,7 +168,7 @@ export const Breakdown = () => {
                         {/* Breakdown */}
                         <Div column sWidth="100%">
                             {/* Airgrab Reward */}
-                            {/* {!!rewards?.airgrab && (
+                            {hasClaim && (
                                 <Div column sWidth="100%">
                                     <Text bold>
                                         <String id="airgrabReward" />
@@ -158,13 +179,17 @@ export const Breakdown = () => {
                                     <Highlight mt={1}>
                                         <HighlightRow>
                                             <Heading h3>
-                                                {0}
+                                                {amountToClaim}
                                                 &nbsp;
                                                 <Text regular span="true">
                                                     PACT
                                                 </Text>
                                             </Heading>
-                                            <Button onClick={handleAirgrabRewardClaimClick} smaller>
+                                            <Button
+                                                isLoading={airgrabClaimIsLoading}
+                                                onClick={handleAirgrabRewardClaimClick}
+                                                smaller
+                                            >
                                                 <Text semibold span="true">
                                                     <String id="claim" />
                                                 </Text>
@@ -172,10 +197,10 @@ export const Breakdown = () => {
                                         </HighlightRow>
                                     </Highlight>
                                 </Div>
-                            )} */}
+                            )}
 
                             {/* Contribution Reward */}
-                            <Div column mt={hasAirgrabClaim ? 1 : 0} sWidth="100%">
+                            <Div column mt={hasClaim ? 1 : 0} sWidth="100%">
                                 <Text bold>
                                     <String id="contributionReward" />
                                 </Text>

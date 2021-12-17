@@ -140,12 +140,6 @@ export const pages: { [key: string]: object } = {
             { name: 'pactTokenHolders' },
             { name: 'totalDonated' },
             { name: 'donatedLastMonth' }
-        ],
-        articles: [
-            { name: 'governanceToken', icon: 'im', url: 'https://google.com' },
-            { name: 'impactMarketDAO', icon: 'hands', url: 'https://google.com' },
-            { name: 'voteOnProposals', icon: 'vote', url: 'https://google.com' },
-            { name: 'makeYourVoiceHeard', icon: 'megaphone', url: 'https://google.com' }
         ]
     }
 };
