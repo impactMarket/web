@@ -48,7 +48,8 @@ const SubmenuItem = styled.a<any>`
     ${mq.tablet(css`
         ${transitions(['background-color'], 250, ease.outSine)};
 
-        padding: 0.5rem;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
         white-space: nowrap;
 
         & + & {

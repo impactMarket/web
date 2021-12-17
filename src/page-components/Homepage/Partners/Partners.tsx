@@ -18,10 +18,10 @@ export const Partners = () => {
     const partners: PartnersType = page?.partners;
 
     return (
-        <Section sBackground="backgroundLight">
+        <Section>
             <Grid>
                 <Row>
-                    <Col center sPadding={{ sm: '2.5 null', xs: '2 null' }} xs={12}>
+                    <Col center sPadding={{ sm: '3 null', xs: '2 null' }} xs={12}>
                         <Div inlineFlex sAlignItems="center" sFlexDirection={{ md: 'row', xs: 'column' }}>
                             {partners.map(({ items, keyLabel }, itemsIndex) => (
                                 <Div

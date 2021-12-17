@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 export const config = {
     cta: {
         image: '/img/app-mockup.png'
@@ -12,6 +13,12 @@ export const config = {
             { href: 'https://careers.impactmarket.com/', labelKey: 'weAreHiring' }
         ]
     },
+    governanceArticles: [
+        { icon: 'im', url: 'https://google.com' },
+        { image: '/img/impact-market-dao.svg', url: 'https://google.com' },
+        { icon: 'vote', url: 'https://google.com' },
+        { icon: 'megaphone', url: 'https://google.com' }
+    ],
     header: {
         menu: [
             { labelKey: 'communities', to: '/communities' },

@@ -1,7 +1,8 @@
-import { Col, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
-import { IconType } from '../../../theme/Types';
-import { String } from '../../../components';
-import { colors } from '../../../theme';
+import { Col, Div, Grid, Heading, Icon, Img, Row, Section, Text } from '../../theme/components';
+import { GeneratedPropsTypes, IconType } from '../../theme/Types';
+import { String } from '../../components';
+import { colors } from '../../theme';
+import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -15,22 +16,15 @@ const Card = styled.div`
     box-shadow: 0 0.25rem 1.5rem ${colors.backgroundShadow};
 `;
 
-type ArticlesProps = {
-    articles: {
-        icon: IconType;
-        name: string;
-        url: string;
-    }[];
-};
-
-export const Articles = (props: ArticlesProps) => {
-    const { articles } = props;
+export const GovernanceArticles = (props: GeneratedPropsTypes) => {
+    const { config } = useData();
+    const { governanceArticles } = config;
 
     return (
-        <Section sBackground="backgroundSecondaryDisabled" sPadding={{ md: '4 0', xs: '2 0' }}>
+        <Section {...props}>
             <Grid>
                 <Row>
-                    {articles.map(({ icon, name, url }, index) => (
+                    {governanceArticles.map(({ icon, image, url }, index) => (
                         <Col
                             key={index}
                             md={3}
@@ -40,13 +34,14 @@ export const Articles = (props: ArticlesProps) => {
                         >
                             <Card>
                                 <Div>
-                                    <Icon brandPrimary icon={icon} sHeight={2.65} />
+                                    {!!icon && <Icon brandPrimary icon={icon as IconType} sHeight={2.65} />}
+                                    {!!image && <Img sHeight={2.65} sWidth={2.65} src={image} />}
                                 </Div>
                                 <Heading h4 mt={1} sMaxWidth={{ md: 12 }}>
-                                    <String id={`page.governanceToken.article.${name}.heading`} />
+                                    <String id={`governanceArticle.${index}.heading`} />
                                 </Heading>
                                 <Text mt={0.5} textSecondary>
-                                    <String id={`page.governanceToken.article.${name}.text`} />
+                                    <String id={`governanceArticle.${index}.text`} />
                                 </Text>
                                 <Div mt="auto" pt={1}>
                                     <a href={url} rel="noopener noreferrer" target="_blank">
