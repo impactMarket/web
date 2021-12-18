@@ -1,4 +1,16 @@
-import { Button, Col, Grid, Heading, Img, Input, ItemsRow, Row, Section, Text } from '../../../theme/components';
+import {
+    Button,
+    Col,
+    Grid,
+    Heading,
+    Img,
+    Input,
+    ItemsRow,
+    RichContentFormat,
+    Row,
+    Section,
+    Text
+} from '../../../theme/components';
 import { String } from '../../../components';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -101,6 +113,11 @@ export const EmailSubscribe = () => {
                                 <Button fluid isLoading={isLoading} large mt={1} onClick={handleSubscribe}>
                                     <String id="subscribe" />
                                 </Button>
+                                <RichContentFormat mt={1}>
+                                    <Text XSmall>
+                                        <String id="recaptchaFootnote" />
+                                    </Text>
+                                </RichContentFormat>
                             </>
                         )}
                         {errorMessage && (
