@@ -67,6 +67,11 @@ const config = {
     isProduction: process.env.NODE_ENV === 'production',
 
     /*
+     *
+     */
+    isDaoMainnet: process.env.NEXT_PUBLIC_DAO_MAINNET === 'true',
+
+    /*
      * is Production
      */
     votingPlatformUrl: 'https://romulus-interface-jet.vercel.app/'
