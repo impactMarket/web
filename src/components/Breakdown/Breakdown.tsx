@@ -86,13 +86,13 @@ export const Breakdown = () => {
             setAirgrabClaimIsLoading(true);
 
             if (!response?.status) {
-                return toast.error(t('toast.defaultError'));
+                return toast.error(t('toast.claimError'));
             }
 
-            return toast.success(t('toast.rewardClaimSuccess'));
+            return toast.success(t('toast.claimSuccess'));
         } catch (error) {
             setClaimIsLoading(false);
-            toast.error(t('toast.defaultError'));
+            toast.error(t('toast.claimError'));
         }
     };
 
@@ -109,13 +109,13 @@ export const Breakdown = () => {
             setClaimIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(t('toast.defaultError'));
+                return toast.error(t('toast.claimError'));
             }
 
-            return toast.success(t('toast.rewardClaimSuccess'));
+            return toast.success(t('toast.claimSuccess'));
         } catch (error) {
             setClaimIsLoading(false);
-            toast.error(t('toast.defaultError'));
+            toast.error(t('toast.claimError'));
         }
     }, [claimRewards, claimIsLoading]);
 
