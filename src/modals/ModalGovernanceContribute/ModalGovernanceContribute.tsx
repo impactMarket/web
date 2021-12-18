@@ -16,9 +16,16 @@ const Modal = (props: any) => {
     const { approve, donateToTreasury } = useDonationMiner();
     const { t } = useTranslation();
 
-    const handleAmountChange = useCallback((amount, balance) => {
-        setValues({ amount, balance });
-    }, []);
+    const handleAmountChange = useCallback(
+        (amount, balance) => {
+            if (amount > approvedAmount && activeStep) {
+                setActiveStep(0);
+            }
+
+            setValues({ amount, balance });
+        },
+        [approvedAmount, activeStep]
+    );
 
     const handleApprove = useCallback(async () => {
         const { amount, balance } = values;
@@ -35,23 +42,16 @@ const Modal = (props: any) => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(t('toast.defaultError'));
+                return toast.error(t('toast.approvingError'));
             }
 
             setActiveStep(1);
             setApprovedAmount(amount);
         } catch (error) {
             setIsLoading(false);
-            toast.error(t('toast.defaultError'));
-        }
 
-        const response = await approve(amount);
-
-        setIsLoading(false);
-
-        if (response?.status) {
-            setActiveStep(1);
-            setApprovedAmount(amount);
+            console.log(error);
+            toast.error(t('toast.approvingError'));
         }
     }, [values, isLoading]);
 
@@ -76,16 +76,16 @@ const Modal = (props: any) => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(t('toast.defaultError'));
+                return toast.error(t('toast.contributeError'));
             }
 
             setContributionDone(true);
             setApprovedAmount(0);
             props?.controller?.onClose();
-            toast.success(t('toast.donationSuccess'));
+            toast.success(t('toast.contributeSuccess'));
         } catch (error) {
             setIsLoading(false);
-            toast.error(t('toast.defaultError'));
+            toast.error(t('toast.contributeError'));
         }
     }, [approvedAmount, values, isLoading]);
 
@@ -121,7 +121,10 @@ const Modal = (props: any) => {
             {isLoading && (
                 <RichContentFormat brandSecondary mt={1}>
                     <Text small>
-                        <String id="operationDelayNote" variables={{ url: 'https://impactmarket.com' }} />
+                        <String
+                            id="operationDelayNote"
+                            variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
+                        />
                     </Text>
                 </RichContentFormat>
             )}
