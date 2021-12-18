@@ -106,4 +106,9 @@ export const GlobalStyle = createGlobalStyle`
         border-radius: 0.5rem;
         box-shadow: 0 0 1.5rem ${rgba(colors.textPrimary, 0.08)};
     }
+
+    /* Recaptcha */
+    .grecaptcha-badge {
+        display:none !important;
+    }
 `;

@@ -1,5 +1,6 @@
-import { Button, Input, ItemsRow, Text } from '../../theme/components';
+import { Button, Input, ItemsRow, RichContentFormat, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
+import { String } from '../../components';
 import { generateProps, mq } from 'styled-gen';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
@@ -109,6 +110,11 @@ export const Subscribe = (props: GeneratedPropsTypes) => {
                     </>
                 )}
             </Wrapper>
+            <RichContentFormat mt={0.5}>
+                <Text XSmall>
+                    <String id="recaptchaFootnote" />
+                </Text>
+            </RichContentFormat>
             {errorMessage && (
                 <Text XXSmall error style={{ marginTop: 8 }}>
                     {errorMessage}
