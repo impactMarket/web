@@ -69,27 +69,29 @@ export const MainInfo = (props: ICommunity) => {
                         </Div>
 
                         {/* Managers */}
-                        <Div column mt={2}>
-                            <Heading h3>
-                                <String id="communityManagers" />
-                            </Heading>
+                        {!!managers?.length && (
+                            <Div column mt={2}>
+                                <Heading h3>
+                                    <String id="communityManagers" />
+                                </Heading>
 
-                            <Div column mt={1}>
-                                {managers?.map(({ user }, index) => (
-                                    <Div key={index} mt={index ? 1 : 0} sAlignItems="center">
-                                        <Avatar image={user?.avatar?.url}>
-                                            {!user?.avatar?.url && <Icon icon="user" textSecondary />}
-                                        </Avatar>
-                                        <Div column ml={1} sWidth="100%">
-                                            <Heading h6>{user?.username || user?.address}</Heading>
-                                            <Text XSmall textSecondary>
-                                                <String id="managerSince" /> {dateHelpers.short(user?.createdAt)}
-                                            </Text>
+                                <Div column mt={1}>
+                                    {managers?.map(({ user }, index) => (
+                                        <Div key={index} mt={index ? 1 : 0} sAlignItems="center">
+                                            <Avatar image={user?.avatar?.url}>
+                                                {!user?.avatar?.url && <Icon icon="user" textSecondary />}
+                                            </Avatar>
+                                            <Div column ml={1} sWidth="100%">
+                                                <Heading h6>{user?.username || user?.address}</Heading>
+                                                <Text XSmall textSecondary>
+                                                    <String id="managerSince" /> {dateHelpers.short(user?.createdAt)}
+                                                </Text>
+                                            </Div>
                                         </Div>
-                                    </Div>
-                                ))}
+                                    ))}
+                                </Div>
                             </Div>
-                        </Div>
+                        )}
                     </Col>
                     <Col md={4} sm={6} xs={false}>
                         <ResumeBox

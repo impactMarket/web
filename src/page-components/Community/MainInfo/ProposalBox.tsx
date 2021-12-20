@@ -1,6 +1,6 @@
 import { Button, DashboardCard, Div, Text, TextLink } from '../../../theme/components';
 import { String } from '../../../components';
-import { toToken, useDAO, useVotingPower } from '@impact-market/utils';
+import { frequencyToText, toNumber, toToken, useDAO, useVotingPower } from '@impact-market/utils';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import { useWallet } from '../../../hooks/useWallet';
@@ -20,7 +20,7 @@ const ToastMessage = (props: any) => (
 );
 
 const ProposalBox = (props: any) => {
-    const { city, contract, country, description, name, proposalId, requestByAddress } = props;
+    const { contract, id, name, proposalId, requestByAddress } = props;
     const { address, connect } = useWallet();
     const { addCommunity } = useDAO();
     const [alreadyProposed, setAlreadyProposed] = useState(!!proposalId);
@@ -57,16 +57,17 @@ const ProposalBox = (props: any) => {
                 managers: [requestByAddress],
                 maxTranche: toToken(10000, { EXPONENTIAL_AT: 25 }),
                 minTranche: toToken(0.1),
-                proposalDescription: `${name} | ${city}, ${country} - ${description}`
+                proposalDescription: `${name} |\nclaim amount: ${toNumber(contract.claimAmount)}\nmax claim: ${toNumber(
+                    contract.maxClaim
+                )}\nbase interval: ${frequencyToText(contract.baseInterval)}\n${config.baseUrl}/communities/${id}`
             };
 
-            const id = await addCommunity(data);
+            const responseId = await addCommunity(data);
 
-            if (id) {
+            if (responseId) {
                 setAlreadyProposed(true);
-                const url = `${votingPlatformUrl}?id=${id}`;
 
-                toast.success(<ToastMessage name={name} url={url} />);
+                toast.success(<ToastMessage name={name} url={votingPlatformUrl} />);
             }
 
             setIsLoading(false);
@@ -82,10 +83,19 @@ const ProposalBox = (props: any) => {
         <DashboardCard fluidHeight>
             <Div column pr={2} sWidth="100%">
                 <Text center small>
-                    <String id="totalClaimAmountPerBeneficiary" variables={{ amount: 100, amountPerDay: 1.5 }} />
+                    <String
+                        id="totalClaimAmountPerBeneficiary"
+                        variables={{
+                            amount: toNumber(contract?.maxClaim),
+                            amountPerDay: toNumber(contract?.claimAmount)
+                        }}
+                    />
                 </Text>
                 <Text center mt={0.5} small textSecondary>
-                    <String id="eachClaimHasMinutesIncrement" variables={{ minutes: 5 }} />
+                    <String
+                        id="eachClaimHasMinutesIncrement"
+                        variables={{ minutes: (contract?.incrementInterval * 5) / 60 }}
+                    />
                 </Text>
             </Div>
             {!address && (
