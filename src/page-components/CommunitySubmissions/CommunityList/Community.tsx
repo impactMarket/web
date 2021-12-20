@@ -1,8 +1,8 @@
 import { Button, Div, Heading, Icon, Text, TextLink } from '../../../theme/components';
 import { String } from '../../../components';
 import { colors } from '../../../theme';
+import { frequencyToText, toNumber, toToken, useDAO } from '@impact-market/utils';
 import { mq } from 'styled-gen';
-import { toToken, useDAO } from '@impact-market/utils';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -80,19 +80,7 @@ const ToastMessage = (props: any) => (
 );
 
 export const Community = (props: any) => {
-    const {
-        city,
-        cover,
-        country,
-        contract,
-        description,
-        id,
-        name,
-        proposal,
-        requestByAddress,
-        votingPower,
-        withAddress
-    } = props;
+    const { city, cover, country, contract, id, name, proposal, requestByAddress, votingPower, withAddress } = props;
     const { addCommunity } = useDAO();
     const { push } = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -113,16 +101,17 @@ export const Community = (props: any) => {
                 managers: [requestByAddress],
                 maxTranche: toToken(10000, { EXPONENTIAL_AT: 25 }),
                 minTranche: toToken(0.1),
-                proposalDescription: `${name} | ${city}, ${country} - ${description}`
+                proposalDescription: `${name} |\nclaim amount: ${toNumber(contract.claimAmount)}\nmax claim: ${toNumber(
+                    contract.maxClaim
+                )}\nbase interval: ${frequencyToText(contract.baseInterval)}\n${config.baseUrl}/communities/${id}`
             };
 
-            const id = await addCommunity(data);
+            const responseId = await addCommunity(data);
 
-            if (id) {
+            if (responseId) {
                 setSubmitted(true);
-                const url = `${config.votingPlatformUrl}?id=${id}`;
 
-                toast.success(<ToastMessage name={name} url={url} />);
+                toast.success(<ToastMessage name={name} url={config.votingPlatformUrl} />);
             }
 
             setIsLoading(false);
@@ -161,11 +150,17 @@ export const Community = (props: any) => {
                         <Text small>
                             <String
                                 id="totalClaimAmountPerBeneficiary"
-                                variables={{ amount: 100, amountPerDay: 1.5 }}
+                                variables={{
+                                    amount: toNumber(contract?.maxClaim),
+                                    amountPerDay: toNumber(contract?.claimAmount)
+                                }}
                             />
                         </Text>
                         <Text brandSecondary small>
-                            <String id="eachClaimHasMinutesIncrement" variables={{ minutes: 1 }} />
+                            <String
+                                id="eachClaimHasMinutesIncrement"
+                                variables={{ minutes: (contract?.incrementInterval * 5) / 60 }}
+                            />
                         </Text>
                     </Div>
                     <Button

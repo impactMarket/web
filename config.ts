@@ -74,7 +74,7 @@ const config = {
     /*
      * is Production
      */
-    votingPlatformUrl: 'https://romulus-interface-jet.vercel.app/'
+    votingPlatformUrl: 'https://romulus.page/'
 };
 
 export default config;
