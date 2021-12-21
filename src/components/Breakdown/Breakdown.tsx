@@ -83,9 +83,11 @@ const SpinnerWrapper = styled.div`
 const getMerkleTreeUrl = (address: string) =>
     `/api/merkletree/?address=${address}${!config.isDaoMainnet ? '&testnet=true' : ''}`;
 
-const AirgrabContent = (props: { treeAccount?: string }) => {
+const AirgrabContent = (props: { treeAccount?: { index: number; amount: string; proof: string[] } }) => {
+    const { treeAccount } = props;
     const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
     const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(treeAccount);
+    const { t } = useTranslation();
 
     const handleAirgrabRewardClaimClick = async () => {
         if (airgrabClaimIsLoading) {
@@ -103,7 +105,7 @@ const AirgrabContent = (props: { treeAccount?: string }) => {
 
             return toast.success(t('toast.claimSuccess'));
         } catch (error) {
-            setClaimIsLoading(false);
+            setAirgrabClaimIsLoading(false);
             toast.error(t('toast.claimError'));
         }
     };
@@ -142,7 +144,7 @@ const AirgrabContent = (props: { treeAccount?: string }) => {
 
 const Airgrab = (props: { address?: string }) => {
     const { address } = props;
-    const [treeAccount, setTreeAccount] = useState(false);
+    const [treeAccount, setTreeAccount] = useState();
 
     useEffect(() => {
         const getTreeAccount = async () => {
