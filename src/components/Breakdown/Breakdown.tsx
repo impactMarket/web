@@ -6,6 +6,7 @@ import {
     Heading,
     Highlight,
     HighlightRow,
+    Spinner,
     Text,
     TextLink
 } from '../../theme/components';
@@ -21,7 +22,8 @@ import { useEpoch, useMerkleDistributor, useRewards } from '@impact-market/utils
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback, useEffect, useState } from 'react';
-import merkleTree from '../../merkleTree.json';
+import axios from 'axios';
+import config from '../../../config';
 import styled, { css } from 'styled-components';
 
 const SummaryRow = styled.div`
@@ -61,19 +63,29 @@ const CowntdownWrapper = styled.div`
     padding: 1rem;
 `;
 
-export const Breakdown = () => {
-    const { address, connect } = useWallet();
-    const { claimRewards, rewards } = useRewards();
-    const { epoch } = useEpoch();
-    const { endPeriod } = epoch || {};
-    const { t } = useTranslation();
-    const [claimIsLoading, setClaimIsLoading] = useState(false);
-    const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
-    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
-    const [, setUpdated] = useState(new Date().getMilliseconds());
-    const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(merkleTree);
+const SpinnerContent = styled.div`
+    border-radius: 50%;
+    height: 4rem;
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+`;
 
-    const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
+const SpinnerWrapper = styled.div`
+    align-items: center;
+    display: flex;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    width: 100%;
+`;
+
+const getMerkleTreeUrl = (address: string) =>
+    `/api/merkletree/?address=${address}${!config.isDaoMainnet ? '&testnet=true' : ''}`;
+
+const AirgrabContent = (props: { treeAccount?: string }) => {
+    const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
+    const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(treeAccount);
 
     const handleAirgrabRewardClaimClick = async () => {
         if (airgrabClaimIsLoading) {
@@ -95,6 +107,91 @@ export const Breakdown = () => {
             toast.error(t('toast.claimError'));
         }
     };
+
+    if (!hasClaim) {
+        return null;
+    }
+
+    return (
+        <Div column sWidth="100%">
+            <Text bold>
+                <String id="airgrabReward" />
+            </Text>
+            <Text brandSecondary mt={0.5} small>
+                <String id="breakdown.airgrabReward.text" />
+            </Text>
+            <Highlight mt={1}>
+                <HighlightRow>
+                    <Heading h3>
+                        {amountToClaim}
+                        &nbsp;
+                        <Text regular span="true">
+                            PACT
+                        </Text>
+                    </Heading>
+                    <Button isLoading={airgrabClaimIsLoading} onClick={handleAirgrabRewardClaimClick} smaller>
+                        <Text semibold span="true">
+                            <String id="claim" />
+                        </Text>
+                    </Button>
+                </HighlightRow>
+            </Highlight>
+        </Div>
+    );
+};
+
+const Airgrab = (props: { address?: string }) => {
+    const { address } = props;
+    const [treeAccount, setTreeAccount] = useState(false);
+
+    useEffect(() => {
+        const getTreeAccount = async () => {
+            if (!address) {
+                return;
+            }
+
+            try {
+                const response = await axios.get(getMerkleTreeUrl(address));
+
+                const treeAccount = response?.data?.merkleTree;
+
+                setTreeAccount(treeAccount);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getTreeAccount();
+    }, [address]);
+
+    if (!address || !treeAccount) {
+        return null;
+    }
+
+    if (!treeAccount) {
+        return (
+            <SpinnerWrapper>
+                <SpinnerContent>
+                    <Spinner isLoading />
+                </SpinnerContent>
+            </SpinnerWrapper>
+        );
+    }
+
+    return <AirgrabContent treeAccount={treeAccount} />;
+};
+
+export const Breakdown = () => {
+    const { address, connect } = useWallet();
+    const { claimRewards, rewards } = useRewards();
+    const { epoch } = useEpoch();
+    const { endPeriod } = epoch || {};
+    const { t } = useTranslation();
+    const [claimIsLoading, setClaimIsLoading] = useState(false);
+    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
+    const [, setUpdated] = useState(new Date().getMilliseconds());
+
+    const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
 
     const handleContributionRewardClaimClick = useCallback(async () => {
         if (claimIsLoading) {
@@ -167,40 +264,11 @@ export const Breakdown = () => {
                     <Tabs mb="auto" tabs={tabs}>
                         {/* Breakdown */}
                         <Div column sWidth="100%">
-                            {/* Airgrab Reward */}
-                            {hasClaim && (
-                                <Div column sWidth="100%">
-                                    <Text bold>
-                                        <String id="airgrabReward" />
-                                    </Text>
-                                    <Text brandSecondary mt={0.5} small>
-                                        <String id="breakdown.airgrabReward.text" />
-                                    </Text>
-                                    <Highlight mt={1}>
-                                        <HighlightRow>
-                                            <Heading h3>
-                                                {amountToClaim}
-                                                &nbsp;
-                                                <Text regular span="true">
-                                                    PACT
-                                                </Text>
-                                            </Heading>
-                                            <Button
-                                                isLoading={airgrabClaimIsLoading}
-                                                onClick={handleAirgrabRewardClaimClick}
-                                                smaller
-                                            >
-                                                <Text semibold span="true">
-                                                    <String id="claim" />
-                                                </Text>
-                                            </Button>
-                                        </HighlightRow>
-                                    </Highlight>
-                                </Div>
-                            )}
+                            {/* Airgrab */}
+                            <Airgrab address={address} />
 
                             {/* Contribution Reward */}
-                            <Div column mt={hasClaim ? 1 : 0} sWidth="100%">
+                            <Div column mt={1} sWidth="100%">
                                 <Text bold>
                                     <String id="contributionReward" />
                                 </Text>

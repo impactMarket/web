@@ -91,7 +91,7 @@ export const Hero = () => {
                         </Div>
                         <ShareThis mt={2} sJustifyContent={{ sm: 'left', xs: 'center' }} />
                     </Col>
-                    <Col md={6} mt={{ md: 0, xs: 2.5 }} xs={12}>
+                    <Col md={6} mt={{ md: 0, xs: 2.5 }} relative xs={12}>
                         <Breakdown />
                     </Col>
                 </Row>
