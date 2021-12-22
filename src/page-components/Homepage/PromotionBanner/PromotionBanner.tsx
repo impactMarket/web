@@ -1,5 +1,5 @@
+import { RichContentFormat, Text } from '../../../theme/components';
 import { String } from '../../../components';
-import { Text, TextLink } from '../../../theme/components';
 import { colors } from '../../../theme';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import React from 'react';
@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 type PromotionBannerType = {
     isActive?: boolean;
-    url?: string;
 };
 
 const PromotionBannerWrapper = styled.div`
@@ -23,7 +22,7 @@ export const PromotionBanner = () => {
 
     const promotionBanner: PromotionBannerType = page?.promotionBanner;
 
-    const { isActive, url } = promotionBanner;
+    const { isActive } = promotionBanner;
 
     if (!isActive) {
         return null;
@@ -31,20 +30,11 @@ export const PromotionBanner = () => {
 
     return (
         <PromotionBannerWrapper>
-            <Text bold center>
-                <String id="promotionBanner" />
-                &nbsp;
-                <TextLink
-                    bold
-                    brandPrimary
-                    href={url}
-                    rel="noopener noreferrer"
-                    style={{ display: 'inline' }}
-                    target="_blank"
-                >
-                    <String id="promotionBannerLinkLabel" />
-                </TextLink>
-            </Text>
+            <RichContentFormat>
+                <Text bold center>
+                    <String id="promotionBanner" />
+                </Text>
+            </RichContentFormat>
         </PromotionBannerWrapper>
     );
 };
