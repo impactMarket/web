@@ -28,8 +28,7 @@ export const pages: { [key: string]: object } = {
             ]
         },
         promotionBanner: {
-            isActive: false,
-            url: 'https://polkastarter.com/projects/impactmarket'
+            isActive: true
         }
     },
     communities: {
