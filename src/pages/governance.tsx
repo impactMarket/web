@@ -1,4 +1,4 @@
-import { GovernanceToken } from '../page-components';
+import { Governance } from '../page-components';
 
 export const getServerSideProps = () => {
     return {
@@ -12,4 +12,4 @@ export const getServerSideProps = () => {
     };
 };
 
-export default GovernanceToken;
+export default Governance;

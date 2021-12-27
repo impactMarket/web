@@ -5,7 +5,7 @@ import { Illustration } from './Illustration/Illustration';
 import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
 
-export const GovernanceToken = () => {
+export const Governance = () => {
     const { page } = useData();
     const {
         // dataDash

@@ -25,7 +25,7 @@ export const config = {
             {
                 labelKey: 'governance',
                 submenu: [
-                    { labelKey: 'claimPactTokens', to: '/governance-token' },
+                    { labelKey: 'claimPactTokens', to: '/governance' },
                     // { labelKey: 'voteOnProposals', to: 'https://romulus-interface-jet.vercel.app/' },
                     // { labelKey: 'voteOnCommunitiesSubmissions', to: '/community-submissions' },
                     { labelKey: 'linkToOurDiscord', to: 'https://discord.gg/V6JWbM4ZQ3' }
