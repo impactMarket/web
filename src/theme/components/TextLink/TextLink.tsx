@@ -12,9 +12,10 @@ type TextLinkProps = {
 export const TextLink = styled.a<TextLinkProps & GeneratedPropsTypes>`
     ${transitions(['text-shadow'], 250, ease.outSine)};
 
+    align-items: center;
     color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
-    display: inline-block;
+    display: inline-flex;
     font-size: 0.9375rem;
     font-weight: ${fonts.weights.medium};
 

@@ -1,8 +1,8 @@
 import '@celo-tools/use-contractkit/lib/styles.css';
 import {
     Alfajores,
+    Celo,
     ContractKitProvider,
-    Mainnet,
     useConnectedSigner,
     useContractKit,
     useProvider
@@ -16,7 +16,7 @@ type ProviderProps = {
     children?: any;
 };
 
-const network = config.isDaoTestnet ? Alfajores : Mainnet;
+const network = config.isDaoTestnet ? Alfajores : Celo;
 const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
 const Wrapper = (props: ProviderProps) => {
@@ -56,6 +56,7 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 description: 'Decentralized Poverty Alleviation Protocol',
                 icon: 'https://impact-market.com/favicon.png',
                 name: 'impactMarket web',
+                supportedNetworks: [Celo, Alfajores],
                 url: 'https://impactmarket.com'
             }}
             network={network}
