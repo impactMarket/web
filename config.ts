@@ -67,12 +67,12 @@ const config = {
     isProduction: process.env.NODE_ENV === 'production',
 
     /*
-     *
+     * RPC URL
      */
-    isDaoMainnet: process.env.NEXT_PUBLIC_DAO_MAINNET === 'true',
+    networkRpcUrl: process.env.NEXT_PUBLIC_NETWORK_RPC_URL,
 
     /*
-     * is Production
+     * Voting platform
      */
     votingPlatformUrl: 'https://romulus.page/'
 };
