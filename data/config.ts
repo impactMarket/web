@@ -36,7 +36,7 @@ export const config = {
         status: {
             cta: {
                 labelKey: 'pactCta',
-                to: 'https://google.com'
+                to: 'https://commonwealth.im/impactmarket/'
             }
         }
     },
