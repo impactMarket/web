@@ -52,6 +52,27 @@ const Wrapper = (props: ProviderProps) => {
 export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
     return (
         <ContractKitProvider
+            connectModal={{
+                reactModalProps: {
+                    overlayClassName: 'tw-fixed tw-bg-gray-100 dark:tw-bg-gray-700 tw-bg-opacity-75 tw-inset-0',
+                    style: {
+                        content: {
+                            background: 'unset',
+                            border: 'unset',
+                            bottom: 'auto',
+                            color: 'black',
+                            left: '50%',
+                            padding: 'unset',
+                            right: 'auto',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)'
+                        },
+                        overlay: {
+                            zIndex: 100
+                        }
+                    }
+                }
+            }}
             dapp={{
                 description: 'Decentralized Poverty Alleviation Protocol',
                 icon: 'https://impact-market.com/favicon.png',
