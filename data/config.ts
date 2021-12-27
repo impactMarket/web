@@ -14,10 +14,10 @@ export const config = {
         ]
     },
     governanceArticles: [
-        { icon: 'im', url: 'https://google.com' },
-        { image: '/img/impact-market-dao.svg', url: 'https://google.com' },
-        { icon: 'vote', url: 'https://google.com' },
-        { icon: 'megaphone', url: 'https://google.com' }
+        // { icon: 'im', url: 'https://google.com' },
+        // { image: '/img/impact-market-dao.svg', url: 'https://google.com' },
+        { icon: 'vote', url: 'https://romulus.page/romulus/0x8f8BB984e652Cb8D0aa7C9D6712Ec2020EB1BAb4' },
+        { icon: 'megaphone', url: 'https://commonwealth.im/impactmarket/' }
     ],
     header: {
         menu: [
