@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { utils } from 'ethers';
 
 const fetch = require('node-fetch');
 const testnetMerkleTree = require('../../../_files/testnet-merkletree.json');
@@ -7,7 +8,9 @@ const url = (address: string | string[]) => `https://impactmarket-backend-airgra
 
 const merkleTreeHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     try {
-        const { address, testnet }: { address?: string; testnet?: boolean } = req?.query || {};
+        const { address: addressFromKit, testnet }: { address?: string; testnet?: boolean } = req?.query || {};
+
+        const address = utils.getAddress(addressFromKit);
 
         if (!!testnet) {
             const file = testnetMerkleTree?.claims?.[address];
