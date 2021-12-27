@@ -132,7 +132,7 @@ const AirgrabContent = (props: {
             <Highlight mt={1}>
                 <HighlightRow>
                     <Heading h3>
-                        {amountToClaim}
+                        {currencyValue(amountToClaim, { isToken: true })}
                         &nbsp;
                         <Text regular span="true">
                             PACT

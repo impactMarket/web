@@ -39,7 +39,7 @@ export const config = {
         status: {
             cta: {
                 labelKey: 'pactCta',
-                to: 'https://commonwealth.im/impactmarket/'
+                to: 'https://medium.com/impactmarket/introducing-pact-governance-token-airgrab-impact-farming-4e99c899701e'
             }
         }
     },
