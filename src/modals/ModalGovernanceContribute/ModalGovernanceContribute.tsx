@@ -118,16 +118,14 @@ const Modal = (props: any) => {
                     </Button>
                 </ItemsRow>
             </Div>
-            {isLoading && (
-                <RichContentFormat brandSecondary mt={1}>
-                    <Text small>
-                        <String
-                            id="operationDelayNote"
-                            variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
-                        />
-                    </Text>
-                </RichContentFormat>
-            )}
+            <RichContentFormat brandSecondary mt={1}>
+                <Text small>
+                    <String
+                        id="operationDelayNote"
+                        variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
+                    />
+                </Text>
+            </RichContentFormat>
         </ModalWrapper>
     );
 };
