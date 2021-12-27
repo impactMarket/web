@@ -72,6 +72,11 @@ const config = {
     networkRpcUrl: process.env.NEXT_PUBLIC_NETWORK_RPC_URL,
 
     /*
+     * isTestnet
+     */
+    isDaoTestnet: process.env.NEXT_PUBLIC_DAO_TESTNET === 'true',
+
+    /*
      * Voting platform
      */
     votingPlatformUrl: 'https://romulus.page/'
