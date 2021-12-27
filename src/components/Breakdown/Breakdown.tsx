@@ -83,11 +83,18 @@ const SpinnerWrapper = styled.div`
 const getMerkleTreeUrl = (address: string) =>
     `/api/merkletree/?address=${address}${!config.isDaoMainnet ? '&testnet=true' : ''}`;
 
-const AirgrabContent = (props: { treeAccount?: { index: number; amount: string; proof: string[] } }) => {
-    const { treeAccount } = props;
+const AirgrabContent = (props: {
+    onUpdate: Function;
+    treeAccount?: { index: number; amount: string; proof: string[] };
+}) => {
+    const { onUpdate, treeAccount } = props;
     const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
     const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(treeAccount);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        onUpdate();
+    }, [hasClaim]);
 
     const handleAirgrabRewardClaimClick = async () => {
         if (airgrabClaimIsLoading) {
@@ -142,8 +149,8 @@ const AirgrabContent = (props: { treeAccount?: { index: number; amount: string; 
     );
 };
 
-const Airgrab = (props: { address?: string }) => {
-    const { address } = props;
+const Airgrab = (props: { address?: string; onUpdate: Function }) => {
+    const { address, onUpdate } = props;
     const [treeAccount, setTreeAccount] = useState();
 
     useEffect(() => {
@@ -180,7 +187,7 @@ const Airgrab = (props: { address?: string }) => {
         );
     }
 
-    return <AirgrabContent treeAccount={treeAccount} />;
+    return <AirgrabContent onUpdate={onUpdate} treeAccount={treeAccount} />;
 };
 
 export const Breakdown = () => {
@@ -267,7 +274,7 @@ export const Breakdown = () => {
                         {/* Breakdown */}
                         <Div column sWidth="100%">
                             {/* Airgrab */}
-                            <Airgrab address={address} />
+                            <Airgrab address={address} onUpdate={setUpdated} />
 
                             {/* Contribution Reward */}
                             <Div column mt={1} sWidth="100%">

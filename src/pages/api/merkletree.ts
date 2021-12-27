@@ -7,15 +7,15 @@ const url = (address: string | string[]) => `https://impactmarket-backend-airgra
 
 const merkleTreeHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     try {
-        const { address, testnet } = req?.query || {};
+        const { address, testnet }: { address?: string; testnet?: boolean } = req?.query || {};
 
         if (!!testnet) {
-            res.status(200).json({ merkleTree: testnetMerkleTree });
+            const file = testnetMerkleTree?.claims?.[address];
+
+            res.status(200).json({ merkleTree: file });
         } else {
             const response = await fetch(url(address));
             const file = await response.json();
-
-            console.log(response);
 
             res.status(200).json({ merkleTree: file });
         }

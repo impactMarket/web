@@ -16,19 +16,29 @@ const Card = styled.div`
     box-shadow: 0 0.25rem 1.5rem ${colors.backgroundShadow};
 `;
 
+type GovernanceArticleType = {
+    icon?: string;
+    image?: string;
+    url: string;
+};
+
 export const GovernanceArticles = (props: GeneratedPropsTypes) => {
     const { config } = useData();
-    const { governanceArticles } = config;
+    const articles = config?.governanceArticles as GovernanceArticleType[];
 
     return (
         <Section {...props}>
             <Grid>
                 <Row>
-                    {governanceArticles.map(({ icon, image, url }, index) => (
+                    {articles.map(({ icon, image, url }, index) => (
                         <Col
                             key={index}
-                            md={3}
-                            mt={{ md: index > 3 ? 2 : 0, sm: index > 1 ? 2 : 0, xs: index ? 2 : 0 }}
+                            md={12 / articles.length}
+                            mt={{
+                                md: index > 12 / articles.length ? 2 : 0,
+                                sm: index > 1 ? 2 : 0,
+                                xs: index ? 2 : 0
+                            }}
                             sm={6}
                             xs={12}
                         >
