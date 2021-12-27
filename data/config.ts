@@ -14,10 +14,13 @@ export const config = {
         ]
     },
     governanceArticles: [
-        // { icon: 'im', url: 'https://google.com' },
-        // { image: '/img/impact-market-dao.svg', url: 'https://google.com' },
-        { icon: 'vote', url: 'https://romulus.page/romulus/0x8f8BB984e652Cb8D0aa7C9D6712Ec2020EB1BAb4' },
-        { icon: 'megaphone', url: 'https://commonwealth.im/impactmarket/' }
+        {
+            icon: 'im',
+            url: 'https://medium.com/impactmarket/introducing-pact-governance-token-airgrab-impact-farming-4e99c899701e'
+        },
+        { image: '/img/impact-market-dao.svg' },
+        { icon: 'vote' },
+        { icon: 'megaphone' }
     ],
     header: {
         menu: [

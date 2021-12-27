@@ -1,12 +1,14 @@
+import { GeneratedPropsTypes } from '../../Types';
 import { colors } from '../../variables/colors';
 import { fonts } from '../../variables/fonts';
+import { generateProps } from 'styled-gen';
 import styled, { css } from 'styled-components';
 
 type ChipProps = {
     as?: string;
     isActive?: boolean;
     textUppercase?: boolean;
-};
+} & GeneratedPropsTypes;
 
 export const Chip = styled.div<ChipProps>`
     font-size: 12px;
@@ -42,6 +44,8 @@ export const Chip = styled.div<ChipProps>`
                 cursor: pointer;
             }
         `}
+
+    ${generateProps};
 `;
 
 Chip.defaultProps = {

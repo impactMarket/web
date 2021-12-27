@@ -22,6 +22,16 @@ type GovernanceArticleType = {
     url?: string;
 };
 
+const Chip = styled.div`
+    align-items: center;
+    background-color: ${colors.brandPrimary};
+    border-radius: 12px;
+    color: ${colors.white};
+    display: inline-flex;
+    justify-content: center;
+    padding: 4px 8px;
+`;
+
 export const GovernanceArticles = (props: GeneratedPropsTypes) => {
     const { config } = useData();
     const articles = config?.governanceArticles as GovernanceArticleType[];
@@ -53,13 +63,19 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
                                 <Text mt={0.5} textSecondary>
                                     <String id={`governanceArticle.${index}.text`} />
                                 </Text>
-                                {!!url && (
-                                    <Div mt="auto" pt={1}>
+                                <Div mt="auto" pt={1}>
+                                    {!!url ? (
                                         <a href={url} rel="noopener noreferrer" target="_blank">
                                             <Icon brandPrimary icon="arrowRight" sHeight={1} sWidth={1.375} />
                                         </a>
-                                    </Div>
-                                )}
+                                    ) : (
+                                        <Chip>
+                                            <Text XSmall bold>
+                                                <String id="availableSoon" />
+                                            </Text>
+                                        </Chip>
+                                    )}
+                                </Div>
                             </Card>
                         </Col>
                     ))}
