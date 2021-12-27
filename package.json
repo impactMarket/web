@@ -10,8 +10,8 @@
         "translations": "node ./utils/getTranslationsFromRepo"
     },
     "dependencies": {
-        "@celo-tools/use-contractkit": "^1.3.0",
         "@impact-market/utils": "^1.0.17",
+        "@poofcash/use-contractkit": "^1.0.11",
         "axios": "^0.21.1",
         "bignumber.js": "^9.0.1",
         "date-fns": "^2.23.0",
