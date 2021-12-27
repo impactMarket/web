@@ -63,5 +63,9 @@
         "prettier": "^2.2.1",
         "typescript": "^4.2.2"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "resolutions": {
+        "@walletconnect/client": "1.2.0",
+        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@^1.0.10"
+    }
 }
