@@ -9,8 +9,8 @@ export const useWallet = () => {
         try {
             await connectFromHook();
 
-            if (asPath !== '/governance-token') {
-                return push('/governance-token');
+            if (asPath !== '/governance') {
+                return push('/governance');
             }
         } catch (error) {
             console.log(error);
