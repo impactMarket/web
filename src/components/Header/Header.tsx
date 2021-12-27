@@ -57,7 +57,7 @@ export const Header = () => {
                     <HeaderStatusBar>
                         <HeaderBarContent>
                             <HeaderStatusBarLeftCol>
-                                <TextLink bold brandPrimary href={cta?.to}>
+                                <TextLink bold brandPrimary href={cta?.to} inlineFlex>
                                     <String id={cta?.labelKey} />
                                     <Icon icon="arrowRight" ml={0.5} sWidth={1.125} />
                                 </TextLink>
