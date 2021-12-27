@@ -19,7 +19,7 @@ const Card = styled.div`
 type GovernanceArticleType = {
     icon?: string;
     image?: string;
-    url: string;
+    url?: string;
 };
 
 export const GovernanceArticles = (props: GeneratedPropsTypes) => {
@@ -47,17 +47,19 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
                                     {!!icon && <Icon brandPrimary icon={icon as IconType} sHeight={2.65} />}
                                     {!!image && <Img sHeight={2.65} sWidth={2.65} src={image} />}
                                 </Div>
-                                <Heading h4 mt={1} sMaxWidth={{ md: 12 }}>
+                                <Heading h4 mt={1}>
                                     <String id={`governanceArticle.${index}.heading`} />
                                 </Heading>
                                 <Text mt={0.5} textSecondary>
                                     <String id={`governanceArticle.${index}.text`} />
                                 </Text>
-                                <Div mt="auto" pt={1}>
-                                    <a href={url} rel="noopener noreferrer" target="_blank">
-                                        <Icon brandPrimary icon="arrowRight" sHeight={1} sWidth={1.375} />
-                                    </a>
-                                </Div>
+                                {!!url && (
+                                    <Div mt="auto" pt={1}>
+                                        <a href={url} rel="noopener noreferrer" target="_blank">
+                                            <Icon brandPrimary icon="arrowRight" sHeight={1} sWidth={1.375} />
+                                        </a>
+                                    </Div>
+                                )}
                             </Card>
                         </Col>
                     ))}
