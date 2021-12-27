@@ -81,7 +81,7 @@ const SpinnerWrapper = styled.div`
 `;
 
 const getMerkleTreeUrl = (address: string) =>
-    `/api/merkletree/?address=${address}${!config.isDaoMainnet ? '&testnet=true' : ''}`;
+    `/api/merkletree/?address=${address}${!config.networkRpcUrl ? '&testnet=true' : ''}`;
 
 const AirgrabContent = (props: {
     onUpdate: Function;

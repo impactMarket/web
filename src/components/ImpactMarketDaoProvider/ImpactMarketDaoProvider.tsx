@@ -16,14 +16,16 @@ type ProviderProps = {
     children?: any;
 };
 
-const network = config.isDaoMainnet ? Mainnet : Alfajores;
+const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
 const Wrapper = (props: ProviderProps) => {
-    const { children } = props;
-    const signer = useConnectedSigner();
     const { address } = useContractKit();
+    const { children } = props;
+
     const [, setIsInDifferentNetwork] = useState(false);
-    const provider = new JsonRpcProvider(network.rpcUrl);
+
+    const provider = new JsonRpcProvider(rpcUrl);
+    const signer = useConnectedSigner();
     const walletProvider = useProvider();
 
     useEffect(() => {
@@ -55,7 +57,7 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 name: 'impactMarket web',
                 url: 'https://impactmarket.com'
             }}
-            network={network}
+            network={!!config.networkRpcUrl ? Mainnet : Alfajores}
         >
             {typeof window === 'undefined' ? null : <Wrapper>{children}</Wrapper>}
         </ContractKitProvider>
