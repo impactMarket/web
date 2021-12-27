@@ -16,6 +16,7 @@ type ProviderProps = {
     children?: any;
 };
 
+const network = config.isDaoTestnet ? Alfajores : Mainnet;
 const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
 const Wrapper = (props: ProviderProps) => {
@@ -57,7 +58,7 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 name: 'impactMarket web',
                 url: 'https://impactmarket.com'
             }}
-            network={!!config.networkRpcUrl ? Mainnet : Alfajores}
+            network={network}
         >
             {typeof window === 'undefined' ? null : <Wrapper>{children}</Wrapper>}
         </ContractKitProvider>
