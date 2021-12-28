@@ -855,10 +855,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@impact-market/utils@^1.0.17":
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-1.0.17.tgz#af400385633a777597c43a7b62c5bbef6510a707"
-  integrity sha512-yD1VbmLU1yf5nibQiBFVhv2qHFXOdBtAjRHifAbPKUJGYfqY/pmCYd3zGIozXv/zZLANqQvOcFmbJEXbELsenw==
+"@impact-market/utils@^1.0.18":
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-1.0.18.tgz#838ed5552707f0b8b7f6a80670e60818b227b750"
+  integrity sha512-YJ+VnkR746Qz7gl5yyYCMCwIodGqWizIUPOUFAD5SWaaGtXjBGmr49NARqBS8tDhotdFNGqzsmYO4so3smO/zw==
   dependencies:
     "@ethersproject/abi" "^5.5.0"
     "@ethersproject/abstract-signer" "^5.5.0"
