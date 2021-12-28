@@ -5,6 +5,7 @@ import { toast } from '../../components/Toaster/Toaster';
 import { useDonationMiner } from '@impact-market/utils';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
 import { withModal } from '../../HOC';
+import BigNumber from 'bignumber.js';
 import React, { useCallback, useState } from 'react';
 
 const Modal = (props: any) => {
@@ -37,6 +38,7 @@ const Modal = (props: any) => {
         setIsLoading(true);
 
         try {
+            BigNumber.config({ EXPONENTIAL_AT: 29 });
             const response = await approve(amount);
 
             setIsLoading(false);
@@ -71,6 +73,7 @@ const Modal = (props: any) => {
         setIsLoading(true);
 
         try {
+            BigNumber.config({ EXPONENTIAL_AT: 29 });
             const response = await donateToTreasury(amount);
 
             setIsLoading(false);
