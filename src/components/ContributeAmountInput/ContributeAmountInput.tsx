@@ -74,10 +74,10 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     return (
         <Wrapper {...forwardProps}>
             <Row>
-                <Div sAlignItems="center">
+                <Div sAlignItems="center" sMaxWidth="50%">
                     <Currency currency="cUSD" />
                     <Text ml={0.5} small>
-                        cUSD (<String id="includingFees" />)
+                        cUSD (<String id="includingNetworkFees" />)
                     </Text>
                 </Div>
                 <Text small>
