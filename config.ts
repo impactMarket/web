@@ -12,11 +12,6 @@ const config = {
     baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api`!,
 
     /**
-     * Base URL to staging api
-     */
-    stagingApiUrl: `https://impactmarket-api-staging.herokuapp.com`,
-
-    /**
      * cUSD decimals to use in ui format
      */
     cUSDDecimals: 18,
