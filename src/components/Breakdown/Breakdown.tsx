@@ -6,6 +6,7 @@ import {
     Heading,
     Highlight,
     HighlightRow,
+    Icon,
     Spinner,
     Text,
     TextLink
@@ -396,9 +397,12 @@ export const Breakdown = () => {
                     </Text>
                 )}
                 {!!address && wrongNetwork && (
-                    <Text brandSecondary center small>
-                        <String id="wrongNetwork" />
-                    </Text>
+                    <>
+                        <Icon error icon="circleWarning" ml="auto" mr="auto" sHeight={2} sWidth={2} />
+                        <Text center mt={1} small>
+                            <String id="wrongNetwork" />
+                        </Text>
+                    </>
                 )}
                 {!!address && !wrongNetwork && (
                     <Tabs mb="auto" tabs={tabs}>

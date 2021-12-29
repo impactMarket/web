@@ -19,7 +19,7 @@ const colorVariations = {
         }
 
         &:disabled {
-            background-color: ${colors.innactive};
+            background-color: ${colors.brandPrimaryDisabled};
         }
     `,
 
