@@ -1,22 +1,22 @@
 import axios from 'axios';
 import config from '../../config';
 
+const { baseApiUrl: baseURL, isProduction } = config;
+
 let cachedClient: any = null;
 
-const getClient = (forceStaging?: boolean) => {
+const getClient = () => {
     if (cachedClient) {
         return cachedClient;
     }
 
-    cachedClient = axios.create({
-        baseURL: forceStaging ? config.stagingApiUrl : config.baseApiUrl
-    });
+    cachedClient = axios.create({ baseURL });
 
     return cachedClient;
 };
 
-export async function getRequest<T>(endpoint: string, forceStaging: boolean = false): Promise<T | undefined> {
-    const client = getClient(forceStaging);
+export async function getRequest<T>(endpoint: string): Promise<T | undefined> {
+    const client = getClient();
     let response: T | undefined;
 
     try {
@@ -33,7 +33,9 @@ export async function getRequest<T>(endpoint: string, forceStaging: boolean = fa
         }
     } catch (error) {
         // TODO: handle error
-        // console.log(error);
+        if (!isProduction) {
+            console.log(error);
+        }
     }
 
     return response;
@@ -56,7 +58,9 @@ export async function postRequest<T>(endpoint: string, body: object): Promise<T 
         }
     } catch (error) {
         // TODO: handle error
-        // console.log(error);
+        if (!isProduction) {
+            console.log(error);
+        }
     }
 
     return response;

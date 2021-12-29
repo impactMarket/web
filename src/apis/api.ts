@@ -78,14 +78,14 @@ export default class Api {
     static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {
         const response = await getRequest<IGlobalNumbers | undefined>('/global/numbers');
 
-        const data = response?.data;
+        const data = response?.data || ({} as any);
 
         const result = {
-            backers: data?.backers,
-            beneficiaries: Numbers.stringify(+(data?.beneficiaries || 0)),
-            claimed: `$${Numbers.stringify(+(data?.claimed || 0))}`,
-            communities: data?.communities,
-            countries: data?.countries
+            backers: data?.backers || null,
+            beneficiaries: Numbers.stringify(+(data?.beneficiaries || 0)) || null,
+            claimed: `$${Numbers.stringify(+(data?.claimed || 0))}` || null,
+            communities: data?.communities || null,
+            countries: data?.countries || null
         };
 
         return result || {};
