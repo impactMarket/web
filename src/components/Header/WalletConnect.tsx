@@ -37,26 +37,35 @@ const WalletAddress = styled.div`
     padding: 0 0 0 1rem;
 `;
 
-const WalletWrapper = styled.div`
+const WalletWrapper = styled.div<any>`
     align-items: center;
     background-color: ${colors.backgroundSecondary};
     border-radius: 12px;
     display: flex;
     height: 2.375rem;
     margin: auto;
-    padding: 1px 1px 1px 1rem;
+    padding: ${({ noBalance }) => !noBalance && '1px 1px 1px 1rem'};
 
     ${mq.tablet(css`
         margin-left: 0;
     `)}
 `;
 
-export const WalletConnect = () => {
-    const { t } = useTranslation();
-    const { address, connect, disconnect } = useWallet();
+const PactBalance = () => {
     const { balance } = useBalance();
 
     const { pact } = balance || {};
+
+    return (
+        <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} small>
+            {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
+        </Text>
+    );
+};
+
+export const WalletConnect = () => {
+    const { t } = useTranslation();
+    const { address, connect, disconnect, wrongNetwork } = useWallet();
 
     const handleOptionSelect = useCallback(option => {
         if (option === 'disconnect') {
@@ -76,14 +85,12 @@ export const WalletConnect = () => {
 
     return (
         <>
-            <WalletWrapper>
-                <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} small>
-                    {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
-                </Text>
+            <WalletWrapper noBalance={wrongNetwork}>
+                {!wrongNetwork && <PactBalance />}
                 <Select
                     anchor="right"
                     asActionList
-                    ml={0.625}
+                    ml={!wrongNetwork && 0.625}
                     noCaret
                     onChange={handleOptionSelect}
                     options={[{ label: t('disconnect'), value: 'disconnect' }]}

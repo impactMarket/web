@@ -53,7 +53,7 @@ export default function App(props: AppProps) {
     }
 
     return (
-        <>
+        <ImpactMarketDaoProvider>
             <Head>
                 <meta content="width=device-width, initial-scale=1" name="viewport" />
                 <meta content="#2362FB" name="theme-color" />
@@ -61,26 +61,24 @@ export default function App(props: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
                 <TranslationProvider locale={locale}>
-                    <ImpactMarketDaoProvider>
-                        <DataProvider page={page} url={url}>
-                            <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
-                                <Loading isActive={showSpinner} />
-                                <ModalManager modals={modals} />
-                                <SEO meta={meta} />
-                                <Toaster />
-                                <Main>
-                                    <Header />
-                                    <Content>
-                                        <Component {...pageProps} />
-                                    </Content>
-                                    <Footer {...footerOptions} />
-                                </Main>
-                                <CookieConsent />
-                            </GoogleReCaptchaProvider>
-                        </DataProvider>
-                    </ImpactMarketDaoProvider>
+                    <DataProvider page={page} url={url}>
+                        <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                            <Loading isActive={showSpinner} />
+                            <SEO meta={meta} />
+                            <Toaster />
+                            <ModalManager modals={modals} />
+                            <Main>
+                                <Header />
+                                <Content>
+                                    <Component {...pageProps} />
+                                </Content>
+                                <Footer {...footerOptions} />
+                            </Main>
+                            <CookieConsent />
+                        </GoogleReCaptchaProvider>
+                    </DataProvider>
                 </TranslationProvider>
             </ThemeProvider>
-        </>
+        </ImpactMarketDaoProvider>
     );
 }

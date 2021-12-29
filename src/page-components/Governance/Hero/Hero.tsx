@@ -25,14 +25,14 @@ const getExampleClaimValue = (epoch: { rewards?: number; totalRaised?: number } 
     epoch ? (exampleUsdValue * epoch?.rewards) / (exampleUsdValue + epoch?.totalRaised) : 0;
 
 export const Hero = () => {
-    const { address, connect } = useWallet();
+    const { address, wrongNetwork } = useWallet();
     const { epoch } = useEpoch();
     const [exampleClaimValue, setExampleClaimValue] = useState(getExampleClaimValue(epoch));
     const { t } = useTranslation();
 
-    const handleContributeClick = async () => {
-        if (!address) {
-            await connect();
+    const handleContributeClick = () => {
+        if (!address || wrongNetwork) {
+            return;
         }
 
         return modal.open('governanceContribute');
@@ -79,6 +79,7 @@ export const Hero = () => {
                         </RichContentFormat>
                         <Div mt={2} sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
                             <Button
+                                disabled={wrongNetwork || !address}
                                 large
                                 mr={{ sm: 2, xs: 0 }}
                                 onClick={handleContributeClick}

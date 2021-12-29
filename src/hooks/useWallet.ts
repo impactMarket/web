@@ -1,8 +1,9 @@
-import { useContractKit } from '@celo-tools/use-contractkit';
+import { ImpactMarketDaoContext } from '../components';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 export const useWallet = () => {
-    const { address, connect: connectFromHook, destroy } = useContractKit();
+    const { address, connect: connectFromHook, destroy, wrongNetwork } = React.useContext(ImpactMarketDaoContext);
     const { asPath, push } = useRouter();
 
     const connect = async () => {
@@ -27,5 +28,5 @@ export const useWallet = () => {
         }
     };
 
-    return { address, connect, disconnect };
+    return { address, connect, disconnect, wrongNetwork };
 };
