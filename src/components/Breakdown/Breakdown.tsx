@@ -190,17 +190,11 @@ const Airgrab = (props: { address?: string; onUpdate: Function }) => {
     return <AirgrabContent onUpdate={onUpdate} treeAccount={treeAccount} />;
 };
 
-export const Breakdown = () => {
-    const { address, connect } = useWallet();
+const Rewards = (props: { onUpdate: Function }) => {
+    const { onUpdate } = props;
     const { claimRewards, rewards } = useRewards();
-    const { epoch } = useEpoch();
-    const { endPeriod } = epoch || {};
     const { t } = useTranslation();
     const [claimIsLoading, setClaimIsLoading] = useState(false);
-    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
-    const [, setUpdated] = useState(new Date().getMilliseconds());
-
-    const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
 
     const handleContributionRewardClaimClick = useCallback(async () => {
         if (claimIsLoading) {
@@ -214,6 +208,8 @@ export const Breakdown = () => {
 
             setClaimIsLoading(false);
 
+            onUpdate();
+
             if (!response?.status) {
                 return toast.error(t('toast.claimError'));
             }
@@ -224,6 +220,135 @@ export const Breakdown = () => {
             toast.error(t('toast.claimError'));
         }
     }, [claimRewards, claimIsLoading]);
+
+    return (
+        <Div column mt={1} sWidth="100%">
+            <Text bold>
+                <String id="contributionReward" />
+            </Text>
+            <Text brandSecondary mt={0.5} small>
+                <String id="breakdown.contributionReward.text" />
+            </Text>
+
+            {/* Claimable Reward */}
+            {!!rewards?.claimable && (
+                <Highlight mt={1}>
+                    <HighlightRow>
+                        <Heading h3>
+                            {currencyValue(rewards?.claimable, { isToken: true })}
+                            &nbsp;
+                            <Text regular span="true">
+                                PACT
+                            </Text>
+                        </Heading>
+                        <Button
+                            isLoading={claimIsLoading}
+                            mt={{ md: 'unset', xs: 0.625 }}
+                            onClick={handleContributionRewardClaimClick}
+                            smaller
+                        >
+                            <Text semibold span="true">
+                                <String id="claim" />
+                            </Text>
+                        </Button>
+                    </HighlightRow>
+                </Highlight>
+            )}
+
+            {/* Next epoch reward */}
+            {!!rewards?.estimated && (
+                <Highlight mt={1}>
+                    <HighlightRow>
+                        <Heading h3>
+                            ~{currencyValue(rewards?.estimated, { isToken: true })}
+                            &nbsp;
+                            <Text regular span="true">
+                                PACT
+                            </Text>
+                        </Heading>
+                        <Text ml={2} mt={{ md: 'unset', xs: 0.625 }} sTextAlign={{ md: 'right', xs: 'center' }} small>
+                            <String id="readyToClaimNote" />
+                        </Text>
+                    </HighlightRow>
+                    <HighlightRow>
+                        <Text brandSecondary small>
+                            <String id="rewardsEstimationNote" />
+                        </Text>
+                    </HighlightRow>
+                </Highlight>
+            )}
+
+            {/* No claimable or estimated Reward */}
+            {!rewards?.claimable && !rewards?.estimated && (
+                <Highlight mt={1}>
+                    <HighlightRow>
+                        <Text brandSecondary div small>
+                            <String id="noContributionRewardToBeClaimed" />
+                        </Text>
+                        <TextLink
+                            brandPrimary
+                            ml={{ md: 'unset', xs: 'auto' }}
+                            mr={{ md: 'unset', xs: 'auto' }}
+                            mt={{ md: 'unset', xs: 0.625 }}
+                            onClick={() => modal.open('governanceContribute')}
+                        >
+                            <String id="contribute" />
+                        </TextLink>
+                    </HighlightRow>
+                </Highlight>
+            )}
+        </Div>
+    );
+};
+
+const Epoch = () => {
+    const { rewards } = useRewards();
+    const { epoch } = useEpoch();
+
+    return (
+        <Div column sWidth="100%">
+            <Div column sWidth="100%">
+                <SummaryRow>
+                    <Text bold>
+                        <String id="availableNewPactTokens" />
+                    </Text>
+                    <Text>{currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' })}</Text>
+                </SummaryRow>
+                <SummaryRow>
+                    <Text bold>
+                        <String id="yourContribution" />
+                    </Text>
+                    <Text>{currencyValue(epoch?.userContribution, { isToken: true, symbol: 'cUSD' })}</Text>
+                </SummaryRow>
+                <SummaryRow>
+                    <Text bold>
+                        <String id="totalRaised" />
+                    </Text>
+                    <Text>{currencyValue(epoch?.totalRaised, { isToken: true, symbol: 'cUSD' })}</Text>
+                </SummaryRow>
+                <SummaryRow>
+                    <Text bold>
+                        <String id="yourPendingRewardsEstimation" />
+                    </Text>
+                    <Text>{currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })}</Text>
+                </SummaryRow>
+            </Div>
+            <Text brandSecondary mt={0.5} sMaxWidth={25} small>
+                <String id="breakdown.rewardsEstimation.text" />
+            </Text>
+        </Div>
+    );
+};
+
+export const Breakdown = () => {
+    const { address, connect, wrongNetwork } = useWallet();
+    const { epoch } = useEpoch();
+    const { endPeriod } = epoch || {};
+    const { t } = useTranslation();
+    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
+    const [, setUpdated] = useState(new Date().getMilliseconds());
+
+    const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
 
     const handleEpochEnd = () => {
         setEndedEpoch(true);
@@ -261,7 +386,7 @@ export const Breakdown = () => {
                 </CowntdownWrapper>
             )}
             <CardContent>
-                {!address ? (
+                {!address && (
                     <Text brandSecondary center small>
                         <TextLink brandPrimary onClick={connect} regular>
                             <String id="connectToYourWallet" />
@@ -269,7 +394,13 @@ export const Breakdown = () => {
                         &nbsp;
                         <String id="breakdown.walletNotConnected.text" />
                     </Text>
-                ) : (
+                )}
+                {!!address && wrongNetwork && (
+                    <Text brandSecondary center small>
+                        <String id="wrongNetwork" />
+                    </Text>
+                )}
+                {!!address && !wrongNetwork && (
                     <Tabs mb="auto" tabs={tabs}>
                         {/* Breakdown */}
                         <Div column sWidth="100%">
@@ -277,123 +408,11 @@ export const Breakdown = () => {
                             <Airgrab address={address} onUpdate={setUpdated} />
 
                             {/* Contribution Reward */}
-                            <Div column mt={1} sWidth="100%">
-                                <Text bold>
-                                    <String id="contributionReward" />
-                                </Text>
-                                <Text brandSecondary mt={0.5} small>
-                                    <String id="breakdown.contributionReward.text" />
-                                </Text>
-
-                                {/* Claimable Reward */}
-                                {!!rewards?.claimable && (
-                                    <Highlight mt={1}>
-                                        <HighlightRow>
-                                            <Heading h3>
-                                                {currencyValue(rewards?.claimable, { isToken: true })}
-                                                &nbsp;
-                                                <Text regular span="true">
-                                                    PACT
-                                                </Text>
-                                            </Heading>
-                                            <Button
-                                                isLoading={claimIsLoading}
-                                                mt={{ md: 'unset', xs: 0.625 }}
-                                                onClick={handleContributionRewardClaimClick}
-                                                smaller
-                                            >
-                                                <Text semibold span="true">
-                                                    <String id="claim" />
-                                                </Text>
-                                            </Button>
-                                        </HighlightRow>
-                                    </Highlight>
-                                )}
-
-                                {/* Next epoch reward */}
-                                {!!rewards?.estimated && (
-                                    <Highlight mt={1}>
-                                        <HighlightRow>
-                                            <Heading h3>
-                                                ~{currencyValue(rewards?.estimated, { isToken: true })}
-                                                &nbsp;
-                                                <Text regular span="true">
-                                                    PACT
-                                                </Text>
-                                            </Heading>
-                                            <Text
-                                                ml={2}
-                                                mt={{ md: 'unset', xs: 0.625 }}
-                                                sTextAlign={{ md: 'right', xs: 'center' }}
-                                                small
-                                            >
-                                                <String id="readyToClaimNote" />
-                                            </Text>
-                                        </HighlightRow>
-                                        <HighlightRow>
-                                            <Text brandSecondary small>
-                                                <String id="rewardsEstimationNote" />
-                                            </Text>
-                                        </HighlightRow>
-                                    </Highlight>
-                                )}
-
-                                {/* No claimable or estimated Reward */}
-                                {!rewards?.claimable && !rewards?.estimated && (
-                                    <Highlight mt={1}>
-                                        <HighlightRow>
-                                            <Text brandSecondary div small>
-                                                <String id="noContributionRewardToBeClaimed" />
-                                            </Text>
-                                            <TextLink
-                                                brandPrimary
-                                                ml={{ md: 'unset', xs: 'auto' }}
-                                                mr={{ md: 'unset', xs: 'auto' }}
-                                                mt={{ md: 'unset', xs: 0.625 }}
-                                                onClick={() => modal.open('governanceContribute')}
-                                            >
-                                                <String id="contribute" />
-                                            </TextLink>
-                                        </HighlightRow>
-                                    </Highlight>
-                                )}
-                            </Div>
+                            <Rewards onUpdate={setUpdated} />
                         </Div>
 
                         {/* Epoch summary */}
-                        <Div column sWidth="100%">
-                            <Div column sWidth="100%">
-                                <SummaryRow>
-                                    <Text bold>
-                                        <String id="availableNewPactTokens" />
-                                    </Text>
-                                    <Text>{currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' })}</Text>
-                                </SummaryRow>
-                                <SummaryRow>
-                                    <Text bold>
-                                        <String id="yourContribution" />
-                                    </Text>
-                                    <Text>
-                                        {currencyValue(epoch?.userContribution, { isToken: true, symbol: 'cUSD' })}
-                                    </Text>
-                                </SummaryRow>
-                                <SummaryRow>
-                                    <Text bold>
-                                        <String id="totalRaised" />
-                                    </Text>
-                                    <Text>{currencyValue(epoch?.totalRaised, { isToken: true, symbol: 'cUSD' })}</Text>
-                                </SummaryRow>
-                                <SummaryRow>
-                                    <Text bold>
-                                        <String id="yourPendingRewardsEstimation" />
-                                    </Text>
-                                    <Text>{currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })}</Text>
-                                </SummaryRow>
-                            </Div>
-                            <Text brandSecondary mt={0.5} sMaxWidth={25} small>
-                                <String id="breakdown.rewardsEstimation.text" />
-                            </Text>
-                        </Div>
+                        <Epoch />
                     </Tabs>
                 )}
             </CardContent>

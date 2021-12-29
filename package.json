@@ -36,6 +36,7 @@
         "react-styled-flexboxgrid": "^3.2.1",
         "react-table": "^7.6.3",
         "react-toastify": "^8.1.0",
+        "react-use": "^17.3.1",
         "recharts": "^2.0.9",
         "sharethis-reactjs": "^1.6.0",
         "styled-components": "^5.0.0",

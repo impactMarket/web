@@ -1,0 +1,18 @@
+import { useEffect, useRef } from 'react';
+import { useUpdate } from 'react-use';
+
+const useMounted = () => {
+    const mounted = useRef(false);
+    const update = useUpdate();
+
+    useEffect(() => {
+        if (mounted.current == false) {
+            mounted.current = true;
+            update();
+        }
+    }, [update]);
+
+    return mounted.current;
+};
+
+export default useMounted;

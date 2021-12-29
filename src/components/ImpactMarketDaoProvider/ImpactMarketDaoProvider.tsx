@@ -1,55 +1,80 @@
 import '@celo-tools/use-contractkit/lib/styles.css';
-import {
-    Alfajores,
-    Celo,
-    ContractKitProvider,
-    useConnectedSigner,
-    useContractKit,
-    useProvider
-} from '@celo-tools/use-contractkit';
+import { Alfajores, Celo, ContractKitProvider, useConnectedSigner, useContractKit } from '@celo-tools/use-contractkit';
 import { ImpactMarketProvider } from '@impact-market/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import config from '../../../config';
+import useMounted from '../../hooks/useMounted';
 
 type ProviderProps = {
     children?: any;
 };
 
+type ContextProps = {
+    address?: string;
+    connect?: Function;
+    destroy?: Function;
+    initialised?: boolean;
+    provider?: object;
+    signer?: object;
+    wrongNetwork?: boolean;
+};
+
 const network = config.isDaoTestnet ? Alfajores : Celo;
 const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
-const Wrapper = (props: ProviderProps) => {
-    const { address } = useContractKit();
-    const { children } = props;
+export const ImpactMarketDaoContext = createContext<ContextProps>({});
 
-    const [, setIsInDifferentNetwork] = useState(false);
-
-    const provider = new JsonRpcProvider(rpcUrl);
+const Wrapper = (props: any) => {
+    const { address, connect, destroy, initialised, network: walletNetwork } = useContractKit();
+    const { children, provider } = props;
     const signer = useConnectedSigner();
-    const walletProvider = useProvider();
+    const [wrongNetwork, setWrongNetwork] = useState<boolean | undefined>();
 
     useEffect(() => {
-        const verifyNetwork = async () => {
-            const network = await provider?.getNetwork();
-            const walletNetwork = await walletProvider?.getNetwork();
+        if (initialised && !!provider) {
+            const verifyNetwork = async () => {
+                const network = await provider?.getNetwork();
 
-            setIsInDifferentNetwork(network.chainId !== walletNetwork.chainId);
-        };
+                setWrongNetwork(network.chainId !== walletNetwork.chainId);
+            };
 
-        if (walletProvider) {
             verifyNetwork();
         }
-    }, [walletProvider, provider]);
+    }, [initialised, walletNetwork]);
+
+    if (!initialised || typeof wrongNetwork !== 'boolean') {
+        return null;
+    }
 
     return (
-        <ImpactMarketProvider address={address} provider={provider} signer={signer}>
-            {children}
-        </ImpactMarketProvider>
+        <ImpactMarketDaoContext.Provider
+            value={{
+                address,
+                connect,
+                destroy,
+                initialised,
+                provider,
+                signer,
+                wrongNetwork
+            }}
+        >
+            <ImpactMarketProvider address={address} provider={provider} signer={signer}>
+                {children}
+            </ImpactMarketProvider>
+        </ImpactMarketDaoContext.Provider>
     );
 };
 
 export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
+    const isMounted = useMounted();
+
+    if (!isMounted) {
+        return null;
+    }
+
+    const provider = new JsonRpcProvider(rpcUrl);
+
     return (
         <ContractKitProvider
             connectModal={{
@@ -81,8 +106,9 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 url: 'https://impactmarket.com'
             }}
             network={network}
+            networks={[Celo, Alfajores]}
         >
-            {typeof window === 'undefined' ? null : <Wrapper>{children}</Wrapper>}
+            <Wrapper provider={provider}>{children}</Wrapper>
         </ContractKitProvider>
     );
 };
