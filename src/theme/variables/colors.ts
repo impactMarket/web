@@ -3,6 +3,7 @@
 export const colors = {
     // brand
     brandPrimary: '#2362FB',
+    brandPrimaryDisabled: '#AEC1EF',
     brandBlack: '#172B4D',
     brandSecondary: '#73839D',
     brandSecondaryLight: '#8A9FC2',
