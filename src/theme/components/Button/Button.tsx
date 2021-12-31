@@ -173,6 +173,7 @@ type ButtonBaseProps = {
     href?: string;
     onClick?: (e: Event) => void;
     isLoading?: boolean;
+    title?: string;
 };
 
 export type ButtonProps = GeneratedPropsTypes &
