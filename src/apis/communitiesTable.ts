@@ -1,6 +1,6 @@
 import { CommunityDailyMetricsAttributes, ICommunity } from './types';
 import { claimFrequencyToText } from '../helpers/claimFrequencytoText';
-import { currencyValue } from '../helpers/currencyValues';
+import { currencyValue } from '../helpers/currencyValue';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import { shortenAddress } from '../helpers/shortenAddress';
 import BigNumber from 'bignumber.js';

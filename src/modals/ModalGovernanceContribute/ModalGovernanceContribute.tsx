@@ -1,6 +1,7 @@
 import { Button, Div, ItemsRow, RichContentFormat, Text } from '../../theme/components';
 import { ContributeAmountInput, StepsProgress, String } from '../../components';
 import { ModalWrapper } from './ModalGovernanceContribute.style';
+import { currencyValue } from '../../helpers/currencyValue';
 import { toast } from '../../components/Toaster/Toaster';
 import { useDonationMiner } from '@impact-market/utils';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
@@ -9,6 +10,7 @@ import BigNumber from 'bignumber.js';
 import React, { useCallback, useState } from 'react';
 
 const Modal = (props: any) => {
+    const { controller, onSuccess } = props;
     const [approvedAmount, setApprovedAmount] = useState(0);
     const [activeStep, setActiveStep] = useState(0);
     const [values, setValues] = useState({ amount: 0, balance: 0 });
@@ -67,6 +69,10 @@ const Modal = (props: any) => {
         if (amount > approvedAmount) {
             setActiveStep(0);
 
+            if (typeof onSuccess === 'function') {
+                await onSuccess();
+            }
+
             return setApprovedAmount(0);
         }
 
@@ -84,8 +90,14 @@ const Modal = (props: any) => {
 
             setContributionDone(true);
             setApprovedAmount(0);
-            props?.controller?.onClose();
+            controller?.onClose();
             toast.success(t('toast.contributeSuccess'));
+
+            if (typeof onSuccess === 'function') {
+                console.log(typeof onSuccess);
+
+                await onSuccess();
+            }
         } catch (error) {
             setIsLoading(false);
             toast.error(t('toast.contributeError'));
@@ -102,7 +114,11 @@ const Modal = (props: any) => {
                 <StepsProgress activeStep={activeStep} mt={1.5} steps={['approve', 'contribute']} />
                 <ItemsRow distribute="tablet" mt={1}>
                     <Button
-                        disabled={activeStep !== 0}
+                        disabled={
+                            !(values.amount > 0) ||
+                            activeStep !== 0 ||
+                            values?.amount >= +currencyValue(values.balance, { isToken: true })
+                        }
                         isLoading={isLoading && activeStep === 0}
                         large
                         onClick={handleApprove}
@@ -116,17 +132,21 @@ const Modal = (props: any) => {
                         large
                         mt={{ sm: 0, xs: 1 }}
                         onClick={handleContribute}
+                        successBkg
                     >
                         <String id="contribute" />
                     </Button>
                 </ItemsRow>
             </Div>
             <RichContentFormat brandSecondary mt={1}>
-                <Text small>
-                    <String
-                        id="operationDelayNote"
-                        variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
-                    />
+                <Text center small>
+                    {(isLoading || activeStep !== 0) && (
+                        <String
+                            id="operationDelayNote"
+                            variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
+                        />
+                    )}
+                    {!isLoading && activeStep === 0 && <String id="celoNetworkFees" />}
                 </Text>
             </RichContentFormat>
         </ModalWrapper>

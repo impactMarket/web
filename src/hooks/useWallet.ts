@@ -1,20 +1,22 @@
 import { ImpactMarketDaoContext } from '../components';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 export const useWallet = () => {
     const { address, connect: connectFromHook, destroy, wrongNetwork } = React.useContext(ImpactMarketDaoContext);
-    const { asPath, push } = useRouter();
 
-    const connect = async () => {
+    const connect = async (callback?: Function) => {
         try {
             await connectFromHook();
 
-            if (asPath !== '/governance') {
-                return push('/governance');
+            if (typeof callback === 'function') {
+                callback();
             }
+
+            return true;
         } catch (error) {
             console.log(error);
+
+            return false;
         }
     };
 
@@ -22,9 +24,11 @@ export const useWallet = () => {
         try {
             await destroy();
 
-            return;
+            return true;
         } catch (error) {
             console.log(error);
+
+            return false;
         }
     };
 

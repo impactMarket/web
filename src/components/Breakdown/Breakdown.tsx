@@ -14,7 +14,7 @@ import {
 import { Countdown, Tabs } from '..';
 import { String } from '../String/String';
 import { colors } from '../../theme';
-import { currencyValue } from '../../helpers/currencyValues';
+import { currencyValue } from '../../helpers/currencyValue';
 import { dateHelpers } from '../../helpers/dateHelpers';
 import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';

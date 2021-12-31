@@ -1,5 +1,5 @@
 import { IGlobalDashboard } from './types';
-import { currencyValue } from '../helpers/currencyValues';
+import { currencyValue } from '../helpers/currencyValue';
 import { getChartDateValueTooltip } from '../helpers/getChartDateValueTooltip';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import { numericalValue } from '../helpers/numericalValue';

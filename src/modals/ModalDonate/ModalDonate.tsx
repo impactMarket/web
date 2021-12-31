@@ -1,17 +1,20 @@
 import { Address, QrCode, String } from '../../components';
-import { Chip, Currency, ItemsRow, Text } from '../../theme/components';
+import { Chip, Currency, ItemsRow, Text, TextLink } from '../../theme/components';
 import { ModalChipsWrapper, ModalCol, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
 import { Subscribe } from './Subscribe';
+import { modal } from 'react-modal-handler';
 import { useData } from '../../components/DataProvider/DataProvider';
+import { useRouter } from 'next/router';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
 import { withModal } from '../../HOC';
 import React, { useState } from 'react';
 
-export const Modal = () => {
+export const Modal = (props: any) => {
     const { config, modals } = useData();
     const { currencies } = modals?.donate;
     const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
     const { t } = useTranslation();
+    const { asPath, push } = useRouter();
 
     const getWallet = (code: any) => {
         const wallet = config?.wallets?.find(wallet => code === wallet?.code);
@@ -27,11 +30,25 @@ export const Modal = () => {
         setWallet(getWallet(code));
     };
 
+    const handleDonationMinerClick = () =>
+        props.controller.onClose(() =>
+            modal.open('governanceContribute', { onSuccess: () => asPath !== '/governance' && push('/governance') })
+        );
+
     return (
         <>
             <ModalWrapper>
                 <Text small>
-                    <String id="modal.donate.text" />
+                    <String
+                        components={{
+                            OpenContributeModal: props => (
+                                <TextLink brandPrimary onClick={handleDonationMinerClick}>
+                                    {props?.children}
+                                </TextLink>
+                            )
+                        }}
+                        id="modal.donate.text"
+                    />
                 </Text>
                 <ModalChipsWrapper>
                     <ItemsRow>

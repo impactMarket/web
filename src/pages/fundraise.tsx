@@ -4,7 +4,6 @@ export const getStaticProps = () => {
     return {
         props: {
             footerOptions: {
-                hideDonateButton: true,
                 whiteBackground: true
             },
             page: 'fundraise'

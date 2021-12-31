@@ -1,4 +1,3 @@
-import { DonateButton } from '../DonateButton/DonateButton';
 import {
     HeaderBarContent,
     HeaderContent,
@@ -13,7 +12,7 @@ import {
     HeaderStatusBarRightCol,
     HeaderWrapper
 } from './Header.style';
-import { Icon, Logo, Text, TextLink } from '../../theme/components';
+import { Icon, Logo, TextLink } from '../../theme/components';
 import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { String } from '../String/String';
@@ -112,12 +111,8 @@ export const Header = () => {
                                 {...item}
                             />
                         ))}
-                    <LanguageSelect mt={1.5} />
-                    <DonateButton mt={2} pl={1.375} pr={1.375} />
-                    <Text mt={1} small textSecondary>
-                        <String id="footer.note" />
-                    </Text>
-                    <SocialMenu mt={1.5} />
+                    <LanguageSelect mt={3.5} />
+                    <SocialMenu mt="auto" pt={1.5} />
                 </HeaderMobileContent>
             </HeaderWrapper>
         </>

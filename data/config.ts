@@ -7,10 +7,10 @@ export const config = {
         menu: [
             { href: 'http://docs.impactmarket.com/', labelKey: 'aboutUs' },
             { labelKey: 'communities', to: '/communities' },
-            { href: 'http://docs.impactmarket.com/', labelKey: 'faqs' },
+            { href: 'http://docs.impactmarket.com/', labelKey: 'faq' },
             { href: 'https://requests.impactmarket.com/feature-requests', labelKey: 'featureRequests' },
             { href: 'https://impactmarket.uvdesk.com/en/customer/create-ticket/', labelKey: 'bugReport' },
-            { href: 'https://careers.impactmarket.com/', labelKey: 'weAreHiring' }
+            { href: 'https://careers.impactmarket.com/', labelKey: 'careers' }
         ]
     },
     governanceArticles: [
@@ -24,6 +24,7 @@ export const config = {
     ],
     header: {
         menu: [
+            { labelKey: 'aboutUs', to: 'https://docs.impactmarket.com/' },
             { labelKey: 'communities', to: '/communities' },
             {
                 labelKey: 'governance',
