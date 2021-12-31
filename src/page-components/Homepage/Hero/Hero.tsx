@@ -17,6 +17,7 @@ import { modal } from 'react-modal-handler';
 import { scroller } from 'react-scroll';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import { useRouter } from 'next/router';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import { useWallet } from '../../../hooks/useWallet';
 import React, { useCallback } from 'react';
 
@@ -28,6 +29,7 @@ const scrollOptions = {
 };
 
 export const Hero = () => {
+    const { t } = useTranslation();
     const { page } = useData();
     const { asPath, push } = useRouter();
     const { address, connect, wrongNetwork } = useWallet();
@@ -75,6 +77,7 @@ export const Hero = () => {
                                     mt={3}
                                     onClick={handleDonationButtonClick}
                                     sWidth={{ sm: 'unset', xs: '100%' }}
+                                    title={wrongNetwork && !!address && t('wrongNetworkShort')}
                                 >
                                     <Text bold>
                                         <String id="contributeAndEarnRewards" />

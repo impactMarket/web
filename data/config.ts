@@ -16,7 +16,8 @@ export const config = {
     governanceArticles: [
         {
             icon: 'im',
-            url: 'https://medium.com/impactmarket/introducing-pact-governance-token-airgrab-impact-farming-4e99c899701e'
+            url: 'https://app.ubeswap.org/#/swap?outputCurrency=0x46c9757c5497c5b1f2eb73ae79b6b67d119b0b58',
+            urlLabelKey: 'buyPactOnUbeswap'
         },
         { image: '/img/impact-market-dao.svg' },
         { icon: 'vote' },
@@ -31,8 +32,8 @@ export const config = {
                 to: '/governance'
                 // submenu: [
                 //     { labelKey: 'claimPactTokens', to: '/governance' },
-                //     // { labelKey: 'voteOnProposals', to: 'https://romulus-interface-jet.vercel.app/' },
-                //     // { labelKey: 'voteOnCommunitiesSubmissions', to: '/community-submissions' },
+                //     { labelKey: 'voteOnProposals', to: 'https://romulus-interface-jet.vercel.app/' },
+                //     { labelKey: 'voteOnCommunitiesSubmissions', to: '/community-submissions' },
                 //     { labelKey: 'linkToOurDiscord', to: 'https://discord.gg/V6JWbM4ZQ3' }
                 // ]
             },

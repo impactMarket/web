@@ -1,4 +1,16 @@
-import { Col, Div, Grid, Heading, Icon, Img, Row, Section, Text } from '../../theme/components';
+import {
+    Col,
+    Div,
+    Grid,
+    Heading,
+    Icon,
+    Img,
+    RichContentFormat,
+    Row,
+    Section,
+    Text,
+    TextLink
+} from '../../theme/components';
 import { GeneratedPropsTypes, IconType } from '../../theme/Types';
 import { String } from '../../components';
 import { colors } from '../../theme';
@@ -20,6 +32,7 @@ type GovernanceArticleType = {
     icon?: string;
     image?: string;
     url?: string;
+    urlLabelKey?: string;
 };
 
 const Chip = styled.div`
@@ -40,7 +53,7 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
         <Section {...props}>
             <Grid>
                 <Row>
-                    {articles.map(({ icon, image, url }, index) => (
+                    {articles.map(({ icon, image, url, urlLabelKey }, index) => (
                         <Col
                             key={index}
                             md={12 / articles.length}
@@ -60,14 +73,26 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
                                 <Heading h4 mt={1}>
                                     <String id={`governanceArticle.${index}.heading`} />
                                 </Heading>
-                                <Text mt={0.5} textSecondary>
-                                    <String id={`governanceArticle.${index}.text`} />
-                                </Text>
+                                <RichContentFormat>
+                                    <Text mt={0.5} textSecondary>
+                                        <String id={`governanceArticle.${index}.text`} />
+                                    </Text>
+                                </RichContentFormat>
                                 <Div mt="auto" pt={1}>
                                     {!!url ? (
-                                        <a href={url} rel="noopener noreferrer" target="_blank">
-                                            <Icon brandPrimary icon="arrowRight" sHeight={1} sWidth={1.375} />
-                                        </a>
+                                        <TextLink brandPrimary href={url} rel="noopener noreferrer" target="_blank">
+                                            {!!urlLabelKey && (
+                                                <Text bold>
+                                                    <String id={urlLabelKey} />
+                                                </Text>
+                                            )}
+                                            <Icon
+                                                icon="arrowRight"
+                                                ml={urlLabelKey && 0.5}
+                                                sHeight={1}
+                                                sWidth={1.375}
+                                            />
+                                        </TextLink>
                                     ) : (
                                         <Chip>
                                             <Text XSmall bold>
