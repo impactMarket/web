@@ -42,7 +42,7 @@ const Tip = styled.div<TypeWithPosition>`
     top: 100%;
     transform: translate(0, 2rem);
     visibility: hidden;
-    width: 12rem;
+    max-width: 12rem;
     z-index: 999;
 
     ${mq.tabletLandscape(css`

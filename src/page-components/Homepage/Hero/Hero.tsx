@@ -1,10 +1,24 @@
-import { Button, Col, Div, Grid, Heading, Icon, Img, ItemsRow, Row, Section, Text } from '../../../theme/components';
-import { DonateButton, String } from '../../../components';
-import { colors } from '../../../theme';
+import {
+    Button,
+    Col,
+    Currency,
+    Div,
+    Grid,
+    Heading,
+    Icon,
+    Img,
+    Row,
+    Section,
+    Text,
+    TextLink
+} from '../../../theme/components';
+import { DonateLink, String } from '../../../components';
+import { modal } from 'react-modal-handler';
 import { scroller } from 'react-scroll';
 import { useData } from '../../../components/DataProvider/DataProvider';
+import { useRouter } from 'next/router';
+import { useWallet } from '../../../hooks/useWallet';
 import React, { useCallback } from 'react';
-import styled from 'styled-components';
 
 const scrollOptions = {
     delay: 10,
@@ -13,14 +27,24 @@ const scrollOptions = {
     smooth: 'easeInOutCubic'
 };
 
-const TextLink = styled.a`
-    color: ${colors.brandPrimary};
-`;
-
 export const Hero = () => {
     const { page } = useData();
+    const { asPath, push } = useRouter();
+    const { address, connect, wrongNetwork } = useWallet();
 
-    const handleDlownloadButtonClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
+    const handleDownloadLinkClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
+
+    const handleDonationButtonClick = async () => {
+        if (!address) {
+            const response = await connect();
+
+            if (!response) {
+                return;
+            }
+        }
+
+        return modal.open('governanceContribute', { onSuccess: () => asPath !== '/governance' && push('/governance') });
+    };
 
     return (
         <Section pb={{ xs: 2 }}>
@@ -40,23 +64,62 @@ export const Hero = () => {
                             </Heading>
                             <Text body fontSize={{ md: '16 32', xs: '14 24' }} mt={1}>
                                 <String id="page.homepage.hero.text" />
-                                &nbsp;
+                            </Text>
+
+                            {/* Donate button */}
+                            <Div>
+                                <Button
+                                    disabled={wrongNetwork && !!address}
+                                    large
+                                    medium
+                                    mt={3}
+                                    onClick={handleDonationButtonClick}
+                                    sWidth={{ sm: 'unset', xs: '100%' }}
+                                >
+                                    <Text bold>
+                                        <String id="contributeAndEarnRewards" />
+                                    </Text>
+                                    <Currency currency="cUSD" ml={1} />
+                                </Button>
+                            </Div>
+
+                            {/* Donate without the protocol */}
+                            <Div mt={0.5}>
+                                <Text brandSecondary>
+                                    <String
+                                        components={{
+                                            OpenCryptoDonateModal: props => {
+                                                return <DonateLink {...props} brandPrimary underlined />;
+                                            }
+                                        }}
+                                        id="page.homepage.hero.buttonFootnote"
+                                    />
+                                </Text>
+                            </Div>
+
+                            {/* Other ctas */}
+                            <Div block mt={3}>
+                                <TextLink brandPrimary onClick={handleDownloadLinkClick}>
+                                    <Text bold inlineBlock lead1>
+                                        <String id="installApps" />
+                                    </Text>
+                                    <Icon icon="arrowRight" ml={0.5} sHeight="auto" sWidth={1} />
+                                </TextLink>
                                 <TextLink
-                                    href="http://docs.impactmarket.com/"
-                                    rel="noreferrer noopener"
+                                    brandPrimary
+                                    href="https://docs.impactmarket.com"
+                                    mt={0.5}
+                                    rel="noopener noreferrer"
                                     target="_blank"
                                 >
-                                    <String id="learnMoreAboutUs" />
+                                    <Text bold lead1>
+                                        <String id="readTheDocumentation" />
+                                    </Text>
+                                    <Icon icon="arrowRight" ml={0.5} sHeight="auto" sWidth={1} />
                                 </TextLink>
-                                .
-                            </Text>
-                            <ItemsRow distribute="tabletLandscape" mt={2}>
-                                <Button fluid large medium onClick={handleDlownloadButtonClick}>
-                                    <Icon icon="download" mr={0.625} sHeight={1.375} />
-                                    <String id="downloadApp" />
-                                </Button>
-                                <DonateButton mt={{ md: 0, xs: 1 }} />
-                            </ItemsRow>
+                            </Div>
+
+                            {/* <DonateButton mt={{ md: 0, xs: 1 }} /> */}
                         </Div>
                     </Col>
                 </Row>

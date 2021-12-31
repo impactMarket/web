@@ -1,7 +1,7 @@
 import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
-import { darken, lighten } from 'polished';
+import { darken } from 'polished';
 import { ease, generateProps, transitions, variations } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
 import React from 'react';
@@ -89,7 +89,7 @@ const colorVariations = {
         }
 
         &:disabled {
-            background-color: ${lighten(0.3, colors.success)};
+            background-color: ${colors.innactive};
         }
     `,
 

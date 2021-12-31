@@ -4,7 +4,6 @@ export const getServerSideProps = () => {
     return {
         props: {
             footerOptions: {
-                hideDonateButton: true,
                 whiteBackground: true
             },
             page: 'governanceToken'

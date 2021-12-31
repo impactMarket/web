@@ -12,7 +12,6 @@ type LanguageSelectProps = {
 } & GeneratedPropsTypes;
 
 const Wrapper = styled.div<LanguageSelectProps>`
-    height: 100%;
     display: flex;
     align-items: center;
 

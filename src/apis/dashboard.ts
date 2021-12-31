@@ -1,5 +1,5 @@
 import { IGlobalDashboard } from './types';
-import { currencyValue } from '../helpers/currencyValues';
+import { currencyValue } from '../helpers/currencyValue';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import { numericalValue } from '../helpers/numericalValue';
 import BigNumber from 'bignumber.js';
@@ -8,13 +8,13 @@ export const dashboard: { [key: string]: Function } = {
     getAvgCumulativeUbi: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('beneficiary')}`,
-        value: currencyValue(humanifyNumber(data?.monthly[0]?.avgComulativeUbi), { decimals: false })
+        value: currencyValue(humanifyNumber(data?.monthly?.[0]?.avgComulativeUbi), { decimals: false })
     }),
 
     getAvgUbiDuration: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `${t('months')} / ${t('beneficiary')}`,
-        value: numericalValue(data?.monthly[0]?.avgUbiDuration.toString(), false)
+        value: numericalValue(data?.monthly?.[0]?.avgUbiDuration.toString(), false)
     }),
 
     getBackers: (data: IGlobalDashboard) => ({
@@ -22,7 +22,7 @@ export const dashboard: { [key: string]: Function } = {
     }),
 
     getBeneficiaries: (data: IGlobalDashboard) => ({
-        value: numericalValue((data?.monthly[0]?.totalBeneficiaries + data?.today?.totalBeneficiaries).toString())
+        value: numericalValue((data?.monthly?.[0]?.totalBeneficiaries + data?.today?.totalBeneficiaries).toString())
     }),
 
     getHelper: (helper: string, data: IGlobalDashboard, t: Function): Function => {
@@ -40,17 +40,17 @@ export const dashboard: { [key: string]: Function } = {
     getRatePerBacker: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('day')}`,
-        value: currencyValue(data?.monthly[0]?.givingRate.toString())
+        value: currencyValue(data?.monthly?.[0]?.givingRate.toString())
     }),
 
     getRatePerBeneficiary: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('day')}`,
-        value: currencyValue(data?.monthly[0]?.ubiRate.toString())
+        value: currencyValue(data?.monthly?.[0]?.ubiRate.toString())
     }),
 
     getReach: (data: IGlobalDashboard) => ({
-        value: numericalValue(data?.monthly[0]?.totalReach.toString())
+        value: numericalValue(data?.monthly?.[0]?.totalReach.toString())
     }),
 
     getSpendingRate: () => ({
@@ -60,23 +60,25 @@ export const dashboard: { [key: string]: Function } = {
     getTotalDistributed: (data: IGlobalDashboard) => ({
         suffix: 'cUSD',
         value: currencyValue(
-            humanifyNumber(new BigNumber(data?.monthly[0]?.totalDistributed).plus(data?.today?.totalClaimed).toString())
+            humanifyNumber(
+                new BigNumber(data?.monthly?.[0]?.totalDistributed).plus(data?.today?.totalClaimed).toString()
+            )
         )
     }),
 
     getTotalRaised: (data: IGlobalDashboard) => ({
         suffix: 'cUsd',
         value: currencyValue(
-            humanifyNumber(new BigNumber(data?.monthly[0]?.totalRaised).plus(data?.today?.totalRaised).toString())
+            humanifyNumber(new BigNumber(data?.monthly?.[0]?.totalRaised).plus(data?.today?.totalRaised).toString())
         )
     }),
 
     getTotalVolume: (data: IGlobalDashboard) => ({
         suffix: 'cUsd',
-        value: currencyValue(humanifyNumber(data?.monthly[0]?.totalVolume))
+        value: currencyValue(humanifyNumber(data?.monthly?.[0]?.totalVolume))
     }),
 
     getTransfers: (data: IGlobalDashboard) => ({
-        value: numericalValue(data?.monthly[0]?.totalTransactions.toString())
+        value: numericalValue(data?.monthly?.[0]?.totalTransactions.toString())
     })
 };

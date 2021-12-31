@@ -1,7 +1,7 @@
 import { Icon, Select, Text } from '../../theme/components';
 import { String } from '..';
 import { colors, fonts } from '../../theme';
-import { currencyValue } from '../../helpers/currencyValues';
+import { currencyValue } from '../../helpers/currencyValue';
 import { ease, mq, transitions } from 'styled-gen';
 import { formatAddress } from '../../helpers/formatAddress';
 import { useBalance } from '@impact-market/utils';
@@ -67,9 +67,9 @@ export const WalletConnect = () => {
     const { t } = useTranslation();
     const { address, connect, disconnect, wrongNetwork } = useWallet();
 
-    const handleOptionSelect = useCallback(option => {
+    const handleOptionSelect = useCallback(async option => {
         if (option === 'disconnect') {
-            disconnect();
+            await disconnect();
         }
     }, []);
 

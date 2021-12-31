@@ -9,21 +9,21 @@ import Link from 'next/link';
 import React from 'react';
 
 type FooterProps = {
-    hideDonateButton?: boolean;
+    showDonateButton?: boolean;
     whiteBackground?: boolean;
 };
 
 export const Footer = (props: FooterProps) => {
     const { config } = useData();
     const { asPath } = useRouter();
-    const { hideDonateButton = false, whiteBackground = false } = props;
+    const { showDonateButton = false, whiteBackground = false } = props;
 
     const menu = config?.footer?.menu;
 
     const checkActiveRoute = (route: string | undefined) => route === asPath;
 
     return (
-        <FooterWrapper whiteBackground={whiteBackground} withDonateButton={!hideDonateButton}>
+        <FooterWrapper whiteBackground={whiteBackground} withDonateButton={showDonateButton}>
             <Grid>
                 <Row>
                     <Col xs={12}>
@@ -93,7 +93,7 @@ export const Footer = (props: FooterProps) => {
                             </Col>
                         ))}
                 </Row>
-                {!hideDonateButton && (
+                {showDonateButton && (
                     <Row mt={{ lg: 2, xs: 4 }}>
                         <Col xs={12}>
                             <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>

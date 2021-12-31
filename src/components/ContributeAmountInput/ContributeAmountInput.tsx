@@ -1,12 +1,12 @@
-import { Button, Currency, Div, Text } from '../../theme/components';
+import { Currency, Div, InfoTooltip, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '..';
 import { colors } from '../../theme';
-import { currencyValue } from '../../helpers/currencyValues';
+import { currencyValue } from '../../helpers/currencyValue';
 import { generateProps } from 'styled-gen';
 import { useBalance } from '@impact-market/utils';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input.attrs({
@@ -53,13 +53,14 @@ type ContributeAmountInputProps = {
 export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     const { onChange, ...forwardProps } = props;
     const [value, setValue] = useState<any>('');
+    const [error, setError] = useState<any>('');
     const inputRef = useRef<HTMLInputElement>();
     const { balance } = useBalance();
     const { t } = useTranslation();
 
-    const handleMaxSet = useCallback(() => {
-        setValue(balance?.cusd);
-    }, [balance]);
+    // const handleMaxSet = useCallback(() => {
+    //     setValue(balance?.cusd);
+    // }, [balance]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -67,36 +68,73 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
         }, 500);
     }, []);
 
+    const checkErrors = () => {
+        const cusdBalance = +currencyValue(balance?.cusd, { isToken: true });
+        const amount = +value;
+
+        if (amount > cusdBalance) {
+            return setError('insufficientFunds');
+        }
+
+        if (amount === cusdBalance) {
+            return setError('equalBalance');
+        }
+
+        if (!!error) {
+            return setError('');
+        }
+
+        return;
+    };
+
     useEffect(() => {
+        checkErrors();
+
         onChange(value, balance?.cusd);
     }, [value, balance]);
 
     return (
-        <Wrapper {...forwardProps}>
-            <Row>
-                <Div sAlignItems="center" sMaxWidth="50%">
-                    <Currency currency="cUSD" />
-                    <Text ml={0.5} small>
-                        cUSD (<String id="includingNetworkFees" />)
+        <>
+            <Wrapper {...forwardProps}>
+                <Row>
+                    <Div sAlignItems="center" sMaxWidth="50%">
+                        <Currency currency="cUSD" />
+                        <Text ml={0.5} semibold small>
+                            cUSD
+                        </Text>
+                    </Div>
+                    <Text small>
+                        <String id="balance" />: {currencyValue(balance?.cusd, { isToken: true, symbol: 'cUSD' })}
+                    </Text>
+                </Row>
+                <Row>
+                    <Input
+                        onChange={event => setValue(event?.target?.value)}
+                        placeholder={t('amount')}
+                        ref={inputRef}
+                        value={value || ''}
+                    />
+                    {/* <Button onClick={handleMaxSet} secondaryLight smallest>
+                        <Text bold small uppercase>
+                            <String id="max" />
+                        </Text>
+                    </Button> */}
+                </Row>
+            </Wrapper>
+            {!!error && (
+                <Div mt={0.5} sAlignItems="center" sJustifyContent="center">
+                    <Text div error small>
+                        <String id="insufficientBalance" />
+                        {error === 'equalBalance' && (
+                            <InfoTooltip position="bottom center">
+                                <Text brandSecondary small>
+                                    <String id="includingNetworkFees" />
+                                </Text>
+                            </InfoTooltip>
+                        )}
                     </Text>
                 </Div>
-                <Text small>
-                    <String id="balance" />: {currencyValue(balance?.cusd, { isToken: true, symbol: 'cUSD' })}
-                </Text>
-            </Row>
-            <Row>
-                <Input
-                    onChange={event => setValue(event?.target?.value)}
-                    placeholder={t('amount')}
-                    ref={inputRef}
-                    value={value || ''}
-                />
-                <Button onClick={handleMaxSet} secondaryLight smallest>
-                    <Text bold small uppercase>
-                        <String id="max" />
-                    </Text>
-                </Button>
-            </Row>
-        </Wrapper>
+            )}
+        </>
     );
 };
