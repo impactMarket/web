@@ -139,6 +139,11 @@ export const pages: { [key: string]: object } = {
             { name: 'pactTokenHolders' },
             { name: 'totalDonated' },
             { name: 'donatedLastMonth' }
-        ]
+        ],
+        meta: {
+            description: 'page.governanceToken.seo.description',
+            image: '/img/share-governance.jpg',
+            title: 'page.governanceToken.seo.title'
+        }
     }
 };
