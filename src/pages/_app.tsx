@@ -65,9 +65,9 @@ export default function App(props: AppProps) {
                     <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
                         <Loading isActive={showSpinner} />
                         <Toaster />
-                        <ModalManager modals={modals} />
                         <Main>
                             <ImpactMarketDaoProvider>
+                                <ModalManager modals={modals} />
                                 <Header />
                                 <Content>
                                     <Component {...pageProps} />
