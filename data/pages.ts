@@ -142,7 +142,7 @@ export const pages: { [key: string]: object } = {
         ],
         meta: {
             description: 'page.governanceToken.seo.description',
-            image: '/img/share-governance.jpg',
+            image: 'https://impactmarket.com/img/share-governance.jpg',
             title: 'page.governanceToken.seo.title'
         }
     }
