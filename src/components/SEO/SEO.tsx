@@ -47,7 +47,8 @@ const getMetaData: any = (metaData: any) =>
     }, []);
 
 export const SEO = (props: SeoProps) => {
-    const { url, config } = useData();
+    const { page, url, config } = useData();
+    const { meta: metaFromPage } = page || {};
     const { seo } = config;
     const { meta: metaFromProps } = props;
 
@@ -58,7 +59,16 @@ export const SEO = (props: SeoProps) => {
         { url }
     );
 
-    const metaObject = Object.assign({}, { ...seo, ...defaultMeta }, metaFromProps);
+    const pageMeta = ['description', 'keywords', 'title'].reduce(
+        (result, key) => (metaFromPage?.[key] ? { ...result, [key]: t(metaFromPage[key]) } : result),
+        {}
+    ) as any;
+
+    if (metaFromPage?.image) {
+        pageMeta.image = metaFromPage.image;
+    }
+
+    const metaObject = Object.assign({}, { ...seo, ...defaultMeta, ...pageMeta }, metaFromProps);
 
     const meta = getMetaData(metaObject);
     const title = metaObject?.title;
