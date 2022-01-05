@@ -2,6 +2,8 @@ import '@celo-tools/use-contractkit/lib/styles.css';
 import { Alfajores, Celo, ContractKitProvider, useConnectedSigner, useContractKit } from '@celo-tools/use-contractkit';
 import { ImpactMarketProvider } from '@impact-market/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { modal } from 'react-modal-handler';
+import { useRouter } from 'next/router';
 import React, { createContext, useEffect, useState } from 'react';
 import config from '../../../config';
 import useMounted from '../../hooks/useMounted';
@@ -27,6 +29,7 @@ export const ImpactMarketDaoContext = createContext<ContextProps>({});
 
 const Wrapper = (props: any) => {
     const { address, connect, destroy, initialised, network: walletNetwork } = useContractKit();
+    const { asPath, query, isReady, push } = useRouter();
     const { children, provider } = props;
     const signer = useConnectedSigner();
     const [wrongNetwork, setWrongNetwork] = useState<boolean | undefined>();
@@ -42,6 +45,14 @@ const Wrapper = (props: any) => {
             verifyNetwork();
         }
     }, [initialised, walletNetwork]);
+
+    useEffect(() => {
+        if (initialised && query?.contribute === 'true') {
+            modal.open('governanceContribute', {
+                onSuccess: () => asPath !== '/governance' && push('/governance')
+            });
+        }
+    }, [initialised, isReady, query]);
 
     if (!initialised || typeof wrongNetwork !== 'boolean') {
         return null;

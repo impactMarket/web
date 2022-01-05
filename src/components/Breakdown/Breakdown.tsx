@@ -6,13 +6,13 @@ import {
     Heading,
     Highlight,
     HighlightRow,
-    Icon,
     Spinner,
     Text,
     TextLink
 } from '../../theme/components';
 import { Countdown, Tabs } from '..';
 import { String } from '../String/String';
+import { WrongNetwork } from '../WrongNetwork/WrongNetwork';
 import { colors } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
 import { dateHelpers } from '../../helpers/dateHelpers';
@@ -396,14 +396,7 @@ export const Breakdown = () => {
                         <String id="breakdown.walletNotConnected.text" />
                     </Text>
                 )}
-                {!!address && wrongNetwork && (
-                    <>
-                        <Icon error icon="circleWarning" ml="auto" mr="auto" sHeight={2} sWidth={2} />
-                        <Text center mt={1} small>
-                            <String id="wrongNetwork" />
-                        </Text>
-                    </>
-                )}
+                {!!address && wrongNetwork && <WrongNetwork />}
                 {!!address && !wrongNetwork && (
                     <Tabs mb="auto" tabs={tabs}>
                         {/* Breakdown */}

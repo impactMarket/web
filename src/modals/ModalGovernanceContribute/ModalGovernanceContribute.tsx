@@ -1,20 +1,25 @@
 import { Button, Div, ItemsRow, RichContentFormat, Text } from '../../theme/components';
 import { ContributeAmountInput, StepsProgress, String } from '../../components';
 import { ModalWrapper } from './ModalGovernanceContribute.style';
+import { WrongNetwork } from '../../components/WrongNetwork/WrongNetwork';
 import { currencyValue } from '../../helpers/currencyValue';
+import { modal } from 'react-modal-handler';
 import { toast } from '../../components/Toaster/Toaster';
 import { useDonationMiner } from '@impact-market/utils';
 import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
+import { useWallet } from '../../hooks/useWallet';
 import { withModal } from '../../HOC';
 import BigNumber from 'bignumber.js';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const Modal = (props: any) => {
     const { controller, onSuccess } = props;
+    const { address, connect, wrongNetwork } = useWallet();
     const [approvedAmount, setApprovedAmount] = useState(0);
     const [activeStep, setActiveStep] = useState(0);
     const [values, setValues] = useState({ amount: 0, balance: 0 });
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingBalance, setisLoadingBalance] = useState(true);
     const [contributionDone, setContributionDone] = useState(false);
     const { approve, donateToTreasury } = useDonationMiner();
     const { t } = useTranslation();
@@ -104,13 +109,58 @@ const Modal = (props: any) => {
         }
     }, [approvedAmount, values, isLoading]);
 
+    const handleConnect = async () => {
+        modal.close();
+
+        const cb = () => new Promise(resolve => setTimeout(resolve, 500));
+
+        await connect(cb);
+
+        modal.open('governanceContribute', { onSuccess });
+    };
+
+    useEffect(() => {
+        if (address || !wrongNetwork) {
+            setisLoadingBalance(true);
+
+            setTimeout(() => setisLoadingBalance(false), 500);
+        }
+    }, [address, wrongNetwork]);
+
+    if (!address) {
+        return (
+            <ModalWrapper>
+                <RichContentFormat>
+                    <Text center small>
+                        <String id="connectToYourWalletToContribute" />
+                    </Text>
+                </RichContentFormat>
+                <Button fluid mt={1.5} onClick={handleConnect}>
+                    <Text medium sub>
+                        <String id="connectToWallet" />
+                    </Text>
+                </Button>
+            </ModalWrapper>
+        );
+    }
+
+    if (address && wrongNetwork) {
+        return (
+            <ModalWrapper>
+                <WrongNetwork />
+            </ModalWrapper>
+        );
+    }
+
     return (
         <ModalWrapper>
-            <Text brandSecondary small>
-                <String id="rewardsEstimationNote" />
-            </Text>
+            <RichContentFormat>
+                <Text brandSecondary sub>
+                    <String id="donationMinerModalText" />
+                </Text>
+            </RichContentFormat>
             <Div column mt={1} sWidth="100%">
-                <ContributeAmountInput onChange={handleAmountChange} />
+                <ContributeAmountInput isLoading={isLoadingBalance} onChange={handleAmountChange} />
                 <StepsProgress activeStep={activeStep} mt={1.5} steps={['approve', 'contribute']} />
                 <ItemsRow distribute="tablet" mt={1}>
                     <Button

@@ -1,4 +1,4 @@
-import { Currency, Div, InfoTooltip, Text } from '../../theme/components';
+import { Currency, Div, InfoTooltip, Spinner, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '..';
 import { colors } from '../../theme';
@@ -48,10 +48,11 @@ const Wrapper = styled.div`
 
 type ContributeAmountInputProps = {
     onChange: Function;
+    isLoading?: boolean;
 } & GeneratedPropsTypes;
 
 export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
-    const { onChange, ...forwardProps } = props;
+    const { isLoading, onChange, ...forwardProps } = props;
     const [value, setValue] = useState<any>('');
     const [error, setError] = useState<any>('');
     const inputRef = useRef<HTMLInputElement>();
@@ -99,18 +100,33 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
                 <Row>
                     <Div sAlignItems="center" sMaxWidth="50%">
                         <Currency currency="cUSD" />
-                        <Text ml={0.5} semibold small>
+                        <Text bold ml={0.5} small>
                             cUSD
                         </Text>
                     </Div>
-                    <Text small>
-                        <String id="balance" />: {currencyValue(balance?.cusd, { isToken: true, symbol: 'cUSD' })}
-                    </Text>
+                    {isLoading ? (
+                        <Div relative>
+                            <Div
+                                sHeight={2.5}
+                                sWidth={2.5}
+                                style={{ position: 'absolute', right: '-0.5rem', top: '-1.25rem' }}
+                            >
+                                <Spinner isLoading={isLoading} />
+                            </Div>
+                        </Div>
+                    ) : (
+                        <Text small>
+                            <b>
+                                <String id="balance" />
+                            </b>
+                            : {currencyValue(balance?.cusd, { isToken: true, symbol: 'cUSD' })}
+                        </Text>
+                    )}
                 </Row>
                 <Row>
                     <Input
                         onChange={event => setValue(event?.target?.value)}
-                        placeholder={t('amount')}
+                        placeholder={`${t('enterAmount')}...`}
                         ref={inputRef}
                         value={value || ''}
                     />
@@ -121,7 +137,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
                     </Button> */}
                 </Row>
             </Wrapper>
-            {!!error && (
+            {!!error && !isLoading && value !== '' && (
                 <Div mt={0.5} sAlignItems="center" sJustifyContent="center">
                     <Text div error small>
                         <String id="insufficientBalance" />

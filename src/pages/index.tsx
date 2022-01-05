@@ -1,8 +1,17 @@
 import { Homepage } from '../page-components';
+import { NextPageContext } from 'next';
 import Api from '../apis/api';
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: NextPageContext) => {
     const numbers = await Api.getGlobalNumbers();
+    const { query } = context;
+    const meta = {} as any;
+
+    if (query?.contribute === 'true') {
+        meta.image = 'https://img/share-governance.jpg';
+        meta['image:height'] = 1080;
+        meta['image:width'] = 1080;
+    }
 
     const data = {
         numbers
@@ -11,6 +20,7 @@ export const getServerSideProps = async () => {
     return {
         props: {
             data,
+            meta,
             page: 'homepage'
         }
     };

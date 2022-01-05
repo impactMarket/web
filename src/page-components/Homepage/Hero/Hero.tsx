@@ -17,8 +17,6 @@ import { modal } from 'react-modal-handler';
 import { scroller } from 'react-scroll';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import { useRouter } from 'next/router';
-import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
-import { useWallet } from '../../../hooks/useWallet';
 import React, { useCallback } from 'react';
 
 const scrollOptions = {
@@ -29,22 +27,12 @@ const scrollOptions = {
 };
 
 export const Hero = () => {
-    const { t } = useTranslation();
     const { page } = useData();
     const { asPath, push } = useRouter();
-    const { address, connect, wrongNetwork } = useWallet();
 
     const handleDownloadLinkClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
 
-    const handleDonationButtonClick = async () => {
-        if (!address) {
-            const response = await connect();
-
-            if (!response) {
-                return;
-            }
-        }
-
+    const handleDonationButtonClick = () => {
         return modal.open('governanceContribute', { onSuccess: () => asPath !== '/governance' && push('/governance') });
     };
 
@@ -71,13 +59,11 @@ export const Hero = () => {
                             {/* Donate button */}
                             <Div>
                                 <Button
-                                    disabled={wrongNetwork && !!address}
                                     large
                                     medium
                                     mt={3}
                                     onClick={handleDonationButtonClick}
                                     sWidth={{ sm: 'unset', xs: '100%' }}
-                                    title={wrongNetwork && !!address && t('wrongNetworkShort')}
                                 >
                                     <Text bold>
                                         <String id="contributeAndEarnRewards" />
