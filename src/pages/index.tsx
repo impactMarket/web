@@ -8,7 +8,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     const meta = {} as any;
 
     if (query?.contribute === 'true') {
-        meta.image = 'https://img/share-governance.jpg';
+        meta.image = 'https://impactmarket.com/img/share-governance.jpg';
         meta['image:height'] = 1080;
         meta['image:width'] = 1080;
     }
