@@ -105,7 +105,7 @@ const AirgrabContent = (props: {
         try {
             const response = await claimAirgrab();
 
-            setAirgrabClaimIsLoading(true);
+            setAirgrabClaimIsLoading(false);
 
             if (!response?.status) {
                 return toast.error(t('toast.claimError'));
