@@ -22,8 +22,8 @@ Router.events.on('routeChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
-    const { pathname, locale } = router;
-    const url = `${baseUrl}/${locale}${pathname}`;
+    const { asPath, locale } = router;
+    const url = `${baseUrl}/${locale}${asPath}`;
     const { footerOptions = {}, meta, page, statusCode, wip } = pageProps;
     const [showSpinner, setShowSpinner] = useState(true);
 
