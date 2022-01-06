@@ -102,6 +102,8 @@ const AirgrabContent = (props: {
             return;
         }
 
+        setAirgrabClaimIsLoading(true);
+
         try {
             const response = await claimAirgrab();
 
