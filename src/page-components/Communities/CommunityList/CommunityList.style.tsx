@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 const span = 1.375;
 
-export const CommunityEmpytyListMessageWrapper = styled.div`
+export const CommunityEmptyListMessageWrapper = styled.div`
     ${size('100%')};
 
     align-items: center;

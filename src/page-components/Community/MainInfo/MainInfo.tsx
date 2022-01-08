@@ -27,11 +27,11 @@ const Avatar = styled.div<AvatarProps>`
 `;
 
 export const MainInfo = (props: ICommunity) => {
-    const { campaign, city, contract, contractAddress, country, description, managers, name, state, status } = props;
+    const { campaign, city, country, description, managers, name, state } = props;
     const campaignUrl = useMemo(() => campaign?.campaignUrl, [campaign]);
 
     return (
-        <Section mt={2}>
+        <Section mt={2} pb={2}>
             <Grid>
                 <Row>
                     <Col md={8} sm={6} xs={12}>
@@ -57,17 +57,11 @@ export const MainInfo = (props: ICommunity) => {
                         <Div mt={1}>
                             <Text small>{description}</Text>
                         </Div>
-
-                        {/* Mobile Resume */}
-                        <Div column mt={1.5} sDisplay={{ sm: 'none', xs: 'flex' }}>
-                            <ResumeBox
-                                campaignUrl={campaignUrl}
-                                contract={contract}
-                                contractAddress={contractAddress}
-                                state={state}
-                            />
-                        </Div>
-
+                    </Col>
+                    <Col md={4} mt={{ sm: 0, xs: 1.5 }} sm={6} xs={12}>
+                        <ResumeBox campaignUrl={campaignUrl} {...props} />
+                    </Col>
+                    <Col md={8} sm={6} xs={12}>
                         {/* Managers */}
                         {!!managers?.length && (
                             <Div column mt={2}>
@@ -92,15 +86,6 @@ export const MainInfo = (props: ICommunity) => {
                                 </Div>
                             </Div>
                         )}
-                    </Col>
-                    <Col md={4} sm={6} xs={false}>
-                        <ResumeBox
-                            campaignUrl={campaignUrl}
-                            contract={contract}
-                            contractAddress={contractAddress}
-                            state={state}
-                            status={status}
-                        />
                     </Col>
                 </Row>
             </Grid>

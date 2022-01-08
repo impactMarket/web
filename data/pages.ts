@@ -51,6 +51,7 @@ export const pages: { [key: string]: object } = {
             }
         }
     },
+    communitySubmissions: {},
     fundraise: {
         hero: {
             addresses: [

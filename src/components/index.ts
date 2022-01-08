@@ -1,6 +1,7 @@
 export * from './Address/Address';
 export * from './AddressDonationButton/AddressDonationButton';
 export * from './Breakdown/Breakdown';
+export * from './CommunitySubmissionWarnings/CommunitySubmissionWarnings';
 export * from './ContributeAmountInput/ContributeAmountInput';
 export * from './CookieConsent/CookieConsent';
 export * from './Copied/Copied';
@@ -13,6 +14,7 @@ export * from './DonateButton/DonateButton';
 export * from './DonateButton/DonateLink';
 export * from './FilterFields';
 export * from './Footer/Footer';
+export * from './GenerateProposalButton/GenerateProposalButton';
 export * from './Header/Header';
 export * from './ImpactMarketDaoProvider/ImpactMarketDaoProvider';
 export * from './Loading/Loading';
