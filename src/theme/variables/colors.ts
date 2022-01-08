@@ -26,12 +26,13 @@ export const colors = {
     // Defaults
     white: '#ffffff',
     error: '#EB5757',
+    errorLight: '#FDEAEA',
     border: '#EBEBEB',
     success: '#2DCE89',
     warning: '#FE9A22',
     warningLight: '#FFEEDA',
     yellow: '#FFC278',
-    innactive: '#DCDEE2',
+    inactive: '#DCDEE2',
 
     // others
     esolidar: '#17C3B2'

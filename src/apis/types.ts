@@ -143,6 +143,7 @@ export interface CommunityStateAttributes {
 }
 
 export interface CommunityContractAttributes {
+    communityId: string | number;
     baseInterval: number;
     claimAmount: string;
     incrementInterval: number;

@@ -15,7 +15,7 @@ type StepProps = {
 const Step = styled.li<StepProps>`
     align-items: center;
     background-color: ${({ isActive, isDone }) =>
-        isActive ? colors.brandPrimary : isDone ? lighten(0.3, colors.success) : colors.innactive};
+        isActive ? colors.brandPrimary : isDone ? lighten(0.3, colors.success) : colors.inactive};
     border-radius: 50%;
     display: flex;
     flex-shrink: 0;
@@ -35,7 +35,7 @@ const Steps = styled.ul`
     width: 100%;
 
     &::before {
-        background-color: ${colors.innactive};
+        background-color: ${colors.inactive};
         content: '';
         height: 1px;
         left: 0;

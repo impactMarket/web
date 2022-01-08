@@ -107,7 +107,7 @@ export default class Api {
         const offset = (page - 1) * limit;
         const query = createQueryParamsFromObj({ offset, ...options }, params);
         const response = await getRequest<any | undefined>(
-            `/community/list/${query}&status=pending&fields=id;requestByAddress;name;description;country;city;cover.*;contract.maxClaim;contract.baseInterval;contract.claimAmount;contract.incrementInterval;proposal.*`
+            `/community/list/${query}&status=pending&fields=id;requestByAddress;name;description;country;city;cover.*;contract.communityId;contract.maxClaim;contract.baseInterval;contract.claimAmount;contract.incrementInterval;proposal.*`
         );
 
         const items = response?.data || [];

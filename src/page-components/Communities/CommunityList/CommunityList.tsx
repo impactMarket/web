@@ -1,6 +1,6 @@
 import { Col, Div, Grid, Heading, Icon, Row, Section, Text } from '../../../theme/components';
 import {
-    CommunityEmpytyListMessageWrapper,
+    CommunityEmptyListMessageWrapper,
     CommunityListItem,
     CommunityListItemImage,
     CommunityListItemLink,
@@ -29,7 +29,7 @@ const skeletons = Object.keys(limitPerWindowSize).reduce(
     {}
 );
 
-export const CommunitiyList = () => {
+export const CommunityList = () => {
     const [communities, setCommunities] = useState([]);
     const [count, setCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -72,7 +72,7 @@ export const CommunitiyList = () => {
                 page: page?.toString()
             };
 
-            const getCommunites = async () => {
+            const getCommunities = async () => {
                 setIsLoading(true);
                 const { count, items } = await Api.getCommunities(options);
 
@@ -87,7 +87,7 @@ export const CommunitiyList = () => {
                 setIsLoading(false);
             };
 
-            getCommunites();
+            getCommunities();
         }
     }, [windowWidth, country, filter, name, page]);
 
@@ -160,11 +160,11 @@ export const CommunitiyList = () => {
 
                             {/* Empty state */}
                             {!communities?.length && !isLoading && (
-                                <CommunityEmpytyListMessageWrapper>
+                                <CommunityEmptyListMessageWrapper>
                                     <Heading h3>
                                         <String id="noCommunitiesMatchCriteria" />
                                     </Heading>
-                                </CommunityEmpytyListMessageWrapper>
+                                </CommunityEmptyListMessageWrapper>
                             )}
 
                             {/* Communities list */}

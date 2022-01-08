@@ -16,6 +16,7 @@ const Wrapper = styled.div<GeneratedPropsTypes>`
 `;
 
 const types = {
+    error: { color: 'errorLight', icon: 'circleWarning', iconColor: 'error' },
     info: { color: 'backgroundLight', icon: 'info', iconColor: 'brandSecondaryLight' },
     warning: { color: 'warningLight', icon: 'warning', iconColor: 'warning' }
 } as const;
