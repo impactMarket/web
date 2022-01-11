@@ -58,7 +58,7 @@ const SummaryRow = styled.div`
     `)}
 `;
 
-const CowntdownWrapper = styled.div`
+const CountdownWrapper = styled.div`
     background-color: ${colors.backgroundLight};
     border-bottom: 1px solid ${colors.backgroundShadow};
     padding: 1rem;
@@ -269,9 +269,6 @@ const Rewards = (props: { onUpdate: Function }) => {
                                 PACT
                             </Text>
                         </Heading>
-                        <Text ml={2} mt={{ md: 'unset', xs: 0.625 }} sTextAlign={{ md: 'right', xs: 'center' }} small>
-                            <String id="readyToClaimNote" />
-                        </Text>
                     </HighlightRow>
                     <HighlightRow>
                         <Text brandSecondary small>
@@ -376,7 +373,7 @@ export const Breakdown = () => {
     return (
         <Card sHeight="100%">
             {!!endPeriod && !endedEpoch && (
-                <CowntdownWrapper>
+                <CountdownWrapper>
                     <Heading center h4>
                         <span>
                             <String id="epochWillEndIn" />
@@ -386,7 +383,7 @@ export const Breakdown = () => {
                             <Countdown date={endPeriod} onEnd={handleEpochEnd} />
                         </span>
                     </Heading>
-                </CowntdownWrapper>
+                </CountdownWrapper>
             )}
             <CardContent>
                 {!address && (
