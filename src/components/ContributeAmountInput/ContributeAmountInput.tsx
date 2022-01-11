@@ -60,7 +60,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     const { t } = useTranslation();
 
     // const handleMaxSet = useCallback(() => {
-    //     setValue(balance?.cusd);
+    //     setValue(balanceCUSD);
     // }, [balance]);
 
     useEffect(() => {

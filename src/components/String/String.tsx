@@ -10,22 +10,28 @@ type StringProps = {
 };
 
 const parse = (str: string, components: { [key: string]: FC } = {}) => {
-    return baseParse(str, {
-        // @ts-ignore
-        replace: (domNode: any) => {
-            const Component = components?.[domNode?.attribs?.component];
+    try {
+        return baseParse(str, {
+            // @ts-ignore
+            replace: (domNode: any) => {
+                const Component = components?.[domNode?.attribs?.component];
 
-            if (Component) {
-                const attrs = attributesToProps(domNode.attribs);
+                if (Component) {
+                    const attrs = attributesToProps(domNode.attribs);
 
-                const { children } = domNode;
+                    const { children } = domNode;
 
-                const props = { ...attrs, children: children?.[0]?.data };
+                    const props = { ...attrs, children: children?.[0]?.data };
 
-                return <Component {...props} />;
+                    return <Component {...props} />;
+                }
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.log('Error parsing string: \n', error);
+
+        return '';
+    }
 };
 
 export const String = (props: StringProps) => {

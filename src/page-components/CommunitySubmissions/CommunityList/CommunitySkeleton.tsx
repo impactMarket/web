@@ -5,39 +5,8 @@ import {
     CommunityHeadingWrapper,
     CommunityWrapper
 } from './Community.style';
-import { Div } from '../../../theme/components';
-import { GeneratedPropsTypes } from '../../../theme/Types';
-import { colors } from '../../../theme';
-import { generateProps } from 'styled-gen';
-import { rgba } from 'polished';
+import { Div, GhostElement } from '../../../theme/components';
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
-const shine = keyframes`
-     0% {
-        background-position: -3rem;
-    }
-
-    100% {
-        background-position: 500px;
-    }
-`;
-
-const GhostElement = styled.div<GeneratedPropsTypes>`
-    animation: ${shine} 1.6s infinite linear;
-    background-color: ${colors.backgroundLight};
-    background-image: linear-gradient(
-        90deg,
-        ${colors.backgroundLight} 0px,
-        ${rgba(colors.backgroundSecondary, 0.5)} 3rem,
-        ${colors.backgroundLight} 80px
-    );
-    background-size: 500px;
-    border-radius: 0.5rem;
-    width: 100%;
-
-    ${generateProps};
-`;
 
 export const CommunitySkeleton = () => {
     return (

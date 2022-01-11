@@ -63,6 +63,14 @@ export const config = {
         appstore: 'https://apps.apple.com/app/impactmarket/id1530870911',
         playstore: 'https://play.google.com/store/apps/details?id=com.impactmarket.mobile'
     },
+    tokenMetrics: [
+        { name: 'priceCUSD' },
+        { name: 'circulatingSupply' },
+        { name: 'tokenHolders' },
+        { name: 'marketCap' },
+        { name: 'transfers' },
+        { name: 'totalCUSD' }
+    ],
     wallets: [
         {
             address: 'bc1qe7ksg8va9uzfu4pl9ea8zyftad94p0tgtuavk4',
