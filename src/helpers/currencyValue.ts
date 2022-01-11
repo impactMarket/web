@@ -13,20 +13,26 @@ const defaultOptions = {
     symbol: '$'
 };
 
-export const currencyValue = (value: BigNumber | string | Number | number, options: OptionsType = defaultOptions) => {
+export const currencyValue = (amount: BigNumber | string | Number | number, options: OptionsType = defaultOptions) => {
     try {
         const { decimals, isToken, suffix, symbol } = options;
 
-        const inputNumber = typeof value === 'number' ? +value.toFixed(2) : value;
+        const inputNumber = typeof amount === 'number' ? +amount.toFixed(2) : amount;
 
-        if (!isToken) {
-            return `${symbol || ''}${numericalValue(inputNumber, decimals)}${!!suffix ? ` ${suffix}` : ''}`;
+        const value = numericalValue(inputNumber, decimals);
+
+        if (typeof value !== 'string' && isNaN(+value)) {
+            return;
         }
 
-        return `${numericalValue(inputNumber, decimals)}${!!symbol ? ` ${symbol}` : ''}${!!suffix ? ` ${suffix}` : ''}`;
+        if (!isToken) {
+            return `${symbol || ''}${value}${!!suffix ? ` ${suffix}` : ''}`;
+        }
+
+        return `${value}${!!symbol ? ` ${symbol}` : ''}${!!suffix ? ` ${suffix}` : ''}`;
     } catch (error) {
         console.log(error);
 
-        return '';
+        return;
     }
 };

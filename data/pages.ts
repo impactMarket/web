@@ -133,13 +133,6 @@ export const pages: { [key: string]: object } = {
         }
     },
     governanceToken: {
-        dataDash: [
-            { name: 'totalSupply' },
-            { name: 'circulatingSupply' },
-            { name: 'pactTokenHolders' },
-            { name: 'totalDonated' },
-            { name: 'donatedLastMonth' }
-        ],
         meta: {
             description: 'page.governanceToken.seo.description',
             image: 'https://impactmarket.com/img/share-governance.jpg',

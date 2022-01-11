@@ -9,6 +9,7 @@ export * from './DashboardCard/DashboardCard';
 export * from './DotBackground/DotBackground';
 export * from './Div/Div';
 export * from './GlobalStyle/GlobalStyle';
+export * from './GhostElement/GhostElement';
 export * from './Grid/Grid';
 export * from './Highlight/Highlight';
 export * from './Icon/Icon';
