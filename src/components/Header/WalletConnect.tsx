@@ -4,7 +4,7 @@ import { colors, fonts } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
 import { ease, mq, transitions } from 'styled-gen';
 import { formatAddress } from '../../helpers/formatAddress';
-import { useBalance } from '@impact-market/utils';
+import { usePACTBalance } from '@impact-market/utils';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback } from 'react';
@@ -52,9 +52,7 @@ const WalletWrapper = styled.div<any>`
 `;
 
 const PactBalance = () => {
-    const { balance } = useBalance();
-
-    const { pact } = balance || {};
+    const { balance: pact } = usePACTBalance();
 
     return (
         <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} small>
