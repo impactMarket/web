@@ -4,7 +4,7 @@ import { String } from '..';
 import { colors } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
 import { generateProps } from 'styled-gen';
-import { useBalance } from '@impact-market/utils';
+import { useCUSDBalance } from '@impact-market/utils';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -56,7 +56,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     const [value, setValue] = useState<any>('');
     const [error, setError] = useState<any>('');
     const inputRef = useRef<HTMLInputElement>();
-    const { balance } = useBalance();
+    const { balance: balanceCUSD } = useCUSDBalance();
     const { t } = useTranslation();
 
     // const handleMaxSet = useCallback(() => {
@@ -70,7 +70,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     }, []);
 
     const checkErrors = () => {
-        const cusdBalance = +currencyValue(balance?.cusd, { isToken: true });
+        const cusdBalance = +currencyValue(balanceCUSD, { isToken: true });
         const amount = +value;
 
         if (amount > cusdBalance) {
@@ -91,8 +91,8 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     useEffect(() => {
         checkErrors();
 
-        onChange(value, balance?.cusd);
-    }, [value, balance]);
+        onChange(value, balanceCUSD);
+    }, [value, balanceCUSD]);
 
     return (
         <>
@@ -119,7 +119,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
                             <b>
                                 <String id="balance" />
                             </b>
-                            : {currencyValue(balance?.cusd, { isToken: true, symbol: 'cUSD' })}
+                            : {currencyValue(balanceCUSD, { isToken: true, symbol: 'cUSD' })}
                         </Text>
                     )}
                 </Row>
