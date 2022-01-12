@@ -5,7 +5,6 @@ export const useWallet = () => {
     const { address, connect: connectFromHook, destroy, wrongNetwork } = React.useContext(ImpactMarketDaoContext);
 
     const connect = async (callback?: Function) => {
-        console.log('callback ->', typeof callback);
         try {
             await connectFromHook();
 

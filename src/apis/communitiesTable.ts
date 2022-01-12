@@ -1,6 +1,6 @@
 import { CommunityDailyMetricsAttributes, ICommunity } from './types';
-import { claimFrequencyToText } from '../helpers/claimFrequencytoText';
 import { currencyValue } from '../helpers/currencyValue';
+import { frequencyToText } from '@impact-market/utils';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import { shortenAddress } from '../helpers/shortenAddress';
 import BigNumber from 'bignumber.js';
@@ -12,7 +12,7 @@ const { chainExplorer } = config;
 const countries: { [key: string]: any } = countriesJson;
 
 const getAllowencePerBeneficiary = (claimAmount: string | BigNumber, baseInterval: number) =>
-    `${currencyValue(humanifyNumber(claimAmount))} / ${claimFrequencyToText(baseInterval.toString())}`;
+    `${currencyValue(humanifyNumber(claimAmount))} / ${frequencyToText(baseInterval)}`;
 
 const getClaimed = ({ claimed, raised }: { claimed: string | BigNumber; raised: string | number }) =>
     `${currencyValue(humanifyNumber(claimed))} (${new BigNumber(claimed)
@@ -47,7 +47,7 @@ const getAddress = (address: string | null) =>
 
 const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
     const rate = currencyValue(metrics?.ubiRate);
-    const frequency = claimFrequencyToText(baseInterval.toString());
+    const frequency = frequencyToText(baseInterval);
 
     return !metrics ? '-' : `~${rate} / ${frequency}`;
 };

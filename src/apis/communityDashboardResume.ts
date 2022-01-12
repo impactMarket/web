@@ -1,13 +1,13 @@
 import { CommunityContractAttributes, CommunityStateAttributes, ICommunity } from './types';
-import { claimFrequencyToText } from '../helpers/claimFrequencytoText';
 import { currencyValue } from '../helpers/currencyValue';
+import { frequencyToText } from '@impact-market/utils';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import BigNumber from 'bignumber.js';
 
 export const communityDashboardResume = {
     getClaimingValuePerFrequence: (contract: CommunityContractAttributes, t: Function) => {
         const value = currencyValue(humanifyNumber(contract?.claimAmount));
-        const frequency = claimFrequencyToText(contract?.baseInterval.toString());
+        const frequency = frequencyToText(contract?.baseInterval);
 
         return t('eachClaimingPerDay', { frequency, value });
     },
