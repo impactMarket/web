@@ -27,18 +27,22 @@ export const CountryFilterField = (props: CountryFilterFieldProps) => {
 
     useEffect(() => {
         const getCountries = async () => {
-            const countriesArr = await Api.getCommunityCount('country');
-            const unsortedCountries = countriesArr.map(
-                ({ country: code, count }: { count?: number | string; country: string }) => ({
-                    count,
-                    label: countriesCollection[code]?.name,
-                    value: code
-                })
-            );
+            try {
+                const countriesArr = await Api.getCommunityCount('country');
+                const unsortedCountries = countriesArr.map(
+                    ({ country: code, count }: { count?: number | string; country: string }) => ({
+                        count,
+                        label: countriesCollection[code]?.name,
+                        value: code
+                    })
+                );
 
-            const countries = sortBy(unsortedCountries, ['label', 'value']);
+                const countries = sortBy(unsortedCountries, ['label', 'value']);
 
-            setCountries(countries);
+                setCountries(countries);
+            } catch (error) {
+                console.log(error);
+            }
         };
 
         getCountries();

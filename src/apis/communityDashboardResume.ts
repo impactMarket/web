@@ -9,6 +9,10 @@ export const communityDashboardResume = {
         const value = currencyValue(humanifyNumber(contract?.claimAmount));
         const frequency = frequencyToText(contract?.baseInterval);
 
+        if (frequency === 'unknown') {
+            return '';
+        }
+
         return t('eachClaimingPerDay', { frequency, value });
     },
 
