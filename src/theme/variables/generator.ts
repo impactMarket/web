@@ -24,7 +24,8 @@ export const generator = {
         { list: fonts.families, cssProp: 'font-family' },
         { list: fonts.weights, cssProp: 'font-weight' },
         { list: { relative: 'relative' }, cssProp: 'position' },
-        { list: { underlined: 'underline' }, cssProp: 'text-decoration' }
+        { list: { underlined: 'underline' }, cssProp: 'text-decoration' },
+        { list: { preline: 'pre-line' }, cssProp: 'white-space' }
     ],
 
     // Space props
