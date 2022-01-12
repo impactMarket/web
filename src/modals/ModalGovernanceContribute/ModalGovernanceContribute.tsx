@@ -99,8 +99,6 @@ const Modal = (props: any) => {
             toast.success(t('toast.contributeSuccess'));
 
             if (typeof onSuccess === 'function') {
-                console.log(typeof onSuccess);
-
                 await onSuccess();
             }
         } catch (error) {

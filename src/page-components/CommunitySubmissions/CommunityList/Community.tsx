@@ -7,6 +7,7 @@ import {
 } from './Community.style';
 import { Div, Heading, Icon, Text, TextLink } from '../../../theme/components';
 import { GenerateProposalButton, String } from '../../../components';
+import { getThumbnailCoverImage } from '../../../helpers/getCoverImage';
 import { toNumber } from '@impact-market/utils';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -27,7 +28,7 @@ export const Community = (props: any) => {
 
     return (
         <CommunityWrapper>
-            <CommunityCover image={cover?.url} />
+            <CommunityCover image={getThumbnailCoverImage(cover)} />
             <CommunityContent>
                 <CommunityHeadingWrapper>
                     <Heading h4>{name}</Heading>

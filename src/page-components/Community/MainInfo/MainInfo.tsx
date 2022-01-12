@@ -33,8 +33,6 @@ export const MainInfo = (props: ICommunity) => {
 
     const activeManagers = managers.filter(({ active }) => active);
 
-    console.log(description);
-
     return (
         <Section mt={2} pb={2}>
             <Grid>
