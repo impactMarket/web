@@ -129,7 +129,20 @@ export interface CommunityAttributes {
     };
     email: string;
     visibility: 'public' | 'private';
-    coverImage: string;
+    cover: {
+        height: number;
+        id: number;
+        thumbnails: {
+            height: number;
+            id: number;
+            mediaContentId: number;
+            pixelRatio: number;
+            url: string;
+            width: number;
+        }[];
+        url: string;
+        width: number;
+    };
     status: 'pending' | 'valid' | 'removed';
     started: Date;
 }

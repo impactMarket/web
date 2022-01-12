@@ -28,8 +28,9 @@ export const getServerSideProps = async (serverSideProps: ServerSideProps) => {
         };
     }
 
-    const { name, description, coverImage: image } = data;
+    const { name, description, cover } = data;
     const title = getServerSideString(locale, 'communityTitle', { name });
+    const image = cover?.url;
 
     return {
         props: {
