@@ -32,13 +32,14 @@ const ToastMessage = (props: any) => (
 
 type GenerateProposalButtonType = {
     contract?: CommunityContractAttributes;
+    onSuccess?: Function;
     proposalId?: string | number;
     requestByAddress: string;
 } & GeneratedPropsTypes;
 
 export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
-    const { contract, proposalId, requestByAddress, ...forwardProps } = props;
+    const { contract, onSuccess, proposalId, requestByAddress, ...forwardProps } = props;
     const { addCommunity } = useDAO();
     const { enoughVotingPowerToPropose } = useVotingPower();
     const { t } = useTranslation();
@@ -81,6 +82,12 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
             const responseId = await addCommunity(data);
 
             if (responseId) {
+                setIsLoading(false);
+
+                if (typeof onSuccess === 'function') {
+                    await onSuccess();
+                }
+
                 return toast.success(<ToastMessage url={getVotingPlatformUrl(responseId)} />);
             }
 
