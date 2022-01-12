@@ -7,6 +7,7 @@ import { numericalValue } from '../../../helpers/numericalValue';
 import { size } from 'polished';
 import React, { useMemo } from 'react';
 import countriesJson from '../../../constants/countries.json';
+import parse from 'html-react-parser';
 import styled from 'styled-components';
 
 const countries: { [key: string]: any } = countriesJson;
@@ -31,6 +32,8 @@ export const MainInfo = (props: ICommunity) => {
     const campaignUrl = useMemo(() => campaign?.campaignUrl, [campaign]);
 
     const activeManagers = managers.filter(({ active }) => active);
+
+    console.log(description);
 
     return (
         <Section mt={2} pb={2}>
@@ -57,7 +60,9 @@ export const MainInfo = (props: ICommunity) => {
 
                         {/* Description */}
                         <Div mt={1}>
-                            <Text small>{description}</Text>
+                            <Text preline small>
+                                {parse(description)}
+                            </Text>
                         </Div>
                     </Col>
                     <Col md={4} mt={{ sm: 0, xs: 1.5 }} sm={6} xs={12}>
