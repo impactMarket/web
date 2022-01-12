@@ -109,6 +109,21 @@ export interface IGlobalValue {
     postsubtitle?: string;
 }
 
+export interface Cover {
+    height: number;
+    id: number;
+    thumbnails: {
+        height: number;
+        id: number;
+        mediaContentId: number;
+        pixelRatio: number;
+        url: string;
+        width: number;
+    }[];
+    url: string;
+    width: number;
+}
+
 // API and app
 export interface CommunityAttributes {
     id: string | number;
@@ -129,20 +144,7 @@ export interface CommunityAttributes {
     };
     email: string;
     visibility: 'public' | 'private';
-    cover: {
-        height: number;
-        id: number;
-        thumbnails: {
-            height: number;
-            id: number;
-            mediaContentId: number;
-            pixelRatio: number;
-            url: string;
-            width: number;
-        }[];
-        url: string;
-        width: number;
-    };
+    cover: Cover;
     status: 'pending' | 'valid' | 'removed';
     started: Date;
 }

@@ -9,6 +9,7 @@ import {
 import { CommunitySkeleton } from './CommunitySkeleton';
 import { Filters } from './Filters';
 import { Pagination, SearchInput, String } from '../../../components';
+import { getThumbnailCoverImage } from '../../../helpers/getCoverImage';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useRouter } from 'next/router';
 import Api from '../../../apis/api';
@@ -173,7 +174,9 @@ export const CommunityList = () => {
                                     {communities.map((community: any, index: number) => (
                                         <CommunityListItem key={index} withLink>
                                             <CommunityListItemLink onClick={() => handleCommunityClick(community?.id)}>
-                                                <CommunityListItemImage image={community?.cover?.url} />
+                                                <CommunityListItemImage
+                                                    image={getThumbnailCoverImage(community?.cover)}
+                                                />
                                                 <Text bold ellipsis manrope mt={0.5} small>
                                                     {community?.name}
                                                 </Text>
