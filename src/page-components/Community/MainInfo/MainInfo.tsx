@@ -30,6 +30,8 @@ export const MainInfo = (props: ICommunity) => {
     const { campaign, city, country, description, managers, name, state } = props;
     const campaignUrl = useMemo(() => campaign?.campaignUrl, [campaign]);
 
+    const activeManagers = managers.filter(({ active }) => active);
+
     return (
         <Section mt={2} pb={2}>
             <Grid>
@@ -63,26 +65,30 @@ export const MainInfo = (props: ICommunity) => {
                     </Col>
                     <Col md={8} sm={6} xs={12}>
                         {/* Managers */}
-                        {!!managers?.length && (
+                        {!!activeManagers?.length && (
                             <Div column mt={2}>
                                 <Heading h3>
                                     <String id="communityManagers" />
                                 </Heading>
 
                                 <Div column mt={1}>
-                                    {managers?.map(({ user }, index) => (
-                                        <Div key={index} mt={index ? 1 : 0} sAlignItems="center">
-                                            <Avatar image={user?.avatar?.url}>
-                                                {!user?.avatar?.url && <Icon icon="user" textSecondary />}
-                                            </Avatar>
-                                            <Div column ml={1} sWidth="100%">
-                                                <Heading h6>{user?.username || user?.address}</Heading>
-                                                <Text XSmall textSecondary>
-                                                    <String id="managerSince" /> {dateHelpers.short(user?.createdAt)}
-                                                </Text>
-                                            </Div>
-                                        </Div>
-                                    ))}
+                                    {activeManagers?.map(
+                                        ({ user, active }, index) =>
+                                            active && (
+                                                <Div key={index} mt={index ? 1 : 0} sAlignItems="center">
+                                                    <Avatar image={user?.avatar?.url}>
+                                                        {!user?.avatar?.url && <Icon icon="user" textSecondary />}
+                                                    </Avatar>
+                                                    <Div column ml={1} sWidth="100%">
+                                                        <Heading h6>{user?.username || user?.address}</Heading>
+                                                        <Text XSmall textSecondary>
+                                                            <String id="managerSince" />{' '}
+                                                            {dateHelpers.short(user?.createdAt)}
+                                                        </Text>
+                                                    </Div>
+                                                </Div>
+                                            )
+                                    )}
                                 </Div>
                             </Div>
                         )}
