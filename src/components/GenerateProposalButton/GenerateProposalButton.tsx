@@ -10,6 +10,19 @@ import React, { useEffect, useState } from 'react';
 import config from '../../../config';
 
 const votingPlatformUrl = config?.votingPlatformUrl;
+const getVotingPlatformUrl = (id: any) => {
+    try {
+        const convertedId = Number(+id)
+            .toString(16)
+            .padStart(4, '0x0');
+
+        return votingPlatformUrl.replace(':id', convertedId);
+    } catch (error) {
+        console.log(error);
+
+        return votingPlatformUrl.replace(':id', '');
+    }
+};
 
 const ToastMessage = (props: any) => (
     <RichContentFormat>
@@ -19,13 +32,13 @@ const ToastMessage = (props: any) => (
 
 type GenerateProposalButtonType = {
     contract?: CommunityContractAttributes;
+    proposalId?: string | number;
     requestByAddress: string;
-    setSubmitted: Function;
 } & GeneratedPropsTypes;
 
 export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
-    const { contract, requestByAddress, setSubmitted, ...forwardProps } = props;
+    const { contract, proposalId, requestByAddress, ...forwardProps } = props;
     const { addCommunity } = useDAO();
     const { enoughVotingPowerToPropose } = useVotingPower();
     const { t } = useTranslation();
@@ -68,9 +81,7 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
             const responseId = await addCommunity(data);
 
             if (responseId) {
-                setSubmitted(true);
-
-                return toast.success(<ToastMessage url={votingPlatformUrl} />);
+                return toast.success(<ToastMessage url={getVotingPlatformUrl(responseId)} />);
             }
 
             toast.error(t('toast.generateProposalError'));
@@ -82,6 +93,16 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
             toast.error(t('toast.generateProposalError'));
         }
     };
+
+    if (proposalId) {
+        return (
+            <RichContentFormat {...forwardProps}>
+                <Text body>
+                    <String id="proposalAlreadySubmitted" variables={{ url: getVotingPlatformUrl(proposalId) }} />
+                </Text>
+            </RichContentFormat>
+        );
+    }
 
     return (
         <Button

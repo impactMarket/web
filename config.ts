@@ -74,7 +74,7 @@ const config = {
     /*
      * Voting platform
      */
-    votingPlatformUrl: 'https://romulus.page/'
+    votingPlatformUrl: 'https://commonwealth.im/impactmarket/proposal/:id'
 };
 
 export default config;

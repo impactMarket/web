@@ -9,7 +9,7 @@ import { Div, Heading, Icon, Text, TextLink } from '../../../theme/components';
 import { GenerateProposalButton, String } from '../../../components';
 import { toNumber } from '@impact-market/utils';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import countriesJson from '../../../constants/countries.json';
 
 const countries: { [key: string]: any } = countriesJson;
@@ -17,13 +17,8 @@ const countries: { [key: string]: any } = countriesJson;
 export const Community = (props: any) => {
     const { city, cover, country, contract, id, name, proposal, requestByAddress } = props;
     const { push } = useRouter();
-    const [submitted, setSubmitted] = useState(!!proposal?.id);
 
     const onSeeMoreClick = () => push(`/communities/${id}`);
-
-    if (submitted) {
-        return null;
-    }
 
     return (
         <CommunityWrapper>
@@ -62,8 +57,8 @@ export const Community = (props: any) => {
                     <GenerateProposalButton
                         contract={contract}
                         mt={{ sm: 'auto', xs: 2 }}
+                        proposalId={proposal?.id}
                         requestByAddress={requestByAddress}
-                        setSubmitted={setSubmitted}
                     />
                 </CommunityContentBottom>
             </CommunityContent>
