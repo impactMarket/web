@@ -1,10 +1,11 @@
 import { CommunitySubmissionWarnings, GenerateProposalButton, String } from '../../../components';
 import { DashboardCard, Div, Text } from '../../../theme/components';
 import { toNumber } from '@impact-market/utils';
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProposalBox = (props: any) => {
     const { contract, proposalId, requestByAddress } = props;
+    const [submitted, setSubmitted] = useState(!!proposalId);
 
     return (
         <DashboardCard fluidHeight>
@@ -26,12 +27,15 @@ const ProposalBox = (props: any) => {
                 </Text>
             </Div>
             <CommunitySubmissionWarnings mt={1.5} />
-            <GenerateProposalButton
-                contract={contract}
-                mt={1.5}
-                proposalId={proposalId}
-                requestByAddress={requestByAddress}
-            />
+            {!submitted && (
+                <GenerateProposalButton
+                    contract={contract}
+                    mt={1.5}
+                    onSuccess={() => setSubmitted(true)}
+                    proposalId={proposalId}
+                    requestByAddress={requestByAddress}
+                />
+            )}
         </DashboardCard>
     );
 };
