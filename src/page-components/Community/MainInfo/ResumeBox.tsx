@@ -41,21 +41,26 @@ export const ResumeBox = (props: any) => {
                     <Heading center h3>
                         {numericalValue(state?.beneficiaries)} <String id="beneficiaries" />
                     </Heading>
-                    <Text center small>
-                        ({communityDashboardResume.getClaimingValuePerFrequence(contract, t)})
-                    </Text>
-                    <Div mt={1.5}>
-                        <Text small textSecondary>
-                            <String id="raisedFromDonors" variables={{ donors: state?.backers }} />
+                    {!!communityDashboardResume.getClaimingValuePerFrequence(contract, t) && (
+                        <Text center small>
+                            ({communityDashboardResume.getClaimingValuePerFrequence(contract, t)})
                         </Text>
-                        <Text ml="auto" small textSecondary>
-                            <String id="goal" />
-                        </Text>
-                    </Div>
-                    <Div>
+                    )}
+                    {!!state?.backers && (
+                        <Div mt={1.5}>
+                            <Text small textSecondary>
+                                <String id="raisedFromDonors" variables={{ donors: state?.backers }} />
+                            </Text>
+                            <Text ml="auto" small textSecondary>
+                                <String id="goal" />
+                            </Text>
+                        </Div>
+                    )}
+                    <Div mt={!state?.backers ? 1.5 : 0}>
                         <Heading h6>
-                            {communityDashboardResume.getRaised(state)} (
-                            {communityDashboardResume.getGoalProgress(props, '%')})
+                            {communityDashboardResume.getRaised(state)}
+                            {!!+communityDashboardResume.getGoalProgress(props) &&
+                                ` (${communityDashboardResume.getGoalProgress(props, '%')})`}
                         </Heading>
                         <Heading h6 ml="auto">
                             {communityDashboardResume.getGoal(props)}
