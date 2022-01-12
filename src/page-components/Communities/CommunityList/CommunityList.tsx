@@ -173,7 +173,7 @@ export const CommunityList = () => {
                                     {communities.map((community: any, index: number) => (
                                         <CommunityListItem key={index} withLink>
                                             <CommunityListItemLink onClick={() => handleCommunityClick(community?.id)}>
-                                                <CommunityListItemImage image={community?.coverImage} />
+                                                <CommunityListItemImage image={community?.cover?.url} />
                                                 <Text bold ellipsis manrope mt={0.5} small>
                                                     {community?.name}
                                                 </Text>

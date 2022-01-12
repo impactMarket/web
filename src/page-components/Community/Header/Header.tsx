@@ -7,7 +7,9 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 type HeaderProps = {
-    coverImage?: string;
+    cover?: {
+        url: string;
+    };
     claimLocations?: IClaimLocationGps[];
     gps?: IClaimLocationGps;
 };
@@ -39,7 +41,7 @@ const MapWrapper = styled.div`
 `;
 
 export const Header = (props: HeaderProps) => {
-    const { coverImage, claimLocations, gps } = props;
+    const { claimLocations, cover, gps } = props;
 
     const claims = claimLocations?.length ? claimLocations?.map((claim: any) => ({ gps: claim })) : [{ gps }];
 
@@ -47,11 +49,9 @@ export const Header = (props: HeaderProps) => {
         <Section>
             <Grid>
                 <Row reverse>
-                    {coverImage && (
-                        <Col md={4} sm={6} xs={12}>
-                            <Image image={coverImage} />
-                        </Col>
-                    )}
+                    <Col md={4} sm={6} xs={12}>
+                        <Image image={cover?.url} />
+                    </Col>
                     {!!claims?.length && (
                         <Col md={8} mt={{ sm: 0, xs: 1 }} sm={6} xs={12}>
                             <MapWrapper>
