@@ -9,6 +9,8 @@ import { useWallet } from '../../hooks/useWallet';
 import React, { useEffect, useState } from 'react';
 import config from '../../../config';
 
+const { baseUrl } = config;
+
 const votingPlatformUrl = config?.votingPlatformUrl;
 const getVotingPlatformUrl = (id: any) => {
     try {
@@ -32,6 +34,7 @@ const ToastMessage = (props: any) => (
 
 type GenerateProposalButtonType = {
     contract?: CommunityContractAttributes;
+    description?: string;
     onSuccess?: Function;
     proposalId?: string | number;
     requestByAddress: string;
@@ -39,7 +42,7 @@ type GenerateProposalButtonType = {
 
 export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
-    const { contract, onSuccess, proposalId, requestByAddress, ...forwardProps } = props;
+    const { contract, description, onSuccess, proposalId, requestByAddress, ...forwardProps } = props;
     const { addCommunity } = useDAO();
     const { enoughVotingPowerToPropose } = useVotingPower();
     const { t } = useTranslation();
@@ -72,11 +75,14 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
                 maxClaim,
                 maxTranche: toToken(10000, { EXPONENTIAL_AT: 25 }),
                 minTranche: toToken(0.1),
-                proposalDescription: `${name} |\nclaim amount: ${toNumber(claimAmount)}\nmax claim: ${toNumber(
-                    maxClaim
-                )}\nbase interval: ${frequencyToText(contract.baseInterval)}\n${
-                    config.baseUrl
-                }/communities/${communityId}`
+                proposalDescription: `## Description:\n${description}\n\n### UBI Contract Parameters:\nClaim Amount: ${toNumber(
+                    claimAmount
+                )}\nMax Claim: ${toNumber(maxClaim)}\nBase Interval: ${frequencyToText(
+                    baseInterval
+                )}\nIncrement Interval: ${
+                    (incrementInterval * 5) / 60
+                } minutes\n\n\n*More details*: ${baseUrl}/communities/${communityId}`,
+                proposalTitle: `[New Community] ${name}`
             };
 
             const responseId = await addCommunity(data);

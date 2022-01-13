@@ -878,10 +878,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@impact-market/utils@1.0.26":
-  version "1.0.26"
-  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-1.0.26.tgz#31b087bf48efe87710ef4a5d28a747faadd5282e"
-  integrity sha512-9EHnMQtjg5NHPL+O9QQPBcdDApPiKI/CMDHRZDnKRA71BGc6mwflyiLenoAHSnreDCN3P+gzHHbofekLjGuIkw==
+"@impact-market/utils@1.0.27":
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-1.0.27.tgz#92a4465cddaa70e424019430fb3ec32c7f49469b"
+  integrity sha512-F3Utdzp/wwtSWo8PnqVU9GDhvvIzBNSfDQFhJloxFTr9zXnHXiWf/Xr2Qkgix1OxC6PQA5dKJ8OYvlsFaUpJ6g==
   dependencies:
     "@apollo/client" "^3.5.6"
     "@ethersproject/abi" "^5.5.0"
