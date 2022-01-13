@@ -4,7 +4,7 @@ import { toNumber } from '@impact-market/utils';
 import React, { useState } from 'react';
 
 const ProposalBox = (props: any) => {
-    const { contract, proposalId, requestByAddress } = props;
+    const { contract, description, proposalId, requestByAddress } = props;
     const [submitted, setSubmitted] = useState(!!proposalId);
 
     return (
@@ -30,6 +30,7 @@ const ProposalBox = (props: any) => {
             {!submitted && (
                 <GenerateProposalButton
                     contract={contract}
+                    description={description}
                     mt={1.5}
                     onSuccess={() => setSubmitted(true)}
                     proposalId={proposalId}

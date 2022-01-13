@@ -16,7 +16,7 @@ import countriesJson from '../../../constants/countries.json';
 const countries: { [key: string]: any } = countriesJson;
 
 export const Community = (props: any) => {
-    const { city, cover, country, contract, id, name, proposal, requestByAddress } = props;
+    const { city, cover, country, contract, description, id, name, proposal, requestByAddress } = props;
     const { push } = useRouter();
     const [submitted, setSubmitted] = useState(!!proposal?.id);
 
@@ -62,6 +62,7 @@ export const Community = (props: any) => {
                     </Div>
                     <GenerateProposalButton
                         contract={contract}
+                        description={description}
                         mt={{ sm: 'auto', xs: 2 }}
                         onSuccess={() => setSubmitted(true)}
                         proposalId={proposal?.id}
