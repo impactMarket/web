@@ -68,7 +68,7 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
                 const { value } = dashboard.getTotalRaised(globalDashboard) || {};
                 const totalCUSD = value;
 
-                setPactTradingMetrics({ ...response, circulatingSupply, marketCap, totalCUSD });
+                setPactTradingMetrics({ ...response, circulatingSupply, marketCap, priceCUSD, totalCUSD });
                 setIsLoading(false);
             } catch (error) {
                 setIsLoading(false);
@@ -89,10 +89,8 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         }
 
         if (name === 'priceCUSD') {
-            console.log(pactTradingMetrics);
-
             return `~$${Number(pactTradingMetrics?.priceCUSD).toLocaleString('en', {
-                maximumFractionDigits: pactTradingMetrics?.priceCUSD > 1 ? 5 : 2
+                maximumFractionDigits: pactTradingMetrics?.priceCUSD < 1 ? 5 : 2
             })} cUSD`;
         }
 
