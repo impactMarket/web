@@ -91,7 +91,7 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         if (name === 'priceCUSD') {
             return `~$${Number(pactTradingMetrics?.priceCUSD).toLocaleString('en', {
                 maximumFractionDigits: pactTradingMetrics?.priceCUSD < 1 ? 5 : 2
-            })} cUSD`;
+            })}`;
         }
 
         if (name === 'tokenHolders') {
@@ -99,7 +99,7 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         }
 
         if (name === 'marketCap') {
-            return currencyValue(pactTradingMetrics?.marketCap, { suffix: 'cUSD', symbol: '~$' });
+            return currencyValue(pactTradingMetrics?.marketCap, { symbol: '~$' });
         }
 
         if (name === 'circulatingSupply') {
