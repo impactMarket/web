@@ -9,7 +9,7 @@ import { useWallet } from '../../hooks/useWallet';
 import React, { useEffect, useState } from 'react';
 import config from '../../../config';
 
-const { baseUrl } = config;
+const { baseUrl, isDaoTestnet } = config;
 
 const votingPlatformUrl = config?.votingPlatformUrl;
 const getVotingPlatformUrl = (id: any) => {
@@ -74,7 +74,7 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
                 managers: [requestByAddress],
                 maxClaim,
                 maxTranche: toToken(10000, { EXPONENTIAL_AT: 25 }),
-                minTranche: toToken(0.1),
+                minTranche: toToken(isDaoTestnet ? 0.1 : 100),
                 proposalDescription: `## Description:\n${description}\n\n### UBI Contract Parameters:\nClaim Amount: ${toNumber(
                     claimAmount
                 )}\nMax Claim: ${toNumber(maxClaim)}\nBase Interval: ${frequencyToText(
