@@ -4,7 +4,7 @@ import { utils } from 'ethers';
 const fetch = require('node-fetch');
 const testnetMerkleTree = require('../../../_files/testnet-merkletree.json');
 
-const url = (address: string | string[]) => `https://impactmarket-backend-airgrab.herokuapp.com/${address}`;
+const url = (address: string | string[]) => `https://impactmarket-api-production.herokuapp.com/api/airgrab/${address}`;
 
 const merkleTreeHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     try {
