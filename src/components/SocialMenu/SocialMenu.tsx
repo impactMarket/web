@@ -2,7 +2,7 @@ import { Div, Icon } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { colors } from '../../theme';
 import { ease, transitions } from 'styled-gen';
-import { useData } from '../DataProvider/DataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -31,22 +31,27 @@ const SocialLink = styled.a.attrs({
 
     &:hover {
         color: ${colors.textPrimary};
-        text-shadw: 0 0.5rem 1rem rgba(0, 0, 0, 0.24);
+        text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.24);
     }
 `;
 
 type SocialMenuProps = GeneratedPropsTypes;
 
+type Social = {
+    name: typeof socialIcons[number];
+    url: string;
+}[];
+
 export const SocialMenu = (props: SocialMenuProps) => {
-    const { config } = useData();
-    const socialNetworks = config?.social;
+    const { config } = usePrismicData();
+    const socialNetworks = config?.data?.social as Social;
 
     return (
         <Div {...props}>
-            {socialNetworks &&
-                socialIcons.map((icon: typeof socialIcons[number]) => (
-                    <SocialLink href={socialNetworks[icon]} key={icon}>
-                        <Icon icon={icon} sHeight={1.875} />
+            {!!socialNetworks?.length &&
+                socialNetworks.map(({ name, url }, index) => (
+                    <SocialLink href={url} key={index}>
+                        <Icon icon={name} sHeight={1.875} />
                     </SocialLink>
                 ))}
         </Div>

@@ -17,18 +17,37 @@ import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { String } from '../String/String';
 import { WalletConnect } from './WalletConnect';
-import { useData } from '../DataProvider/DataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import React, { useState } from 'react';
 
+type MenuItemSlice = {
+    primary?: {
+        label?: string;
+        url?: string;
+    };
+    items?: {
+        label?: string;
+        url?: string;
+    }[];
+    sliceType: 'item_menu' | 'item_menu_with_submenu';
+};
+
+type TopbarCtaType = {
+    text: string;
+    url: string;
+};
+
 export const Header = () => {
-    const { config } = useData();
+    const { config, extractFromConfig } = usePrismicData();
+
+    const menu = config?.data?.menuItems as MenuItemSlice[];
+    const topbarCta = extractFromConfig('topbarCta') as TopbarCtaType;
+
     const router = useRouter();
     const { asPath, push } = router;
     const [isMenuVisible, setIsMenuVisible] = useState(false);
-    const menu = config?.header?.menu;
-    const cta = config?.header?.status?.cta;
 
     const checkActiveRoute = (route: string | undefined) =>
         typeof route === 'string' ? asPath.split('?')[0] === route : false;
@@ -56,8 +75,8 @@ export const Header = () => {
                     <HeaderStatusBar>
                         <HeaderBarContent>
                             <HeaderStatusBarLeftCol>
-                                <TextLink bold brandPrimary href={cta?.to} inlineFlex>
-                                    <String id={cta?.labelKey} />
+                                <TextLink bold brandPrimary href={topbarCta?.url} inlineFlex>
+                                    <String id={topbarCta?.text} />
                                     <Icon icon="arrowRight" ml={0.5} sWidth={1.125} />
                                 </TextLink>
                             </HeaderStatusBarLeftCol>
@@ -86,13 +105,15 @@ export const Header = () => {
                                     <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
                                 </HeaderMainBarMobileMenuButton>
                                 <HeaderMainBarMenu>
-                                    {menu?.length &&
-                                        menu.map((item, index) => (
+                                    {!!menu?.length &&
+                                        menu.map(({ items, primary: { label, url } }, index) => (
                                             <MenuItem
                                                 isMenuVisible={isMenuVisible}
+                                                items={items}
                                                 key={index}
+                                                label={label}
                                                 setIsMenuVisible={setIsMenuVisible}
-                                                {...item}
+                                                url={url}
                                             />
                                         ))}
                                 </HeaderMainBarMenu>
@@ -103,12 +124,14 @@ export const Header = () => {
                 <HeaderMobileContent isActive={isMenuVisible}>
                     {/* Menu */}
                     {menu?.length &&
-                        menu.map((item, index) => (
+                        menu.map(({ items, primary: { label, url } }, index) => (
                             <MenuItem
                                 isMenuVisible={isMenuVisible}
+                                items={items}
                                 key={index}
+                                label={label}
                                 setIsMenuVisible={setIsMenuVisible}
-                                {...item}
+                                url={url}
                             />
                         ))}
                     <LanguageSelect mt={3.5} />

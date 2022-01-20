@@ -3,15 +3,14 @@ import { String } from '../../../components';
 import { mq } from 'styled-gen';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import Api from '../../../apis/api';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type NumbersPropTypes = {
-    items: {
-        labelKey?: string;
-        name: string;
-    }[];
-};
+    labelKey?: string;
+    name: string;
+}[];
 
 const NumbersWrapper = styled.div`
     display: flex;
@@ -41,13 +40,26 @@ const NumbersWrapper = styled.div`
     `)}
 `;
 
-type NumbersProps = any;
-
-export const Numbers = (props: NumbersProps | undefined) => {
+export const Numbers = () => {
     const { page } = useData();
     const { push } = useRouter();
+    const [numbers, setNumbers] = useState<any>();
 
-    const numbers: NumbersPropTypes = page?.numbers;
+    const items: NumbersPropTypes = page?.numbers?.items;
+
+    useEffect(() => {
+        const getNumbers = async () => {
+            try {
+                const numbers = (await Api.getGlobalNumbers()) as any;
+
+                setNumbers(numbers);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getNumbers();
+    }, []);
 
     const handleDashboardButtonClick = useCallback(() => push('/global-dashboard'), []);
 
@@ -67,10 +79,10 @@ export const Numbers = (props: NumbersProps | undefined) => {
                 <Row>
                     <Col center xs={12}>
                         <NumbersWrapper>
-                            {numbers?.items.map(({ labelKey, name }, index) => (
+                            {items.map(({ labelKey, name }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
                                     <Heading fontSize={{ md: '48 54', xs: '32 42' }} h2 white>
-                                        {props?.numbers?.[name] || '--'}
+                                        {numbers?.[name] || '--'}
                                     </Heading>
                                     <Text body white>
                                         <String id={labelKey || name} />

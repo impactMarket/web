@@ -1,21 +1,23 @@
 import { Icon, Text, TextLink } from '../../theme/components';
-import { String } from '../String/String';
 import { colors } from '../../theme';
 import { ease, mq, transitions } from 'styled-gen';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type MenuItemType = {
-    labelKey: string;
-    to?: string;
+    label?: string;
+    url?: string;
 };
 
 type MenuItemProps = MenuItemType & {
     isMenuVisible: boolean;
+    items?: MenuItemType[];
+    label?: string;
     setIsMenuVisible: Function;
-    submenu?: MenuItemType[];
+    url?: string;
 };
 
 const MenuItemWrapper = styled.div`
@@ -44,6 +46,14 @@ const SubmenuItem = styled.a<any>`
     & + & {
         margin-top: 1rem;
     }
+
+    ${mq.phone(css`
+        ${({ isActive }: any) =>
+            isActive &&
+            css`
+                color: ${colors.brandPrimary};
+            `}
+    `)}
 
     ${mq.tablet(css`
         ${transitions(['background-color'], 250, ease.outSine)};
@@ -109,55 +119,51 @@ const SubmenuWrapper = styled.div<any>`
     `)}
 `;
 
+const LinkWrapper = (props: { children: any; url?: string }) => {
+    const { children, url } = props;
+
+    if (!(!!url && url.startsWith('/'))) {
+        return <>{children}</>;
+    }
+
+    return (
+        <Link href={url} passHref>
+            {children}
+        </Link>
+    );
+};
+
 export const MenuItem = (props: MenuItemProps) => {
-    const { isMenuVisible, labelKey, setIsMenuVisible, submenu, to } = props;
+    const { isMenuVisible, label, setIsMenuVisible, items: submenu, url } = props;
     const [submenuActive, setSubmenuActive] = useState(false);
-    const { asPath, push } = useRouter();
+    const { asPath } = useRouter();
     const submenuRef = useRef<HTMLDivElement>();
+
+    if (!label) {
+        return null;
+    }
 
     const checkRoute = (route: string | undefined) =>
         typeof route === 'string' ? asPath.split('?')[0] === route : false;
 
-    const checkActiveRoute = (to: any | any[]) => {
-        if (Array.isArray(to)) {
-            return to.reduce((result, item) => result || checkRoute(item), false);
+    const checkActiveRoute = (url: any | any[]) => {
+        if (Array.isArray(url)) {
+            return url.reduce((result, item) => result || checkRoute(item), false);
         }
 
-        return checkRoute(to);
+        return checkRoute(url);
     };
 
-    const handleLinkClick = (to: any | any[]) => {
-        if (Array.isArray(to)) {
-            return handleSubmenuToggle();
+    const handleLinkClick = (url: any | any[]) => {
+        if (url?.[0]?.label) {
+            return setSubmenuActive(!submenuActive);
         }
-
-        if (to.startsWith('http') || to.startsWith('mailto:') || to.startsWith('tel:')) {
-            setSubmenuActive(false);
-
-            if (isMenuVisible) {
-                setIsMenuVisible(false);
-            }
-
-            return window.open(to, '_blank');
-        }
-
-        const isSameRoute = checkActiveRoute(to);
-
-        if (isSameRoute) {
-            return;
-        }
-
-        push(to);
 
         if (isMenuVisible) {
             setIsMenuVisible(false);
         }
 
-        setSubmenuActive(false);
-    };
-
-    const handleSubmenuToggle = () => {
-        return setSubmenuActive(!submenuActive);
+        return setSubmenuActive(false);
     };
 
     const handleClickOutside = () => {
@@ -168,33 +174,55 @@ export const MenuItem = (props: MenuItemProps) => {
         setSubmenuActive(false);
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useClickOutside(submenuRef?.current, handleClickOutside);
 
     return (
         <MenuItemWrapper>
-            <TextLink
-                bold
-                isActive={checkActiveRoute(submenu || to)}
-                manrope
-                onClick={() => handleLinkClick(submenu || to)}
-            >
-                <String id={labelKey} />
-                {submenu?.length && <Icon brandSecondary icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} />}
-            </TextLink>
-            {submenu?.length && (
+            <LinkWrapper url={url}>
+                <TextLink
+                    bold
+                    href={url}
+                    isActive={checkActiveRoute(url || submenu)}
+                    manrope
+                    onClick={() => handleLinkClick(url || submenu)}
+                    rel={!!url && !url?.startsWith('/') && url ? 'noreferrer noopener' : undefined}
+                    target={!!url && !url?.startsWith('/') && url ? '_blank' : undefined}
+                >
+                    {label}
+                    {!!submenu?.[0]?.label && (
+                        <Icon brandSecondary icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} />
+                    )}
+                </TextLink>
+            </LinkWrapper>
+            {!!submenu?.[0]?.label && (
                 <SubmenuWrapper elHeight={submenuRef?.current?.clientHeight || 0} isVisible={submenuActive}>
                     <SubmenuContent ref={submenuRef}>
-                        {submenu.map((item: MenuItemType, index) => (
-                            <SubmenuItem
-                                isActive={checkActiveRoute(item?.to)}
-                                key={index}
-                                onClick={() => handleLinkClick(item?.to)}
-                            >
-                                <Text sub>
-                                    <String id={item.labelKey} />
-                                </Text>
-                            </SubmenuItem>
-                        ))}
+                        {submenu.map(
+                            (item: MenuItemType, index) =>
+                                !!item?.label &&
+                                !!item?.url && (
+                                    <LinkWrapper key={index} url={item?.url}>
+                                        <SubmenuItem
+                                            isActive={checkActiveRoute(item?.url)}
+                                            key={index}
+                                            onClick={() => handleLinkClick(item?.url)}
+                                            rel={
+                                                !!item?.url && !item?.url?.startsWith('/') && item?.url
+                                                    ? 'noreferrer noopener'
+                                                    : undefined
+                                            }
+                                            target={
+                                                !!item?.url && !item?.url?.startsWith('/') && item?.url
+                                                    ? '_blank'
+                                                    : undefined
+                                            }
+                                        >
+                                            <Text sub>{item.label}</Text>
+                                        </SubmenuItem>
+                                    </LinkWrapper>
+                                )
+                        )}
                     </SubmenuContent>
                 </SubmenuWrapper>
             )}

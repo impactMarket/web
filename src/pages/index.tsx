@@ -1,26 +1,18 @@
+import { GetStaticProps } from 'next';
 import { Homepage } from '../page-components';
-import { NextPageContext } from 'next';
-import Api from '../apis/api';
+import Prismic from '../lib/Prismic/Prismic';
+import getTypesToFetchWithConfigs from '../lib/Prismic/helpers/getTypesToFetchWithConfigs';
 
-export const getServerSideProps = async (context: NextPageContext) => {
-    const numbers = await Api.getGlobalNumbers();
-    const { query } = context;
-    const meta = {} as any;
+export const getStaticProps: GetStaticProps = async ({ locale: lang, previewData }) => {
+    const clientOptions = previewData ? { ref: previewData } : null;
 
-    if (query?.contribute === 'true') {
-        meta.image = 'https://impactmarket.com/img/share-governance.jpg';
-        meta['image:height'] = 1080;
-        meta['image:width'] = 1080;
-    }
+    const types = getTypesToFetchWithConfigs(['website_homepage', 'website_dao_articles']);
 
-    const data = {
-        numbers
-    };
+    const data = await Prismic.getByTypes({ clientOptions, lang, types });
 
     return {
         props: {
             data,
-            meta,
             page: 'homepage'
         }
     };
