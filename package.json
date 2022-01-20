@@ -7,14 +7,17 @@
         "generate:icons": "yarn svglist generate",
         "lint": "eslint .",
         "start": "next start",
-        "translations": "node ./utils/getTranslationsFromRepo"
+        "translations": "node ./utils/getTranslationsFromPrismic"
     },
     "dependencies": {
         "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10",
         "@impact-market/utils": "1.0.35",
+        "@prismicio/client": "^6.1.0",
+        "@prismicio/react": "^2.0.3",
         "axios": "^0.21.1",
         "bignumber.js": "^9.0.1",
         "date-fns": "^2.23.0",
+        "dotenv": "^14.2.0",
         "ethers": "^5.4.7",
         "html-react-parser": "^1.2.4",
         "humanify-numbers": "^1.1.5",

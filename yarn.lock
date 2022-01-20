@@ -1110,6 +1110,43 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@prismicio/client@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@prismicio/client/-/client-6.1.0.tgz#561c8e783c5abc52475683dd498e0fdd2aca2125"
+  integrity sha512-TuixFHXKy+EfuV82rjji0LONSR2w0hr8i1wR9m2UVkunvc9Qa93HzREeSTQd1us2YRIIXPCDUE7xESgZ6Z+kiw==
+  dependencies:
+    "@prismicio/helpers" "^2.0.0"
+    "@prismicio/types" "^0.1.21"
+
+"@prismicio/helpers@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@prismicio/helpers/-/helpers-2.0.0.tgz#ac975a7930d798835addd44cccb4598e26f53a50"
+  integrity sha512-8xnK2pj+us935wAvJvPdk4o6Zhn/z99aUWwaGYJBbNqQy8x0pahgXY1L3l6s6+9xcEdJy6kKL8IfvFS6U0tpXg==
+  dependencies:
+    "@prismicio/richtext" "^2.0.0-beta.3"
+    "@prismicio/types" "^0.1.20"
+    escape-html "^1.0.3"
+
+"@prismicio/react@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-2.0.3.tgz#6347ae867c74f0ed7fb19c1f4804e9cfe691bd42"
+  integrity sha512-dXN+DrcZx7dGjhRqxWdrzinT9khFxCIP53tpt7rmUSLAwtaVZe8WCUPL/qDXmGllcVeDryfwYu1O0REXdBBj1Q==
+  dependencies:
+    "@prismicio/helpers" "^2.0.0"
+    "@prismicio/richtext" "^2.0.0"
+
+"@prismicio/richtext@^2.0.0", "@prismicio/richtext@^2.0.0-beta.3":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@prismicio/richtext/-/richtext-2.0.0.tgz#681e1ea847e1973086d45e285b12f649e1e2d5a3"
+  integrity sha512-XH2DJZUz0LEHO45UmZsabUKuHB+kHGqORLp5fYJ+RlpmRBcKowjI9hcQZqS/rvWMTY/l948yJvy0/MlCIiLz6w==
+  dependencies:
+    "@prismicio/types" "^0.1.19"
+
+"@prismicio/types@^0.1.19", "@prismicio/types@^0.1.20", "@prismicio/types@^0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.1.21.tgz#2d5f8a3f85435859ff290be96235b450b164a4e7"
+  integrity sha512-TMO4zpHlBFdvULDU5KQxeHOkI72lCkEKT3YwKhqiaiQWRVp7s3w27mXHjOWVBOlH/2qrzck219O84zBE6HzaMg==
+
 "@psoares/svg-list@^1.1.8":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@psoares/svg-list/-/svg-list-1.1.8.tgz#dbba7592e462b7e4b2c619a9bf2a8b4529455d15"
@@ -3356,6 +3393,11 @@ domutils@^2.5.2, domutils@^2.6.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
+dotenv@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.2.0.tgz#7e77fd5dd6cff5942c4496e1acf2d0f37a9e67aa"
+  integrity sha512-05POuPJyPpO6jqzTNweQFfAyMSD4qa4lvsMOWyTRTdpHKy6nnnN+IYWaXF+lHivhBH/ufDKlR4IWCAN3oPnHuw==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -3543,7 +3585,7 @@ escalade@^3.1.1:
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
