@@ -10,7 +10,6 @@ import React from 'react';
 type HomepageProps = any;
 
 export const Homepage = (props: HomepageProps) => {
-    const numbers = props?.data?.numbers;
     const promotionBanner = props?.data?.promotionBanner;
 
     return (
@@ -19,7 +18,7 @@ export const Homepage = (props: HomepageProps) => {
             <Hero />
             <GovernanceArticles sPadding="1 0" />
             <Partners />
-            <Numbers numbers={numbers} />
+            <Numbers />
             <Cta />
             <EmailSubscribe />
         </>

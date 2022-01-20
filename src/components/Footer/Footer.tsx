@@ -3,7 +3,7 @@ import { DonateButton } from '../DonateButton/DonateButton';
 import { FooterLogo, FooterWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { String } from '../String/String';
-import { useData } from '../DataProvider/DataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from 'react';
@@ -13,12 +13,21 @@ type FooterProps = {
     whiteBackground?: boolean;
 };
 
+type FooterMenuItemType = {
+    label?: string;
+    url?: string;
+};
+
+type FooterFromPrismicType = {
+    menu: FooterMenuItemType[];
+};
+
 export const Footer = (props: FooterProps) => {
-    const { config } = useData();
+    const { extractFromConfig } = usePrismicData();
     const { asPath } = useRouter();
     const { showDonateButton = false, whiteBackground = false } = props;
 
-    const menu = config?.footer?.menu;
+    const footer = extractFromConfig('footer') as FooterFromPrismicType;
 
     const checkActiveRoute = (route: string | undefined) => route === asPath;
 
@@ -44,23 +53,23 @@ export const Footer = (props: FooterProps) => {
                     <Col lg={12} xs={false}>
                         <Div>
                             <Div>
-                                {menu &&
-                                    menu.map((item: any, index) =>
-                                        item?.to ? (
-                                            <Link href={item?.to || ''} key={index} passHref>
-                                                <TextLink isActive={checkActiveRoute(item?.to)} ml={index ? 2 : 0}>
-                                                    <String id={item.labelKey} />
+                                {footer?.menu?.length &&
+                                    footer.menu.map((item: FooterMenuItemType, index) =>
+                                        item?.url ? (
+                                            <Link href={item?.url || ''} key={index} passHref>
+                                                <TextLink isActive={checkActiveRoute(item?.url)} ml={index ? 2 : 0}>
+                                                    {item?.label}
                                                 </TextLink>
                                             </Link>
                                         ) : (
                                             <TextLink
-                                                href={item?.href}
+                                                href={item?.url}
                                                 key={index}
                                                 ml={index ? 2 : 0}
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                <String id={item.labelKey} />
+                                                {item?.label}
                                             </TextLink>
                                         )
                                     )}
@@ -70,8 +79,8 @@ export const Footer = (props: FooterProps) => {
                             </Div>
                         </Div>
                     </Col>
-                    {menu &&
-                        menu.map((item: any, index) => (
+                    {footer?.menu?.length &&
+                        footer.menu.map((item: FooterMenuItemType, index) => (
                             <Col
                                 key={index}
                                 lg={false}
@@ -79,15 +88,13 @@ export const Footer = (props: FooterProps) => {
                                 sm={3}
                                 xs={6}
                             >
-                                {item?.to ? (
-                                    <Link href={item?.to || ''} key={index} passHref>
-                                        <TextLink isActive={checkActiveRoute(item?.to)}>
-                                            <String id={item.labelKey} />
-                                        </TextLink>
+                                {item?.url ? (
+                                    <Link href={item?.url || ''} key={index} passHref>
+                                        <TextLink isActive={checkActiveRoute(item?.url)}>{item?.label}</TextLink>
                                     </Link>
                                 ) : (
-                                    <TextLink href={item?.href} key={index} rel="noopener noreferrer" target="_blank">
-                                        <String id={item.labelKey} />
+                                    <TextLink href={item?.url} key={index} rel="noopener noreferrer" target="_blank">
+                                        {item?.label}
                                     </TextLink>
                                 )}
                             </Col>

@@ -8,13 +8,16 @@ import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
 
 type GlobalDashboardProps = {
-    data: IGlobalDashboard;
+    data: {
+        dataFromApi: IGlobalDashboard;
+    };
     page: string;
 };
 
 export const GlobalDashboard = (props: GlobalDashboardProps) => {
     const { page } = useData();
     const { data } = props;
+    const { dataFromApi } = data;
 
     const global = page?.global;
     const healingMap = page?.healingMap;
@@ -29,11 +32,11 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
 
     return (
         <>
-            <Global data={data} {...global} />
+            <Global data={dataFromApi} {...global} />
             <HealingMap {...healingMap} />
-            <Communities data={data} {...communities} />
-            <Demographics data={data} {...demographics} />
-            <ChartGroups data={data} items={charts} />
+            <Communities data={dataFromApi} {...communities} />
+            <Demographics data={dataFromApi} {...demographics} />
+            <ChartGroups data={dataFromApi} items={charts} />
         </>
     );
 };
