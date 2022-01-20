@@ -5,20 +5,27 @@ import { MainInfo } from './MainInfo/MainInfo';
 import React from 'react';
 
 type CommunityProps = {
-    data: ICommunity;
+    data: {
+        communityDataFromApi?: ICommunity;
+    };
 };
 
 export const Community = (props: CommunityProps) => {
     const { data } = props;
+    const { communityDataFromApi } = data;
 
-    const { claimLocations, cover, gps, status } = data;
+    if (!communityDataFromApi) {
+        return null;
+    }
+
+    const { claimLocations, cover, gps, status } = communityDataFromApi;
     const header = { claimLocations, cover, gps };
 
     return (
         <>
             <Header {...header} />
-            <MainInfo {...data} />
-            {status !== 'pending' && <Dashboard {...data} />}
+            <MainInfo {...communityDataFromApi} />
+            {status !== 'pending' && <Dashboard {...communityDataFromApi} />}
         </>
     );
 };

@@ -12,18 +12,20 @@ import {
 } from '../../theme/components';
 import { String } from '../String/String';
 import { useData } from '../DataProvider/DataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import React from 'react';
 
 const stores = [
-    { StoreButton: ButtonPlaystore, name: 'playstore' },
-    { StoreButton: ButtonAppstore, name: 'appstore' }
+    { StoreButton: ButtonPlaystore, urlKey: 'playStoreUrl' },
+    { StoreButton: ButtonAppstore, urlKey: 'appStoreUrl' }
 ];
 
 export const Cta = () => {
     const { config } = useData();
+    const { extractFromConfig } = usePrismicData();
+    const storeLinks = extractFromConfig('stores') as any;
 
     const cta: any = config?.cta;
-    const storeLinks: any = config?.storeLinks;
 
     return (
         <Section id="cta" sBackground="backgroundBlack">
@@ -37,8 +39,8 @@ export const Cta = () => {
                             <String id="cta.text" />
                         </Text>
                         <ItemsRow distribute mt={{ sm: 3, xs: 2 }} sMaxWidth={{ sm: 18 }} spacing={12}>
-                            {stores.map(({ name, StoreButton }) => (
-                                <StoreButton href={storeLinks[name]} key={name} />
+                            {stores.map(({ StoreButton, urlKey }, index) => (
+                                <StoreButton href={storeLinks[urlKey]} key={index} />
                             ))}
                         </ItemsRow>
                     </Col>
