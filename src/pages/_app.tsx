@@ -4,6 +4,7 @@ import { CookieConsent, Footer, Header, ImpactMarketDaoProvider, Loading, SEO } 
 import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ModalManager } from 'react-modal-handler';
+import { PrismicDataProvider } from '../lib/Prismic/components/PrismicDataProvider';
 import { ThemeProvider } from 'styled-components';
 import { TranslationProvider } from '../components/TranslationProvider/TranslationProvider';
 import { modals } from '../modals';
@@ -22,63 +23,75 @@ Router.events.on('routeChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
-    const { asPath, locale } = router;
+    const { asPath, isReady, locale, query } = router;
     const url = `${baseUrl}/${locale}${asPath}`;
-    const { footerOptions = {}, meta, page, statusCode, wip } = pageProps;
     const [showSpinner, setShowSpinner] = useState(true);
 
+    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps;
+
     useEffect(() => {
-        // eslint-disable-next-line no-underscore-dangle
-        window.__localeId__ = locale;
+        if (isReady) {
+            // eslint-disable-next-line no-underscore-dangle
+            window.__localeId__ = locale;
 
-        const handleRouteChange = () => {
-            setShowSpinner(true);
-        };
+            const handleRouteChange = () => {
+                setShowSpinner(true);
+            };
 
-        const handleRouteComplete = () => {
-            setShowSpinner(false);
-        };
+            const handleRouteComplete = () => {
+                setShowSpinner(false);
+            };
 
-        router.events.on('routeChangeStart', handleRouteChange);
-        router.events.on('routeChangeComplete', handleRouteComplete);
-
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange);
+            router.events.on('routeChangeStart', handleRouteChange);
             router.events.on('routeChangeComplete', handleRouteComplete);
-        };
-    }, [locale, router.events]);
+
+            return () => {
+                setShowSpinner(true);
+                router.events.off('routeChangeStart', handleRouteChange);
+                router.events.on('routeChangeComplete', handleRouteComplete);
+            };
+        }
+    }, [isReady, locale, router.events]);
 
     if (!page || (wip && isProduction)) {
         return <ErrorPage statusCode={wip ? 404 : statusCode} />;
     }
 
+    if (query?.contribute === 'true') {
+        meta.image = 'https://impactmarket.com/img/share-governance.jpg';
+        meta['image:height'] = 1080;
+        meta['image:width'] = 1080;
+    }
+
     return (
         <DataProvider page={page} url={url}>
-            <TranslationProvider locale={locale}>
-                <Head>
-                    <meta content="width=device-width, initial-scale=1" name="viewport" />
-                    <meta content="#2362FB" name="theme-color" />
-                </Head>
-                <SEO meta={meta} />
-                <ThemeProvider theme={theme}>
-                    <GlobalStyle />
-                    <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
-                        <Loading isActive={showSpinner} />
-                        <Toaster />
-                        <Main>
-                            <ImpactMarketDaoProvider>
-                                <ModalManager modals={modals} />
-                                <Header />
-                                <Content>
-                                    <Component {...pageProps} />
-                                </Content>
-                                <Footer {...footerOptions} />
-                            </ImpactMarketDaoProvider>
-                        </Main>
-                        <CookieConsent />
-                    </GoogleReCaptchaProvider>
-                </ThemeProvider>
-            </TranslationProvider>
+            <PrismicDataProvider data={data} page={page} url={url}>
+                <TranslationProvider locale={locale}>
+                    <Head>
+                        <meta content="width=device-width, initial-scale=1" name="viewport" />
+                        <meta content="#2362FB" name="theme-color" />
+                    </Head>
+                    <SEO meta={meta} />
+                    <ThemeProvider theme={theme}>
+                        <GlobalStyle />
+                        <GoogleReCaptchaProvider reCaptchaKey={recaptchaKey}>
+                            <Loading isActive={showSpinner} />
+                            <Toaster />
+                            <Main>
+                                <ImpactMarketDaoProvider>
+                                    <ModalManager modals={modals} />
+                                    <Header />
+                                    <Content>
+                                        <Component {...pageProps} />
+                                    </Content>
+                                    <Footer {...footerOptions} />
+                                </ImpactMarketDaoProvider>
+                            </Main>
+                            <CookieConsent />
+                        </GoogleReCaptchaProvider>
+                    </ThemeProvider>
+                </TranslationProvider>
+            </PrismicDataProvider>
         </DataProvider>
     );
 }

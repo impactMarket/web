@@ -1,9 +1,26 @@
-import { useData } from '../DataProvider/DataProvider';
-import { useTranslation } from '../TranslationProvider/TranslationProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import Head from 'next/head';
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
+import pickBy from 'lodash/pickBy';
 
-type SeoProps = any;
+type MetaProps = {
+    description?: string;
+    image?: { url: string } | string;
+    keywords?: string;
+    title?: string;
+    url?: string;
+};
+
+type SeoProps = {
+    meta?: MetaProps;
+};
+
+type MetaArray = {
+    content?: string;
+    property?: string;
+    name?: string;
+}[];
 
 const getMetaData: any = (metaData: any) =>
     Object.keys(metaData).reduce((meta: any, metaName: any) => {
@@ -16,9 +33,9 @@ const getMetaData: any = (metaData: any) =>
         if (metaName === 'image') {
             return [
                 ...meta,
-                { content: metaValue, property: `og:${metaName}` },
-                { content: metaValue, property: `og:${metaName}:secure_url` },
-                { content: metaValue, name: `twitter:${metaName}` }
+                { content: metaValue?.url || metaValue, property: `og:${metaName}` },
+                { content: metaValue?.url || metaValue, property: `og:${metaName}:secure_url` },
+                { content: metaValue?.url || metaValue, name: `twitter:${metaName}` }
             ];
         }
 
@@ -47,38 +64,31 @@ const getMetaData: any = (metaData: any) =>
     }, []);
 
 export const SEO = (props: SeoProps) => {
-    const { page, url, config } = useData();
-    const { meta: metaFromPage } = page || {};
-    const { seo } = config;
-    const { meta: metaFromProps } = props;
+    const { extractFromConfig, extractFromPage, url } = usePrismicData();
 
-    const { t } = useTranslation();
+    const metaFromConfig = pickBy(extractFromConfig('seo') as MetaProps, prop =>
+        typeof prop === 'string' ? !isEmpty(prop) : !isEmpty(prop?.url)
+    ) as MetaProps;
 
-    const defaultMeta = ['description', 'keywords', 'title'].reduce(
-        (result, key) => ({ ...result, [key]: t(`seo.${key}`) }),
-        { url }
-    );
+    const metaFromPage = pickBy(extractFromPage('seo') as MetaProps, prop =>
+        typeof prop === 'string' ? !isEmpty(prop) : !isEmpty(prop?.url)
+    ) as MetaProps;
 
-    const pageMeta = ['description', 'keywords', 'title'].reduce(
-        (result, key) => (metaFromPage?.[key] ? { ...result, [key]: t(metaFromPage[key]) } : result),
-        {}
-    ) as any;
+    const metaFromProps = pickBy(props?.meta, prop =>
+        typeof prop === 'string' ? !isEmpty(prop) : !isEmpty(prop?.url)
+    ) as MetaProps;
 
-    if (metaFromPage?.image) {
-        pageMeta.image = metaFromPage.image;
-    }
+    const mergedMeta = { ...metaFromConfig, ...metaFromPage, ...metaFromProps, url } as MetaProps;
 
-    const metaObject = Object.assign({}, { ...seo, ...defaultMeta, ...pageMeta }, metaFromProps);
+    const metaArr = getMetaData(mergedMeta) as MetaArray;
 
-    const meta = getMetaData(metaObject);
-    const title = metaObject?.title;
+    const title = mergedMeta?.title || '';
 
     return (
         <Head>
             <title>{title}</title>
-            <meta content="website" property="og:type" />
-            {meta.map((metaprops: any, index: any) => (
-                <meta key={index} {...metaprops} />
+            {metaArr.map((metaProps, index) => (
+                <meta key={index} {...metaProps} />
             ))}
         </Head>
     );

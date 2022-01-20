@@ -1,12 +1,12 @@
 import { config, modals, pages } from '../../../data';
 import React, { createContext } from 'react';
 
-const intialData: {
+const initialData: {
     page?: string;
     url?: string;
 } = {};
 
-export const DataContext = createContext(intialData);
+export const DataContext = createContext(initialData);
 
 type ProviderProps = {
     children?: any;
