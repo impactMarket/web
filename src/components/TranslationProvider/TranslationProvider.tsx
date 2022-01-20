@@ -4,8 +4,7 @@ import langConfig from '../../../lang-config';
 // @ts-ignore
 import translations from '../../../i18n/translations';
 
-const defaultLang = langConfig.find(({ isDefault }) => isDefault)?.shortCode || 'en';
-const getLangShortCode = (locale: string) => langConfig.find(({ code }) => code === locale)?.shortCode || defaultLang;
+const defaultLang = langConfig.find(({ isDefault }) => isDefault)?.code?.toLowerCase() || 'en-us';
 
 const initialData: {
     lang?: string;
@@ -23,7 +22,7 @@ type ProviderProps = {
 };
 
 export const TranslationProvider = ({ children, locale }: ProviderProps) => {
-    const lang = getLangShortCode(locale);
+    const lang = locale.toLocaleLowerCase();
 
     return <TranslationContext.Provider value={{ lang, translations }}>{children}</TranslationContext.Provider>;
 };
@@ -39,7 +38,7 @@ const getTranslationFunction = (lang: string, translations: any) => {
 };
 
 export const getServerSideString = (locale: string, key: string, variables?: object) => {
-    const t = getTranslationFunction(getLangShortCode(locale), translations);
+    const t = getTranslationFunction(locale.toLowerCase(), translations);
 
     return t(key, variables);
 };
