@@ -56,7 +56,7 @@ export const config = {
         instagram: 'https://www.instagram.com/impactmarket_/',
         linkedin: 'https://www.linkedin.com/company/impactmarket',
         medium: 'https://medium.com/impactmarket',
-        telegram: 'https://t.me/impactMarket',
+        telegram: 'https://t.me/impactMarketOfficial',
         twitter: 'https://twitter.com/IPCTmarket'
     },
     storeLinks: {
