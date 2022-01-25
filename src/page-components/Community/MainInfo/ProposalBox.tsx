@@ -1,11 +1,13 @@
 import { CommunitySubmissionWarnings, GenerateProposalButton, String } from '../../../components';
 import { DashboardCard, Div, Text } from '../../../theme/components';
-import { toNumber } from '@impact-market/utils';
+import { frequencyToText, toNumber } from '@impact-market/utils';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React, { useState } from 'react';
 
 const ProposalBox = (props: any) => {
     const { contract, description, proposalId, requestByAddress } = props;
     const [submitted, setSubmitted] = useState(!!proposalId);
+    const { t } = useTranslation();
 
     return (
         <DashboardCard fluidHeight>
@@ -15,7 +17,8 @@ const ProposalBox = (props: any) => {
                         id="totalClaimAmountPerBeneficiary"
                         variables={{
                             amount: toNumber(contract?.maxClaim),
-                            amountPerDay: toNumber(contract?.claimAmount)
+                            amountPerPeriod: toNumber(contract?.claimAmount),
+                            period: (t(frequencyToText(contract?.baseInterval)) || '').toLowerCase()
                         }}
                     />
                 </Text>
