@@ -7,9 +7,10 @@ import {
 } from './Community.style';
 import { Div, Heading, Icon, Text, TextLink } from '../../../theme/components';
 import { GenerateProposalButton, String } from '../../../components';
+import { frequencyToText, toNumber } from '@impact-market/utils';
 import { getThumbnailCoverImage } from '../../../helpers/getCoverImage';
-import { toNumber } from '@impact-market/utils';
 import { useRouter } from 'next/router';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React, { useState } from 'react';
 import countriesJson from '../../../constants/countries.json';
 
@@ -18,6 +19,7 @@ const countries: { [key: string]: any } = countriesJson;
 export const Community = (props: any) => {
     const { city, cover, country, contract, description, id, name, proposal, requestByAddress } = props;
     const { push } = useRouter();
+    const { t } = useTranslation();
     const [submitted, setSubmitted] = useState(!!proposal?.id);
 
     const onSeeMoreClick = () => push(`/communities/${id}`);
@@ -49,7 +51,8 @@ export const Community = (props: any) => {
                                 id="totalClaimAmountPerBeneficiary"
                                 variables={{
                                     amount: toNumber(contract?.maxClaim),
-                                    amountPerDay: toNumber(contract?.claimAmount)
+                                    amountPerPeriod: toNumber(contract?.claimAmount),
+                                    period: (t(frequencyToText(contract?.baseInterval)) || '').toLowerCase()
                                 }}
                             />
                         </Text>
