@@ -3,6 +3,7 @@ import {
     Card,
     CardContent,
     Div,
+    GhostElement,
     Heading,
     Highlight,
     HighlightRow,
@@ -28,6 +29,7 @@ import config from '../../../config';
 import styled, { css } from 'styled-components';
 
 const SummaryRow = styled.div`
+    align-items: center;
     padding: 0.5rem 0;
     display: flex;
     flex-direction: column;
@@ -304,36 +306,32 @@ const Rewards = (props: { onUpdate: Function }) => {
 const Epoch = () => {
     const { rewards } = useRewards();
     const { epoch } = useEpoch();
+    const [rows, setRows] = useState(new Array(4).fill(undefined));
+
+    useEffect(() => {
+        if (rewards.initialised && epoch.initialised) {
+            setRows([
+                currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' }),
+                currencyValue(epoch?.donations.user, { isToken: true, symbol: 'cUSD' }),
+                currencyValue(epoch?.donations.everyone, { isToken: true, symbol: 'cUSD' }),
+                currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })
+            ]);
+        }
+    }, [epoch, rewards]);
 
     return (
         <Div column sWidth="100%">
             <Div column sWidth="100%">
-                <SummaryRow>
-                    <Text bold>
-                        <String id="breakdown.airgrab.summary.row1" />
-                    </Text>
-                    <Text>{currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' })}</Text>
-                </SummaryRow>
-                <SummaryRow>
-                    <Text bold>
-                        <String id="breakdown.airgrab.summary.row2" />
-                    </Text>
-                    <Text>{currencyValue(epoch?.userContribution, { isToken: true, symbol: 'cUSD' })}</Text>
-                </SummaryRow>
-                <SummaryRow>
-                    <Text bold>
-                        <String id="breakdown.airgrab.summary.row3" />
-                    </Text>
-                    <Text>{currencyValue(epoch?.totalRaised, { isToken: true, symbol: 'cUSD' })}</Text>
-                </SummaryRow>
-                <SummaryRow>
-                    <Text bold>
-                        <String id="breakdown.airgrab.summary.row4" />
-                    </Text>
-                    <Text>{currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })}</Text>
-                </SummaryRow>
+                {rows.map((value, index) => (
+                    <SummaryRow key={index}>
+                        <Text bold>
+                            <String id={`breakdown.airgrab.summary.row${index + 1}`} />
+                        </Text>
+                        {!value ? <GhostElement sHeight={0.75} sWidth={6} /> : <Text>{value}</Text>}
+                    </SummaryRow>
+                ))}
             </Div>
-            <Text brandSecondary mt={0.5} small>
+            <Text brandSecondary mt={1} small>
                 <String id="breakdown.airgrab.summary.footnote" />
             </Text>
         </Div>
