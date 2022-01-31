@@ -310,31 +310,31 @@ const Epoch = () => {
             <Div column sWidth="100%">
                 <SummaryRow>
                     <Text bold>
-                        <String id="availableNewPactTokens" />
+                        <String id="breakdown.airgrab.summary.row1" />
                     </Text>
                     <Text>{currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' })}</Text>
                 </SummaryRow>
                 <SummaryRow>
                     <Text bold>
-                        <String id="yourContribution" />
+                        <String id="breakdown.airgrab.summary.row2" />
                     </Text>
                     <Text>{currencyValue(epoch?.userContribution, { isToken: true, symbol: 'cUSD' })}</Text>
                 </SummaryRow>
                 <SummaryRow>
                     <Text bold>
-                        <String id="totalRaised" />
+                        <String id="breakdown.airgrab.summary.row3" />
                     </Text>
                     <Text>{currencyValue(epoch?.totalRaised, { isToken: true, symbol: 'cUSD' })}</Text>
                 </SummaryRow>
                 <SummaryRow>
                     <Text bold>
-                        <String id="yourPendingRewardsEstimation" />
+                        <String id="breakdown.airgrab.summary.row4" />
                     </Text>
                     <Text>{currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })}</Text>
                 </SummaryRow>
             </Div>
-            <Text brandSecondary mt={0.5} sMaxWidth={25} small>
-                <String id="breakdown.rewardsEstimation.text" />
+            <Text brandSecondary mt={0.5} small>
+                <String id="breakdown.airgrab.summary.footnote" />
             </Text>
         </Div>
     );
@@ -348,7 +348,7 @@ export const Breakdown = () => {
     const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
     const [, setUpdated] = useState(new Date().getMilliseconds());
 
-    const tabs = [t('pactRewardsBreakdown'), t('currentEpochSummary')];
+    const tabs = [t('pactRewards'), t('summary')];
 
     const handleEpochEnd = () => {
         setEndedEpoch(true);
