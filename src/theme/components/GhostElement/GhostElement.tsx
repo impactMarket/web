@@ -13,8 +13,9 @@ const load = keyframes`
     }
 `;
 
-export const GhostElement = styled.div<GeneratedPropsTypes>`
-    background-color: ${colors.backgroundLight};
+export const GhostElement = styled.div<{ overColored?: boolean } & GeneratedPropsTypes>`
+    background-color: ${({ overColored }: any) =>
+        colors[overColored ? 'backgroundSecondaryDisabled' : 'backgroundLight']};
     border-radius: 0.5rem;
     width: 100%;
     position: relative;
