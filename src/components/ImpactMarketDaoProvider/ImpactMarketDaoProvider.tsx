@@ -7,7 +7,7 @@ import {
     useProviderOrSigner
 } from '@celo-tools/use-contractkit';
 import { ImpactMarketProvider } from '@impact-market/utils';
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
 import { useRouter } from 'next/router';
 import React, { createContext, useEffect, useState } from 'react';
@@ -76,7 +76,11 @@ const Wrapper = (props: any) => {
                 wrongNetwork
             }}
         >
-            <ImpactMarketProvider address={address} provider={provider} signer={signer}>
+            <ImpactMarketProvider
+                address={address}
+                provider={provider}
+                signer={signer instanceof JsonRpcSigner ? signer : null}
+            >
                 {children}
             </ImpactMarketProvider>
         </ImpactMarketDaoContext.Provider>
