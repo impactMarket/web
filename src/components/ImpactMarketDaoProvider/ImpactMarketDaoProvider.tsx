@@ -1,5 +1,11 @@
 import '@celo-tools/use-contractkit/lib/styles.css';
-import { Alfajores, Celo, ContractKitProvider, useConnectedSigner, useContractKit } from '@celo-tools/use-contractkit';
+import {
+    Alfajores,
+    CeloMainnet,
+    ContractKitProvider,
+    useContractKit,
+    useProviderOrSigner
+} from '@celo-tools/use-contractkit';
 import { ImpactMarketProvider } from '@impact-market/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
@@ -22,7 +28,7 @@ type ContextProps = {
     wrongNetwork?: boolean;
 };
 
-const network = config.isDaoTestnet ? Alfajores : Celo;
+const network = config.isDaoTestnet ? Alfajores : CeloMainnet;
 const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
 export const ImpactMarketDaoContext = createContext<ContextProps>({});
@@ -31,7 +37,7 @@ const Wrapper = (props: any) => {
     const { address, connect, destroy, initialised, network: walletNetwork } = useContractKit();
     const { asPath, query, isReady, push } = useRouter();
     const { children, provider } = props;
-    const signer = useConnectedSigner();
+    const signer = useProviderOrSigner();
     const [wrongNetwork, setWrongNetwork] = useState<boolean | undefined>();
 
     useEffect(() => {
@@ -113,11 +119,10 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 description: 'Decentralized Poverty Alleviation Protocol',
                 icon: 'https://impact-market.com/favicon.png',
                 name: 'impactMarket web',
-                supportedNetworks: [Celo, Alfajores],
                 url: 'https://impactmarket.com'
             }}
             network={network}
-            networks={[Celo, Alfajores]}
+            networks={[CeloMainnet, Alfajores]}
         >
             <Wrapper provider={provider}>{children}</Wrapper>
         </ContractKitProvider>

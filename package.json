@@ -10,7 +10,7 @@
         "translations": "node ./utils/getTranslationsFromRepo"
     },
     "dependencies": {
-        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@^1.0.10",
+        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10",
         "@impact-market/utils": "1.0.35",
         "axios": "^0.21.1",
         "bignumber.js": "^9.0.1",
@@ -67,6 +67,7 @@
     "license": "MIT",
     "resolutions": {
         "@walletconnect/client": "1.2.0",
-        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@^1.0.10"
+        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10",
+        "@celo/wallet-walletconnect": "1.2.0"
     }
 }
