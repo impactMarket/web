@@ -3,6 +3,7 @@ import {
     Alfajores,
     CeloMainnet,
     ContractKitProvider,
+    useConnectedSigner,
     useContractKit,
     useProviderOrSigner
 } from '@celo-tools/use-contractkit';
@@ -37,7 +38,7 @@ const Wrapper = (props: any) => {
     const { address, connect, destroy, initialised, network: walletNetwork } = useContractKit();
     const { asPath, query, isReady, push } = useRouter();
     const { children, provider } = props;
-    const signer = useProviderOrSigner();
+    const signer = useConnectedSigner();
     const [wrongNetwork, setWrongNetwork] = useState<boolean | undefined>();
 
     useEffect(() => {
@@ -76,11 +77,7 @@ const Wrapper = (props: any) => {
                 wrongNetwork
             }}
         >
-            <ImpactMarketProvider
-                address={address}
-                provider={provider}
-                signer={signer instanceof JsonRpcSigner ? signer : null}
-            >
+            <ImpactMarketProvider address={address} provider={provider} signer={signer}>
                 {children}
             </ImpactMarketProvider>
         </ImpactMarketDaoContext.Provider>
