@@ -67,7 +67,6 @@
     "license": "MIT",
     "resolutions": {
         "@walletconnect/client": "1.2.0",
-        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10",
-        "@celo/wallet-walletconnect": "1.2.0"
+        "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10"
     }
 }
