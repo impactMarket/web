@@ -264,13 +264,17 @@ const Rewards = (props: { onUpdate: Function }) => {
             {!!rewards?.estimated && (
                 <Highlight mt={1}>
                     <HighlightRow>
-                        <Heading h3>
-                            ~{currencyValue(rewards?.estimated, { isToken: true })}
-                            &nbsp;
-                            <Text regular span="true">
-                                PACT
-                            </Text>
-                        </Heading>
+                        {rewards?.initialised ? (
+                            <Heading h3>
+                                ~{currencyValue(rewards?.estimated, { isToken: true })}
+                                &nbsp;
+                                <Text regular span="true">
+                                    PACT
+                                </Text>
+                            </Heading>
+                        ) : (
+                            <GhostElement overColored sHeight={1.25} sWidth={20} />
+                        )}
                     </HighlightRow>
                     <HighlightRow>
                         <Text brandSecondary small>
@@ -306,7 +310,7 @@ const Rewards = (props: { onUpdate: Function }) => {
 const Epoch = () => {
     const { rewards } = useRewards();
     const { epoch } = useEpoch();
-    const [rows, setRows] = useState(new Array(4).fill(undefined));
+    const [rows, setRows] = useState(new Array(5).fill(undefined));
 
     useEffect(() => {
         if (rewards.initialised && epoch.initialised) {
@@ -314,7 +318,8 @@ const Epoch = () => {
                 currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' }),
                 currencyValue(epoch?.donations.user, { isToken: true, symbol: 'cUSD' }),
                 currencyValue(epoch?.donations.everyone, { isToken: true, symbol: 'cUSD' }),
-                currencyValue(rewards?.estimated, { isToken: true, symbol: 'PACT' })
+                currencyValue(rewards?.currentEpoch, { isToken: true, symbol: 'PACT' }),
+                currencyValue(rewards?.allocated, { isToken: true, symbol: 'PACT' })
             ]);
         }
     }, [epoch, rewards]);
@@ -327,7 +332,11 @@ const Epoch = () => {
                         <Text bold>
                             <String id={`breakdown.airgrab.summary.row${index + 1}`} />
                         </Text>
-                        {!value ? <GhostElement sHeight={0.75} sWidth={6} /> : <Text>{value}</Text>}
+                        {!(rewards.initialised && epoch.initialised) ? (
+                            <GhostElement sHeight={0.75} sWidth={6} />
+                        ) : (
+                            <Text>{value}</Text>
+                        )}
                     </SummaryRow>
                 ))}
             </Div>
