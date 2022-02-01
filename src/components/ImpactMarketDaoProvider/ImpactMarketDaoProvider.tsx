@@ -4,11 +4,10 @@ import {
     CeloMainnet,
     ContractKitProvider,
     useConnectedSigner,
-    useContractKit,
-    useProviderOrSigner
+    useContractKit
 } from '@celo-tools/use-contractkit';
 import { ImpactMarketProvider } from '@impact-market/utils';
-import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
 import { useRouter } from 'next/router';
 import React, { createContext, useEffect, useState } from 'react';
