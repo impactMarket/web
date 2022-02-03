@@ -57,9 +57,15 @@ type MiscVariations = BoolProps<typeof miscVariations>;
 type ExtendedVariations = StringProps<typeof extendedVariations>;
 type TagProps = BoolPropsFromArray<typeof tags>;
 
+export type HeadingProps = FontHeadingSizeVariations &
+    GeneratedPropsTypes &
+    MiscVariations &
+    ExtendedVariations &
+    TagProps;
+
 export const Heading = styled.h1.attrs((props: any) => ({
     as: props?.as || getTag(props, { defaultTag: 'h1' })
-}))<FontHeadingSizeVariations & GeneratedPropsTypes & MiscVariations & ExtendedVariations & TagProps>`
+}))<HeadingProps>`
     font-weight: ${fonts.weights.extrabold};
     font-family: ${fonts.families.manrope};
 
@@ -69,9 +75,11 @@ export const Heading = styled.h1.attrs((props: any) => ({
     ${generateProps};
 `;
 
+export type TextProps = FontBodySizeVariations & GeneratedPropsTypes & MiscVariations & ExtendedVariations & TagProps;
+
 export const Text = styled.p.attrs((props: any) => ({
     as: props?.as || getTag(props, { defaultTag: 'p' })
-}))<FontBodySizeVariations & GeneratedPropsTypes & MiscVariations & ExtendedVariations & TagProps>`
+}))<TextProps>`
     font-family: ${fonts.families.inter};
 
     ${variations(bodySizeVariations)};
