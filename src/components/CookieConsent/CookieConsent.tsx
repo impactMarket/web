@@ -1,11 +1,13 @@
 /* eslint-disable react/no-danger */
-import { Col, Div, Grid, IconButton, Row, Text } from '../../theme/components';
-import { String } from '../String/String';
+import { Col, Div, Grid, IconButton, Row } from '../../theme/components';
+import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { colors } from '../../theme';
 import { ease, transitions } from 'styled-gen';
 import { hasCookieConsentDismissed, setCookieConsentDismissed } from '../../lib/localStorage';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
 import config from '../../../config';
 import styled, { css } from 'styled-components';
 
@@ -34,13 +36,13 @@ const CookiesConsentWrapper = styled.div<CookiesConsentWrapperProps>`
         `}
 `;
 
-const TextLink = styled.a`
-    color: ${colors.brandPrimary};
-`;
-
 export const CookieConsent = () => {
+    const { config } = usePrismicData();
+
     const [isCookiesConsentVisible, setIsCookiesConsentVisible] = useState(false);
     const [shouldCookiesConsentAppend, setShouldCookiesConsentAppend] = useState(true);
+
+    const cookieConsentText = config?.data?.cookiesConsentText as PrismicRichTextType;
 
     useEffect(() => {
         const cookieConsentDismissed = hasCookieConsentDismissed();
@@ -96,13 +98,7 @@ export const CookieConsent = () => {
                                     sAlignItems={{ md: 'center', xs: 'flex-start' }}
                                     sJustifyContent="space-between"
                                 >
-                                    <Text XSmall medium>
-                                        <String id="cookieConsentMessage" />
-                                        &nbsp;
-                                        <TextLink href="/cookies" rel="noreferrer noopener" target="_blank">
-                                            <String id="cookiePolicy" />
-                                        </TextLink>
-                                    </Text>
+                                    <RichText XSmall content={cookieConsentText} medium />
                                     <Div pl={1}>
                                         <IconButton icon="close" onClick={handleConsentDismiss} round />
                                     </Div>

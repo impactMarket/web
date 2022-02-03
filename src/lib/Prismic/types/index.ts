@@ -1,12 +1,7 @@
-export type PrismicDocument = {
-    alternate_languages?: {
-        id: string;
-        lang: string;
-        type: string;
-    }[];
-    id: string;
-    data: any;
-    lang: string;
-    type: string;
-    uid: string;
-};
+import * as prismicT from '@prismicio/types';
+
+export type PrismicDocument = prismicT.PrismicDocument;
+
+export type PrismicImageType = prismicT.ImageField;
+
+export type PrismicRichTextType = prismicT.RichTextField;
