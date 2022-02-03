@@ -1147,6 +1147,11 @@
   resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.1.21.tgz#2d5f8a3f85435859ff290be96235b450b164a4e7"
   integrity sha512-TMO4zpHlBFdvULDU5KQxeHOkI72lCkEKT3YwKhqiaiQWRVp7s3w27mXHjOWVBOlH/2qrzck219O84zBE6HzaMg==
 
+"@prismicio/types@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.1.22.tgz#fd8e6e419b002ec90ff9ed8e579a1ecce6e5bb80"
+  integrity sha512-lA2tDAN/4rSou/D1ZNMJEytqyl8MGdO1jX3e+u37t2MpQgPUXj30j7qVdhfTcimIlDgKCAB3oyVmJw/RA8n6Kg==
+
 "@psoares/svg-list@^1.1.8":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@psoares/svg-list/-/svg-list-1.1.8.tgz#dbba7592e462b7e4b2c619a9bf2a8b4529455d15"

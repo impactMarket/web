@@ -15,6 +15,10 @@ const i18n = {
   locales: langConfig.map(({ code }) => code)
 };
 
+const images = {
+  domains: ['images.prismic.io']
+};
+
 const manifest = {
   background_color: '#ffffff',
   display: 'standalone',
@@ -55,6 +59,6 @@ const webpack = (config, { webpack }) => {
     return config
 }
 
-const config = withManifest({ i18n, typescript, manifest, redirects, webpack });
+const config = withManifest({ i18n, images, typescript, manifest, redirects, webpack });
 
 module.exports = config;
