@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/named
+import { ClientConfig } from '@prismicio/client';
 import { Community } from '../../page-components';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getServerSideString } from '../../components/TranslationProvider/TranslationProvider';
@@ -26,7 +28,7 @@ const getCommunity = async (communityId: string | number) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale: lang, params, previewData }) => {
-    const clientOptions = previewData ? { ref: previewData } : null;
+    const clientOptions = previewData as ClientConfig;
     const { communityId } = params || {};
 
     const types = getTypesToFetchWithConfigs(['website_community_page']);

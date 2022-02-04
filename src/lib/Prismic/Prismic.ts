@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/named
+import { ClientConfig, predicate } from '@prismicio/client';
 import { PrismicDocument } from './types';
 import { getLocalizedDocuments } from './helpers/getLocalizedDocuments';
-import { predicate } from '@prismicio/client';
 import client from './client';
 import keysToCamel from './helpers/keysToCamel';
 import langConfig from '../../../lang-config';
@@ -10,7 +11,7 @@ import toArray from './helpers/toArray';
 const defaultLang = langConfig.find(({ isDefault }) => isDefault)?.code;
 
 type GetByTypesProps = {
-    clientOptions?: object;
+    clientOptions?: ClientConfig;
     lang?: string;
     types: string | string[];
 };
