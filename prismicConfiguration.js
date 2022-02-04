@@ -12,18 +12,6 @@ const apiEndpoint = `https://${repoName}.cdn.prismic.io/api/v2`;
 const accessToken = process.env.PRISMIC_KEY;
 
 // TODO
-// -- Link resolution rules
-// Manages the url links to internal Prismic documents
-// export const linkResolver = doc => {
-//     if (doc.type === 'page') {
-//         return `/${doc.uid}`;
-//     }
-
-//     return '/';
-// };
-const linkResolver = () => '/';
-
-// TODO
 // -- Route Resolver rules
 // Manages the url links to internal Prismic documents two levels deep (optionals)
 // export const Router = {
@@ -36,6 +24,6 @@ const linkResolver = () => '/';
 // };
 const Router = { routes: [] };
 
-const prismicConfiguration = { accessToken, apiEndpoint, linkResolver, Router, repoName };
+const prismicConfiguration = { accessToken, apiEndpoint, Router, repoName };
 
 module.exports = prismicConfiguration;
