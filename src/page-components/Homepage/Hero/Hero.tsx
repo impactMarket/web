@@ -6,18 +6,20 @@ import {
     Grid,
     Heading,
     Icon,
-    Img,
     Row,
     Section,
     Text,
     TextLink
 } from '../../../theme/components';
 import { DonateLink, String } from '../../../components';
+import { PrismicImageType, PrismicRichTextType } from '../../../lib/Prismic/types';
 import { modal } from 'react-modal-handler';
 import { scroller } from 'react-scroll';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { usePrismicData } from '../../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
+import Image from '../../../lib/Prismic/components/Image';
 import React, { useCallback } from 'react';
+import RichText from '../../../lib/Prismic/components/RichText';
 
 const scrollOptions = {
     delay: 10,
@@ -26,8 +28,15 @@ const scrollOptions = {
     smooth: 'easeInOutCubic'
 };
 
-export const Hero = () => {
-    const { page } = useData();
+type HeroType = {
+    heading?: string;
+    image?: PrismicImageType;
+    text?: PrismicRichTextType;
+};
+
+const Hero = () => {
+    const { extractFromPage } = usePrismicData();
+    const { heading, image, text } = extractFromPage('hero') as HeroType;
     const { asPath, push } = useRouter();
 
     const handleDownloadLinkClick = useCallback(() => scroller.scrollTo('cta', scrollOptions), []);
@@ -43,18 +52,16 @@ export const Hero = () => {
                     {/* eslint-disable-next-line react/jsx-sort-props */}
                     <Col xs={12} sm={5} md={6}>
                         <Div sAlignItems="start">
-                            <Img src={page?.hero?.image} />
+                            <Image {...image} />
                         </Div>
                     </Col>
                     {/* eslint-disable-next-line react/jsx-sort-props */}
                     <Col mt={{ lg: 3, xs: 2 }} xs={12} sm={7} md={6}>
                         <Div column sMaxWidth={{ md: 33.75 }}>
                             <Heading fontSize={{ md: '48 54', sm: '32 42', xs: '24 36' }} h1>
-                                <String id="page.homepage.hero.heading" />
+                                {heading}
                             </Heading>
-                            <Text body fontSize={{ md: '16 32', xs: '14 24' }} mt={1}>
-                                <String id="page.homepage.hero.text" />
-                            </Text>
+                            <RichText body content={text} fontSize={{ md: '16 32', xs: '14 24' }} mt={1} />
 
                             {/* Donate button */}
                             <Div>
@@ -116,3 +123,5 @@ export const Hero = () => {
         </Section>
     );
 };
+
+export default Hero;

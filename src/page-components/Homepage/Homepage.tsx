@@ -1,9 +1,9 @@
 import { Cta } from '../../components';
 import { EmailSubscribe } from './EmailSubscribe/EmailSubscribe';
 import { GovernanceArticles } from '../../components/GovernanceArticles/GovernanceArticles';
-import { Hero } from './Hero/Hero';
 import { Numbers } from './Numbers/Numbers';
 import { Partners } from './Partners/Partners';
+import Hero from './Hero/Hero';
 import PromotionalBanner from './PromotionalBanner/PromotionBanner';
 import React from 'react';
 

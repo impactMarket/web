@@ -3,7 +3,7 @@ import { PrismicRichText } from '@prismicio/react';
 import { PrismicRichTextType } from '../types';
 import { RichContentFormat, TLink, Text, TextProps } from '../../../theme/components';
 import { bracked } from '../../../helpers/bracked';
-import Img from 'next/image';
+import Image from './Image';
 import React from 'react';
 import parse from '../../../helpers/parse';
 
@@ -33,9 +33,7 @@ const serializer: SerializerFunction = ({ children, key, node, type, ...options 
     }
 
     if (type === 'image') {
-        const { alt, dimensions, url } = node;
-
-        return <Img alt={alt} key={key} layout="responsive" src={url} {...dimensions} />;
+        return <Image {...node} />;
     }
 
     if (type === 'span') {

@@ -3,5 +3,6 @@ extends:
   - next
 rules:
   no-undef: error
+  jsx-a11y/alt-text: off
   react/require-default-props: off
   react-hooks/exhaustive-deps: off
