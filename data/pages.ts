@@ -1,29 +1,5 @@
 export const pages: { [key: string]: object } = {
     /* eslint-disable sort-keys */
-    homepage: {
-        partners: [
-            {
-                items: [
-                    { image: '/img/partners/celo.png', name: 'Celo', url: 'https://celo.org/' },
-                    { image: '/img/partners/esolidar.svg', name: 'eSolidar', url: 'https://www.esolidar.com' }
-                ],
-                keyLabel: 'keyPartners'
-            },
-            {
-                items: [{ image: '/img/partners/copa.png', name: 'copa', url: 'https://www.opencrypto.org/' }],
-                keyLabel: 'memberOf'
-            }
-        ],
-        numbers: {
-            items: [
-                { labelKey: 'claimedAsUbi', name: 'claimed' },
-                { name: 'countries' },
-                { name: 'beneficiaries' },
-                { name: 'backers' },
-                { name: 'communities' }
-            ]
-        }
-    },
     communities: {
         filters: [{ name: 'allCommunities' }, { name: 'featured' }]
     },
