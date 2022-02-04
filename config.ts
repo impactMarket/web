@@ -74,7 +74,16 @@ const config = {
     /*
      * Voting platform
      */
-    votingPlatformUrl: 'https://commonwealth.im/impactmarket/proposal/:id'
+    votingPlatformUrl: 'https://commonwealth.im/impactmarket/proposal/:id',
+
+    /*
+     * Wallet addresses
+     */
+    wallets: {
+        btc: 'bc1qe7ksg8va9uzfu4pl9ea8zyftad94p0tgtuavk4',
+        celo: '0xC483Cd9FC68e58074d1D82b7a9fFdE948Db6d119',
+        eth: '0x4D93536aa77FE4fDD48DC7f2c228410eC49c233C'
+    }
 };
 
 export default config;

@@ -1,28 +1,64 @@
+import { BaseModal, ModalController } from '../BaseModal/BaseModal';
 import { Button, Div, ItemsRow, RichContentFormat, Text } from '../../theme/components';
 import { ContributeAmountInput, StepsProgress, String } from '../../components';
-import { ModalWrapper } from './ModalGovernanceContribute.style';
+import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { WrongNetwork } from '../../components/WrongNetwork/WrongNetwork';
 import { currencyValue } from '../../helpers/currencyValue';
 import { modal } from 'react-modal-handler';
 import { toast } from '../../components/Toaster/Toaster';
 import { useDonationMiner } from '@impact-market/utils';
-import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useWallet } from '../../hooks/useWallet';
-import { withModal } from '../../HOC';
 import BigNumber from 'bignumber.js';
 import React, { useCallback, useEffect, useState } from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
+import styled from 'styled-components';
 
-const Modal = (props: any) => {
+const ModalWrapper = styled.div`
+    padding: 1rem 2rem 2rem;
+`;
+
+type ModalData = {
+    heading?: string;
+    introText?: PrismicRichTextType;
+    lowFeesText?: PrismicRichTextType;
+    noWalletConnectedText?: PrismicRichTextType;
+    operationTroubleshootingText?: PrismicRichTextType;
+    toastApprovingError?: PrismicRichTextType;
+    toastContributeError?: PrismicRichTextType;
+    toastContributeSuccess?: PrismicRichTextType;
+    wrongNetworkText?: PrismicRichTextType;
+};
+
+type ModalProps = {
+    controller: ModalController;
+    onSuccess?: Function;
+};
+
+const ModalGovernanceContributeContent = (props: ModalProps) => {
     const { controller, onSuccess } = props;
     const { address, connect, wrongNetwork } = useWallet();
+    const { approve, donateToTreasury } = useDonationMiner();
+    const { extractFromModals } = usePrismicData();
+
     const [approvedAmount, setApprovedAmount] = useState(0);
     const [activeStep, setActiveStep] = useState(0);
     const [values, setValues] = useState({ amount: 0, balance: 0 });
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingBalance, setisLoadingBalance] = useState(true);
+    const [isLoadingBalance, setIsLoadingBalance] = useState(true);
     const [contributionDone, setContributionDone] = useState(false);
-    const { approve, donateToTreasury } = useDonationMiner();
-    const { t } = useTranslation();
+
+    const modalData = extractFromModals('daoContributeModal') as ModalData;
+
+    const {
+        introText,
+        lowFeesText,
+        noWalletConnectedText,
+        operationTroubleshootingText,
+        toastApprovingError,
+        toastContributeError,
+        toastContributeSuccess
+    } = modalData;
 
     const handleAmountChange = useCallback(
         (amount, balance) => {
@@ -51,7 +87,7 @@ const Modal = (props: any) => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(t('toast.approvingError'));
+                return toast.error(<RichText content={toastApprovingError} />);
             }
 
             setActiveStep(1);
@@ -60,7 +96,7 @@ const Modal = (props: any) => {
             setIsLoading(false);
 
             console.log(error);
-            toast.error(t('toast.approvingError'));
+            toast.error(<RichText content={toastApprovingError} />);
         }
     }, [values, isLoading]);
 
@@ -90,20 +126,20 @@ const Modal = (props: any) => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(t('toast.contributeError'));
+                return toast.error(<RichText content={toastContributeError} />);
             }
 
             setContributionDone(true);
             setApprovedAmount(0);
             controller?.onClose();
-            toast.success(t('toast.contributeSuccess'));
+            toast.success(<RichText content={toastContributeSuccess} />);
 
             if (typeof onSuccess === 'function') {
                 await onSuccess();
             }
         } catch (error) {
             setIsLoading(false);
-            toast.error(t('toast.contributeError'));
+            toast.error(<RichText content={toastContributeError} />);
         }
     }, [approvedAmount, values, isLoading]);
 
@@ -119,9 +155,9 @@ const Modal = (props: any) => {
 
     useEffect(() => {
         if (address || !wrongNetwork) {
-            setisLoadingBalance(true);
+            setIsLoadingBalance(true);
 
-            setTimeout(() => setisLoadingBalance(false), 500);
+            setTimeout(() => setIsLoadingBalance(false), 500);
         }
     }, [address, wrongNetwork]);
 
@@ -129,9 +165,7 @@ const Modal = (props: any) => {
         return (
             <ModalWrapper>
                 <RichContentFormat>
-                    <Text center small>
-                        <String id="connectToYourWalletToContribute" />
-                    </Text>
+                    <RichText center content={noWalletConnectedText} small />
                 </RichContentFormat>
                 <Button fluid mt={1.5} onClick={handleConnect}>
                     <Text medium sub>
@@ -153,9 +187,7 @@ const Modal = (props: any) => {
     return (
         <ModalWrapper>
             <RichContentFormat>
-                <Text brandSecondary sub>
-                    <String id="donationMinerModalText" />
-                </Text>
+                <RichText brandSecondary content={introText} sub />
             </RichContentFormat>
             <Div column mt={1} sWidth="100%">
                 <ContributeAmountInput isLoading={isLoadingBalance} onChange={handleAmountChange} />
@@ -187,22 +219,24 @@ const Modal = (props: any) => {
                 </ItemsRow>
             </Div>
             <RichContentFormat brandSecondary mt={1}>
-                <Text center small>
-                    {(isLoading || activeStep !== 0) && (
-                        <String
-                            id="operationDelayNote"
-                            variables={{ url: 'https://docs.impactmarket.com/general/claim-usdpact-troubleshooting' }}
-                        />
-                    )}
-                    {!isLoading && activeStep === 0 && <String id="celoNetworkFees" />}
+                <Text center div small>
+                    {(isLoading || activeStep !== 0) && <RichText content={operationTroubleshootingText} />}
+                    {!isLoading && activeStep === 0 && <RichText content={lowFeesText} />}
                 </Text>
             </RichContentFormat>
         </ModalWrapper>
     );
 };
 
-export const ModalGovernanceContribute = withModal(Modal, {
-    headingKey: 'contribute',
-    size: 450,
-    withCloseButton: true
-});
+export const ModalGovernanceContribute = (props: ModalProps) => {
+    const { controller } = props;
+    const { extractFromModals } = usePrismicData();
+
+    const { heading } = extractFromModals('daoContributeModal') as ModalData;
+
+    return (
+        <BaseModal controller={controller} heading={heading} size={450}>
+            <ModalGovernanceContributeContent {...props} />
+        </BaseModal>
+    );
+};

@@ -1,4 +1,4 @@
-import { config, modals, pages } from '../../../data';
+import { config, pages } from '../../../data';
 import React, { createContext } from 'react';
 
 const initialData: {
@@ -23,7 +23,7 @@ export const useData = () => {
 
     const pageData: any = pages?.[page] || {};
 
-    return { config, modals, page: pageData, url };
+    return { config, page: pageData, url };
 };
 
 export const DataConsumer = DataContext.Consumer;
