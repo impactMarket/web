@@ -29,3 +29,13 @@ export const CardContent = styled.div<GeneratedPropsTypes>`
 
     ${generateProps};
 `;
+
+export const ArticleCard = styled.div`
+    background-color: ${colors.white};
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1.5rem ${colors.backgroundShadow};
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem;
+`;
