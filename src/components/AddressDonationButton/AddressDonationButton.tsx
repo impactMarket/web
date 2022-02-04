@@ -4,17 +4,14 @@ import React from 'react';
 
 type AddressDonationButtonProps = {
     address: string;
-    currency: string;
-    heading: string;
     label?: string;
-    footer?: any;
 } & ButtonProps;
 
 export const AddressDonationButton = (props: AddressDonationButtonProps) => {
-    const { address, currency, children, footer, heading, ...forwardProps } = props;
+    const { address, children, ...forwardProps } = props;
 
     const handleButtonClick = () => {
-        modal.open('addressDonation', { address, currency, footer, heading, withCloseButton: true });
+        modal.open('addressDonation', { address });
     };
 
     return (

@@ -1,9 +1,10 @@
-import { Address, QrCode, String } from '../../components';
-import { Text } from '../../theme/components';
-import { colors } from '../../theme';
+import { Address, QrCode } from '../../components';
+import { BaseModal, ModalController } from '../BaseModal/BaseModal';
+import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { mq } from 'styled-gen';
-import { withModal } from '../../HOC';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import React from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
 import styled, { css } from 'styled-components';
 
 const ModalCol = styled.div`
@@ -25,13 +26,6 @@ const ModalCol = styled.div`
     }
 `;
 
-const ModalFooter = styled.div`
-    border-top: 1px solid ${colors.borderLight};
-    display: flex;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-`;
-
 const ModalContent = styled.div`
     display: flex;
     width: 100%;
@@ -45,31 +39,34 @@ const ModalWrapper = styled.div`
     padding: 2rem;
 `;
 
+type DataProps = {
+    heading?: string;
+    text?: PrismicRichTextType;
+};
+
 type ModalProps = {
     address?: string;
-    currency?: string;
-    footer?: any;
+    controller: ModalController;
 };
 
-export const Modal = (props: ModalProps) => {
-    const { address, currency, footer } = props;
+export const ModalAddressDonation = (props: ModalProps) => {
+    const { address, controller } = props;
+    const { extractFromModals } = usePrismicData();
+    const { heading, text } = extractFromModals('addressDonationModal') as DataProps;
 
     return (
-        <ModalWrapper>
-            <ModalContent>
-                <ModalCol>
-                    <Text small>
-                        <String id="modal.donate.scanText" variables={{ currency }} />
-                    </Text>
-                    <Address address={address} />
-                </ModalCol>
-                <ModalCol>
-                    <QrCode address={address} />
-                </ModalCol>
-            </ModalContent>
-            {footer && <ModalFooter>{footer}</ModalFooter>}
-        </ModalWrapper>
+        <BaseModal controller={controller} heading={heading} size={620}>
+            <ModalWrapper>
+                <ModalContent>
+                    <ModalCol>
+                        <RichText content={text} small />
+                        <Address address={address} mt={1} />
+                    </ModalCol>
+                    <ModalCol>
+                        <QrCode address={address} />
+                    </ModalCol>
+                </ModalContent>
+            </ModalWrapper>
+        </BaseModal>
     );
 };
-
-export const ModalAddressDonation = withModal(Modal, { size: 620 });

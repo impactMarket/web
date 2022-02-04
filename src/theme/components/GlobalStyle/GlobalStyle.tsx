@@ -65,7 +65,8 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
-    b {
+    b,
+    strong {
         font-weight: ${fonts.weights.bold};
     },
 
