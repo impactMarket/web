@@ -1,9 +1,6 @@
 export const pages: { [key: string]: object } = {
     /* eslint-disable sort-keys */
     homepage: {
-        hero: {
-            image: '/img/hero.png'
-        },
         partners: [
             {
                 items: [
@@ -25,9 +22,6 @@ export const pages: { [key: string]: object } = {
                 { name: 'backers' },
                 { name: 'communities' }
             ]
-        },
-        promotionBanner: {
-            isActive: true
         }
     },
     communities: {
