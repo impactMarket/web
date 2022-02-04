@@ -1,6 +1,8 @@
 import {
+    ArticleCard,
     Col,
     Div,
+    FeatureChip,
     Grid,
     Heading,
     Icon,
@@ -13,20 +15,8 @@ import {
 } from '../../theme/components';
 import { GeneratedPropsTypes, IconType } from '../../theme/Types';
 import { String } from '../../components';
-import { colors } from '../../theme';
 import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
-import styled from 'styled-components';
-
-const Card = styled.div`
-    padding: 2rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: ${colors.white};
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1.5rem ${colors.backgroundShadow};
-`;
 
 type GovernanceArticleType = {
     icon?: string;
@@ -34,16 +24,6 @@ type GovernanceArticleType = {
     url?: string;
     urlLabelKey?: string;
 };
-
-const Chip = styled.div`
-    align-items: center;
-    background-color: ${colors.brandPrimary};
-    border-radius: 12px;
-    color: ${colors.white};
-    display: inline-flex;
-    justify-content: center;
-    padding: 4px 8px;
-`;
 
 export const GovernanceArticles = (props: GeneratedPropsTypes) => {
     const { config } = useData();
@@ -65,7 +45,7 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
                             sm={6}
                             xs={12}
                         >
-                            <Card>
+                            <ArticleCard>
                                 <Div>
                                     {!!icon && <Icon brandPrimary icon={icon as IconType} sHeight={2.65} />}
                                     {!!image && <Img sHeight={2.65} sWidth={2.65} src={image} />}
@@ -94,14 +74,14 @@ export const GovernanceArticles = (props: GeneratedPropsTypes) => {
                                             />
                                         </TextLink>
                                     ) : (
-                                        <Chip>
+                                        <FeatureChip>
                                             <Text XSmall bold>
                                                 <String id="availableSoon" />
                                             </Text>
-                                        </Chip>
+                                        </FeatureChip>
                                     )}
                                 </Div>
-                            </Card>
+                            </ArticleCard>
                         </Col>
                     ))}
                 </Row>
