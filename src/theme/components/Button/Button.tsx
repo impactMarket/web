@@ -4,6 +4,7 @@ import { colors } from '../../variables/colors';
 import { darken } from 'polished';
 import { ease, generateProps, transitions, variations } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
+import Link from 'next/link';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -219,16 +220,26 @@ const ButtonWrapper = styled.button<ButtonProps>`
 `;
 
 export const Button = (props: ButtonProps) => {
-    const { children, href, isLoading, ...forwardProps } = props;
+    const { children, href: url, isLoading, ...forwardProps } = props;
+
+    const href = url?.replace('https:///', '/');
+
+    const isInternalLink = !!href && href.startsWith('/');
+
+    const Wrapper = isInternalLink ? Link : React.Fragment;
+
+    const wrapperProps = (isInternalLink ? { href, passHref: true } : {}) as any;
 
     return (
-        <ButtonWrapper as={href ? 'a' : 'button'} disabled={isLoading} href={href} {...forwardProps}>
-            <Spinner
-                backgroundColor={!forwardProps.white ? colors.brandPrimary : colors.white}
-                isLoading={isLoading}
-                spinnerColor={forwardProps.white ? colors.brandPrimary : colors.white}
-            />
-            {children}
-        </ButtonWrapper>
+        <Wrapper {...wrapperProps}>
+            <ButtonWrapper as={href ? 'a' : 'button'} disabled={isLoading} href={href} {...forwardProps}>
+                <Spinner
+                    backgroundColor={!forwardProps.white ? colors.brandPrimary : colors.white}
+                    isLoading={isLoading}
+                    spinnerColor={forwardProps.white ? colors.brandPrimary : colors.white}
+                />
+                {children}
+            </ButtonWrapper>
+        </Wrapper>
     );
 };
