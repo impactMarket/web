@@ -45,7 +45,7 @@ const typescript = {
     ignoreBuildErrors: false
 }
 
-const webpack = (config, { webpack }) => {
+const webpack = config => {
     config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -53,8 +53,6 @@ const webpack = (config, { webpack }) => {
         child_process: false,
         readline: false,
     };
-
-    config.plugins.push(new webpack.IgnorePlugin(/^electron$/));
 
     return config
 }
