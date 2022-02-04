@@ -41,7 +41,6 @@ const TextLinkElement = styled.a<TextLinkProps>`
     color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
     display: inline-flex;
-    font-weight: ${fonts.weights.medium};
 
     ${({ isActive }) =>
         !isActive &&
