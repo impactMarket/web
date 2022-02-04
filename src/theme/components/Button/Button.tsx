@@ -99,7 +99,7 @@ const colorVariations = {
 
         &:not(:disabled) {
             &:hover {
-                background-color: ${darken(0.1, colors.success)};
+                background-color: ${darken(0.1, colors.white)};
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
             }
         }
