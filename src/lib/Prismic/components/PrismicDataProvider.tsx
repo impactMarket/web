@@ -37,12 +37,13 @@ export const usePrismicData = (options: UsePrismicDataOptions = {}) => {
 
     const extractFromConfig = (key: string) => extractFromData(config?.data || {}, key);
     const extractFromPage = (key: string) => extractFromData(page?.data || {}, key);
+    const extractFromModals = (modalName: string) => extractFromData(modals?.data || {}, modalName);
 
     if (list && !isProduction) {
         console.log(`Data from prismic\n`, { config, data: forwardData, modals, page, url });
     }
 
-    return { config, data: forwardData, extractFromConfig, extractFromPage, modals, page, url };
+    return { config, data: forwardData, extractFromConfig, extractFromModals, extractFromPage, modals, page, url };
 };
 
 export const PrismicDataConsumer = PrismicDataContext.Consumer;

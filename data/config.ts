@@ -22,22 +22,5 @@ export const config = {
         { name: 'totalCUSD' },
         { name: 'daoLiquidity' },
         { name: 'daoTreasury' }
-    ],
-    wallets: [
-        {
-            address: 'bc1qe7ksg8va9uzfu4pl9ea8zyftad94p0tgtuavk4',
-            code: 'btc',
-            label: 'Bitcoin'
-        },
-        {
-            address: '0xC483Cd9FC68e58074d1D82b7a9fFdE948Db6d119',
-            code: 'celo',
-            label: 'Celo'
-        },
-        {
-            address: '0x4D93536aa77FE4fDD48DC7f2c228410eC49c233C',
-            code: 'eth',
-            label: 'ETH / ERC 20'
-        }
     ]
 };
