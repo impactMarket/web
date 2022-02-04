@@ -34,10 +34,10 @@ const LogoList = (props: LogoListSliceType) => {
     console.log(items);
 
     return (
-        <Section>
+        <Section sPadding={{ sm: '3 null', xs: '2 null' }}>
             <Grid>
                 <Row>
-                    <Col center sPadding={{ sm: '3 null', xs: '2 null' }} xs={12}>
+                    <Col center xs={12}>
                         <Div inlineFlex sAlignItems="center" sFlexDirection={{ md: 'row', xs: 'column' }}>
                             {items.map(({ items, label }, itemsIndex) => (
                                 <Div
