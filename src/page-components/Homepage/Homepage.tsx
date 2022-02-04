@@ -1,19 +1,21 @@
 import { Cta } from '../../components';
 import { EmailSubscribe } from './EmailSubscribe/EmailSubscribe';
-import { GovernanceArticles } from '../../components/GovernanceArticles/GovernanceArticles';
 import { Numbers } from './Numbers/Numbers';
-import { Partners } from './Partners/Partners';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import Hero from './Hero/Hero';
 import PromotionalBanner from './PromotionalBanner/PromotionBanner';
 import React from 'react';
+import Slices from '../../lib/Prismic/components/Slices';
 
 export const Homepage = () => {
+    const { page } = usePrismicData();
+    const slices = page?.data?.body;
+
     return (
         <>
             <PromotionalBanner />
             <Hero />
-            <GovernanceArticles sPadding="1 0" />
-            <Partners />
+            <Slices slices={slices} />
             <Numbers />
             <Cta />
             <EmailSubscribe />
