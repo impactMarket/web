@@ -1,10 +1,12 @@
+// eslint-disable-next-line import/named
+import { ClientConfig } from '@prismicio/client';
 import { Fundraise } from '../page-components';
 import { GetStaticProps } from 'next';
 import Prismic from '../lib/Prismic/Prismic';
 import getTypesToFetchWithConfigs from '../lib/Prismic/helpers/getTypesToFetchWithConfigs';
 
 export const getStaticProps: GetStaticProps = async ({ locale: lang, previewData }) => {
-    const clientOptions = previewData ? { ref: previewData } : null;
+    const clientOptions = previewData as ClientConfig;
 
     const types = getTypesToFetchWithConfigs(['website_fundraising_page']);
 
