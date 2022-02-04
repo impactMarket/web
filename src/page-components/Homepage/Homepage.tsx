@@ -1,6 +1,5 @@
 import { Cta } from '../../components';
 import { EmailSubscribe } from './EmailSubscribe/EmailSubscribe';
-import { Numbers } from './Numbers/Numbers';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import Hero from './Hero/Hero';
 import PromotionalBanner from './PromotionalBanner/PromotionBanner';
@@ -16,7 +15,6 @@ export const Homepage = () => {
             <PromotionalBanner />
             <Hero />
             <Slices slices={slices} />
-            <Numbers />
             <Cta />
             <EmailSubscribe />
         </>
