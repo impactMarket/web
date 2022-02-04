@@ -1,8 +1,8 @@
+import langConfig from '../../../lang-config';
 import prismicT from '@prismicio/types';
 
 const exceptions = [] as string[];
 const homepageRedirects = ['translations-site-temp', 'translations', 'config', 'dao_articles', 'homepage', 'modals'];
-
 const clearPrefix = (type?: string, prefix: string = '') => {
     if (!type) {
         return '';
@@ -12,15 +12,17 @@ const clearPrefix = (type?: string, prefix: string = '') => {
 };
 
 const linkResolver = (doc: prismicT.FilledLinkToDocumentField) => {
+    const lang = langConfig.find(({ code }) => code.toLowerCase() === doc?.lang)?.code;
+
     if (exceptions.includes(doc.type)) {
         return null;
     }
 
     if (homepageRedirects.includes(clearPrefix(doc.type))) {
-        return `/${doc.lang}`;
+        return `/${lang}`;
     }
 
-    return `/${doc.lang}/${clearPrefix(doc.type, 'page_')}`;
+    return `/${lang}/${clearPrefix(doc.type, 'page_')}`;
 };
 
 export default linkResolver;
