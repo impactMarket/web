@@ -31,8 +31,6 @@ const LogoList = (props: LogoListSliceType) => {
         label
     })) as ItemType[];
 
-    console.log(items);
-
     return (
         <Section sPadding={{ sm: '3 null', xs: '2 null' }}>
             <Grid>
