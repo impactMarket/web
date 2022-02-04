@@ -16,7 +16,7 @@ type SerializerOptions = {
 type SerializerFunction = (...args: any | any[]) => any;
 
 // eslint-disable-next-line max-params
-const serializer: SerializerFunction = ({ type, node, children, key, options }) => {
+const serializer: SerializerFunction = ({ children, key, node, type, ...options }) => {
     const { components = {}, serializerProps = {}, variables = {} } = options || ({} as SerializerOptions);
     const forwardProps = serializerProps?.[type] || {};
 

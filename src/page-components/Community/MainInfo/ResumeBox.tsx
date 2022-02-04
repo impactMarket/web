@@ -72,13 +72,7 @@ export const ResumeBox = (props: any) => {
                     <Text mt={1} sTextAlign="center" small>
                         <String id="contributeWith" />
                     </Text>
-                    <AddressDonationButton
-                        address={contractAddress}
-                        currency={celoDollarLabel}
-                        fluid
-                        heading={celoDollarLabel}
-                        mt={1}
-                    >
+                    <AddressDonationButton address={contractAddress} fluid mt={1}>
                         <Text medium>{celoDollarLabel}</Text>
                         <Img inlineFlex ml={0.5} sHeight={1.5} sWidth="auto" src="/img/cusd.png" />
                     </AddressDonationButton>

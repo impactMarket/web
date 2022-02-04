@@ -24,7 +24,7 @@ const parse = (str?: string, components: any = {}) =>
 
                 const children = domNode?.children?.[0]?.data;
 
-                const forwardProps = { ...parsedAttrs, children: children?.[0]?.data };
+                const forwardProps = { ...parsedAttrs, children };
 
                 return <Component {...forwardProps} />;
             }

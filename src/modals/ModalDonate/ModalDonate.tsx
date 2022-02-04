@@ -1,65 +1,100 @@
-import { Address, QrCode, String } from '../../components';
+import { Address, QrCode } from '../../components';
+import { BaseModal, ModalController } from '../BaseModal/BaseModal';
 import { Chip, Currency, ItemsRow, Text, TextLink } from '../../theme/components';
 import { ModalChipsWrapper, ModalCol, ModalFooter, ModalRow, ModalWrapper } from './ModalDonate.style';
+import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { Subscribe } from './Subscribe';
 import { modal } from 'react-modal-handler';
-import { useData } from '../../components/DataProvider/DataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
-import { useTranslation } from '../../components/TranslationProvider/TranslationProvider';
-import { withModal } from '../../HOC';
 import React, { useState } from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
+import config from '../../../config';
 
-export const Modal = (props: any) => {
-    const { config, modals } = useData();
-    const { currencies } = modals?.donate;
-    const [wallet, setWallet] = useState<any>(config?.wallets?.[0]);
-    const { t } = useTranslation();
+type ModalContentProps = {
+    copyNote: PrismicRichTextType;
+    currencies: {
+        code?: string;
+        label?: string;
+        extendedLabel?: string;
+    }[];
+    heading: string;
+    subscribeHeading: string;
+    text: PrismicRichTextType;
+};
+
+type ModalProps = {
+    controller: ModalController;
+};
+
+type WalletProps = {
+    address?: string;
+    code?: string;
+    extendedLabel?: string;
+    label?: string;
+};
+
+const { wallets } = config as any;
+
+export const ModalDonate = (props: ModalProps) => {
+    const { controller } = props;
+    const { extractFromModals } = usePrismicData();
     const { asPath, push } = useRouter();
 
-    const getWallet = (code: any) => {
-        const wallet = config?.wallets?.find(wallet => code === wallet?.code);
+    const modalContent = extractFromModals('contributeModal') as ModalContentProps;
+    const { currencies, copyNote, heading, subscribeHeading, text } = modalContent;
 
-        return wallet;
-    };
+    const [wallet, setWallet] = useState<WalletProps>({
+        address: wallets.btc,
+        ...currencies.find(({ code }) => code === 'btc')
+    });
 
-    const handleChipClick = (code: any) => {
+    const handleChipClick = (code: string) => {
         if (code === wallet?.code) {
             return;
         }
 
-        setWallet(getWallet(code));
+        const selectedWallet = {
+            address: wallets?.[code],
+            ...currencies.find(({ code: currencyCode }) => code === currencyCode)
+        };
+
+        if (!selectedWallet?.address) {
+            return;
+        }
+
+        setWallet(selectedWallet);
     };
 
     const handleDonationMinerClick = () =>
-        props.controller.onClose(() =>
+        controller.onClose(() =>
             modal.open('governanceContribute', { onSuccess: () => asPath !== '/governance' && push('/governance') })
         );
 
     return (
-        <>
+        <BaseModal controller={controller} heading={heading}>
             <ModalWrapper>
-                <Text small>
-                    <String
-                        components={{
-                            OpenContributeModal: props => (
-                                <TextLink brandPrimary onClick={handleDonationMinerClick}>
-                                    {props?.children}
-                                </TextLink>
-                            )
-                        }}
-                        id="modal.donate.text"
-                    />
-                </Text>
+                <RichText
+                    components={{
+                        OpenContributeModal: (props: any) => (
+                            <TextLink brandPrimary onClick={handleDonationMinerClick}>
+                                {props?.children}
+                            </TextLink>
+                        )
+                    }}
+                    content={text}
+                    small
+                />
                 <ModalChipsWrapper>
                     <ItemsRow>
-                        {currencies.map((code: any) => (
+                        {currencies.map(({ code, label }: WalletProps) => (
                             <Chip
                                 as="a"
                                 isActive={wallet?.code === code}
                                 key={code}
                                 onClick={() => handleChipClick(code)}
                             >
-                                {getWallet(code)?.label}
+                                {label}
                                 <Currency currency={code} ml={0.5} />
                             </Chip>
                         ))}
@@ -67,12 +102,7 @@ export const Modal = (props: any) => {
                 </ModalChipsWrapper>
                 <ModalRow style={{ marginTop: 16 }}>
                     <ModalCol>
-                        <Text small>
-                            <String
-                                id="modal.donate.scanText"
-                                variables={{ currency: t(`wallet.extendedLabel.${wallet?.code}`) }}
-                            />
-                        </Text>
+                        <RichText content={copyNote} small variables={{ currency: wallet?.extendedLabel }} />
                         <Address address={wallet?.address} mt={1} />
                     </ModalCol>
                     <ModalCol>
@@ -82,12 +112,10 @@ export const Modal = (props: any) => {
             </ModalWrapper>
             <ModalFooter>
                 <Text extrabold manrope small>
-                    <String id="emailSubscribe.heading" />
+                    {subscribeHeading}
                 </Text>
                 <Subscribe mt={0.5} />
             </ModalFooter>
-        </>
+        </BaseModal>
     );
 };
-
-export const ModalDonate = withModal(Modal);
