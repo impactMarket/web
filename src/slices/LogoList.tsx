@@ -1,21 +1,37 @@
-import { ATag, Col, Div, Grid, Heading, Img, Row, Section } from '../../../theme/components';
-import { String } from '../../../components';
-import { useData } from '../../../components/DataProvider/DataProvider';
+import { ATag, Col, Div, Grid, Heading, Row, Section } from '../theme/components';
+import { PrismicImageType } from '../lib/Prismic/types';
+import Image from '../lib/Prismic/components/Image';
 import React from 'react';
 
-type PartnersType = {
+type LogoListSliceType = {
     items: {
-        image: string;
-        name: string;
+        labelIndex: number;
+        logo: PrismicImageType;
         url: string;
     }[];
-    keyLabel: string;
-}[];
+    primary: {
+        labels?: string;
+    };
+};
 
-export const Partners = () => {
-    const { page } = useData();
+type ItemType = {
+    items: {
+        logo: PrismicImageType;
+        url: string;
+    }[];
+    label: string;
+};
 
-    const partners: PartnersType = page?.partners;
+const LogoList = (props: LogoListSliceType) => {
+    const labels = (props?.primary?.labels || '').split(',').map(string => string.trim());
+    const items = labels.map((label, index) => ({
+        items: props.items
+            .filter(({ labelIndex }) => labelIndex.toString() === index.toString())
+            .map(({ labelIndex, ...other }) => other),
+        label
+    })) as ItemType[];
+
+    console.log(items);
 
     return (
         <Section>
@@ -23,7 +39,7 @@ export const Partners = () => {
                 <Row>
                     <Col center sPadding={{ sm: '3 null', xs: '2 null' }} xs={12}>
                         <Div inlineFlex sAlignItems="center" sFlexDirection={{ md: 'row', xs: 'column' }}>
-                            {partners.map(({ items, keyLabel }, itemsIndex) => (
+                            {items.map(({ items, label }, itemsIndex) => (
                                 <Div
                                     inlineFlex
                                     key={itemsIndex}
@@ -32,24 +48,24 @@ export const Partners = () => {
                                     sAlignItems="center"
                                     sFlexDirection={{ sm: 'row', xs: 'column' }}
                                 >
-                                    <Heading h6>
-                                        <String id={keyLabel} />
-                                    </Heading>
+                                    <Heading h6>{label}</Heading>
                                     <Div
                                         mt={{ sm: 0, xs: 1 }}
                                         sAlignItems="center"
                                         sFlexDirection={{ sm: 'row', xs: 'column' }}
                                     >
-                                        {items.map(({ image, name, url }, indexImage) => (
+                                        {items.map(({ logo, url }, indexImage) => (
                                             <ATag
                                                 href={url}
-                                                key={name}
+                                                key={indexImage}
                                                 ml={{ sm: 3 }}
                                                 mt={{ sm: 0, xs: indexImage ? 1.5 : 0 }}
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                             >
-                                                <Img alt={`${name} logo`} sMaxWidth="100%" sWidth={7} src={image} />
+                                                <Div sWidth={7}>
+                                                    <Image {...logo} />
+                                                </Div>
                                             </ATag>
                                         ))}
                                     </Div>
@@ -62,3 +78,5 @@ export const Partners = () => {
         </Section>
     );
 };
+
+export default LogoList;

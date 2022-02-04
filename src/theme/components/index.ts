@@ -8,6 +8,7 @@ export * from './Currency/Currency';
 export * from './DashboardCard/DashboardCard';
 export * from './DotBackground/DotBackground';
 export * from './Div/Div';
+export * from './FeatureChip/FeatureChip';
 export * from './GlobalStyle/GlobalStyle';
 export * from './GhostElement/GhostElement';
 export * from './Grid/Grid';
