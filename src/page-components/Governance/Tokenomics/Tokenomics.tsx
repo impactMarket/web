@@ -14,7 +14,12 @@ import { GeneratedPropsTypes } from '../../../theme/Types';
 import { ImpactMarketDaoContext, String } from '../../../components';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { dashboard } from '../../../apis/dashboard';
-import { circulatingSupply as getCirculatingSupply, getPACTTradingMetrics } from '@impact-market/utils';
+import {
+    circulatingSupply as getCirculatingSupply,
+    getPACTTVL,
+    getPACTTradingMetrics,
+    getUBILiquidity
+} from '@impact-market/utils';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import Api from '../../../apis/api';
@@ -41,6 +46,8 @@ type PactMetricsType = {
     totalCUSD?: number | string;
     totalLiquidityUSD?: number | string;
     transfers?: number | string;
+    daoLiquidity?: number | string;
+    daoTreasury?: number | string;
 };
 
 export const Tokenomics = (props: GeneratedPropsTypes) => {
@@ -60,6 +67,8 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
                 const response = await getPACTTradingMetrics(provider as BaseProvider);
                 const circulatingSupply = await getCirculatingSupply(provider as BaseProvider);
                 const globalDashboard = await Api.getGlobalValues();
+                const daoLiquidity = await getUBILiquidity(provider as BaseProvider);
+                const daoTreasury = await getPACTTVL(provider as BaseProvider);
 
                 const { priceUSD: priceCUSD } = response;
 
@@ -68,7 +77,15 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
                 const { value } = dashboard.getTotalRaised(globalDashboard) || {};
                 const totalCUSD = value;
 
-                setPactTradingMetrics({ ...response, circulatingSupply, marketCap, priceCUSD, totalCUSD });
+                setPactTradingMetrics({
+                    ...response,
+                    circulatingSupply,
+                    daoLiquidity,
+                    daoTreasury,
+                    marketCap,
+                    priceCUSD,
+                    totalCUSD
+                });
                 setIsLoading(false);
             } catch (error) {
                 setIsLoading(false);
@@ -113,6 +130,14 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
             return `${pactTradingMetrics[name]} cUSD`;
         }
 
+        if (name === 'daoLiquidity') {
+            return currencyValue(pactTradingMetrics?.daoLiquidity, { symbol: '$' });
+        }
+
+        if (name === 'daoTreasury') {
+            return currencyValue(pactTradingMetrics?.daoTreasury, { symbol: '~$' });
+        }
+
         return pactTradingMetrics[name] || '--';
     };
 
@@ -121,7 +146,7 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
             <Grid>
                 <Row pb={1.5} pt={1.5}>
                     {items.map(({ name, tooltip }, index) => (
-                        <Col key={index} md={4} pb={0.5} pt={0.5} sm={2} xs={12}>
+                        <Col key={index} md={3} pb={0.5} pt={0.5} sm={2} xs={12}>
                             <Item>
                                 <RichContentFormat>
                                     <Text XSmall medium textSecondary>
