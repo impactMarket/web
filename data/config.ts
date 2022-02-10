@@ -70,8 +70,8 @@ export const config = {
         { name: 'marketCap' },
         { name: 'transfers' },
         { name: 'totalCUSD' },
-        { name: 'daoLiquidity' },
-        { name: 'daoTreasury' }
+        { name: 'daoLiquidity' }
+        // { name: 'daoTreasury' }
     ],
     wallets: [
         {
