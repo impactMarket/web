@@ -69,7 +69,9 @@ export const config = {
         { name: 'tokenHolders' },
         { name: 'marketCap' },
         { name: 'transfers' },
-        { name: 'totalCUSD' }
+        { name: 'totalCUSD' },
+        { name: 'daoLiquidity' },
+        { name: 'daoTreasury' }
     ],
     wallets: [
         {
