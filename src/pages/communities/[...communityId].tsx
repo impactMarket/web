@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/named
 import { ClientConfig } from '@prismicio/client';
 import { Community } from '../../page-components';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { getServerSideString } from '../../components/TranslationProvider/TranslationProvider';
 import Api from '../../apis/api';
 import Prismic from '../../lib/Prismic/Prismic';
@@ -27,7 +27,7 @@ const getCommunity = async (communityId: string | number) => {
     }
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale: lang, params, previewData }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale: lang, params, previewData }) => {
     const clientOptions = previewData as ClientConfig;
     const { communityId } = params || {};
 
@@ -41,8 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ locale: lang, params, pre
         return {
             props: {
                 statusCode: 404
-            },
-            revalidate: 3600
+            }
         };
     }
 
@@ -63,13 +62,8 @@ export const getStaticProps: GetStaticProps = async ({ locale: lang, params, pre
             },
             meta,
             page: 'community'
-        },
-        revalidate: 3600
+        }
     };
-};
-
-export const getStaticPaths: GetStaticPaths = () => {
-    return { fallback: 'blocking', paths: [] };
 };
 
 export default Community;
