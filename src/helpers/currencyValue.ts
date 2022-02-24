@@ -13,7 +13,9 @@ const defaultOptions = {
     symbol: '$'
 };
 
-export const currencyValue = (amount: BigNumber | string | Number | number, options: OptionsType = defaultOptions) => {
+export const currencyValue = (amount: BigNumber | string | Number | number, opts: OptionsType = {}) => {
+    const options = { ...defaultOptions, ...opts };
+
     try {
         const { decimals, isToken, suffix, symbol } = options;
 
