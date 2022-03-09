@@ -15,6 +15,10 @@ const defaultOptions = {
 
 export const currencyValue = (amount: BigNumber | string | Number | number, options: OptionsType = defaultOptions) => {
     try {
+        if (amount === '-' || amount === '--') {
+            return amount;
+        }
+
         const { decimals, isToken, suffix, symbol } = options;
 
         const inputNumber = typeof amount === 'number' ? +amount.toFixed(2) : amount;
