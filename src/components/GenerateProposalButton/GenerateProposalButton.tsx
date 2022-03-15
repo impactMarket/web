@@ -42,7 +42,7 @@ type GenerateProposalButtonType = {
 
 export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
-    const { contract, description, onSuccess, proposalId, requestByAddress, ...forwardProps } = props;
+    const { contract, description, onSuccess, requestByAddress, ...forwardProps } = props;
     const { addCommunity } = useDAO();
     const { enoughVotingPowerToPropose } = useVotingPower();
     const { t } = useTranslation();
@@ -107,15 +107,16 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
         }
     };
 
-    if (proposalId) {
-        return (
-            <RichContentFormat {...forwardProps}>
-                <Text body>
-                    <String id="proposalAlreadySubmitted" variables={{ url: getVotingPlatformUrl(proposalId) }} />
-                </Text>
-            </RichContentFormat>
-        );
-    }
+    // TODO: validate if should hide the button
+    // if (proposalId) {
+    //     return (
+    //         <RichContentFormat {...forwardProps}>
+    //             <Text body>
+    //                 <String id="proposalAlreadySubmitted" variables={{ url: getVotingPlatformUrl(proposalId) }} />
+    //             </Text>
+    //         </RichContentFormat>
+    //     );
+    // }
 
     return (
         <Button
