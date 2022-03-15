@@ -20,7 +20,7 @@ export const Community = (props: any) => {
     const { city, cover, country, contract, description, id, name, proposal, requestByAddress } = props;
     const { push } = useRouter();
     const { t } = useTranslation();
-    const [submitted, setSubmitted] = useState(!!proposal?.id);
+    const [submitted, setSubmitted] = useState(false);
 
     const onSeeMoreClick = () => push(`/communities/${id}`);
 

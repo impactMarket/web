@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const ProposalBox = (props: any) => {
     const { contract, description, proposalId, requestByAddress } = props;
-    const [submitted, setSubmitted] = useState(!!proposalId);
+    const [submitted, setSubmitted] = useState(false);
     const { t } = useTranslation();
 
     return (
