@@ -32,13 +32,14 @@ type ModalData = {
 
 type ModalProps = {
     controller: ModalController;
+    communityAddress?: string;
     onSuccess?: Function;
 };
 
 const ModalGovernanceContributeContent = (props: ModalProps) => {
-    const { controller, onSuccess } = props;
+    const { controller, communityAddress, onSuccess } = props;
     const { address, connect, wrongNetwork } = useWallet();
-    const { approve, donateToTreasury } = useDonationMiner();
+    const { approve, donateToCommunity, donateToTreasury } = useDonationMiner();
     const { extractFromModals } = usePrismicData();
 
     const [approvedAmount, setApprovedAmount] = useState(0);
@@ -121,7 +122,7 @@ const ModalGovernanceContributeContent = (props: ModalProps) => {
 
         try {
             BigNumber.config({ EXPONENTIAL_AT: 29 });
-            const response = await donateToTreasury(amount);
+            const response = !!communityAddress ? await donateToCommunity(communityAddress, amount) : await donateToTreasury(amount);
 
             setIsLoading(false);
 

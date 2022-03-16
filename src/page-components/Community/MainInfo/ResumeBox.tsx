@@ -1,8 +1,9 @@
-import { AddressDonationButton, ProgressBar, String } from '../../../components';
 import { Button, DashboardCard, Div, Heading, Img, Text } from '../../../theme/components';
+import { ProgressBar, String } from '../../../components';
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
 import { mq } from 'styled-gen';
 import { numericalValue } from '../../../helpers/numericalValue';
+import { modal } from 'react-modal-handler';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import ProposalBox from './ProposalBox';
 import React from 'react';
@@ -28,6 +29,10 @@ export const ResumeBox = (props: any) => {
         }
 
         window.open(campaignUrl, '_blank');
+    };
+
+    const handleContributeClick = () => {
+        return modal.open('governanceContribute', { communityAddress: contractAddress });
     };
 
     if (status === 'pending') {
@@ -68,14 +73,15 @@ export const ResumeBox = (props: any) => {
                     </Div>
                     <ProgressBar mb={1} mt={1} progress={communityDashboardResume.getGoalProgress(props)} />
 
-                    {/* celo dollar button */}
                     <Text mt={1} sTextAlign="center" small>
                         <String id="contributeWith" />
                     </Text>
-                    <AddressDonationButton address={contractAddress} fluid mt={1}>
+
+                    {/* Contribute with DAO */}
+                    <Button fluid mt={1} onClick={handleContributeClick} >
                         <Text medium>{celoDollarLabel}</Text>
                         <Img inlineFlex ml={0.5} sHeight={1.5} sWidth="auto" src="/img/cusd.png" />
-                    </AddressDonationButton>
+                    </Button>
 
                     {/* campaign button */}
                     {campaignUrl && (
