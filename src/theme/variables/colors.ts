@@ -8,6 +8,8 @@ export const colors = {
     brandSecondary: '#73839D',
     brandSecondaryLight: '#8A9FC2',
 
+    g500: '#667085',
+
     // text
     textPrimary: '#333239',
     textSecondary: '#73839D',

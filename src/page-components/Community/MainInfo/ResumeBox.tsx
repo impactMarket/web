@@ -121,7 +121,10 @@ export const ResumeBox = (props: any) => {
                             </Div>
                         </>
                     )}
-                    <Div mt={1}>
+                    <Div column mt={1.5}>
+                        <Text center g500 small>
+                            <String id="exploreTheCommunityContract" />
+                        </Text>
                         <TextLink
                             brandPrimary
                             href={chainExplorer.replace('{{address}}', contractAddress)}
@@ -130,7 +133,9 @@ export const ResumeBox = (props: any) => {
                             rel="noopener noreferrer"
                             target="_blank"
                         >
-                            <Text XSmall>{formatAddress(contractAddress)}</Text>
+                            <Text lead1 semibold>
+                                {formatAddress(contractAddress, [6, 5])}
+                            </Text>
                         </TextLink>
                     </Div>
                 </DashboardCard>
