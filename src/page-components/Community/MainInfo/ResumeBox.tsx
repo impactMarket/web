@@ -1,13 +1,17 @@
-import { Button, DashboardCard, Div, Heading, Img, Text } from '../../../theme/components';
+import { Button, DashboardCard, Div, Heading, Img, Text, TextLink } from '../../../theme/components';
 import { ProgressBar, String } from '../../../components';
 import { communityDashboardResume } from '../../../apis/communityDashboardResume';
+import { formatAddress } from '../../../helpers/formatAddress';
+import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';
 import { numericalValue } from '../../../helpers/numericalValue';
-import { modal } from 'react-modal-handler';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import ProposalBox from './ProposalBox';
 import React from 'react';
+import config from '../../../../config';
 import styled, { css } from 'styled-components';
+
+const { chainExplorer } = config;
 
 const celoDollarLabel = 'Celo Dollar ($cUSD)';
 
@@ -78,7 +82,7 @@ export const ResumeBox = (props: any) => {
                     </Text>
 
                     {/* Contribute with DAO */}
-                    <Button fluid mt={1} onClick={handleContributeClick} >
+                    <Button fluid mt={1} onClick={handleContributeClick}>
                         <Text medium>{celoDollarLabel}</Text>
                         <Img inlineFlex ml={0.5} sHeight={1.5} sWidth="auto" src="/img/cusd.png" />
                     </Button>
@@ -117,6 +121,18 @@ export const ResumeBox = (props: any) => {
                             </Div>
                         </>
                     )}
+                    <Div mt={1}>
+                        <TextLink
+                            brandPrimary
+                            href={chainExplorer.replace('{{address}}', contractAddress)}
+                            ml="auto"
+                            mr="auto"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <Text XSmall>{formatAddress(contractAddress)}</Text>
+                        </TextLink>
+                    </Div>
                 </DashboardCard>
             </Wrapper>
         </Div>
