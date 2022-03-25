@@ -116,8 +116,8 @@ const miscVariations = {
 const sizeVariations = {
     default: css`
         font-size: 18px;
-        height: 44px;
-        padding: 0 26px;
+        min-height: 44px;
+        padding: 8px 26px;
     `,
 
     large: css`
@@ -129,40 +129,40 @@ const sizeVariations = {
 
     pagination: css`
         font-size: 14px;
-        height: 44px;
-        padding: 0 16px;
+        min-height: 44px;
+        padding: 4px 16px;
         min-width: 44px;
     `,
 
     small: css`
         font-size: 14px;
-        height: 44px;
-        padding: 0 16px;
+        min-height: 44px;
+        padding: 4px 16px;
     `,
 
     smaller: css`
         font-size: 14px;
-        height: 36px;
-        padding: 0 1.5rem;
+        min-height: 36px;
+        padding: 4px 24px;
     `,
 
     smallest: css`
         font-size: 14px;
-        height: 24px;
-        padding: 0 0.625rem;
+        min-height: 24px;
+        padding: 2px 10px;
     `,
 
     thin: css`
         border-width: 1px;
         font-size: 16;
-        height: 44px;
-        padding: 0 26px;
+        min-height: 44px;
+        padding: 8px 26px;
     `,
 
     tight: css`
         font-size: 18px;
-        height: 40px;
-        padding: 0 8px;
+        min-height: 40px;
+        padding: 2px 8px;
     `
 };
 
