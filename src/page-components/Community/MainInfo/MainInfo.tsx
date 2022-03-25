@@ -62,11 +62,7 @@ export const MainInfo = (props: ICommunity) => {
                                 {parse(description)}
                             </Text>
                         </Div>
-                    </Col>
-                    <Col md={4} mt={{ sm: 0, xs: 1.5 }} sm={6} xs={12}>
-                        <ResumeBox campaignUrl={campaignUrl} {...props} />
-                    </Col>
-                    <Col md={8} sm={6} xs={12}>
+
                         {/* Managers */}
                         {!!activeManagers?.length && (
                             <Div column mt={2}>
@@ -95,6 +91,9 @@ export const MainInfo = (props: ICommunity) => {
                                 </Div>
                             </Div>
                         )}
+                    </Col>
+                    <Col md={4} mt={{ sm: 0, xs: 1.5 }} sm={6} xs={12}>
+                        <ResumeBox campaignUrl={campaignUrl} {...props} />
                     </Col>
                 </Row>
             </Grid>
