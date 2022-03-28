@@ -68,7 +68,7 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
     }, []);
 
     return (
-        <Section sBackground="brandPrimary">
+        <Section id="numbers" sBackground="brandPrimary">
             <Grid sPadding="4 null">
                 <Row>
                     <Col center xs={12}>
