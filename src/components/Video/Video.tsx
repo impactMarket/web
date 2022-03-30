@@ -6,6 +6,21 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import styled, { css } from 'styled-components';
 
+type VideoFormat = '16:9' | '21:9' | '4:3';
+
+type VideoType = {
+    embedUrl?: string;
+    format: VideoFormat;
+    providerName?: string;
+    thumbnailUrl?: string;
+} & GeneratedPropsTypes;
+
+const getFormatPercentage = (format: VideoFormat) => {
+    const [width, height] = format.split(':');
+
+    return (+height / +width) * 100;
+};
+
 // #region === style ===
 const CoverImage = styled.div<{ image?: string; isActive?: boolean }>`
     ${position('absolute', 0)};
@@ -29,10 +44,10 @@ const CoverImage = styled.div<{ image?: string; isActive?: boolean }>`
         `}
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ format: VideoFormat }>`
     border-radius: 0.5rem;
     overflow: hidden;
-    padding-bottom: 56.25%;
+    padding-bottom: ${({ format }) => getFormatPercentage(format)}%;
     position: relative;
     width: 100%;
     background: red;
@@ -45,14 +60,10 @@ const Wrapper = styled.div`
 `;
 // #endregion === style ===
 
-type VideoType = {
-    embedUrl?: string;
-    providerName?: string;
-    thumbnailUrl?: string;
-} & GeneratedPropsTypes;
-
 export const Video = (props: VideoType) => {
     const { embedUrl, providerName, thumbnailUrl, ...forwardProps } = props;
+
+    console.log(props);
 
     const [playing, setIsPlaying] = useState(false);
 

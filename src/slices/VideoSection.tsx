@@ -6,6 +6,7 @@ import RichText from '../lib/Prismic/components/RichText';
 
 type VideoSectionSliceType = {
     primary: {
+        format?: '16:9' | '21:9' | '4:3';
         text?: PrismicRichTextType;
         title?: string;
         video: {
@@ -17,7 +18,7 @@ type VideoSectionSliceType = {
 
 const VideoSection = (props: VideoSectionSliceType) => {
     const { primary } = props;
-    const { text, title, video } = primary;
+    const { format, text, title, video } = primary;
     const { embedUrl, providerName } = video;
 
     if (!embedUrl || providerName !== 'YouTube') {
@@ -39,7 +40,7 @@ const VideoSection = (props: VideoSectionSliceType) => {
                 </Row>
                 <Row>
                     <Col mt={{ sm: 3.125, xs: 2 }} xs={12}>
-                        <Video {...video} />
+                        <Video {...video} format={format || '16:9'} />
                     </Col>
                 </Row>
             </Grid>
