@@ -6,7 +6,7 @@ import {
     useConnectedSigner,
     useContractKit
 } from '@celo-tools/use-contractkit';
-import { ImpactMarketProvider } from '@impact-market/utils';
+import { ImpactProvider } from '@impact-market/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
 import { useRouter } from 'next/router';
@@ -34,7 +34,7 @@ const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 export const ImpactMarketDaoContext = createContext<ContextProps>({});
 
 const Wrapper = (props: any) => {
-    const { address, connect, destroy, initialised, network: walletNetwork } = useContractKit();
+    const { address, connect, destroy, initialised, network: walletNetwork, kit } = useContractKit();
     const { asPath, query, isReady, push } = useRouter();
     const { children, provider } = props;
     const signer = useConnectedSigner();
@@ -76,9 +76,9 @@ const Wrapper = (props: any) => {
                 wrongNetwork
             }}
         >
-            <ImpactMarketProvider address={address} provider={provider} signer={signer}>
+            <ImpactProvider address={address} jsonRpc={rpcUrl} web3={kit.web3}>
                 {children}
-            </ImpactMarketProvider>
+            </ImpactProvider>
         </ImpactMarketDaoContext.Provider>
     );
 };
