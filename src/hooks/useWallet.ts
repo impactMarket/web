@@ -1,8 +1,12 @@
-import { ImpactMarketDaoContext } from '../components';
-import React from 'react';
+import { Alfajores, CeloMainnet, useContractKit } from '@celo-tools/use-contractkit';
+import config from '../../config';
+
+const network = config.isDaoTestnet ? Alfajores : CeloMainnet;
 
 export const useWallet = () => {
-    const { address, connect: connectFromHook, destroy, wrongNetwork } = React.useContext(ImpactMarketDaoContext);
+    const { address, connect: connectFromHook, destroy, network: walletNetwork } = useContractKit();
+
+    const wrongNetwork = network?.chainId !== walletNetwork?.chainId;
 
     const connect = async (callback?: Function) => {
         try {

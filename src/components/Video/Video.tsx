@@ -63,8 +63,6 @@ const Wrapper = styled.div<{ format: VideoFormat }>`
 export const Video = (props: VideoType) => {
     const { embedUrl, providerName, thumbnailUrl, ...forwardProps } = props;
 
-    console.log(props);
-
     const [playing, setIsPlaying] = useState(false);
 
     if (!embedUrl || providerName !== 'YouTube') {

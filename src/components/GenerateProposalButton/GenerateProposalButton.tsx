@@ -2,8 +2,9 @@ import { Button, RichContentFormat, Text } from '../../theme/components';
 import { CommunityContractAttributes } from '../../apis/types';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '../String/String';
-import { frequencyToText, toNumber, toToken, useDAO, useVotingPower } from '@impact-market/utils';
+import { frequencyToText, hasPACTVotingPower, toNumber, toToken, useDAO } from '@impact-market/utils';
 import { toast } from '../Toaster/Toaster';
+import { useProvider } from '@celo-tools/use-contractkit';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useEffect, useState } from 'react';
@@ -44,17 +45,25 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
     const { contract, description, onSuccess, requestByAddress, ...forwardProps } = props;
     const { addCommunity } = useDAO();
-    const { enoughVotingPowerToPropose } = useVotingPower();
     const { t } = useTranslation();
 
+    const provider = useProvider();
+
     const [isLoading, setIsLoading] = useState(false);
+    const [hasVotingPower, setHasVotingPower] = useState(false);
     const [votingPower, setVotingPower] = useState('pending');
 
     useEffect(() => {
-        if (typeof enoughVotingPowerToPropose === 'boolean') {
-            setVotingPower(enoughVotingPowerToPropose ? 'yes' : 'no');
+        if (typeof hasVotingPower === 'boolean') {
+            setVotingPower(hasVotingPower ? 'yes' : 'no');
         }
-    }, [enoughVotingPowerToPropose]);
+    }, [hasVotingPower]);
+
+    useEffect(() => {
+        if (address) {
+            hasPACTVotingPower(provider as any, address).then(has => setHasVotingPower(has));
+        }
+    }, [address, provider]);
 
     const handleClick = async () => {
         if (isLoading) {
@@ -85,7 +94,7 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
                 proposalTitle: `[New Community] ${name}`
             };
 
-            const responseId = await addCommunity(data);
+            const responseId = await addCommunity(data as any);
 
             if (responseId) {
                 setIsLoading(false);

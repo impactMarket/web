@@ -1,4 +1,3 @@
-import { BaseProvider } from '@ethersproject/providers';
 import {
     Col,
     Div,
@@ -64,11 +63,11 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         const loadPactPriceVolumeLiquidity = async () => {
             setIsLoading(true);
             try {
-                const response = await getPACTTradingMetrics(provider as BaseProvider);
-                const circulatingSupply = await getCirculatingSupply(provider as BaseProvider);
+                const response = await getPACTTradingMetrics(provider as any);
+                const circulatingSupply = await getCirculatingSupply(provider as any);
                 const globalDashboard = await Api.getGlobalValues();
-                const daoLiquidity = await getUBILiquidity(provider as BaseProvider);
-                const daoTreasury = await getPACTTVL(provider as BaseProvider);
+                const daoLiquidity = await getUBILiquidity(provider as any);
+                const daoTreasury = await getPACTTVL(provider as any);
 
                 const { priceUSD: priceCUSD } = response;
 

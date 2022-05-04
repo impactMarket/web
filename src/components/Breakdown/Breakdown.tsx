@@ -197,7 +197,7 @@ const Airgrab = (props: { address?: string; onUpdate: Function }) => {
 
 const Rewards = (props: { onUpdate: Function }) => {
     const { onUpdate } = props;
-    const { claimRewards, rewards } = useRewards();
+    const { claim, rewards } = useRewards();
     const { t } = useTranslation();
     const [claimIsLoading, setClaimIsLoading] = useState(false);
 
@@ -209,7 +209,7 @@ const Rewards = (props: { onUpdate: Function }) => {
         setClaimIsLoading(true);
 
         try {
-            const response = await claimRewards();
+            const response = await claim();
 
             setClaimIsLoading(false);
 
@@ -224,7 +224,7 @@ const Rewards = (props: { onUpdate: Function }) => {
             setClaimIsLoading(false);
             toast.error(t('toast.claimError'));
         }
-    }, [claimRewards, claimIsLoading]);
+    }, [claim, claimIsLoading]);
 
     return (
         <Div column mt={1} sWidth="100%">

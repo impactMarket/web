@@ -56,7 +56,7 @@ export const ContributeAmountInput = (props: ContributeAmountInputProps) => {
     const [value, setValue] = useState<any>('');
     const [error, setError] = useState<any>('');
     const inputRef = useRef<HTMLInputElement>();
-    const { balance: balanceCUSD } = useCUSDBalance();
+    const balanceCUSD = useCUSDBalance();
     const { t } = useTranslation();
 
     // const handleMaxSet = useCallback(() => {

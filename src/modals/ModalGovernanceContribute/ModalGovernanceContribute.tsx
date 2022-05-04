@@ -83,7 +83,7 @@ const ModalGovernanceContributeContent = (props: ModalProps) => {
 
         try {
             BigNumber.config({ EXPONENTIAL_AT: 29 });
-            const response = await approve(amount, communityAddress);
+            const response = await approve(amount);
 
             setIsLoading(false);
 
@@ -122,7 +122,9 @@ const ModalGovernanceContributeContent = (props: ModalProps) => {
 
         try {
             BigNumber.config({ EXPONENTIAL_AT: 29 });
-            const response = !!communityAddress ? await donateToCommunity(communityAddress, amount) : await donateToTreasury(amount);
+            const response = !!communityAddress
+                ? await donateToCommunity(communityAddress, amount)
+                : await donateToTreasury(amount);
 
             setIsLoading(false);
 
