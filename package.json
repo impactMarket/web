@@ -10,8 +10,9 @@
         "translations": "node ./utils/getTranslationsFromPrismic"
     },
     "dependencies": {
+        "@apollo/client": "^3.6.2",
         "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@1.0.10",
-        "@impact-market/utils": "1.0.42",
+        "@impact-market/utils": "2.0.0-beta.11",
         "@prismicio/client": "^6.1.0",
         "@prismicio/react": "^2.0.3",
         "@prismicio/types": "^0.1.22",
@@ -20,6 +21,7 @@
         "date-fns": "^2.23.0",
         "dotenv": "^14.2.0",
         "ethers": "^5.4.7",
+        "graphql": "^16.4.0",
         "html-react-parser": "^1.2.4",
         "humanify-numbers": "^1.1.5",
         "js-cookie": "^3.0.1",

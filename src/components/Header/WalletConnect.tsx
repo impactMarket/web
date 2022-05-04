@@ -52,7 +52,7 @@ const WalletWrapper = styled.div<any>`
 `;
 
 const PactBalance = () => {
-    const { balance: pact } = usePACTBalance();
+    const pact = usePACTBalance();
 
     return (
         <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} small>
