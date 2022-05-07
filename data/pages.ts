@@ -89,7 +89,7 @@ export const pages: { [key: string]: object } = {
                     { name: 'raised' },
                     { name: 'ubiContract' }
                 ],
-                initialRows: 3
+                initialRows: 5
             }
         },
         distribution: {

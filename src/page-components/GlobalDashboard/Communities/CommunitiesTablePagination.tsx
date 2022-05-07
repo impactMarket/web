@@ -1,13 +1,19 @@
 import { Div, IconButton, Select, Text } from '../../../theme/components';
 import { String } from '../../../components';
+import { mq } from 'styled-gen';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const PaginationWrapper = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     padding: 1rem;
     width: 100%;
+
+    ${mq.tablet(css`
+        flex-direction: row;
+    `)}
 `;
 
 const selectOptions = [
@@ -44,7 +50,7 @@ export const CommunitiesTablePagination = (props: PaginationProps) => {
 
     return (
         <PaginationWrapper>
-            <Div sAlignItems="center" sDisplay={{ md: 'flex', xs: 'none' }}>
+            <Div sAlignItems="center" sDisplay="flex">
                 <Text XXSmall>
                     <String id="rowsPerPage" />:
                 </Text>
@@ -56,11 +62,11 @@ export const CommunitiesTablePagination = (props: PaginationProps) => {
                     renderSelected={SelectedRows}
                 />
             </Div>
-            <Div ml="auto" sAlignItems="center">
+            <Div ml={{ sm: 'auto' }} mt={{ sm: 0, xs: 0.5 }} sAlignItems="center">
                 <Text XXSmall sDisplay="inline-flex">
                     <String id="communitiesPagination" variables={{ first, last, total: count }} />
                 </Text>
-                <Div ml={1.5}>
+                <Div ml={{ sm: 1.5, xs: 'auto' }}>
                     <IconButton disabled={!canPreviousPage} icon="left" onClick={previousPage} />
                     <IconButton disabled={!canNextPage} icon="right" onClick={nextPage} />
                 </Div>
