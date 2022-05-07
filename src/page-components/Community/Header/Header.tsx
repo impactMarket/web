@@ -14,19 +14,17 @@ type HeaderProps = {
     gps?: IClaimLocationGps;
 };
 
-type ImageProps = {
-    image: string;
-};
-
-const Image = styled.div<ImageProps>`
-    background-image: url('${({ image }) => image}');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 12px;
-    overflow: hidden;
+const Image = styled.picture`
     padding-top: 100%;
     width: 100%;
+
+    img {
+        border-radius: 12px;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        width: 100%;
+    }
 `;
 
 const MapWrapper = styled.div`
@@ -50,7 +48,10 @@ export const Header = (props: HeaderProps) => {
             <Grid>
                 <Row reverse>
                     <Col md={4} sm={6} xs={12}>
-                        <Image image={cover?.url} />
+                        <Image>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img alt="Community cover image" src={cover?.url} />
+                        </Image>
                     </Col>
                     {!!claims?.length && (
                         <Col md={8} mt={{ sm: 0, xs: 1 }} sm={6} xs={12}>
