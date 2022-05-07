@@ -13,6 +13,7 @@ import { getThumbnailCoverImage } from '../../../helpers/getCoverImage';
 import { numericalValue } from '../../../helpers/numericalValue';
 import { useRouter } from 'next/router';
 import Api from '../../../apis/api';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import countriesJson from '../../../constants/countries.json';
 import debounce from 'lodash/debounce';
@@ -37,7 +38,7 @@ export const CommunityList = () => {
     const [skeleton, setSkeleton] = useState([]);
     const [windowWidth, setWindowWidth] = useState<keyof typeof limitPerWindowSize | undefined>();
     const router = useRouter();
-    const { isReady, pathname, replace, query, push } = router;
+    const { isReady, pathname, replace, query } = router;
     const { country, filter, name, page } = query;
 
     useEffect(() => {
@@ -91,10 +92,6 @@ export const CommunityList = () => {
             getCommunities();
         }
     }, [windowWidth, country, filter, name, page]);
-
-    const handleCommunityClick = (communityId: string | number) => {
-        push(`communities/${communityId}`);
-    };
 
     const handleChange = (param: string, value: string | number) => {
         if (query[param] === value) {
@@ -173,28 +170,35 @@ export const CommunityList = () => {
                                 <CommunityListWrapper>
                                     {communities.map((community: any, index: number) => (
                                         <CommunityListItem key={index} withLink>
-                                            <CommunityListItemLink onClick={() => handleCommunityClick(community?.id)}>
-                                                <CommunityListItemImage
-                                                    image={getThumbnailCoverImage(community?.cover)}
-                                                />
-                                                <Text bold ellipsis manrope mt={0.5} small>
-                                                    {community?.name}
-                                                </Text>
-                                                <Div textSecondary>
-                                                    <Div sHeight={1.375}>
-                                                        <Icon icon="community" sHeight="auto" sWidth={0.75} />
-                                                    </Div>
-                                                    <Text ml={0.25} small>
-                                                        {numericalValue(community?.state?.beneficiaries)}
+                                            <Link href={`/communities/${community?.id}`} passHref>
+                                                <CommunityListItemLink>
+                                                    <CommunityListItemImage
+                                                        image={getThumbnailCoverImage(community?.cover)}
+                                                    />
+                                                    <Text bold ellipsis manrope mt={0.5} small>
+                                                        {community?.name}
                                                     </Text>
-                                                    <Div sHeight={1.375}>
-                                                        <Icon icon="location" ml={0.5} sHeight="auto" sWidth={0.5} />
+                                                    <Div textSecondary>
+                                                        <Div sHeight={1.375}>
+                                                            <Icon icon="community" sHeight="auto" sWidth={0.75} />
+                                                        </Div>
+                                                        <Text ml={0.25} small>
+                                                            {numericalValue(community?.state?.beneficiaries)}
+                                                        </Text>
+                                                        <Div sHeight={1.375}>
+                                                            <Icon
+                                                                icon="location"
+                                                                ml={0.5}
+                                                                sHeight="auto"
+                                                                sWidth={0.5}
+                                                            />
+                                                        </Div>
+                                                        <Text ml={0.25} small>
+                                                            {countries?.[community?.country]?.name}
+                                                        </Text>
                                                     </Div>
-                                                    <Text ml={0.25} small>
-                                                        {countries?.[community?.country]?.name}
-                                                    </Text>
-                                                </Div>
-                                            </CommunityListItemLink>
+                                                </CommunityListItemLink>
+                                            </Link>
                                         </CommunityListItem>
                                     ))}
                                 </CommunityListWrapper>
