@@ -72,7 +72,6 @@ export const OptionList = styled.div<{ isVisible?: boolean } & OptionListProps>`
             padding: 0.5rem;
             top: calc(100% + 0.5rem);
             transform: translateY(1rem);
-            width: 100%;
 
             ${mq.tablet(css`
                 min-width: 8.25rem;
