@@ -23,7 +23,7 @@ export const HealingMap = () => {
                 <Row>
                     <Col xs={12}>
                         <DashboardCard sPadding="0">
-                            <Div sHeight={22}>{claims && <Map claims={claims} />}</Div>
+                            <Div sHeight={27}>{claims && <Map claims={claims} />}</Div>
                         </DashboardCard>
                     </Col>
                 </Row>
