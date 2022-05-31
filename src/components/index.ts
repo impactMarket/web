@@ -1,5 +1,6 @@
 export * from './Address/Address';
 export * from './AddressDonationButton/AddressDonationButton';
+export * from './BoldInput/BoldInput';
 export * from './Breakdown/Breakdown';
 export * from './CommunitySubmissionWarnings/CommunitySubmissionWarnings';
 export * from './ContributeAmountInput/ContributeAmountInput';

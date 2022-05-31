@@ -1,7 +1,7 @@
 import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
-import { darken } from 'polished';
+import { darken, rgba } from 'polished';
 import { ease, generateProps, transitions, variations } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
 import Link from 'next/link';
@@ -21,6 +21,21 @@ const colorVariations = {
 
         &:disabled {
             background-color: ${colors.brandPrimaryDisabled};
+        }
+    `,
+
+    errorBkg: css`
+        background-color: ${colors.error};
+        color: ${colors.white};
+
+        &:not(:disabled) {
+            &:hover {
+                box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        &:disabled {
+            background-color: ${rgba(colors.error, 0.5)};
         }
     `,
 
@@ -79,18 +94,30 @@ const colorVariations = {
         }
     `,
 
+    silenced: css`
+        background-color: ${colors.backgroundSecondary};
+        color: ${colors.brandBlack};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.backgroundSecondary)};
+                color: ${darken(0.5, colors.brandBlack)};
+            }
+        }
+    `,
+
     successBkg: css`
         background-color: ${colors.success};
         color: ${colors.white};
 
         &:not(:disabled) {
             &:hover {
-                box-shadow: 0 0 24px rgba(0, 0, 0, 0.24);
+                box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
             }
         }
 
         &:disabled {
-            background-color: ${colors.inactive};
+            background-color: ${rgba(colors.success, 0.5)};
         }
     `,
 

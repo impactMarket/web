@@ -3,6 +3,7 @@ import { numericalValue } from './numericalValue';
 
 type OptionsType = {
     decimals?: boolean;
+    fixed?: number;
     suffix?: string;
     isToken?: boolean;
     symbol?: string;
@@ -19,11 +20,11 @@ export const currencyValue = (amount: BigNumber | string | Number | number, opti
             return amount;
         }
 
-        const { decimals, isToken, suffix, symbol } = options;
+        const { decimals, fixed, isToken, suffix, symbol } = options;
 
-        const inputNumber = typeof amount === 'number' ? +amount.toFixed(2) : amount;
+        const inputNumber = typeof amount === 'number' ? +amount.toFixed(fixed !== undefined ? fixed : 2) : amount;
 
-        const value = numericalValue(inputNumber, decimals);
+        const value = numericalValue(inputNumber, decimals, fixed);
 
         if (typeof value !== 'string' && isNaN(+value)) {
             return;

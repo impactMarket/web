@@ -5,3 +5,4 @@ export * from './Fundraise/Fundraise';
 export * from './GlobalDashboard/GlobalDashboard';
 export * from './Governance/Governance';
 export * from './Homepage/Homepage';
+export * from './Staking/Staking';
