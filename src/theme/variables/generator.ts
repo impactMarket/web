@@ -36,6 +36,7 @@ export const generator = {
 
     // Variable props
     variableProps: [
+        { name: 'sAlpha', cssProp: 'opacity' },
         { name: 'sAlignItems', list: flexAlignments.alignItemsAligments, cssProp: 'align-items' },
         { name: 'sBackground', list: colors, cssProp: 'background-color' },
         { name: 'sBorderColor', list: colors, cssProp: 'border-color' },
