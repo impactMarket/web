@@ -98,6 +98,8 @@ const MapComponent = (props: MapProps) => {
             };
 
             map.on('load', () => {
+                map.resize();
+                map.setZoom(mapPos.zoom);
                 cookies.set('lng', map.getCenter().lng, { path: '/' });
                 cookies.set('lat', map.getCenter().lat, { path: '/' });
                 cookies.set('zoom', map.getZoom(), { path: '/' });
