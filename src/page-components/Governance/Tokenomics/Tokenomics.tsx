@@ -24,6 +24,8 @@ import { useData } from '../../../components/DataProvider/DataProvider';
 import Api from '../../../apis/api';
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import envConfig from '../../../../config';
 
 const Item = styled.div`
     position: relative;
@@ -51,7 +53,7 @@ type PactMetricsType = {
 
 export const Tokenomics = (props: GeneratedPropsTypes) => {
     const { config } = useData();
-    const { provider } = useContext(ImpactMarketDaoContext);
+    const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
 
     const [isLoading, setIsLoading] = useState(false);
 
