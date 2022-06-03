@@ -2,9 +2,8 @@
 import { Col, Grid, Row, Section } from '../../../theme/components';
 import { IClaimLocationGps } from '../../../apis/types';
 import { Map } from '../../../components';
-import { mq } from 'styled-gen';
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 type HeaderProps = {
     cover?: {
@@ -21,7 +20,6 @@ const Image = styled.picture`
     img {
         border-radius: 12px;
         height: 100%;
-        max-height: 300px;
         object-fit: cover;
         overflow: hidden;
         width: 100%;
@@ -30,13 +28,9 @@ const Image = styled.picture`
 
 const MapWrapper = styled.div`
     border-radius: 12px;
-    height: 6.5rem;
+    height: 100%;
     overflow: hidden;
     width: 100%;
-
-    ${mq.tablet(css`
-        height: 100%;
-    `)};
 `;
 
 export const Header = (props: HeaderProps) => {
@@ -48,14 +42,14 @@ export const Header = (props: HeaderProps) => {
         <Section>
             <Grid>
                 <Row reverse>
-                    <Col md={4} sm={6} xs={12}>
+                    <Col md={4} sHeight={{ md: '30vw', sm: '45vw', xs: '90vw' }} sMaxHeight="400px" sm={6} xs={12}>
                         <Image>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img alt="Community cover image" src={cover?.url} />
                         </Image>
                     </Col>
                     {!!claims?.length && (
-                        <Col md={8} mt={{ sm: 0, xs: 1 }} sm={6} xs={12}>
+                        <Col md={8} mt={{ sm: 0, xs: 1 }} sMinHeight="6.5rem" sm={6} xs={12}>
                             <MapWrapper>
                                 <Map claims={claims} />
                             </MapWrapper>
