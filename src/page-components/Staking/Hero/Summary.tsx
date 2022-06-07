@@ -30,7 +30,7 @@ const Item = styled.div`
 
 export const Summary = () => {
     const { staking } = useStaking();
-    const { apr, stakedAmount } = staking || {};
+    const { apr, stakedAmount, totalStaked } = staking || {};
 
     const { extractFromPage } = usePrismicData();
 
@@ -42,6 +42,10 @@ export const Summary = () => {
         }
 
         if (helper === 'total') {
+            return currencyValue(totalStaked, { isToken: true, symbol: 'PACT' });
+        }
+
+        if (helper === 'myTotal') {
             return currencyValue(stakedAmount, { isToken: true, symbol: 'PACT' });
         }
 
