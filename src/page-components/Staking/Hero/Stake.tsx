@@ -29,7 +29,7 @@ export const Stake = () => {
     const balance = currencyValue(pact, { isToken: true, symbol: 'PACT' });
 
     useEffect(() => {
-        if (+approvedAmount >= +value) {
+        if (!!value && +approvedAmount >= +value) {
             setWithApprovedAmount(true);
         }
 
@@ -91,6 +91,8 @@ export const Stake = () => {
             }
 
             setValue('');
+            setApprovedAmount(0);
+            setWithApprovedAmount(false);
 
             return toast.success(
                 <RichText
