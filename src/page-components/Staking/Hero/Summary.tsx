@@ -30,7 +30,7 @@ const Item = styled.div`
 
 export const Summary = () => {
     const { staking } = useStaking();
-    const { generalAPR, stakedAmount, totalStaked, userAPR } = staking || {};
+    const { estimateClaimableRewardByStaking, generalAPR, stakedAmount, totalStaked, userAPR } = staking || {};
 
     const { extractFromPage } = usePrismicData();
 
@@ -51,6 +51,10 @@ export const Summary = () => {
 
         if (helper === 'generalApr') {
             return `${numericalValue(generalAPR)}%`;
+        }
+
+        if (helper === 'estimatedFromStaking') {
+            return currencyValue(estimateClaimableRewardByStaking, { isToken: true, symbol: 'PACT' });
         }
 
         // if (helper === 'earned') {
