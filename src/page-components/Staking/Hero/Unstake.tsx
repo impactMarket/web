@@ -4,6 +4,7 @@ import { currencyValue } from '../../../helpers/currencyValue';
 import { toast } from '../../../components/Toaster/Toaster';
 import { usePrismicData } from '../../../lib/Prismic/components/PrismicDataProvider';
 import { useStaking } from '@impact-market/utils';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import RichText from '../../../lib/Prismic/components/RichText';
@@ -13,12 +14,15 @@ export const Unstake = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [claimIsLoading, setClaimIsLoading] = useState(false);
 
+    const { t } = useTranslation();
+
     const { claim, staking, unstake } = useStaking();
-    const { claimableUnstaked, stakedAmount } = staking || {};
+    const { claimableUnstaked, stakedAmount, unstakeCooldown } = staking || {};
 
     const { extractFromPage } = usePrismicData();
 
     const toastMessages = extractFromPage('toastMessages') || ({} as any);
+    const { unstakeTooltip } = extractFromPage('string') as any;
 
     const handleUnstake = async () => {
         if (value > stakedAmount || isLoading) {
@@ -158,6 +162,15 @@ export const Unstake = () => {
                     </Div>
                 </BoldInput>
             </Div>
+
+            {/* Info footnote */}
+            {!!unstakeCooldown && (
+                <Div mt={1}>
+                    <Text center>
+                        <RichText content={unstakeTooltip} variables={{ period: `${unstakeCooldown} ${t('days')}` }} />
+                    </Text>
+                </Div>
+            )}
         </>
     );
 };
