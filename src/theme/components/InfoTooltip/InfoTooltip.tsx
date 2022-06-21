@@ -3,6 +3,7 @@ import { Icon } from '../Icon/Icon';
 import { colors } from '../../variables/colors';
 import { ease, mq, transitions } from 'styled-gen';
 import React from 'react';
+// eslint-disable-next-line import/named
 import styled, { ThemeProps, css } from 'styled-components';
 
 type TypeWithPosition = {
@@ -42,7 +43,7 @@ const Tip = styled.div<TypeWithPosition>`
     top: 100%;
     transform: translate(0, 2rem);
     visibility: hidden;
-    max-width: 12rem;
+    max-width: 20rem;
     z-index: 999;
 
     ${mq.tabletLandscape(css`

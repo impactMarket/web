@@ -36,6 +36,7 @@ export const bodySizes = {
 
 export const headingSizes = {
     h1: { md: [48, 54], xs: [36, 45] },
+    h1Alt: { md: [41, 56], xs: [36, 45] },
     h2: [32, 42],
     h3: [24, 36],
     h4: [22, 32],

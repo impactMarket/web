@@ -50,7 +50,7 @@ type RichTextProps = {
     components?: {
         [key: string]: any;
     };
-    content: PrismicRichTextType;
+    content: PrismicRichTextType | string;
     serializerProps?: {
         paragraph?: TextProps;
         hyperlink?: TextProps;
@@ -65,24 +65,28 @@ const RichText = (props: RichTextProps) => {
 
     return (
         <Text div {...forwardProps}>
-            <RichContentFormat>
-                <PrismicRichText
-                    // eslint-disable-next-line max-params
-                    components={(type, node, content, children, key) =>
-                        serializer({
-                            children,
-                            components,
-                            content,
-                            key,
-                            node,
-                            serializerProps,
-                            type,
-                            variables
-                        })
-                    }
-                    field={content}
-                />
-            </RichContentFormat>
+            {typeof content === 'string' ? (
+                bracked(content, variables)
+            ) : (
+                <RichContentFormat>
+                    <PrismicRichText
+                        // eslint-disable-next-line max-params
+                        components={(type, node, content, children, key) =>
+                            serializer({
+                                children,
+                                components,
+                                content,
+                                key,
+                                node,
+                                serializerProps,
+                                type,
+                                variables
+                            })
+                        }
+                        field={content}
+                    />
+                </RichContentFormat>
+            )}
         </Text>
     );
 };
