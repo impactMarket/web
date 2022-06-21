@@ -31,7 +31,7 @@ export const Hero = () => {
 
     const tabs = [t('stake'), t('unstake'), t('summary')];
 
-    const { apr, stakedAmount } = staking || {};
+    const { stakedAmount, userAPR } = staking || {};
 
     const { connectYourWallet, noStakingYet, stakingApr, youHaveStaked } = extractFromPage('string') as any;
 
@@ -56,7 +56,7 @@ export const Hero = () => {
                                 {!!address && !wrongNetwork && (
                                     <>
                                         <Heading center>
-                                            {stakingApr}: {numericalValue(apr)}%
+                                            {stakingApr}: {numericalValue(userAPR)}%
                                         </Heading>
                                         <Text brandBlack center mt={0.75} sAlpha={0.6}>
                                             {stakedAmount
