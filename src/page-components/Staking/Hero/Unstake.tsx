@@ -166,7 +166,7 @@ export const Unstake = () => {
             {/* Info footnote */}
             {!!unstakeCooldown && (
                 <Div mt={1}>
-                    <Text center>
+                    <Text center div>
                         <RichText content={unstakeTooltip} variables={{ period: `${unstakeCooldown} ${t('days')}` }} />
                     </Text>
                 </Div>

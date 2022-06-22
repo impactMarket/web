@@ -47,7 +47,7 @@ export const Hero = () => {
                         <RichText content={text} mt={1} />
                     </Col>
                     <Col md={5.5} mdOffset={1} mt={{ md: 0, xs: 2 }} xs={12}>
-                        <Card sHeight="100%">
+                        <Card longRadius noBorder sHeight="100%">
                             <CardContent>
                                 {!address && (
                                     <Text brandSecondary center small>

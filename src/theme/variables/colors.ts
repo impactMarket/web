@@ -34,6 +34,7 @@ export const colors = {
     warning: '#FE9A22',
     warningLight: '#FFEEDA',
     yellow: '#FFC278',
+    lightYellow: '#FFF0CC',
     inactive: '#DCDEE2',
 
     // others

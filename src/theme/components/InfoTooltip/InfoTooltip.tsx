@@ -37,14 +37,24 @@ const Tip = styled.div<TypeWithPosition>`
     border: 0.0625rem solid ${colors.border};
     box-shadow: 0px 0.25rem 1.5rem rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    left: 0;
+    margin-top: 1.25rem;
     opacity: 0;
     padding: 1.5rem;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    right: 0;
     transform: translate(0, 2rem);
     visibility: hidden;
-    max-width: 20rem;
     z-index: 999;
+
+    ${mq.tablet(css`
+        left: unset;
+        margin-top: unset;
+        max-width: 20rem;
+        position: absolute;
+        right: unset;
+        top: 100%;
+    `)}
 
     ${mq.tabletLandscape(css`
         top: unset;

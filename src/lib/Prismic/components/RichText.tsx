@@ -66,7 +66,7 @@ const RichText = (props: RichTextProps) => {
     return (
         <Text div {...forwardProps}>
             {typeof content === 'string' ? (
-                bracked(content, variables)
+                parse(bracked(content, variables), components)
             ) : (
                 <RichContentFormat>
                     <PrismicRichText

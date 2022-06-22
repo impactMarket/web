@@ -1,17 +1,40 @@
-import { GeneratedPropsTypes } from '../../Types';
+import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { colors } from '../../variables/colors';
-import { generateProps, mq } from 'styled-gen';
+import { generateProps, mq, variations } from 'styled-gen';
 import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 
-export const Card = styled.div<GeneratedPropsTypes>`
+const borderVariations = {
+    default: css`
+        border: 1px solid ${colors.backgroundSecondary};
+    `,
+
+    noBorder: css`
+        border: 0;
+    `
+};
+
+const radiusVariations = {
+    default: css`
+        border-radius: 0.5rem;
+    `,
+
+    longRadius: css`
+        border-radius: 1rem;
+    `
+};
+
+type CardProps = GeneratedPropsTypes & BoolProps<typeof borderVariations> & BoolProps<typeof radiusVariations>;
+
+export const Card = styled.div<CardProps>`
     background-color: ${colors.white};
-    border-radius: 0.5rem;
-    border: 1px solid ${colors.backgroundSecondary};
     box-shadow: 0 0.125rem 0.625rem ${rgba(colors.brandSecondaryLight, 0.29)};
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    ${variations(borderVariations)};
+    ${variations(radiusVariations)};
 
     ${generateProps};
 `;
