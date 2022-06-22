@@ -1,22 +1,24 @@
 import { BoldInput } from '../../../components/BoldInput/BoldInput';
-import { Button, Div, InfoTooltip, Text } from '../../../theme/components';
+import { Button, Div, Hr, InfoTooltip, Text, WarningBlock } from '../../../theme/components';
 import { String } from '../../../components';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { toast } from '../../../components/Toaster/Toaster';
 import { usePACTBalance, useStaking } from '@impact-market/utils';
 import { usePrismicData } from '../../../lib/Prismic/components/PrismicDataProvider';
+import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import RichText from '../../../lib/Prismic/components/RichText';
 
 export const Stake = () => {
-    const { approve, stake, stakeRewards, staking } = useStaking();
-    const { allocated } = staking;
+    const { approve, stake, stakeRewards, staking, unstakingUserInfo } = useStaking();
+    const { allocated, unstakeCooldown } = staking;
 
     const pact = usePACTBalance();
     const { extractFromPage } = usePrismicData();
+    const { t } = useTranslation();
 
-    const { allocatedNotes } = extractFromPage('string') as any;
+    const { allocatedNotes, amountToBeReleased, stakingWarning } = extractFromPage('string') as any;
 
     const toastMessages = extractFromPage('toastMessages') || ({} as any);
 
@@ -27,6 +29,8 @@ export const Stake = () => {
     const [rewardIsLoading, setRewardIsLoading] = useState(false);
 
     const balance = currencyValue(pact, { isToken: true, symbol: 'PACT' });
+
+    const unstakingArr = unstakingUserInfo as unknown as { amount: number; cooldown: number }[];
 
     useEffect(() => {
         if (!!value && +approvedAmount >= +value) {
@@ -150,7 +154,15 @@ export const Stake = () => {
 
     return (
         <>
-            <Div>
+            <WarningBlock yellowLight>
+                <RichText
+                    center
+                    content={stakingWarning}
+                    sub
+                    variables={{ period: `${unstakeCooldown} ${t('days')}` }}
+                />
+            </WarningBlock>
+            <Div mt={2}>
                 <BoldInput
                     inputPrefix="PACT"
                     label={
@@ -197,6 +209,26 @@ export const Stake = () => {
                             </Text>
                             <InfoTooltip>
                                 <Text small>{allocatedNotes}</Text>
+                                {!!unstakingUserInfo?.length && (
+                                    <>
+                                        <Hr />
+                                        {unstakingArr.map(({ amount, cooldown }, index) => (
+                                            <RichText
+                                                content={amountToBeReleased}
+                                                key={index}
+                                                mt={index ? 0.5 : 0}
+                                                small
+                                                variables={{
+                                                    amount: currencyValue(amount, {
+                                                        isToken: true,
+                                                        symbol: 'PACT'
+                                                    }),
+                                                    period: `${cooldown} ${t('days')}`
+                                                }}
+                                            />
+                                        ))}
+                                    </>
+                                )}
                             </InfoTooltip>
                         </Div>
                     }
