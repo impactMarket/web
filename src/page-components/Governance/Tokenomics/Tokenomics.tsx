@@ -11,6 +11,7 @@ import {
 } from '../../../theme/components';
 import { GeneratedPropsTypes } from '../../../theme/Types';
 import { ImpactMarketDaoContext, String } from '../../../components';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { dashboard } from '../../../apis/dashboard';
 import {
@@ -23,9 +24,8 @@ import { numericalValue } from '../../../helpers/numericalValue';
 import { useData } from '../../../components/DataProvider/DataProvider';
 import Api from '../../../apis/api';
 import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { JsonRpcProvider } from '@ethersproject/providers';
 import envConfig from '../../../../config';
+import styled from 'styled-components';
 
 const Item = styled.div`
     position: relative;

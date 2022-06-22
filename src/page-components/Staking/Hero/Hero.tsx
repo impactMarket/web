@@ -32,23 +32,38 @@ export const Hero = () => {
 
     const tabs = [t('stake'), t('unstake'), t('summary')];
 
-    const { generalAPR, stakedAmount } = staking || {};
+    const { generalAPR, stakedAmount, totalStaked } = staking || {};
 
     const { heading, text } = extractFromPage('hero') as any;
-    const { connectYourWallet, noStakingYet, stakingApr, youHaveStaked } = extractFromPage('string') as any;
+    const {
+        connectYourWallet,
+        noStakingYet,
+        stakingApr,
+        totalStaked: totalStakedString,
+        youHaveStaked
+    } = extractFromPage('string') as any;
 
     return (
-        <Section pb={{ md: 4 }} pt={{ md: 4 }} relative>
+        <Section pb={{ md: 4, xs: 2 }} pt={{ md: 4, xs: 2 }} relative>
             <DotBackground blueGradient />
-            <Grid pb={2} pt={2} relative>
+            <Grid relative>
                 <Row center="xs">
                     <Col md={5.5} xs={12}>
                         <Heading h1Alt>{heading}</Heading>
                         <RichText content={text} mt={1} />
                     </Col>
-                    <Col md={5.5} mdOffset={1} mt={{ md: 0, xs: 2 }} xs={12}>
+                    <Col md={6} mdOffset={0.5} mt={{ md: 0, xs: 2 }} xs={12}>
                         <Card longRadius noBorder sHeight="100%">
                             <CardContent>
+                                <Heading center h4>
+                                    {stakingApr}: {numericalValue(generalAPR)}%
+                                </Heading>
+                                {(!address || !!wrongNetwork) && (
+                                    <Text brandBlack center mb={2} mt={0.75} sAlpha={0.6}>
+                                        {totalStakedString}:{' '}
+                                        {currencyValue(totalStaked, { isToken: true, symbol: 'PACT' })}
+                                    </Text>
+                                )}
                                 {!address && (
                                     <Text brandSecondary center small>
                                         <TextLink brandPrimary onClick={connect} regular>
@@ -61,9 +76,6 @@ export const Hero = () => {
                                 {!!address && wrongNetwork && <WrongNetwork />}
                                 {!!address && !wrongNetwork && (
                                     <>
-                                        <Heading center h4>
-                                            {stakingApr}: {numericalValue(generalAPR)}%
-                                        </Heading>
                                         <Text brandBlack center mt={0.75} sAlpha={0.6}>
                                             {stakedAmount
                                                 ? `${youHaveStaked} ${currencyValue(stakedAmount, {
