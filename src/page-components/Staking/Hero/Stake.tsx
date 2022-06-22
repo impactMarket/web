@@ -14,6 +14,8 @@ export const Stake = () => {
     const { approve, stake, stakeRewards, staking, unstakingUserInfo } = useStaking();
     const { allocated, unstakeCooldown } = staking;
 
+    const [unstakingInfo, setUnstakingInfo] = useState<{ amount: number; cooldown: number }[]>([]);
+
     const pact = usePACTBalance();
     const { extractFromPage } = usePrismicData();
     const { t } = useTranslation();
@@ -30,7 +32,19 @@ export const Stake = () => {
 
     const balance = currencyValue(pact, { isToken: true, symbol: 'PACT' });
 
-    const unstakingArr = unstakingUserInfo as unknown as { amount: number; cooldown: number }[];
+    useEffect(() => {
+        const getUnstakingInfo = async () => {
+            try {
+                const unstakingInfo = await unstakingUserInfo();
+
+                return setUnstakingInfo(unstakingInfo);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getUnstakingInfo();
+    }, [staking]);
 
     useEffect(() => {
         if (!!value && +approvedAmount >= +value) {
@@ -209,10 +223,10 @@ export const Stake = () => {
                             </Text>
                             <InfoTooltip>
                                 <Text small>{allocatedNotes}</Text>
-                                {!!unstakingUserInfo?.length && (
+                                {!!unstakingInfo?.length && (
                                     <>
                                         <Hr />
-                                        {unstakingArr.map(({ amount, cooldown }, index) => (
+                                        {unstakingInfo.map(({ amount, cooldown }, index) => (
                                             <RichText
                                                 content={amountToBeReleased}
                                                 key={index}
