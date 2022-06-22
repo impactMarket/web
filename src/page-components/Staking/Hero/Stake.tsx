@@ -2,6 +2,7 @@ import { BoldInput } from '../../../components/BoldInput/BoldInput';
 import { Button, Div, Hr, InfoTooltip, Text, WarningBlock } from '../../../theme/components';
 import { String } from '../../../components';
 import { currencyValue } from '../../../helpers/currencyValue';
+import { dateHelpers } from '../../../helpers/dateHelpers';
 import { toast } from '../../../components/Toaster/Toaster';
 import { usePACTBalance, useStaking } from '@impact-market/utils';
 import { usePrismicData } from '../../../lib/Prismic/components/PrismicDataProvider';
@@ -237,7 +238,7 @@ export const Stake = () => {
                                                         isToken: true,
                                                         symbol: 'PACT'
                                                     }),
-                                                    period: `${cooldown} ${t('days')}`
+                                                    period: dateHelpers.difference(new Date(cooldown))
                                                 }}
                                             />
                                         ))}

@@ -48,7 +48,7 @@ const Wrapper = (props: any) => {
         return null;
     }
 
-    if (!address || !kit?.web3) {
+    if (!kit?.web3) {
         return children;
     }
 
