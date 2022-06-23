@@ -5,6 +5,7 @@ import {
     DotBackground,
     Grid,
     Heading,
+    Hr,
     Row,
     Section,
     Text,
@@ -59,11 +60,12 @@ export const Hero = () => {
                                     {stakingApr}: {numericalValue(generalAPR)}%
                                 </Heading>
                                 {(!address || !!wrongNetwork) && (
-                                    <Text brandBlack center mb={2} mt={0.75} sAlpha={0.6}>
+                                    <Text brandBlack center mt={0.75} sAlpha={0.6}>
                                         {totalStakedString}:{' '}
                                         {currencyValue(totalStaked, { isToken: true, symbol: 'PACT' })}
                                     </Text>
                                 )}
+                                {(!address || wrongNetwork) && <Hr mb={3} mt={3} />}
                                 {!address && (
                                     <Text brandSecondary center small>
                                         <TextLink brandPrimary onClick={connect} regular>
