@@ -193,7 +193,7 @@ export const Stake = () => {
                     placeholder="0"
                     value={value}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ md: 'unset', xs: '100%' }}>
+                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
                         {!withApprovedAmount && (
                             <Button onClick={() => setValue(pact)} silenced smaller>
                                 Max.
@@ -238,7 +238,7 @@ export const Stake = () => {
                                                         isToken: true,
                                                         symbol: 'PACT'
                                                     }),
-                                                    period: dateHelpers.difference(new Date(cooldown))
+                                                    period: dateHelpers.difference(new Date(cooldown * 1000))
                                                 }}
                                             />
                                         ))}
