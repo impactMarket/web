@@ -1,8 +1,9 @@
+import { GeneratedPropsTypes } from '../../Types';
 import { colors } from '../../variables/colors';
 import { generateProps } from 'styled-gen';
 import styled from 'styled-components';
 
-export const Hr = styled.div`
+export const Hr = styled.div<GeneratedPropsTypes>`
     background-color: ${colors.border};
     display: block;
     height: 1px;
