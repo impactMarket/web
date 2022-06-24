@@ -1182,10 +1182,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@impact-market/utils@2.0.0-beta.36":
-  version "2.0.0-beta.36"
-  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-2.0.0-beta.36.tgz#984044763a3be0f66f01f7cb58f2dc3b12604c63"
-  integrity sha512-rl1dyX12PAgKMKdyHAFCmofOinlMf1E2uPyiRaoA0hBFCO3Vdar4p7xql81GhU43H4nblN+BAIO3YssyCG1bzQ==
+"@impact-market/utils@2.0.0-beta.37":
+  version "2.0.0-beta.37"
+  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-2.0.0-beta.37.tgz#3d7e55dae6c0f8f3eb3a402b4f06a5661d4c2114"
+  integrity sha512-Dl8ILKpVXmmuxLDNctv9aW+eyyXkBFt1Bq6kFCuPJe394zOq41vc+9Qls9fj7Cd/ejYjfkKeMj7Ek0fyYXMDSA==
   dependencies:
     "@celo/connect" "^2.0.0-beta.1"
     ethers "5.6.0"
