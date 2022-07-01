@@ -6,84 +6,104 @@ import {
     Grid,
     Heading,
     Icon,
-    Img,
-    RichContentFormat,
     Row,
     Section,
     Text,
     TextLink
 } from '../../theme/components';
-import { GeneratedPropsTypes, IconType } from '../../theme/Types';
+import { GeneratedPropsTypes } from '../../theme/Types';
+import { PrismicImageType, PrismicRichTextType } from '../../lib/Prismic/types';
 import { String } from '../../components';
-import { useData } from '../../components/DataProvider/DataProvider';
 import React from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
+import styled from 'styled-components';
 
-type GovernanceArticleType = {
-    icon?: string;
-    image?: string;
-    url?: string;
-    urlLabelKey?: string;
+type Article = {
+    content?: PrismicRichTextType;
+    ctaLabel?: string;
+    ctaUrl?: string;
+    heading?: string;
+    icon: PrismicImageType;
+    isActive: boolean;
 };
 
-export const GovernanceArticles = (props: GeneratedPropsTypes) => {
-    const { config } = useData();
-    const articles = config?.governanceArticles as GovernanceArticleType[];
+const Image = styled.img`
+    height: 100%;
+    width: auto;
+`;
+
+type GovernanceArticlesProps = {
+    articles?: Article[];
+} & GeneratedPropsTypes;
+
+export const GovernanceArticles = (props: GovernanceArticlesProps) => {
+    const { articles } = props;
+
+    const visibleArticles = (articles || []).reduce(
+        (result, article) => (article?.isActive ? [...result, article] : result),
+        []
+    );
+
+    if (!visibleArticles?.length) {
+        return null;
+    }
 
     return (
         <Section {...props}>
             <Grid>
                 <Row>
-                    {articles.map(({ icon, image, url, urlLabelKey }, index) => (
-                        <Col
-                            key={index}
-                            md={12 / articles.length}
-                            mt={{
-                                md: index > 12 / articles.length ? 2 : 0,
-                                sm: index > 1 ? 2 : 0,
-                                xs: index ? 2 : 0
-                            }}
-                            sm={6}
-                            xs={12}
-                        >
-                            <ArticleCard>
-                                <Div>
-                                    {!!icon && <Icon brandPrimary icon={icon as IconType} sHeight={2.65} />}
-                                    {!!image && <Img sHeight={2.65} sWidth={2.65} src={image} />}
-                                </Div>
-                                <Heading h4 mt={1}>
-                                    <String id={`governanceArticle.${index}.heading`} />
-                                </Heading>
-                                <RichContentFormat>
-                                    <Text mt={0.5} textSecondary>
-                                        <String id={`governanceArticle.${index}.text`} />
-                                    </Text>
-                                </RichContentFormat>
-                                <Div mt="auto" pt={1}>
-                                    {!!url ? (
-                                        <TextLink brandPrimary href={url} rel="noopener noreferrer" target="_blank">
-                                            {!!urlLabelKey && (
-                                                <Text bold>
-                                                    <String id={urlLabelKey} />
-                                                </Text>
+                    {visibleArticles.map(
+                        ({ content, ctaLabel, ctaUrl, heading, icon, isActive }, index) =>
+                            !!isActive && (
+                                <Col
+                                    key={index}
+                                    md={12 / visibleArticles.length}
+                                    mt={{
+                                        md: index > 12 / visibleArticles.length ? 2 : 0,
+                                        sm: index > 1 ? 2 : 0,
+                                        xs: index ? 2 : 0
+                                    }}
+                                    sm={6}
+                                    xs={12}
+                                >
+                                    <ArticleCard>
+                                        {!!icon?.url && (
+                                            <Div sHeight={2.65}>
+                                                <Image src={icon?.url} />
+                                            </Div>
+                                        )}
+                                        <Heading h4 mt={1}>
+                                            {heading}
+                                        </Heading>
+                                        <RichText content={content} mt={0.5} textSecondary />
+                                        <Div mt="auto" pt={1}>
+                                            {!!ctaUrl ? (
+                                                <TextLink
+                                                    brandPrimary
+                                                    href={ctaUrl}
+                                                    rel="noopener noreferrer"
+                                                    target="_blank"
+                                                >
+                                                    {!!ctaLabel && <Text bold>{ctaLabel || ''}</Text>}
+                                                    <Icon
+                                                        icon="arrowRight"
+                                                        ml={!!ctaLabel && 0.5}
+                                                        sHeight={1}
+                                                        sWidth={1.375}
+                                                    />
+                                                </TextLink>
+                                            ) : (
+                                                <FeatureChip>
+                                                    <Text XSmall bold>
+                                                        <String id="availableSoon" />
+                                                    </Text>
+                                                </FeatureChip>
                                             )}
-                                            <Icon
-                                                icon="arrowRight"
-                                                ml={urlLabelKey && 0.5}
-                                                sHeight={1}
-                                                sWidth={1.375}
-                                            />
-                                        </TextLink>
-                                    ) : (
-                                        <FeatureChip>
-                                            <Text XSmall bold>
-                                                <String id="availableSoon" />
-                                            </Text>
-                                        </FeatureChip>
-                                    )}
-                                </Div>
-                            </ArticleCard>
-                        </Col>
-                    ))}
+                                        </Div>
+                                    </ArticleCard>
+                                </Col>
+                            )
+                    )}
                 </Row>
             </Grid>
         </Section>
