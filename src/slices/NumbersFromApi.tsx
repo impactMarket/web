@@ -1,10 +1,11 @@
 import { Button, Col, Div, Grid, Heading, Row, Section, Text } from '../theme/components';
 import { PrismicRichTextType } from '../lib/Prismic/types';
 import { mq } from 'styled-gen';
-import Api from '../apis/api';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled, { css } from 'styled-components';
+
+import { useData } from '../components/CommunityMetricsProvider/CommunityMetricsProvider';
 
 type NumbersFromApiSliceType = {
     items: {
@@ -50,22 +51,7 @@ const NumbersWrapper = styled.div`
 export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
     const { items, primary } = props;
     const { content, ctaLabel, ctaUrl, heading } = primary;
-
-    const [numbers, setNumbers] = useState<any>();
-
-    useEffect(() => {
-        const getNumbers = async () => {
-            try {
-                const numbers = (await Api.getGlobalNumbers()) as any;
-
-                setNumbers(numbers);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        getNumbers();
-    }, []);
+    const metrics = useData();
 
     return (
         <Section id="numbers" sBackground="brandPrimary">
@@ -88,7 +74,7 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
                             {items.map(({ helperName, label }, index) => (
                                 <Div center column key={index} mt={{ sm: 0, xs: index > 1 ? 1 : 0 }}>
                                     <Heading fontSize={{ md: '48 54', xs: '32 42' }} h2 white>
-                                        {numbers?.[helperName] || '--'}
+                                        {metrics?.[helperName] || '--'}
                                     </Heading>
                                     <Text body white>
                                         {label}
