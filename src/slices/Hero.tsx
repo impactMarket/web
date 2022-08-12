@@ -84,23 +84,25 @@ const Hero = (props: PrismicSlice) => {
                         brandPrimary
                         href={`http://${buttonPrimaryUrl}`}
                         pb="1rem"
-                        pr="1rem"
                         rel="noopener noreferrer"
                         target="_blank"
                     >
-                        <Button mr={{ sm: 2, xs: 0 }} sHeight="3rem" smaller>
-                            <Text bold>{buttonPrimaryLabel}</Text>
+                        <Button mr={{ sm: 1, xs: 0 }} sHeight="3rem" sPadding="12px 20px" smaller>
+                            <Text bold sFontSize="16px" sFontWeight={500}>
+                                {buttonPrimaryLabel}
+                            </Text>
                         </Button>
                     </TextLink>
 
                     <Button
-                        linedSecondary
-                        mr={{ sm: 2, xs: 0 }}
+                        linedSecondaryDark
+                        mr={{ sm: 1, xs: 0 }}
                         onClick={() => {
                             return modal.open('governanceContribute', {
                                 onSuccess: () => asPath !== '/governance' && push('/governance')
                             });
                         }}
+                        rebranded
                         sHeight="3rem"
                     >
                         <Text regular>{buttonSecondaryLabel}</Text>
