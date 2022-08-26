@@ -1,10 +1,10 @@
-import { Alfajores, CeloMainnet, useContractKit } from '@celo-tools/use-contractkit';
+import { Alfajores, Mainnet, useCelo } from '@celo/react-celo';
 import config from '../../config';
 
-const network = config.isDaoTestnet ? Alfajores : CeloMainnet;
+const network = config.isDaoTestnet ? Alfajores : Mainnet;
 
 export const useWallet = () => {
-    const { address, connect: connectFromHook, destroy, network: walletNetwork } = useContractKit();
+    const { address, connect: connectFromHook, destroy, network: walletNetwork } = useCelo();
 
     const wrongNetwork = network?.chainId !== walletNetwork?.chainId;
 

@@ -1,37 +1,11 @@
-import { Button, RichContentFormat, Text } from '../../theme/components';
+import { Button, Text } from '../../theme/components';
 import { CommunityContractAttributes } from '../../apis/types';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '../String/String';
-import { frequencyToText, hasPACTVotingPower, toNumber, toToken, useDAO } from '@impact-market/utils';
-import { toast } from '../Toaster/Toaster';
-import { useProvider } from '@celo-tools/use-contractkit';
-import { useTranslation } from '../TranslationProvider/TranslationProvider';
+import { hasPACTVotingPower } from '@impact-market/utils';
+import { useProvider } from '@celo/react-celo';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useEffect, useState } from 'react';
-import config from '../../../config';
-
-const { baseUrl, isDaoTestnet } = config;
-
-const votingPlatformUrl = config?.votingPlatformUrl;
-const getVotingPlatformUrl = (id: any) => {
-    try {
-        const convertedId = Number(+id)
-            .toString(16)
-            .padStart(4, '0x0');
-
-        return votingPlatformUrl.replace(':id', convertedId);
-    } catch (error) {
-        console.log(error);
-
-        return votingPlatformUrl.replace(':id', '');
-    }
-};
-
-const ToastMessage = (props: any) => (
-    <RichContentFormat>
-        <String id="toast.generateProposalSuccess" variables={{ proposalUrl: props?.url }} />
-    </RichContentFormat>
-);
 
 type GenerateProposalButtonType = {
     contract?: CommunityContractAttributes;
@@ -44,12 +18,10 @@ type GenerateProposalButtonType = {
 export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     const { address, wrongNetwork } = useWallet();
     const { contract, description, onSuccess, requestByAddress, ...forwardProps } = props;
-    const { addCommunity } = useDAO();
-    const { t } = useTranslation();
 
     const provider = useProvider();
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading] = useState(false);
     const [hasVotingPower, setHasVotingPower] = useState(false);
     const [votingPower, setVotingPower] = useState('pending');
 
@@ -66,54 +38,7 @@ export const GenerateProposalButton = (props: GenerateProposalButtonType) => {
     }, [address, provider]);
 
     const handleClick = async () => {
-        if (isLoading) {
-            return;
-        }
-
-        setIsLoading(true);
-
-        try {
-            const { baseInterval, claimAmount, communityId, incrementInterval, maxClaim } = contract;
-
-            const data = {
-                baseInterval,
-                claimAmount,
-                decreaseStep: toToken(0.01),
-                incrementInterval,
-                managers: [requestByAddress],
-                maxClaim,
-                maxTranche: toToken(10000, { EXPONENTIAL_AT: 25 }),
-                minTranche: toToken(isDaoTestnet ? 0.1 : 100),
-                proposalDescription: `## Description:\n${description}\n\n### UBI Contract Parameters:\nClaim Amount: ${toNumber(
-                    claimAmount
-                )}\nMax Claim: ${toNumber(maxClaim)}\nBase Interval: ${frequencyToText(
-                    baseInterval
-                )}\nIncrement Interval: ${
-                    (incrementInterval * 5) / 60
-                } minutes\n\n\n*More details*: ${baseUrl}/communities/${communityId}`,
-                proposalTitle: `[New Community] ${name}`
-            };
-
-            const responseId = await addCommunity(data as any);
-
-            if (responseId) {
-                setIsLoading(false);
-
-                if (typeof onSuccess === 'function') {
-                    await onSuccess();
-                }
-
-                return toast.success(<ToastMessage url={getVotingPlatformUrl(responseId)} />);
-            }
-
-            toast.error(t('toast.generateProposalError'));
-            setIsLoading(false);
-        } catch (error) {
-            setIsLoading(false);
-
-            console.log(error);
-            toast.error(t('toast.generateProposalError'));
-        }
+        // no functionality!
     };
 
     // TODO: validate if should hide the button

@@ -2,7 +2,7 @@ import { Div, TextLink } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '../String/String';
 import { hasPACTVotingPower } from '@impact-market/utils';
-import { useProvider } from '@celo-tools/use-contractkit';
+import { useProvider } from '@celo/react-celo';
 import { useWallet } from '../../hooks/useWallet';
 import Infobox from '../Infobox/Infobox';
 import React, { useEffect, useState } from 'react';

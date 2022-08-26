@@ -1,11 +1,5 @@
-import '@celo-tools/use-contractkit/lib/styles.css';
-import {
-    Alfajores,
-    CeloMainnet,
-    ContractKitProvider,
-    useConnectedSigner,
-    useContractKit
-} from '@celo-tools/use-contractkit';
+import '@celo/react-celo/lib/styles.css';
+import { Alfajores, CeloProvider, Mainnet, useCelo, useConnectedSigner } from '@celo/react-celo';
 import { ImpactProvider } from '@impact-market/utils';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
@@ -25,13 +19,13 @@ type ContextProps = {
     signer?: object;
 };
 
-const network = config.isDaoTestnet ? Alfajores : CeloMainnet;
+const network = config.isDaoTestnet ? Alfajores : Mainnet;
 const rpcUrl = config.networkRpcUrl || Alfajores.rpcUrl;
 
 export const ImpactMarketDaoContext = createContext<ContextProps>({});
 
 const Wrapper = (props: any) => {
-    const { address, initialised, kit } = useContractKit();
+    const { address, initialised, kit } = useCelo();
     const { asPath, query, isReady, push } = useRouter();
     const { children, provider } = props;
     const signer = useConnectedSigner();
@@ -48,10 +42,6 @@ const Wrapper = (props: any) => {
         return null;
     }
 
-    if (!kit?.web3) {
-        return children;
-    }
-
     return (
         <ImpactMarketDaoContext.Provider
             value={{
@@ -61,7 +51,7 @@ const Wrapper = (props: any) => {
                 signer
             }}
         >
-            <ImpactProvider address={address} jsonRpc={config.networkRpcUrl} web3={kit.web3}>
+            <ImpactProvider address={address} connection={kit.connection} jsonRpc={config.networkRpcUrl}>
                 {children}
             </ImpactProvider>
         </ImpactMarketDaoContext.Provider>
@@ -78,7 +68,7 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
     const provider = new JsonRpcProvider(rpcUrl);
 
     return (
-        <ContractKitProvider
+        <CeloProvider
             connectModal={{
                 reactModalProps: {
                     overlayClassName: 'tw-fixed tw-bg-gray-100 dark:tw-bg-gray-700 tw-bg-opacity-75 tw-inset-0',
@@ -107,9 +97,9 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 url: 'https://impactmarket.com'
             }}
             network={network}
-            networks={[CeloMainnet, Alfajores]}
+            networks={[Mainnet, Alfajores]}
         >
             <Wrapper provider={provider}>{children}</Wrapper>
-        </ContractKitProvider>
+        </CeloProvider>
     );
 };
