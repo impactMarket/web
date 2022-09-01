@@ -114,6 +114,17 @@ const colorVariations = {
         }
     `,
 
+    secondaryWhite: css`
+        background-color: ${colors.white};
+        color: ${colors.g700};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.white)};
+            }
+        }
+    `,
+
     silenced: css`
         background-color: ${colors.backgroundSecondary};
         color: ${colors.brandBlack};
