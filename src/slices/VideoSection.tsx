@@ -14,10 +14,11 @@ type VideoSectionSliceType = {
             providerName?: string;
         };
     };
+    onlyVideo?: boolean;
 };
 
 const VideoSection = (props: VideoSectionSliceType) => {
-    const { primary } = props;
+    const { primary, onlyVideo = false } = props;
     const { format, text, title, video } = primary;
     const { embedUrl, providerName } = video;
 
@@ -26,20 +27,22 @@ const VideoSection = (props: VideoSectionSliceType) => {
     }
 
     return (
-        <Section id="video" sBackground="backgroundSecondary">
-            <Grid sPadding={{ sm: '4 null', xs: '3 null' }}>
-                <Row center="xs">
-                    <Col xs={10}>
-                        {!!title && (
-                            <Heading center h2>
-                                {title}
-                            </Heading>
-                        )}
-                        {!!text?.length && <RichText center content={text} mt={1} />}
-                    </Col>
-                </Row>
+        <Section id="video" sBackground={!onlyVideo ? 'backgroundSecondary' : ''} sWidth={onlyVideo ? '100%' : ''}>
+            <Grid sPadding={!onlyVideo ? { sm: '4 null', xs: '3 null' } : {}} sWidth={onlyVideo ? '100%' : ''}>
+                {!onlyVideo && (
+                    <Row center="xs">
+                        <Col xs={10}>
+                            {!!title && (
+                                <Heading center h2>
+                                    {title}
+                                </Heading>
+                            )}
+                            {!!text?.length && <RichText center content={text} mt={1} />}
+                        </Col>
+                    </Row>
+                )}
                 <Row>
-                    <Col mt={{ sm: 3.125, xs: 2 }} xs={12}>
+                    <Col mt={{ sm: 3.125, xs: 2 }} sPadding={onlyVideo ? '0' : '1rem'} xs={12}>
                         <Video {...video} format={format || '16:9'} />
                     </Col>
                 </Row>

@@ -11,7 +11,8 @@ const weights = {
 const families = {
     manrope: `'Manrope', sans-serif`,
     inter: `'Inter', sans-serif`,
-    sourceCodePro: `'Source Code Pro', monospace`
+    sourceCodePro: `'Source Code Pro', monospace`,
+    bevan: `'Bevan'`
 };
 
 export const bodySizes = {

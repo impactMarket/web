@@ -70,6 +70,26 @@ const colorVariations = {
         }
     `,
 
+    linedSecondaryDark: css`
+        background-color: transparent;
+        border-radius: 0.75rem;
+        border: 0.0625rem solid ${colors.backgroundSecondary};
+        color: ${colors.g700};
+
+        > p {
+            font-weight: 500;
+        }
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${colors.brandPrimary};
+                border-color: transparent;
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+                color: ${colors.white};
+            }
+        }
+    `,
+
     pagination: css`
         background-color: ${colors.backgroundSecondary};
         color: ${colors.textPrimary};
@@ -90,6 +110,17 @@ const colorVariations = {
         &:not(:disabled) {
             &:hover {
                 background-color: ${darken(0.1, colors.brandSecondaryLight)};
+            }
+        }
+    `,
+
+    secondaryWhite: css`
+        background-color: ${colors.white};
+        color: ${colors.g700};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.white)};
             }
         }
     `,
@@ -159,6 +190,12 @@ const sizeVariations = {
         min-height: 44px;
         padding: 4px 16px;
         min-width: 44px;
+    `,
+
+    rebranded: css`
+        font-size: 16px;
+        min-height: 48px;
+        padding: 12px 20px;
     `,
 
     small: css`
