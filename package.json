@@ -13,7 +13,7 @@
         "@apollo/client": "^3.6.2",
         "@celo/contractkit": "2.0.0",
         "@celo/react-celo": "4.1.0",
-        "@impact-market/utils": "3.0.4",
+        "@impact-market/utils": "3.0.2",
         "@prismicio/client": "^6.1.0",
         "@prismicio/react": "^2.0.3",
         "@prismicio/types": "^0.1.22",
@@ -50,7 +50,7 @@
         "sharethis-reactjs": "^1.6.0",
         "styled-components": "^5.0.0",
         "styled-gen": "^1.4.4",
-        "styled-reset": "4.3.4",
+        "styled-reset": "^4.3.4",
         "type-fest": "^0.21.3"
     },
     "devDependencies": {
