@@ -1,12 +1,4 @@
-import {
-    Button,
-    Col,
-    Div,
-    Grid,
-    Section,
-    Text,
-    TextLink
-} from '../theme/components';
+import { Button, Col, Div, Grid, Section, Text, TextLink } from '../theme/components';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors, fonts } from '../theme';
 import { modal } from 'react-modal-handler';
@@ -107,7 +99,7 @@ const Hero = (props: PrismicSlice) => {
     const { items, primary } = props;
     const { buttonSecondaryLabel, buttonPrimaryUrl, buttonPrimaryLabel, text, heading, heroBanner } = primary;
     const { asPath, push } = useRouter();
-    const services = Object.keys(items).map((key) => items[key as any].service);
+    const services = Object.keys(items).map(key => items[key as any].service);
 
     return (
         <Section
@@ -116,9 +108,8 @@ const Hero = (props: PrismicSlice) => {
             relative
             sPadding={{ sm: '0 1', xs: 0 }}
             style={{
-                overflow: 'hidden',
-                background:
-                    'linear-gradient(34.33deg, #00D9D9 -6.01%, #2362FB 48.02%)'
+                background: 'linear-gradient(34.33deg, #00D9D9 -6.01%, #2362FB 48.02%)',
+                overflow: 'hidden'
             }}
         >
             <Grid>
@@ -133,17 +124,11 @@ const Hero = (props: PrismicSlice) => {
                                 content={text}
                                 label1
                                 variables={{
-                                    services: `<span>${services.join(
-                                        ', '
-                                    )}</span>`
+                                    services: `<span>${services.join(', ')}</span>`
                                 }}
                             />
                         </Text>
-                        <Div
-                            flex
-                            sPadding="1.5 0 0"
-                            style={{ flexWrap: 'wrap' }}
-                        >
+                        <Div flex sPadding="1.5 0 0" style={{ flexWrap: 'wrap' }}>
                             <TextLink
                                 brandPrimary
                                 href={`http://${buttonPrimaryUrl}`}
@@ -153,29 +138,36 @@ const Hero = (props: PrismicSlice) => {
                             >
                                 <Button
                                     linedSecondary
-                                    sColor={colors.white}
                                     mr={{ xs: 1 }}
+                                    sColor={colors.white}
                                     sHeight="3rem"
                                     sPadding="12px 20px"
                                     smaller
                                 >
-                                    <Text
-                                        bold
-                                        sFontSize="16px"
-                                        sFontWeight={500}
-                                    >
+                                    <Text bold sFontSize="16px" sFontWeight={500}>
                                         {buttonPrimaryLabel}
                                     </Text>
                                 </Button>
                             </TextLink>
 
+                            <TextLink
+                                brandPrimary
+                                href="https://app.impactmarket.com/"
+                                pb="1rem"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                <Button mr={{ xs: 1 }} rebranded sHeight="3rem" secondaryWhite>
+                                    <Text bold sFontSize="16px" sFontWeight={500}>
+                                        Launch App
+                                    </Text>
+                                </Button>
+                            </TextLink>
+
                             <Button
-                                mr={{ sm: 1, xs: 0 }}
                                 onClick={() => {
                                     return modal.open('governanceContribute', {
-                                        onSuccess: () =>
-                                            asPath !== '/governance' &&
-                                            push('/governance')
+                                        onSuccess: () => asPath !== '/governance' && push('/governance')
                                     });
                                 }}
                                 rebranded
@@ -188,13 +180,7 @@ const Hero = (props: PrismicSlice) => {
                             </Button>
                         </Div>
                     </Col>
-                    <Col
-                        md={6}
-                        xs={12}
-                        flex
-                        sAlignItems="end"
-                        sJustifyContent="center"
-                    >
+                    <Col flex md={6} sAlignItems="end" sJustifyContent="center" xs={12}>
                         <Image src={heroBanner.url} />
                     </Col>
                 </Wrapper>
