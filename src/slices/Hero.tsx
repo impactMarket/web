@@ -1,12 +1,4 @@
-import {
-    Button,
-    Col,
-    Div,
-    Grid,
-    Section,
-    Text,
-    TextLink
-} from '../theme/components';
+import { Button, Col, Div, Grid, Row, Section, Text, TextLink } from '../theme/components';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors, fonts } from '../theme';
 import { modal } from 'react-modal-handler';
@@ -105,9 +97,10 @@ const Heading = styled.h1`
 
 const Hero = (props: PrismicSlice) => {
     const { items, primary } = props;
-    const { buttonSecondaryLabel, buttonPrimaryUrl, buttonPrimaryLabel, text, heading, heroBanner } = primary;
+    const { buttonSecondaryLabel, buttonPrimaryUrl, buttonPrimaryLabel, text, heading, heroBanner, launchApp } =
+        primary;
     const { asPath, push } = useRouter();
-    const services = Object.keys(items).map((key) => items[key as any].service);
+    const services = Object.keys(items).map(key => items[key as any].service);
 
     return (
         <Section
@@ -116,9 +109,8 @@ const Hero = (props: PrismicSlice) => {
             relative
             sPadding={{ sm: '0 1', xs: 0 }}
             style={{
-                overflow: 'hidden',
-                background:
-                    'linear-gradient(34.33deg, #00D9D9 -6.01%, #2362FB 48.02%)'
+                background: 'linear-gradient(34.33deg, #00D9D9 -6.01%, #2362FB 48.02%)',
+                overflow: 'hidden'
             }}
         >
             <Grid>
@@ -133,68 +125,71 @@ const Hero = (props: PrismicSlice) => {
                                 content={text}
                                 label1
                                 variables={{
-                                    services: `<span>${services.join(
-                                        ', '
-                                    )}</span>`
+                                    services: `<span>${services.join(', ')}</span>`
                                 }}
                             />
                         </Text>
-                        <Div
-                            flex
-                            sPadding="1.5 0 0"
-                            style={{ flexWrap: 'wrap' }}
-                        >
-                            <TextLink
-                                brandPrimary
-                                href={`http://${buttonPrimaryUrl}`}
-                                pb="1rem"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                            >
-                                <Button
-                                    linedSecondary
-                                    sColor={colors.white}
-                                    mr={{ xs: 1 }}
-                                    sHeight="3rem"
-                                    sPadding="12px 20px"
-                                    smaller
-                                >
-                                    <Text
-                                        bold
-                                        sFontSize="16px"
-                                        sFontWeight={500}
+
+                        <Grid ml="0" sMaxWidth="fit-content" sPadding="1.5 0 0" sWidth="100%">
+                            <Row pb="1rem">
+                                <Col xs={6}>
+                                    <TextLink
+                                        brandPrimary
+                                        href={`http://${buttonPrimaryUrl}`}
+                                        rel="noopener noreferrer"
+                                        sWidth="100%"
+                                        target="_blank"
                                     >
-                                        {buttonPrimaryLabel}
+                                        <Button
+                                            linedSecondary
+                                            sColor={colors.white}
+                                            sHeight="3rem"
+                                            sPadding="12px 20px"
+                                            sWidth="100%"
+                                            smaller
+                                        >
+                                            <Text bold sFontSize="16px" sFontWeight={500}>
+                                                {buttonPrimaryLabel}
+                                            </Text>
+                                        </Button>
+                                    </TextLink>
+                                </Col>
+                                <Col xs={6}>
+                                    <TextLink
+                                        brandPrimary
+                                        href="https://app.impactmarket.com/"
+                                        rel="noopener noreferrer"
+                                        sWidth="100%"
+                                        target="_blank"
+                                    >
+                                        <Button rebranded sHeight="3rem" sWidth="100%" secondaryWhite>
+                                            <Text bold sFontSize="16px" sFontWeight={500}>
+                                                {launchApp}
+                                            </Text>
+                                        </Button>
+                                    </TextLink>
+                                </Col>
+                            </Row>
+                            <Row sPadding="0 1">
+                                <Button
+                                    onClick={() => {
+                                        return modal.open('governanceContribute', {
+                                            onSuccess: () => asPath !== '/governance' && push('/governance')
+                                        });
+                                    }}
+                                    rebranded
+                                    sHeight="3rem"
+                                    sWidth="100%"
+                                    secondaryWhite
+                                >
+                                    <Text g700 regular>
+                                        {buttonSecondaryLabel}
                                     </Text>
                                 </Button>
-                            </TextLink>
-
-                            <Button
-                                mr={{ sm: 1, xs: 0 }}
-                                onClick={() => {
-                                    return modal.open('governanceContribute', {
-                                        onSuccess: () =>
-                                            asPath !== '/governance' &&
-                                            push('/governance')
-                                    });
-                                }}
-                                rebranded
-                                sHeight="3rem"
-                                secondaryWhite
-                            >
-                                <Text g700 regular>
-                                    {buttonSecondaryLabel}
-                                </Text>
-                            </Button>
-                        </Div>
+                            </Row>
+                        </Grid>
                     </Col>
-                    <Col
-                        md={6}
-                        xs={12}
-                        flex
-                        sAlignItems="end"
-                        sJustifyContent="center"
-                    >
+                    <Col flex md={6} sAlignItems="end" sJustifyContent="center" xs={12}>
                         <Image src={heroBanner.url} />
                     </Col>
                 </Wrapper>
