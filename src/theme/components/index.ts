@@ -22,6 +22,7 @@ export * from './Input/Input';
 export * from './ItemsRow/ItemsRow';
 export * from './Logo/Logo';
 export * from './Main/Main';
+export * from './NewChip/NewChip';
 export * from './RichContentFormat/RichContentFormat';
 export * from './Section/Section';
 export * from './Select/Select';

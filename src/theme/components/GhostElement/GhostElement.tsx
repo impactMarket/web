@@ -13,9 +13,9 @@ const load = keyframes`
     }
 `;
 
-export const GhostElement = styled.div<{ overColored?: boolean } & GeneratedPropsTypes>`
-    background-color: ${({ overColored }: any) =>
-        colors[overColored ? 'backgroundSecondaryDisabled' : 'backgroundLight']};
+export const GhostElement = styled.div<{ overColored?: boolean; color?: string } & GeneratedPropsTypes>`
+    background-color: ${({ overColored, color }: any) =>
+        !color && colors[overColored ? 'backgroundSecondaryDisabled' : 'backgroundLight']};
     border-radius: 0.5rem;
     width: 100%;
     position: relative;
@@ -29,7 +29,10 @@ export const GhostElement = styled.div<{ overColored?: boolean } & GeneratedProp
         top: 0;
         height: 100%;
         width: 100%;
-        background: linear-gradient(to right, transparent 0%, ${colors.backgroundShadow} 50%, transparent 100%);
+        background: ${({ color }: any) =>
+            `linear-gradient(to right, transparent 0%, ${
+                color ? color : colors.backgroundShadow
+            } 50%, transparent 100%)`};
         animation: ${load} 1s ${ease.inOutCirc} infinite;
     }
 

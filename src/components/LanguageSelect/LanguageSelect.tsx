@@ -1,5 +1,5 @@
 import { GeneratedPropsTypes } from '../../theme/Types';
-import { Icon, Select, Text } from '../../theme/components';
+import { Select, Text } from '../../theme/components';
 import { colors } from '../../theme';
 import { generateProps } from 'styled-gen';
 import { useRouter } from 'next/router';
@@ -37,14 +37,7 @@ const LanguageSelect = (props: LanguageSelectProps) => {
                 initialSelected={locale}
                 onChange={handleLanguageChange}
                 options={languageOptions}
-                renderSelected={(label: string) => (
-                    <>
-                        <Icon icon="world" sHeight={1} sWidth={1} textSecondary />
-                        <Text bold manrope ml={0.5} small>
-                            {label}
-                        </Text>
-                    </>
-                )}
+                renderSelected={(label: string) => <Text g500>{label}</Text>}
             />
         </Wrapper>
     );

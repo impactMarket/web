@@ -30,8 +30,8 @@ const ConnectButton = styled.button<any>`
 
 const WalletAddress = styled.div`
     align-items: center;
-    background-color: ${colors.white};
-    border-radius: 11px;
+    background-color: ${colors.g500};
+    border-radius: 0 50px 50px 0;
     display: flex;
     height: 100%;
     padding: 0 0 0 1rem;
@@ -39,25 +39,31 @@ const WalletAddress = styled.div`
 
 const WalletWrapper = styled.div<any>`
     align-items: center;
-    background-color: ${colors.backgroundSecondary};
-    border-radius: 12px;
+    background-color: ${colors.g25};
+    border-radius: 50px;
     display: flex;
-    height: 2.375rem;
     margin: auto;
-    padding: ${({ noBalance }) => !noBalance && '1px 1px 1px 1rem'};
+    height: 100%;
 
     ${mq.tablet(css`
         margin-left: 0;
     `)}
 `;
 
+const Pact = styled.div<any>`
+    font-weight: 500;
+    color: ${colors.g700};
+`;
+
 const PactBalance = () => {
     const pact = usePACTBalance();
 
     return (
-        <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} small>
-            {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
-        </Text>
+        <Pact>
+            <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} sPadding="0 0 0 1rem" small>
+                {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
+            </Text>
+        </Pact>
     );
 };
 
@@ -94,10 +100,10 @@ export const WalletConnect = () => {
                     options={[{ label: t('disconnect'), value: 'disconnect' }]}
                     renderSelected={() => (
                         <WalletAddress>
-                            <Text medium small sourceCodePro>
+                            <Text medium sColor="#fff" small>
                                 {formatAddress(address, [6, 4])}
                             </Text>
-                            <Icon brandSecondaryLight icon="dots" ml={1} mr={1} sHeight={0.3125} sWidth={1.1875} />
+                            <Icon brandSecondaryLight icon="caret" ml={1} mr={1} sHeight={0.3125} sWidth={1.1875} />
                         </WalletAddress>
                     )}
                     sHeight="100%"

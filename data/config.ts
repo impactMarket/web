@@ -12,5 +12,6 @@ export const config = {
         { name: 'totalCUSD' },
         { name: 'daoLiquidity' },
         { name: 'daoTreasury' }
-    ]
+    ],
+    topBarTokenMetrics: [{ name: 'priceCUSD' }, { name: 'marketCap' }]
 };

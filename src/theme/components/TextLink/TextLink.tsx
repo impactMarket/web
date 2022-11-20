@@ -17,10 +17,10 @@ export const TextLink = styled.a<TextLinkProps>`
     ${transitions(['text-shadow'], 250, ease.outSine)};
 
     align-items: center;
-    color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
+    color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.g500)};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
     display: inline-flex;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: ${fonts.weights.medium};
 
     ${({ isActive }) =>

@@ -1,7 +1,66 @@
 import { colors } from '../../theme';
 import { ease, mq, transitions } from 'styled-gen';
-import { position, rgba, size } from 'polished';
+import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
+
+export const TopbarStyle = styled.div`
+    background-color: ${colors.g700};
+    padding: 1rem 0;
+`;
+
+export const TopbarContent = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin: auto;
+    max-width: 84rem;
+    padding: 0 2rem;
+
+    ${mq.upTo(
+        'tablet',
+        css`
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        `
+    )}
+`;
+
+export const TopbarLeft = styled.div`
+    color: ${colors.white};
+    display: flex;
+    gap: 0.5rem;
+`;
+
+export const TopbarData = styled.div`
+    display: flex;
+    gap: 1rem;
+`;
+
+export const TopbarColumn = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 0.3rem;
+`;
+
+export const TopbarWallet = styled.div`
+    align-items: center;
+    display: flex;
+    height: 1.5rem;
+`;
+
+export const HeaderLanguage = styled.div`
+    align-items: center;
+    display: flex;
+    height: 1.5rem;
+
+    ${mq.upTo(
+        'tablet',
+        css`
+            display: none;
+        `
+    )}
+`;
 
 export const HeaderBarContent = styled.div`
     align-items: center;
@@ -72,34 +131,6 @@ export const HeaderMobileContent = styled.div<{ isActive?: boolean }>`
     ${mq.tablet(css`
         display: none;
     `)}
-`;
-
-export const HeaderStatusBar = styled.div`
-    background-color: ${rgba(colors.borderLight, 0.32)};
-    padding: 1rem 0;
-`;
-
-export const HeaderStatusBarLeftCol = styled.div`
-    ${mq.upTo(
-        'tabletLandscape',
-        css`
-            display: none;
-        `
-    )}
-`;
-
-export const HeaderStatusBarRightCol = styled.div`
-    display: flex;
-    align-items: center;
-
-    ${mq.upTo(
-        'tabletLandscape',
-        css`
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-        `
-    )}
 `;
 
 export const HeaderWrapper = styled.div`
