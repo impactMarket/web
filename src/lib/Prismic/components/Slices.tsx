@@ -11,19 +11,25 @@ type SlicesProps = {
 const Slices = (props: SlicesProps) => {
     const { components = {}, slices } = props;
 
+    // Build each component with the same name/api in Prismic and Components files names
+
     return (
         <>
             {slices.map((slice, index) => {
-                const SliceComponent =
-                    components[componentCase(slice.sliceType)] || sliceComponents[componentCase(slice.sliceType)];
+                if (slice?.primary?.isActive) {
+                    const SliceComponent =
+                        components[componentCase(slice.sliceType)] || sliceComponents[componentCase(slice.sliceType)];
 
-                if (!SliceComponent) {
-                    console.log(`No slice component found for ${slice.sliceType}`);
+                    if (!SliceComponent) {
+                        console.log(`No slice component found for ${slice.sliceType}`);
 
-                    return null;
+                        return null;
+                    }
+
+                    return <SliceComponent key={index} {...slice} />;
                 }
 
-                return <SliceComponent key={index} {...slice} />;
+                return null;
             })}
         </>
     );

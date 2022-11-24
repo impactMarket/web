@@ -9,11 +9,16 @@ export const colors = {
     brandSecondaryLight: '#8A9FC2',
 
     b300: '#84CAFF',
-    g25: '#FCFCFD;',
+
     g200: '#E4E7EC',
+    g25: '#FCFCFD;',
+    g300: '#D0D5DD',
     g500: '#667085',
+    g50: '#F9FAFB;',
     g700: '#344054',
     g900: '#101828',
+
+    p700: '#1A51D8',
 
     s50: '#ECFDF3',
     s700: '#027A48',
