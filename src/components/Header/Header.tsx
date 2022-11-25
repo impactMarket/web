@@ -1,22 +1,19 @@
 import {
     HeaderBarContent,
     HeaderContent,
+    HeaderLanguage,
     HeaderMainBar,
     HeaderMainBarLeftCol,
     HeaderMainBarMenu,
     HeaderMainBarMobileMenuButton,
     HeaderMainBarRightCol,
     HeaderMobileContent,
-    HeaderStatusBar,
-    HeaderStatusBarLeftCol,
-    HeaderStatusBarRightCol,
     HeaderWrapper
 } from './Header.style';
-import { Icon, Logo, TextLink } from '../../theme/components';
+import { Icon, Logo } from '../../theme/components';
 import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
-import { String } from '../String/String';
-import { WalletConnect } from './WalletConnect';
+import { Topbar } from './Topbar';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
@@ -28,22 +25,17 @@ type MenuItemSlice = {
         url?: string;
     };
     items?: {
+        description?: any;
         label?: string;
         url?: string;
     }[];
     sliceType: 'item_menu' | 'item_menu_with_submenu';
 };
 
-type TopbarCtaType = {
-    text: string;
-    url: string;
-};
-
 export const Header = () => {
-    const { config, extractFromConfig } = usePrismicData();
+    const { config: prismicConfig } = usePrismicData();
 
-    const menu = config?.data?.menuItems as MenuItemSlice[];
-    const topbarCta = extractFromConfig('topbarCta') as TopbarCtaType;
+    const menu = prismicConfig?.data?.newHeader as MenuItemSlice[];
 
     const router = useRouter();
     const { asPath, push } = router;
@@ -72,20 +64,7 @@ export const Header = () => {
         <>
             <HeaderWrapper>
                 <HeaderContent>
-                    <HeaderStatusBar>
-                        <HeaderBarContent>
-                            <HeaderStatusBarLeftCol>
-                                <TextLink bold brandPrimary href={topbarCta?.url} inlineFlex>
-                                    <String id={topbarCta?.text} />
-                                    <Icon icon="arrowRight" ml={0.5} sWidth={1.125} />
-                                </TextLink>
-                            </HeaderStatusBarLeftCol>
-                            <HeaderStatusBarRightCol>
-                                <WalletConnect />
-                                <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
-                            </HeaderStatusBarRightCol>
-                        </HeaderBarContent>
-                    </HeaderStatusBar>
+                    <Topbar />
                     <HeaderMainBar>
                         <HeaderBarContent>
                             <HeaderMainBarLeftCol>
@@ -100,6 +79,7 @@ export const Header = () => {
                                     <Logo />
                                 </a>
                             </HeaderMainBarLeftCol>
+
                             <HeaderMainBarRightCol>
                                 <HeaderMainBarMobileMenuButton onClick={handleMenuButtonClick}>
                                     <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
@@ -118,11 +98,16 @@ export const Header = () => {
                                         ))}
                                 </HeaderMainBarMenu>
                             </HeaderMainBarRightCol>
+
+                            <HeaderLanguage>
+                                <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
+                            </HeaderLanguage>
                         </HeaderBarContent>
                     </HeaderMainBar>
                 </HeaderContent>
+
+                {/* Mobile */}
                 <HeaderMobileContent isActive={isMenuVisible}>
-                    {/* Menu */}
                     {menu?.length &&
                         menu.map(({ items, primary: { label, url } }, index) => (
                             <MenuItem

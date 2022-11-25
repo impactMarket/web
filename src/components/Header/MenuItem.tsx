@@ -1,4 +1,5 @@
-import { Icon, Text, TextLink } from '../../theme/components';
+import { Icon, NewChip, Text, TextLink } from '../../theme/components';
+import { String } from '../../components';
 import { colors } from '../../theme';
 import { ease, mq, transitions } from 'styled-gen';
 import { useClickOutside } from '../../hooks/useClickOutside';
@@ -8,7 +9,10 @@ import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type MenuItemType = {
+    description?: any;
+    icon?: any;
     label?: string;
+    new?: boolean;
     url?: string;
 };
 
@@ -22,8 +26,8 @@ type MenuItemProps = MenuItemType & {
 
 const MenuItemWrapper = styled.div`
     display: flex;
-    position: relative;
     flex-direction: column;
+    position: relative;
 
     & + & {
         margin-top: 1rem;
@@ -41,7 +45,8 @@ const MenuItemWrapper = styled.div`
 `;
 
 const SubmenuItem = styled.a<any>`
-    display: block;
+    display: flex;
+    gap: 1rem;
 
     & + & {
         margin-top: 1rem;
@@ -69,7 +74,6 @@ const SubmenuItem = styled.a<any>`
         ${({ isActive }: any) =>
             isActive
                 ? css`
-                      background-color: ${colors.backgroundSecondary};
                       cursor: default !important;
                   `
                 : css`
@@ -78,6 +82,28 @@ const SubmenuItem = styled.a<any>`
                       }
                   `}
     `)}
+`;
+
+const SubmenuIcon = styled.div``;
+
+const SubmenuText = styled.div`
+    white-space: normal;
+`;
+
+const SubmenuTitle = styled.div`
+    color: ${colors.g900};
+    margin-bottom: 0.1rem;
+`;
+
+const SubmenuDescription = styled.div`
+    color: ${colors.g500};
+`;
+
+const Flex = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
 `;
 
 const SubmenuContent = styled.div<any>`
@@ -91,17 +117,20 @@ const SubmenuContent = styled.div<any>`
 const SubmenuWrapper = styled.div<any>`
     ${transitions(['height'], 250, ease.inOutCubic)};
 
+    height: ${({ elHeight, isVisible }) => (isVisible ? elHeight / 16 : 0)}rem;
     overflow: hidden;
     position: relative;
-    height: ${({ elHeight, isVisible }) => (isVisible ? elHeight / 16 : 0)}rem;
+    width: 350px;
 
     ${mq.tablet(css`
         ${transitions(['opacity', 'transform', 'visibility'], 250, ease.inOutCubic)};
 
         background-color: ${colors.white};
         border-radius: 0.375rem;
-        border: 1px solid ${colors.borderLight};
+        border: 1px solid ${colors.g200};
+        box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1), 0px 4px 6px -2px rgba(16, 24, 40, 0.05);
         height: auto;
+        left: 50px;
         margin-top: 0.75rem;
         opacity: 0;
         position: absolute;
@@ -181,10 +210,8 @@ export const MenuItem = (props: MenuItemProps) => {
         <MenuItemWrapper>
             <LinkWrapper url={url}>
                 <TextLink
-                    bold
                     href={url}
                     isActive={checkActiveRoute(url || submenu)}
-                    manrope
                     onClick={() => handleLinkClick(url || submenu)}
                     rel={!!url && !url?.startsWith('/') && url ? 'noreferrer noopener' : undefined}
                     target={!!url && !url?.startsWith('/') && url ? '_blank' : undefined}
@@ -203,9 +230,9 @@ export const MenuItem = (props: MenuItemProps) => {
                                 !!item?.label &&
                                 !!item?.url && (
                                     <LinkWrapper key={index} url={item?.url}>
-                                        <SubmenuItem
+                                        <TextLink
+                                            href={item?.url}
                                             isActive={checkActiveRoute(item?.url)}
-                                            key={index}
                                             onClick={() => handleLinkClick(item?.url)}
                                             rel={
                                                 !!item?.url && !item?.url?.startsWith('/') && item?.url
@@ -218,8 +245,27 @@ export const MenuItem = (props: MenuItemProps) => {
                                                     : undefined
                                             }
                                         >
-                                            <Text sub>{item.label}</Text>
-                                        </SubmenuItem>
+                                            <SubmenuItem>
+                                                <SubmenuIcon>
+                                                    <Icon icon={item?.icon} sWidth={1.125} />
+                                                </SubmenuIcon>
+                                                <SubmenuText>
+                                                    <Flex>
+                                                        <SubmenuTitle>
+                                                            <Text sFontWeight={500}>{item.label}</Text>
+                                                        </SubmenuTitle>
+                                                        {item?.new && (
+                                                            <NewChip>
+                                                                <String id="new" />
+                                                            </NewChip>
+                                                        )}
+                                                    </Flex>
+                                                    <SubmenuDescription>
+                                                        <Text sFontSize={0.8}>{item?.description[0]?.text}</Text>
+                                                    </SubmenuDescription>
+                                                </SubmenuText>
+                                            </SubmenuItem>
+                                        </TextLink>
                                     </LinkWrapper>
                                 )
                         )}
