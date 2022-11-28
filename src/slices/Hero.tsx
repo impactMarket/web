@@ -1,4 +1,4 @@
-import { Button, Col, Div, Grid, Row, Section, Text, TextLink } from '../theme/components';
+import { Button, Col, Div, Grid, Icon, Row, Section, Text, TextLink } from '../theme/components';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors, fonts } from '../theme';
 import { modal } from 'react-modal-handler';
@@ -97,8 +97,7 @@ const Heading = styled.h1`
 
 const Hero = (props: PrismicSlice) => {
     const { items, primary } = props;
-    const { buttonSecondaryLabel, buttonPrimaryUrl, buttonPrimaryLabel, text, heading, heroBanner, launchApp } =
-        primary;
+    const { buttonSecondaryLabel, text, heading, heroBanner, launchApp } = primary;
     const { asPath, push } = useRouter();
     const services = Object.keys(items).map(key => items[key as any].service);
 
@@ -131,61 +130,34 @@ const Hero = (props: PrismicSlice) => {
                         </Text>
 
                         <Grid ml="0" sMaxWidth="fit-content" sPadding="1.5 0 0" sWidth="100%">
-                            <Row pb="1rem">
-                                <Col xs={6}>
-                                    <TextLink
-                                        brandPrimary
-                                        href={`http://${buttonPrimaryUrl}`}
-                                        rel="noopener noreferrer"
-                                        sWidth="100%"
-                                        target="_blank"
-                                    >
-                                        <Button
-                                            linedSecondary
-                                            sColor={colors.white}
-                                            sHeight="3rem"
-                                            sPadding="12px 20px"
-                                            sWidth="100%"
-                                            smaller
-                                        >
-                                            <Text bold sFontSize="16px " sFontWeight={500}>
-                                                {buttonPrimaryLabel}
-                                            </Text>
-                                        </Button>
-                                    </TextLink>
-                                </Col>
-                                <Col xs={6}>
-                                    <TextLink
-                                        brandPrimary
-                                        href="https://app.impactmarket.com/"
-                                        rel="noopener noreferrer"
-                                        sWidth="100%"
-                                        target="_blank"
-                                    >
-                                        <Button rebranded sHeight="3rem" sWidth="100%" secondaryWhite>
-                                            <Text bold sFontSize="16px" sFontWeight={500}>
-                                                {launchApp}
-                                            </Text>
-                                        </Button>
-                                    </TextLink>
-                                </Col>
+                            <Row pb="1rem" pl="1rem">
+                                <TextLink
+                                    brandPrimary
+                                    href="https://app.impactmarket.com/"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                >
+                                    <Button rebranded sHeight="3rem" sWidth="100%" secondaryWhite>
+                                        <Text medium>{launchApp}</Text>
+                                        <Icon icon="right" ml={1} sColor={colors.g700} sHeight={0.8} />
+                                    </Button>
+                                </TextLink>
                             </Row>
                             <Row sPadding="0 1">
-                                <Button
+                                <TextLink
                                     onClick={() => {
                                         return modal.open('governanceContribute', {
                                             onSuccess: () => asPath !== '/governance' && push('/governance')
                                         });
                                     }}
-                                    rebranded
-                                    sHeight="3rem"
-                                    sWidth="100%"
-                                    secondaryWhite
+                                    pt={0.5}
+                                    white
                                 >
-                                    <Text g700 regular>
+                                    <Text medium sFontSize={1} sLineHeight={1.5}>
                                         {buttonSecondaryLabel}
                                     </Text>
-                                </Button>
+                                    <Icon icon="right" ml={1} sColor={colors.white} sHeight={0.8} />
+                                </TextLink>
                             </Row>
                         </Grid>
                     </Col>

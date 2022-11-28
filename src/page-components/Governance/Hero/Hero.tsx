@@ -1,5 +1,4 @@
 import { Breakdown, ShareThis, String } from '../../../components';
-import { colors } from '../../../theme';
 import {
     Button,
     Col,
@@ -12,11 +11,12 @@ import {
     Section,
     Text
 } from '../../../theme/components';
+import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
+import { colors } from '../../../theme';
 import { modal } from 'react-modal-handler';
-import { RampInstantSDK } from "@ramp-network/ramp-instant-sdk";
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
-import config from '../../../../config';
 import React from 'react';
+import config from '../../../../config';
 
 export const Hero = () => {
     const { t } = useTranslation();
@@ -28,9 +28,10 @@ export const Hero = () => {
     const triggerRamp = () => {
         new RampInstantSDK({
             hostAppName: 'impactMarket',
-            hostLogoUrl: 'https://www.gitbook.com/cdn-cgi/image/height=40,fit=contain,dpr=2,format=auto/https%3A%2F%2F2074548608-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FCYFjCZsJmtFWjyXZmVH8%252Flogo%252FrnP1xUXSL3jJHhxKkA82%252Flogo_blue_on_transparent_background.png%3Falt%3Dmedia%26token%3D42e89872-c292-4ccc-b8c5-771b055c4581',
+            hostLogoUrl:
+                'https://www.gitbook.com/cdn-cgi/image/height=40,fit=contain,dpr=2,format=auto/https%3A%2F%2F2074548608-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FCYFjCZsJmtFWjyXZmVH8%252Flogo%252FrnP1xUXSL3jJHhxKkA82%252Flogo_blue_on_transparent_background.png%3Falt%3Dmedia%26token%3D42e89872-c292-4ccc-b8c5-771b055c4581',
             swapAmount: '',
-            swapAsset: "CELO_CUSD",
+            swapAsset: 'CELO_CUSD',
             userAddress: config.treasuryAddress
         }).show();
     };
@@ -64,18 +65,14 @@ export const Hero = () => {
                         </Text>
                         <Button
                             lined
-                            mt={{ xs: .5 }}
+                            mt={{ xs: 0.5 }}
                             onClick={triggerRamp}
                             sColor={colors.brandPrimary}
                             sHeight="3rem"
                             sPadding="12px 20px"
                             smaller
                         >
-                            <Text
-                                bold
-                                sFontSize="1rem"
-                                sFontWeight={500}
-                            >
+                            <Text bold sFontSize="1rem" sFontWeight={500}>
                                 <String id="cashin.button.text" />
                             </Text>
                         </Button>
