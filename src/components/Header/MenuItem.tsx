@@ -47,6 +47,7 @@ const MenuItemWrapper = styled.div`
 const SubmenuItem = styled.a<any>`
     display: flex;
     gap: 1rem;
+    width: 100%;
 
     & + & {
         margin-top: 1rem;
@@ -239,6 +240,7 @@ export const MenuItem = (props: MenuItemProps) => {
                                                     ? 'noreferrer noopener'
                                                     : undefined
                                             }
+                                            sWidth="100%"
                                             target={
                                                 !!item?.url && !item?.url?.startsWith('/') && item?.url
                                                     ? '_blank'

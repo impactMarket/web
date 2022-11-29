@@ -21,7 +21,7 @@ export const TopbarContent = styled.div`
         'tablet',
         css`
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
         `
     )}
 `;
@@ -29,18 +29,17 @@ export const TopbarContent = styled.div`
 export const TopbarLeft = styled.div`
     color: ${colors.white};
     display: flex;
-    gap: 0.5rem;
-`;
-
-export const TopbarData = styled.div`
-    display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 1vw;
+    justify-content: center;
 `;
 
 export const TopbarColumn = styled.div`
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.3rem;
+    justify-content: center;
 `;
 
 export const TopbarWallet = styled.div`
