@@ -71,7 +71,7 @@ export const Header = () => {
                                 <a
                                     onClick={() => handleLinkClick('/')}
                                     style={{
-                                        cursor: checkActiveRoute('/') ? 'default' : 'pointer',
+                                        cursor: 'pointer',
                                         fontSize: 0,
                                         zIndex: 100
                                     }}
