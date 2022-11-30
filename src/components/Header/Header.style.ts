@@ -21,7 +21,7 @@ export const TopbarContent = styled.div`
         'tablet',
         css`
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.5rem;
         `
     )}
 `;
@@ -115,7 +115,7 @@ export const HeaderMainBarMobileMenuButton = styled.a`
 
 export const HeaderMainBarRightCol = styled.div``;
 
-export const HeaderMobileContent = styled.div<{ isActive?: boolean }>`
+export const HeaderMobileContent = styled.div<{ isActive?: boolean; paddingTop?: number }>`
     ${position('fixed', 0)};
     ${transitions(['transform'], 500, ease.inOutCirc)};
 
@@ -123,8 +123,9 @@ export const HeaderMobileContent = styled.div<{ isActive?: boolean }>`
     display: flex;
     flex-direction: column;
     overflow: auto;
-    padding: 11rem 2rem 2rem;
+    padding: ${({ paddingTop }) => `calc(${paddingTop}px + 1rem)  2rem 2rem`};
     transform: ${({ isActive }) => `translateX(${isActive ? 0 : '100%'})`};
+    width: 100%;
     z-index: 1;
 
     ${mq.tablet(css`
@@ -133,7 +134,8 @@ export const HeaderMobileContent = styled.div<{ isActive?: boolean }>`
 `;
 
 export const HeaderWrapper = styled.div`
-    ${position('fixed', 0, 0, null, 0)};
+    ${position('sticky', 0, 0, null, 0)};
 
+    width: 100%;
     z-index: 99;
 `;
