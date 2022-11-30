@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 export const RichContentFormat = styled.div<GeneratedPropsTypes>`
     p + p {
-        margin-top: 1em;
+        margin-top: 0.5em;
     }
 
     a {

@@ -56,7 +56,7 @@ const colorVariations = {
 
     linedSecondary: css`
         background-color: transparent;
-        border-radius: 0.75rem;
+        border-radius: 0.5rem;
         border: 0.0625rem solid ${colors.backgroundSecondary};
         color: ${colors.brandSecondaryLight};
 
@@ -72,13 +72,29 @@ const colorVariations = {
 
     linedSecondaryDark: css`
         background-color: transparent;
-        border-radius: 0.75rem;
+        border-radius: 0.5rem;
         border: 0.0625rem solid ${colors.backgroundSecondary};
         color: ${colors.g700};
 
         > p {
             font-weight: 500;
         }
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${colors.brandPrimary};
+                border-color: transparent;
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+                color: ${colors.white};
+            }
+        }
+    `,
+
+    linedSecondaryWhiteText: css`
+        background-color: transparent;
+        border-radius: 0.5rem;
+        border: 0.0625rem solid ${colors.backgroundSecondary};
+        color: ${colors.white};
 
         &:not(:disabled) {
             &:hover {
@@ -99,6 +115,17 @@ const colorVariations = {
                 background-color: ${colors.brandPrimary};
                 box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
                 color: ${colors.white};
+            }
+        }
+    `,
+
+    secondaryBlue: css`
+        background-color: ${colors.white};
+        color: ${colors.brandPrimary};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.white)};
             }
         }
     `,
