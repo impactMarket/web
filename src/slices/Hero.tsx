@@ -114,12 +114,6 @@ const Wrapper = styled.div<{
         color: ${colors.white};
         font-weight: ${fonts.weights.bold};
     }
-
-    /* .button-secondary button {
-        background-color: ${props => (props.buttonSecondaryColor ? props.buttonSecondaryColor : 'transparent')};
-        color: ${colors.white};
-        border: 1px solid ${colors.white};
-    } */
 `;
 
 const Img = styled.img<GeneratedPropsTypes>`
@@ -172,7 +166,13 @@ const Hero = (props: PrismicSlice) => {
                         });
                     }}
                 >
-                    <Button rebranded sHeight="3rem" sWidth="100%">
+                    <Button
+                        linedSecondaryWhiteText={buttonColor === 'transparent' && true}
+                        rebranded
+                        sHeight="3rem"
+                        sWidth="100%"
+                        secondaryBlue={buttonColor === 'white' && true}
+                    >
                         <Text medium>{buttonLabel}</Text>
                         {arrowColor && <Icon icon="right" ml={1} sColor={arrowColor} sHeight={0.8} />}
                     </Button>
@@ -195,8 +195,6 @@ const Hero = (props: PrismicSlice) => {
             </TextLink>
         );
     };
-
-    console.log(primary);
 
     return (
         <Section

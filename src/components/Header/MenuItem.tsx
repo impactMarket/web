@@ -45,15 +45,15 @@ const MenuItemWrapper = styled.div`
 `;
 
 const SubmenuItem = styled.a<any>`
+    align-items: flex-start;
     display: flex;
     gap: 1rem;
     width: 100%;
-
-    & + & {
-        margin-top: 1rem;
-    }
+    padding: 0 32px;
 
     ${mq.phone(css`
+        padding: 0;
+
         ${({ isActive }: any) =>
             isActive &&
             css`
@@ -65,7 +65,6 @@ const SubmenuItem = styled.a<any>`
         ${transitions(['background-color'], 250, ease.outSine)};
 
         border-radius: 0.25rem;
-        padding: 0.5rem 0.75rem;
         white-space: nowrap;
 
         & + & {
@@ -85,19 +84,13 @@ const SubmenuItem = styled.a<any>`
     `)}
 `;
 
-const SubmenuIcon = styled.div``;
-
 const SubmenuText = styled.div`
     white-space: normal;
 `;
 
 const SubmenuTitle = styled.div`
     color: ${colors.g900};
-    margin-bottom: 0.1rem;
-`;
-
-const SubmenuDescription = styled.div`
-    color: ${colors.g500};
+    margin-bottom: 0.3rem;
 `;
 
 const Flex = styled.div`
@@ -108,10 +101,30 @@ const Flex = styled.div`
 `;
 
 const SubmenuContent = styled.div<any>`
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
 
-    ${mq.tablet(css`
-        padding: 0.5rem;
+    a:first-child a {
+        padding-top: 32px;
+    }
+
+    a a {
+        padding: 16px 32px;
+    }
+
+    a:last-child a {
+        padding-bottom: 32px;
+    }
+
+    ${mq.phone(css`
+        margin-top: 1rem;
+        gap: 1rem;
+
+        a:first-child a,
+        a a,
+        a:last-child a {
+            padding: 0;
+        }
     `)}
 `;
 
@@ -121,7 +134,7 @@ const SubmenuWrapper = styled.div<any>`
     height: ${({ elHeight, isVisible }) => (isVisible ? elHeight / 16 : 0)}rem;
     overflow: hidden;
     position: relative;
-    width: 350px;
+    width: 370px;
 
     ${mq.tablet(css`
         ${transitions(['opacity', 'transform', 'visibility'], 250, ease.inOutCubic)};
@@ -131,7 +144,7 @@ const SubmenuWrapper = styled.div<any>`
         border: 1px solid ${colors.g200};
         box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1), 0px 4px 6px -2px rgba(16, 24, 40, 0.05);
         height: auto;
-        left: 50px;
+        left: 0;
         margin-top: 0.75rem;
         opacity: 0;
         position: absolute;
@@ -146,6 +159,10 @@ const SubmenuWrapper = styled.div<any>`
                 transform: translateY(0);
                 visibility: visible;
             `}
+    `)}
+
+    ${mq.phone(css`
+        width: 100%;
     `)}
 `;
 
@@ -248,9 +265,7 @@ export const MenuItem = (props: MenuItemProps) => {
                                             }
                                         >
                                             <SubmenuItem>
-                                                <SubmenuIcon>
-                                                    <Icon icon={item?.icon} sWidth={1.125} />
-                                                </SubmenuIcon>
+                                                <Icon icon={item?.icon} sHeight="20px" sWidth="20px" />
                                                 <SubmenuText>
                                                     <Flex>
                                                         <SubmenuTitle>
@@ -262,9 +277,14 @@ export const MenuItem = (props: MenuItemProps) => {
                                                             </NewChip>
                                                         )}
                                                     </Flex>
-                                                    <SubmenuDescription>
-                                                        <Text sFontSize={0.8}>{item?.description[0]?.text}</Text>
-                                                    </SubmenuDescription>
+                                                    <Text
+                                                        sColor={colors.g500}
+                                                        sFontSize={0.875}
+                                                        sFontWeight={400}
+                                                        sLineHeight="20px"
+                                                    >
+                                                        {item?.description[0]?.text}
+                                                    </Text>
                                                 </SubmenuText>
                                             </SubmenuItem>
                                         </TextLink>
