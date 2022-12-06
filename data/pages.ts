@@ -82,7 +82,6 @@ export const pages: { [key: string]: object } = {
                     { name: 'allowancePerBeneficiary' },
                     { name: 'ubiRatePerBeneficiary' },
                     { name: 'estimatedUbiDuration' },
-                    { labelAppend: '*', name: 'ssi' },
                     { name: 'beneficiaries' },
                     { name: 'claimed' },
                     { name: 'backers' },

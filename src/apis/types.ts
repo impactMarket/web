@@ -39,7 +39,7 @@ export interface IClaimLocation {
 
 export interface ICommunities {
     count: number;
-    data: ICommunity[];
+    rows: ICommunity[];
 }
 
 export interface ICommunityCampaign {
@@ -79,6 +79,29 @@ export interface IGlobalDailyState {
 
 export interface IGlobalApiResult {
     monthly: IGlobalDailyState[];
+    general: {
+        id: string;
+        claimed: string;
+        claims: number;
+        beneficiaries: number;
+        contributed: string;
+        contributors: number;
+        volume: string;
+        transactions: number;
+        reach: number;
+    };
+    daily: {
+        id: string;
+        claimed: string;
+        claims: number;
+        beneficiaries: number;
+        contributed: string;
+        contributors: number;
+        fundingRate: string;
+        volume: string;
+        transactions: number;
+        reach: number;
+    }[];
     lastQuarterAvgSSI: { date: Date; avgMedianSSI: number }[];
     today: { totalClaimed: string; totalBeneficiaries: number; totalRaised: string };
     totalBackers: number;
@@ -150,11 +173,16 @@ export interface CommunityAttributes {
 }
 
 export interface CommunityStateAttributes {
-    backers: number;
+    contributors: number;
     beneficiaries: number;
     claimed: string;
     claims: number;
-    raised: string;
+    contributed: string;
+    claimAmount: string;
+    maxClaim: string;
+    baseInterval: number;
+    ubiRate: number;
+    estimatedDuration: number;
 }
 
 export interface CommunityContractAttributes {

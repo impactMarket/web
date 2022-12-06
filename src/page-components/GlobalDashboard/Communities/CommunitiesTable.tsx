@@ -10,11 +10,12 @@ type CommunitiesTableProps = {
         accessor: string;
     }[];
     data: { [key: string]: any }[];
+    count: number;
     pageSize: number;
 };
 
 export const CommunitiesTable = (props: CommunitiesTableProps) => {
-    const { columns, data, pageSize: pageSizeFromProps } = props;
+    const { columns, data, count, pageSize: pageSizeFromProps } = props;
 
     const {
         canNextPage,
@@ -43,7 +44,7 @@ export const CommunitiesTable = (props: CommunitiesTableProps) => {
     const paginationProps = {
         canNextPage,
         canPreviousPage,
-        count: data.length,
+        count,
         nextPage,
         pageIndex,
         pageSize,
@@ -54,7 +55,7 @@ export const CommunitiesTable = (props: CommunitiesTableProps) => {
     return (
         <>
             <TableWrapper>
-                <table {...getTableProps()}>
+                <table {...getTableProps()} style={{ width: '100%' }}>
                     <thead>
                         {headerGroups.map((headerGroup, index) => (
                             <tr {...headerGroup.getHeaderGroupProps()} key={index}>

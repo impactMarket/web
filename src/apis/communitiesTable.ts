@@ -1,9 +1,7 @@
-import { CommunityDailyMetricsAttributes, ICommunity } from './types';
+import { ICommunity } from './types';
 import { currencyValue } from '../helpers/currencyValue';
 import { frequencyToText } from '@impact-market/utils';
-import { humanifyNumber } from '../helpers/humanifyNumber';
 import { shortenAddress } from '../helpers/shortenAddress';
-import BigNumber from 'bignumber.js';
 import config from '../../config';
 import countriesJson from '../constants/countries.json';
 
@@ -11,31 +9,19 @@ const { chainExplorer } = config;
 
 const countries: { [key: string]: any } = countriesJson;
 
-const getAllowencePerBeneficiary = (claimAmount: string | BigNumber, baseInterval: number) =>
-    `${currencyValue(humanifyNumber(claimAmount))} / ${frequencyToText(baseInterval)}`;
-
-const getClaimed = ({ claimed, raised }: { claimed: string | BigNumber; raised: string | number }) =>
-    `${currencyValue(humanifyNumber(claimed))} (${new BigNumber(claimed)
-        .dividedBy(raised)
-        .multipliedBy(100)
-        .decimalPlaces(0)
-        .toString()}%)`;
+const getAllowencePerBeneficiary = (claimAmount: number, baseInterval: number) =>
+    `${currencyValue(claimAmount)} / ${frequencyToText(baseInterval)}`;
 
 const getComunityName = (city: string, country: string, name: string, id: string | number) => [
-    { href: `/communities/${id}`, label: name },
+    { href: `https://app.impactmarket.com/communities/${id}`, label: name },
     `${city}, ${countries[country]?.name || ''} ${countries[country]?.emoji || ''}`
 ];
 
-const getEstimatedUbiDuration = (metrics: CommunityDailyMetricsAttributes | undefined, t: Function) =>
-    !metrics ? '-' : `~${Math.floor(metrics?.estimatedDuration)} ${t('months').toLowerCase()}`;
+const getEstimatedUbiDuration = (estimatedDuration: number | undefined, t: Function) =>
+    estimatedDuration === undefined ? '-' : `~${Math.floor(estimatedDuration)} ${t('months').toLowerCase()}`;
 
-const getRaised = (
-    { beneficiaries, raised }: { beneficiaries: number; raised: string | BigNumber },
-    maxClaim: string | number
-) =>
-    `${currencyValue(humanifyNumber(raised))} / ${currencyValue(
-        humanifyNumber(new BigNumber(maxClaim).multipliedBy(beneficiaries))
-    )}`;
+const getRaised = (beneficiaries: number, contributed: number, maxClaim: number) =>
+    `${currencyValue(contributed)} / ${currencyValue(maxClaim * beneficiaries)}`;
 
 const getAddress = (address: string | null) =>
     address
@@ -45,41 +31,25 @@ const getAddress = (address: string | null) =>
           }
         : '';
 
-const getUbiRatePerBeneficiary = (metrics: any, baseInterval: any) => {
-    const rate = currencyValue(metrics?.ubiRate);
+const getUbiRatePerBeneficiary = (ubiRate: number | undefined, baseInterval: any) => {
+    const rate = currencyValue(ubiRate || 0);
     const frequency = frequencyToText(baseInterval);
 
-    return !metrics ? '-' : `~${rate} / ${frequency}`;
+    return ubiRate === undefined ? '-' : `~${rate} / ${frequency}`;
 };
 
 export const communitiesTable: { [key: string]: Function } = {
     getRows: (data: ICommunity[], t: Function) => {
-        return data.map(
-            ({
-                city,
-                contractAddress,
-                contract: { baseInterval, claimAmount, maxClaim },
-                country,
-                id,
-                metrics: metricsArr,
-                name,
-                state
-            }) => {
-                const metrics = metricsArr?.[0];
-
-                return {
-                    allowancePerBeneficiary: getAllowencePerBeneficiary(claimAmount, baseInterval),
-                    backers: state.backers,
-                    beneficiaries: state?.beneficiaries,
-                    claimed: getClaimed(state),
-                    communityName: getComunityName(city, country, name, id),
-                    estimatedUbiDuration: getEstimatedUbiDuration(metrics, t),
-                    raised: getRaised(state, maxClaim),
-                    ssi: !metrics ? '-' : metrics?.ssi,
-                    ubiContract: getAddress(contractAddress),
-                    ubiRatePerBeneficiary: getUbiRatePerBeneficiary(metrics, baseInterval)
-                };
-            }
-        );
+        return data.map(({ city, contractAddress, country, id, name, state }) => ({
+            allowancePerBeneficiary: getAllowencePerBeneficiary(parseFloat(state.claimAmount), state.baseInterval),
+            backers: state.contributors,
+            beneficiaries: state?.beneficiaries,
+            claimed: currencyValue(state.claimed),
+            communityName: getComunityName(city, country, name, id),
+            estimatedUbiDuration: getEstimatedUbiDuration(state.estimatedDuration, t),
+            raised: getRaised(state.beneficiaries, parseFloat(state.contributed), parseFloat(state.maxClaim)),
+            ubiContract: getAddress(contractAddress),
+            ubiRatePerBeneficiary: getUbiRatePerBeneficiary(state.ubiRate, state.baseInterval)
+        }));
     }
 };

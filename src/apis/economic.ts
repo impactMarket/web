@@ -1,44 +1,45 @@
 import { IGlobalDashboard } from './types';
 import { currencyValue } from '../helpers/currencyValue';
 import { getChartDateValueTooltip } from '../helpers/getChartDateValueTooltip';
-import { humanifyNumber } from '../helpers/humanifyNumber';
 import { numericalValue } from '../helpers/numericalValue';
-import BigNumber from 'bignumber.js';
 
 export const economic: { [key: string]: Function } = {
     reach: (data: IGlobalDashboard, t: Function) => ({
         chart: {
-            data: data.monthly.map(({ date, reach }) => ({ name: new Date(date).getTime(), uv: reach })).reverse(),
+            data: data.daily
+                .map(({ id, reach }) => ({ name: new Date(parseInt(id, 10) * 86400000).getTime(), uv: reach }))
+                .reverse(),
             tooltip: (payload: any, label: any): string =>
                 getChartDateValueTooltip(t('addressReachedOn'), payload, label)
         },
         growth: data.growth.reach,
         numeric: {
-            value: numericalValue(data.reachedLastMonth.reach.toString())
+            value: numericalValue(data.daily.reduce((result, { reach }) => result + reach, 0))
         }
     }),
 
     transfers: (data: IGlobalDashboard, t: Function) => ({
         chart: {
-            data: data.monthly
-                .map(({ date, transactions }) => ({ name: new Date(date).getTime(), uv: transactions }))
+            data: data.daily
+                .map(({ id, transactions }) => ({
+                    name: new Date(parseInt(id, 10) * 86400000).getTime(),
+                    uv: transactions
+                }))
                 .reverse(),
             tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('transactionsOn'), payload, label)
         },
         growth: data.growth.transactions,
         numeric: {
-            value: numericalValue(
-                data.monthly.reduce((result, { transactions }) => result + transactions, 0).toString()
-            )
+            value: numericalValue(data.daily.reduce((result, { transactions }) => result + transactions, 0))
         }
     }),
 
     volume: (data: IGlobalDashboard, t: Function) => ({
         chart: {
-            data: data.monthly
-                .map(({ date, volume }) => ({
-                    name: new Date(date).getTime(),
-                    uv: parseFloat(humanifyNumber(volume))
+            data: data.daily
+                .map(({ id, volume }) => ({
+                    name: new Date(parseInt(id, 10) * 86400000).getTime(),
+                    uv: Math.round(parseFloat(volume) * 100) / 100
                 }))
                 .reverse(),
             tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('transactedOn'), payload, label),
@@ -46,12 +47,8 @@ export const economic: { [key: string]: Function } = {
         },
         growth: data.growth.volume,
         numeric: {
-            suffix: 'cUsd',
-            value: currencyValue(
-                humanifyNumber(
-                    data.monthly.reduce((result, { volume }) => result.plus(volume), new BigNumber('0')).toString()
-                )
-            )
+            suffix: 'cUSD',
+            value: currencyValue(data.daily.reduce((result, { volume }) => result + parseFloat(volume), 0))
         }
     })
 };
