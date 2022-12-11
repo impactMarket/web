@@ -6,11 +6,17 @@ import styled, { css } from 'styled-components';
 
 const sizeVariations = {
     default: css`
-        height: 44px;
+        height: 40px;
 
         ${mq.tabletLandscape(
             css`
                 height: 48px;
+            `
+        )}
+
+        ${mq.phone(
+            css`
+                height: 35px;
             `
         )}
     `
