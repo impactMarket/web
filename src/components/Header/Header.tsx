@@ -17,7 +17,7 @@ import { Topbar } from './Topbar';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 type MenuItemSlice = {
     primary?: {
@@ -60,10 +60,19 @@ export const Header = () => {
         }
     };
 
+    // Get header div height in px and use that height as a padding top for the mobile menu
+
+    const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+
+    useLayoutEffect(() => {
+        setHeaderHeight(ref.current.offsetHeight);
+    }, []);
+
     return (
         <>
             <HeaderWrapper>
-                <HeaderContent>
+                <HeaderContent ref={ref}>
                     <Topbar />
                     <HeaderMainBar>
                         <HeaderBarContent>
@@ -71,7 +80,7 @@ export const Header = () => {
                                 <a
                                     onClick={() => handleLinkClick('/')}
                                     style={{
-                                        cursor: checkActiveRoute('/') ? 'default' : 'pointer',
+                                        cursor: 'pointer',
                                         fontSize: 0,
                                         zIndex: 100
                                     }}
@@ -107,7 +116,7 @@ export const Header = () => {
                 </HeaderContent>
 
                 {/* Mobile */}
-                <HeaderMobileContent isActive={isMenuVisible}>
+                <HeaderMobileContent isActive={isMenuVisible} paddingTop={headerHeight}>
                     {menu?.length &&
                         menu.map(({ items, primary: { label, url } }, index) => (
                             <MenuItem

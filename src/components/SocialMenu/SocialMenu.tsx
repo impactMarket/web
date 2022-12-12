@@ -25,10 +25,6 @@ const SocialLink = styled.a.attrs({
 
     color: ${colors.brandSecondary};
 
-    & + & {
-        margin-left: 0.5rem;
-    }
-
     &:hover {
         color: ${colors.textPrimary};
         text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.24);
@@ -47,7 +43,7 @@ export const SocialMenu = (props: SocialMenuProps) => {
     const socialNetworks = config?.data?.social as Social;
 
     return (
-        <Div {...props}>
+        <Div {...props} style={{ flexWrap: 'wrap', gap: '0.5rem' }}>
             {!!socialNetworks?.length &&
                 socialNetworks.map(({ name, url }, index) => (
                     <SocialLink href={url} key={index}>

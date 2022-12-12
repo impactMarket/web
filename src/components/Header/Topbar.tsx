@@ -2,7 +2,7 @@ import { GhostElement, Text } from '../../theme/components';
 import { ImpactMarketDaoContext } from '../../components';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { String } from '../String/String';
-import { TopbarColumn, TopbarContent, TopbarData, TopbarLeft, TopbarStyle, TopbarWallet } from './Header.style';
+import { TopbarColumn, TopbarContent, TopbarLeft, TopbarStyle, TopbarWallet } from './Header.style';
 import { WalletConnect } from './WalletConnect';
 import { colors } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
@@ -81,25 +81,25 @@ export const Topbar = () => {
         <TopbarStyle>
             <TopbarContent>
                 <TopbarLeft>
-                    <Text sFontWeight="700">
-                        <String id="pact" />
-                    </Text>
-                    <TopbarData>
-                        {items.map(({ name }, key) => (
-                            <TopbarColumn key={key}>
-                                <Text sFontWeight="500">
-                                    <String id={`${getString(name as keyof PactMetricsType)}.topbar`.toLowerCase()} />
+                    {items.map(({ name }, key) => (
+                        <TopbarColumn key={key}>
+                            {name === 'priceCUSD' && (
+                                <Text sFontWeight="700">
+                                    <String id="pact" />
                                 </Text>
-                                {isLoading ? (
-                                    <GhostElement color={colors.g500} sHeight={0.6} sWidth={3} />
-                                ) : (
-                                    <Text sColor={colors.b300} sFontWeight="500">
-                                        {getValue(name as keyof PactMetricsType)}
-                                    </Text>
-                                )}
-                            </TopbarColumn>
-                        ))}
-                    </TopbarData>
+                            )}
+                            <Text sFontWeight="500">
+                                <String id={`${getString(name as keyof PactMetricsType)}.topbar`.toLowerCase()} />
+                            </Text>
+                            {isLoading ? (
+                                <GhostElement color={colors.g500} sHeight={0.6} sWidth={3} />
+                            ) : (
+                                <Text sColor={colors.b300} sFontWeight="500">
+                                    {getValue(name as keyof PactMetricsType)}
+                                </Text>
+                            )}
+                        </TopbarColumn>
+                    ))}
                 </TopbarLeft>
                 <TopbarWallet>
                     <WalletConnect />

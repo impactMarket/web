@@ -338,13 +338,12 @@ const ui = {
     ],
   },
   speaker: {
-    viewbox: '0 0 11 16',
+    viewbox: '0 0 19 22',
     paths: [
       {
-        d: 'M10 1 5 5H1v6h4l5 4V1Z',
-        strokeWidth: '2',
-        strokeLinecap: 'round',
-        strokeLinejoin: 'round',
+        fillRule: 'evenodd',
+        clipRule: 'evenodd',
+        d: 'M18.491.129A1 1 0 0 1 19 1v20a1 1 0 0 1-1.518.856l-9.205-5.57H1a1 1 0 0 1-1-1V6.714a1 1 0 0 1 1-1h7.277l9.205-5.57a1 1 0 0 1 1.01-.015ZM17 2.774 9.073 7.57a1 1 0 0 1-.517.144H2v6.572h6.556a1 1 0 0 1 .517.144L17 19.226V2.774Z',
         color: '#2362FB',
       },
     ],
