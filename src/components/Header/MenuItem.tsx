@@ -117,8 +117,9 @@ const SubmenuContent = styled.div<any>`
     }
 
     ${mq.phone(css`
-        margin-top: 1rem;
-        gap: 1rem;
+        margin-top: 1.3rem;
+        margin-bottom: 1rem;
+        gap: 1.5rem;
 
         a:first-child a,
         a a,
@@ -161,9 +162,13 @@ const SubmenuWrapper = styled.div<any>`
             `}
     `)}
 
-    ${mq.phone(css`
-        width: 100%;
-    `)}
+    ${props =>
+        mq.phone(css`
+            width: 100%;
+            padding-left: 0.5rem;
+            height: ${props.isVisible ? 'fit-content' : 0};
+            overflow: auto;
+        `)}
 `;
 
 const LinkWrapper = (props: { children: any; url?: string }) => {

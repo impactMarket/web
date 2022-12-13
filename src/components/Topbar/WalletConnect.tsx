@@ -13,13 +13,21 @@ import styled, { css } from 'styled-components';
 const ConnectButton = styled.button<any>`
     ${transitions(['background-color', 'box-shadow', 'color'], 250, ease.outSine)};
 
-    background-color: ${colors.backgroundSecondary};
-    border-radius: 12px;
+    background-color: ${colors.g25};
+    border-radius: 8px;
     border: 0;
     cursor: pointer;
     font-weight: ${fonts.weights.medium};
-    height: 2.375rem;
+    height: 2rem;
     outline: 0;
+
+    ${mq.upTo(
+        'tablet',
+        css`
+            height: 1.75rem;
+            width: 100%;
+        `
+    )}
 
     &:hover {
         background-color: ${colors.brandPrimary};
@@ -31,7 +39,7 @@ const ConnectButton = styled.button<any>`
 const WalletAddress = styled.div`
     align-items: center;
     background-color: ${colors.g500};
-    border-radius: 0 50px 50px 0;
+    border-radius: 0 8px 8px 0;
     display: flex;
     height: 100%;
     padding: 0 0 0 1rem;
@@ -40,7 +48,7 @@ const WalletAddress = styled.div`
 const WalletWrapper = styled.div<any>`
     align-items: center;
     background-color: ${colors.g25};
-    border-radius: 50px;
+    border-radius: 8px;
     display: flex;
     margin: auto;
     height: 100%;
@@ -60,7 +68,13 @@ const PactBalance = () => {
 
     return (
         <Pact>
-            <Text bold ellipsis manrope sMaxWidth={{ sm: 12, xs: 7.5 }} sPadding="0 0 0 1rem" small>
+            <Text
+                ellipsis
+                fontSize={{ md: '0.875rem', xs: '0.75rem' }}
+                medium
+                sMaxWidth={{ sm: 12, xs: 7.5 }}
+                sPadding="0 0 0 1rem"
+            >
                 {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
             </Text>
         </Pact>
@@ -100,10 +114,10 @@ export const WalletConnect = () => {
                     options={[{ label: t('disconnect'), value: 'disconnect' }]}
                     renderSelected={() => (
                         <WalletAddress>
-                            <Text medium sColor="#fff" small>
+                            <Text fontSize={{ md: '0.875rem', xs: '0.75rem' }} medium sColor="#fff">
                                 {formatAddress(address, [6, 4])}
                             </Text>
-                            <Icon brandSecondaryLight icon="caret" ml={1} mr={1} sHeight={0.3125} sWidth={1.1875} />
+                            <Icon icon="caret" ml={0.1} mr={0.1} sHeight={0.3125} sWidth={1.1875} white />
                         </WalletAddress>
                     )}
                     sHeight="100%"
