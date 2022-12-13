@@ -88,7 +88,12 @@ const config = {
     /*
      * Treasury address
      */
-    treasuryAddress: process.env.NEXT_PUBLIC_TREASURY_ADDRESS
+    treasuryAddress: process.env.NEXT_PUBLIC_TREASURY_ADDRESS,
+
+    /**
+     * Subgraph URL
+     */
+    subgraphUrl: process.env.NEXT_PUBLIC_SUBGRAPH_URL
 };
 
 export default config;

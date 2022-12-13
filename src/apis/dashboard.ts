@@ -2,7 +2,6 @@ import { IGlobalDashboard } from './types';
 import { currencyValue } from '../helpers/currencyValue';
 import { humanifyNumber } from '../helpers/humanifyNumber';
 import { numericalValue } from '../helpers/numericalValue';
-import BigNumber from 'bignumber.js';
 
 export const dashboard: { [key: string]: Function } = {
     getAvgCumulativeUbi: (data: IGlobalDashboard, t: Function) => ({
@@ -18,11 +17,11 @@ export const dashboard: { [key: string]: Function } = {
     }),
 
     getBackers: (data: IGlobalDashboard) => ({
-        value: numericalValue(data?.totalBackers?.toString())
+        value: numericalValue(data?.general?.contributors)
     }),
 
     getBeneficiaries: (data: IGlobalDashboard) => ({
-        value: numericalValue((data?.monthly?.[0]?.totalBeneficiaries + data?.today?.totalBeneficiaries).toString())
+        value: numericalValue(data?.general?.beneficiaries)
     }),
 
     getHelper: (helper: string, data: IGlobalDashboard, t: Function): Function => {
@@ -59,26 +58,20 @@ export const dashboard: { [key: string]: Function } = {
 
     getTotalDistributed: (data: IGlobalDashboard) => ({
         suffix: 'cUSD',
-        value: currencyValue(
-            humanifyNumber(
-                new BigNumber(data?.monthly?.[0]?.totalDistributed).plus(data?.today?.totalClaimed).toString()
-            )
-        )
+        value: currencyValue(data?.general?.claimed)
     }),
 
     getTotalRaised: (data: IGlobalDashboard) => ({
-        suffix: 'cUsd',
-        value: currencyValue(
-            humanifyNumber(new BigNumber(data?.monthly?.[0]?.totalRaised).plus(data?.today?.totalRaised).toString())
-        )
+        suffix: 'cUSD',
+        value: currencyValue(data?.general?.contributed)
     }),
 
     getTotalVolume: (data: IGlobalDashboard) => ({
-        suffix: 'cUsd',
-        value: currencyValue(humanifyNumber(data?.monthly?.[0]?.totalVolume))
+        suffix: 'cUSD',
+        value: currencyValue(data?.general?.volume)
     }),
 
     getTransfers: (data: IGlobalDashboard) => ({
-        value: numericalValue(data?.monthly?.[0]?.totalTransactions.toString())
+        value: numericalValue(data?.general?.transactions)
     })
 };

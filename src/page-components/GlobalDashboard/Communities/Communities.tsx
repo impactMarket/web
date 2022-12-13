@@ -1,20 +1,8 @@
-import {
-    Col,
-    DashboardCard,
-    Div,
-    Grid,
-    Heading,
-    ItemsRow,
-    Row,
-    Section,
-    Select,
-    Text
-} from '../../../theme/components';
+import { Col, DashboardCard, Div, Grid, Heading, Row, Section, Select, Text } from '../../../theme/components';
 import { CommunitiesTable } from './CommunitiesTable';
-import { DashboardChart, String } from '../../../components';
 import { ICommunity, IGlobalDashboard } from '../../../apis/types';
+import { String } from '../../../components';
 import { communitiesTable } from '../../../apis/communitiesTable';
-import { getChartDateValueTooltip } from '../../../helpers/getChartDateValueTooltip';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import Api from '../../../apis/api';
 import React, { useEffect, useState } from 'react';
@@ -35,20 +23,22 @@ type CommunitiesProps = {
 };
 
 export const Communities = (props: CommunitiesProps) => {
-    const { data: globalData, filterOptions, table } = props;
+    const { filterOptions, table } = props;
     const { t } = useTranslation();
     const initialSelectedFilter = filterOptions.find(({ value }) => value === 'bigger')?.value || 'bigger';
     const [communities, setCommunities] = useState<ICommunity[] | undefined>();
+    const [totalCommunities, setTotalCommunities] = useState(0);
     const [communitiesFilter, setCommunitiesFilter] = useState(initialSelectedFilter);
     const [data, setData] = useState<{ [key: string]: any }[]>();
-    const [ssiData, setSsiData] = useState<{ name: number; uv: any }[]>();
 
     useEffect(() => {
         const getCommunities = async () => {
-            const result = await Api.getCommunities({ extended: true, limit: 999999, orderBy: communitiesFilter });
+            const result = await Api.getCommunities({ limit: 300, orderBy: communitiesFilter });
+
             const communities = result?.items;
 
             setCommunities(communities);
+            setTotalCommunities(result.count);
         };
 
         getCommunities();
@@ -59,14 +49,6 @@ export const Communities = (props: CommunitiesProps) => {
 
         setData(data);
     }, [communities]);
-
-    useEffect(() => {
-        const ssiData = globalData.lastQuarterAvgSSI
-            .map(({ avgMedianSSI, date }) => ({ name: new Date(date).getTime(), uv: avgMedianSSI }))
-            .reverse();
-
-        setSsiData(ssiData);
-    }, [globalData.lastQuarterAvgSSI]);
 
     const columns = React.useMemo(
         () =>
@@ -89,7 +71,7 @@ export const Communities = (props: CommunitiesProps) => {
                         <Heading h3>
                             <String
                                 id="page.globalDashboard.communities.heading"
-                                variables={{ communitiesCount: `${communities?.length || t('many') || ''}` }}
+                                variables={{ communitiesCount: `${totalCommunities || t('many') || ''}` }}
                             />
                         </Heading>
                         <Text mt={0.5} small>
@@ -113,35 +95,13 @@ export const Communities = (props: CommunitiesProps) => {
                                 />
                             </Div>
                             {communities && (
-                                <CommunitiesTable columns={columns} data={data} pageSize={table?.initialRows || 10} />
+                                <CommunitiesTable
+                                    columns={columns}
+                                    count={totalCommunities}
+                                    data={data}
+                                    pageSize={table?.initialRows || 10}
+                                />
                             )}
-                        </DashboardCard>
-                    </Col>
-                </Row>
-                <Row mt={2.75}>
-                    <Col xs={12}>
-                        <DashboardCard>
-                            <ItemsRow distribute="tablet">
-                                <Div column>
-                                    <Text small textSecondary>
-                                        <String id="page.globalDashboard.communities.ssi.heading" />
-                                    </Text>
-                                    <Heading h3 mt={0.25}>
-                                        {globalData?.monthly[0]?.avgMedianSSI}%
-                                    </Heading>
-                                    <Text XXSmall mt={0.5} textSecondary>
-                                        <String id="page.globalDashboard.communities.ssi.text" />
-                                    </Text>
-                                </Div>
-                                {ssiData && (
-                                    <DashboardChart
-                                        data={ssiData}
-                                        tooltip={(payload: any, label: any) =>
-                                            getChartDateValueTooltip(t('averageSsiWas'), payload, label)
-                                        }
-                                    />
-                                )}
-                            </ItemsRow>
                         </DashboardCard>
                     </Col>
                 </Row>

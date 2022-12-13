@@ -1,3 +1,4 @@
+import { ApolloClient, HttpLink, InMemoryCache, concat, gql } from '@apollo/client';
 import {
     CommunityListRequestArguments,
     CommunityListRequestResponseType,
@@ -14,9 +15,11 @@ import {
     IManager
 } from './types';
 import { Numbers } from 'humanify-numbers';
+import { RetryLink } from '@apollo/client/link/retry';
 import { createQueryParamsFromObj } from '../helpers/createQueryParamsFromObj';
 import { getRequest, postRequest } from './client';
 import axios from 'axios';
+import config from '../../config';
 
 export default class Api {
     static async getAllClaimLocation(): Promise<IClaimLocation[]> {
@@ -28,19 +31,19 @@ export default class Api {
     static async getCommunities(
         requestOptions: CommunityListRequestArguments
     ): Promise<CommunityListRequestResponseType> {
-        const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
-        const baseOptions = { extended: false, limit: 10, orderBy: 'bigger', page: 1 };
+        const params = ['country', 'filter', 'limit', 'name', 'offset', 'orderBy'];
+        const baseOptions = { limit: 10, orderBy: 'bigger', page: 1, status: 'valid' };
         const options = Object.assign({}, baseOptions, requestOptions);
         const { page, limit } = options;
 
         const offset = (page - 1) * limit;
         const query = createQueryParamsFromObj({ offset, ...options }, params);
-        const url = `/community/list/${query}`;
+        const url = `/v2/communities/${query}&state=base&state=ubi`;
 
-        const response = await getRequest<ICommunities>(url);
+        const response = await getRequest<{ data: ICommunities }>(url);
 
-        const items = response?.data || [];
-        const count = response?.count;
+        const items = response?.data.rows || [];
+        const count = response?.data.count;
 
         return { count, items, page };
     }
@@ -92,10 +95,59 @@ export default class Api {
     }
 
     static async getGlobalValues(): Promise<IGlobalDashboard | {}> {
+        // retry with intervals
+        const retry = new RetryLink({ attempts: { max: 100 }, delay: { max: 30000 } });
+        const http = new HttpLink({ uri: config.subgraphUrl });
+        const link = concat(retry, http);
+        const client = new ApolloClient({
+            cache: new InMemoryCache(),
+            link
+        });
+
+        const ubiDailyEntityZero = await client.query({
+            query: gql`
+                query GetUbiDaily {
+                    ubidailyEntity(id: 0) {
+                        claimed
+                        contributed
+                        contributors
+                        beneficiaries
+                        volume
+                        transactions
+                        reach
+                    }
+                }
+            `
+        });
+
+        const ubiDailyEntityMonth = await client.query({
+            query: gql`
+                query GetUbiDailyMonth {
+                    ubidailyEntities(first: 30, skip: 1, orderBy: id, orderDirection: desc) {
+                        id
+                        claimed
+                        claims
+                        beneficiaries
+                        contributed
+                        contributors
+                        fundingRate
+                        volume
+                        transactions
+                        reach
+                    }
+                }
+            `
+        });
+
         const result = (await getRequest<IGlobalApiResult | undefined>('/global/status')) || {};
         const demographics = await getRequest<IDemographics[] | undefined>('/global/demographics');
 
-        return { ...result, demographics };
+        return {
+            ...result,
+            daily: ubiDailyEntityMonth.data.ubidailyEntities,
+            demographics,
+            general: ubiDailyEntityZero.data.ubidailyEntity
+        };
     }
 
     static async getPendingCommunities(requestOptions: CommunityListRequestArguments): Promise<any> {

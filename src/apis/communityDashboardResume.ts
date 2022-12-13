@@ -28,16 +28,9 @@ export const communityDashboardResume = {
         return currencyValue(value);
     },
 
-    getGoalProgress: (community: ICommunity, symbol?: string) => {
-        const raised = humanifyNumber(community?.state?.raised);
-        const goal = humanifyNumber(
-            new BigNumber(community?.contract?.maxClaim).multipliedBy(community?.state?.beneficiaries)
-        );
-
-        const result = new BigNumber(raised).dividedBy(goal).multipliedBy(100).decimalPlaces(0).toString();
-
-        return `${result === 'Infinity' ? 0 : result}${symbol || ''}`;
+    getGoalProgress: (_community: ICommunity, _symbol?: string) => {
+        return 0;
     },
 
-    getRaised: (state: CommunityStateAttributes) => currencyValue(humanifyNumber(state?.raised))
+    getRaised: (state: CommunityStateAttributes) => currencyValue(humanifyNumber(state?.contributed))
 };
