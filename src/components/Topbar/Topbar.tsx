@@ -1,15 +1,15 @@
 import { GhostElement, Text } from '../../theme/components';
-import { ImpactMarketDaoContext } from '../../components';
+import { ImpactMarketDaoContext } from '..';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { String } from '../String/String';
-import { TopbarColumn, TopbarContent, TopbarLeft, TopbarStyle, TopbarWallet } from './Header.style';
+import { TopbarColumn, TopbarContent, TopbarLeft, TopbarStyle, TopbarWallet } from './Topbar.style';
 import { WalletConnect } from './WalletConnect';
 import { colors } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
 
 import { circulatingSupply as getCirculatingSupply, getPACTTradingMetrics } from '@impact-market/utils';
-import { useData } from '../../components/DataProvider/DataProvider';
-import React, { useContext, useEffect, useState } from 'react';
+import { useData } from '../DataProvider/DataProvider';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import envConfig from '../../../config';
 
 const getString = (name: string) => `page.governanceToken.metrics.${name}`;
@@ -23,7 +23,7 @@ type PactMetricsType = {
     priceCUSD?: number | string;
 };
 
-export const Topbar = () => {
+export const Topbar = ({ setTopbarHeight }: any) => {
     const { config } = useData();
     const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
 
@@ -77,24 +77,31 @@ export const Topbar = () => {
         return pactTradingMetrics[name] || '--';
     };
 
+    // Get topbar div height
+    const topbarRef = useRef(null);
+
+    useLayoutEffect(() => {
+        setTopbarHeight(topbarRef.current.offsetHeight);
+    }, []);
+
     return (
-        <TopbarStyle>
+        <TopbarStyle ref={topbarRef}>
             <TopbarContent>
                 <TopbarLeft>
                     {items.map(({ name }, key) => (
                         <TopbarColumn key={key}>
                             {name === 'priceCUSD' && (
-                                <Text sFontWeight="700">
+                                <Text sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="700">
                                     <String id="pact" />
                                 </Text>
                             )}
-                            <Text sFontWeight="500">
+                            <Text sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="500">
                                 <String id={`${getString(name as keyof PactMetricsType)}.topbar`.toLowerCase()} />
                             </Text>
                             {isLoading ? (
                                 <GhostElement color={colors.g500} sHeight={0.6} sWidth={3} />
                             ) : (
-                                <Text sColor={colors.b300} sFontWeight="500">
+                                <Text sColor={colors.b300} sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="500">
                                     {getValue(name as keyof PactMetricsType)}
                                 </Text>
                             )}

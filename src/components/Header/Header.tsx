@@ -1,3 +1,4 @@
+import { Button, Icon, Logo, Text, TextLink } from '../../theme/components';
 import {
     HeaderBarContent,
     HeaderContent,
@@ -6,18 +7,20 @@ import {
     HeaderMainBarLeftCol,
     HeaderMainBarMenu,
     HeaderMainBarMobileMenuButton,
-    HeaderMainBarRightCol,
     HeaderMobileContent,
-    HeaderWrapper
+    HeaderWrapper,
+    MobileContent,
+    MobileMenuButtons
 } from './Header.style';
-import { Icon, Logo } from '../../theme/components';
 import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
-import { Topbar } from './Topbar';
+import { Topbar } from '../Topbar/Topbar';
+import { modal } from 'react-modal-handler';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
+import { useScrollDirection } from '../../helpers/useScrollDirection';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type MenuItemSlice = {
     primary?: {
@@ -32,10 +35,18 @@ type MenuItemSlice = {
     sliceType: 'item_menu' | 'item_menu_with_submenu';
 };
 
+type MobileButtons = {
+    buttonColor?: string;
+    buttonLabel?: string;
+    buttonUrl?: string;
+};
+
 export const Header = () => {
     const { config: prismicConfig } = usePrismicData();
+    const scrollDirection = useScrollDirection();
 
     const menu = prismicConfig?.data?.newHeader as MenuItemSlice[];
+    const mobileMenuButtons = prismicConfig?.data?.mobileMenuButtons as MobileButtons[];
 
     const router = useRouter();
     const { asPath, push } = router;
@@ -60,78 +71,132 @@ export const Header = () => {
         }
     };
 
-    // Get header div height in px and use that height as a padding top for the mobile menu
-
-    const ref = useRef(null);
+    // Get header div height
+    const headerRef = useRef(null);
     const [headerHeight, setHeaderHeight] = useState(0);
+    const [topbarHeight, setTopbarHeight] = useState(0);
 
     useLayoutEffect(() => {
-        setHeaderHeight(ref.current.offsetHeight);
+        setHeaderHeight(headerRef.current.offsetHeight);
     }, []);
 
+    useEffect(() => {
+        if (isMenuVisible) {
+            document.body.style.overflowY = 'hidden';
+        } else {
+            document.body.style.overflowY = 'scroll';
+        }
+    }, [isMenuVisible]);
+
+    const ButtonLink = ({ buttonUrl, buttonLabel, buttonColor }: any) => {
+        if (buttonUrl.includes('modal:')) {
+            const modalName = buttonUrl.substring(buttonUrl.indexOf(':') + 1);
+
+            return (
+                <TextLink
+                    onClick={() => {
+                        return modal.open(modalName, {
+                            onSuccess: () => asPath !== '/governance' && push('/governance')
+                        });
+                    }}
+                >
+                    <Button large lined={buttonColor === 'white' && true} sHeight="3rem" sWidth="100%">
+                        <Text bold>{buttonLabel}</Text>
+                    </Button>
+                </TextLink>
+            );
+        }
+
+        return (
+            <TextLink href={buttonUrl} rel="noopener noreferrer" target="_blank">
+                <Button large lined={buttonColor === 'white' && true} sHeight="3rem" sWidth="100%">
+                    <Text bold>{buttonLabel}</Text>
+                </Button>
+            </TextLink>
+        );
+    };
+
     return (
-        <>
-            <HeaderWrapper>
-                <HeaderContent ref={ref}>
-                    <Topbar />
-                    <HeaderMainBar>
-                        <HeaderBarContent>
-                            <HeaderMainBarLeftCol>
-                                <a
-                                    onClick={() => handleLinkClick('/')}
-                                    style={{
-                                        cursor: 'pointer',
-                                        fontSize: 0,
-                                        zIndex: 100
-                                    }}
-                                >
-                                    <Logo />
-                                </a>
-                            </HeaderMainBarLeftCol>
+        <HeaderWrapper direction={scrollDirection ? scrollDirection : 'up'} topbarHeight={topbarHeight}>
+            <HeaderContent>
+                <Topbar setTopbarHeight={setTopbarHeight} />
+                <HeaderMainBar ref={headerRef}>
+                    <HeaderBarContent>
+                        <HeaderMainBarLeftCol>
+                            <a
+                                onClick={() => handleLinkClick('/')}
+                                style={{
+                                    cursor: 'pointer',
+                                    fontSize: 0,
+                                    zIndex: 100
+                                }}
+                            >
+                                <Logo />
+                            </a>
+                        </HeaderMainBarLeftCol>
+                        <>
+                            <HeaderMainBarMobileMenuButton onClick={handleMenuButtonClick}>
+                                <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
+                            </HeaderMainBarMobileMenuButton>
+                            <HeaderMainBarMenu>
+                                {!!menu?.length &&
+                                    menu.map(({ items, primary: { label, url } }, index) => (
+                                        <MenuItem
+                                            isMenuVisible={isMenuVisible}
+                                            items={items}
+                                            key={index}
+                                            label={label}
+                                            setIsMenuVisible={setIsMenuVisible}
+                                            url={url}
+                                        />
+                                    ))}
+                            </HeaderMainBarMenu>
+                        </>
+                        <HeaderLanguage>
+                            <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
+                        </HeaderLanguage>
+                    </HeaderBarContent>
+                </HeaderMainBar>
 
-                            <HeaderMainBarRightCol>
-                                <HeaderMainBarMobileMenuButton onClick={handleMenuButtonClick}>
-                                    <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
-                                </HeaderMainBarMobileMenuButton>
-                                <HeaderMainBarMenu>
-                                    {!!menu?.length &&
-                                        menu.map(({ items, primary: { label, url } }, index) => (
-                                            <MenuItem
-                                                isMenuVisible={isMenuVisible}
-                                                items={items}
-                                                key={index}
-                                                label={label}
-                                                setIsMenuVisible={setIsMenuVisible}
-                                                url={url}
-                                            />
-                                        ))}
-                                </HeaderMainBarMenu>
-                            </HeaderMainBarRightCol>
+                {/* Mobile Dropdown */}
+                <HeaderMobileContent
+                    direction={scrollDirection ? scrollDirection : 'up'}
+                    headerHeight={headerHeight}
+                    isActive={isMenuVisible}
+                    topbarHeight={topbarHeight}
+                >
+                    <MobileContent>
+                        {!!mobileMenuButtons.length && (
+                            <MobileMenuButtons>
+                                {mobileMenuButtons?.map((button, key) => (
+                                    <ButtonLink
+                                        buttonColor={button.buttonColor}
+                                        buttonLabel={button.buttonLabel}
+                                        buttonUrl={button.buttonUrl}
+                                        key={key}
+                                    />
+                                ))}
+                            </MobileMenuButtons>
+                        )}
 
-                            <HeaderLanguage>
-                                <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
-                            </HeaderLanguage>
-                        </HeaderBarContent>
-                    </HeaderMainBar>
-                </HeaderContent>
-
-                {/* Mobile */}
-                <HeaderMobileContent isActive={isMenuVisible} paddingTop={headerHeight}>
-                    {menu?.length &&
-                        menu.map(({ items, primary: { label, url } }, index) => (
-                            <MenuItem
-                                isMenuVisible={isMenuVisible}
-                                items={items}
-                                key={index}
-                                label={label}
-                                setIsMenuVisible={setIsMenuVisible}
-                                url={url}
-                            />
-                        ))}
-                    <LanguageSelect mt={3.5} />
-                    <SocialMenu mt="auto" pt={1.5} />
+                        <>
+                            {menu?.length &&
+                                menu.map(({ items, primary: { label, url } }, index) => (
+                                    <MenuItem
+                                        isMenuVisible={isMenuVisible}
+                                        items={items}
+                                        key={index}
+                                        label={label}
+                                        setIsMenuVisible={setIsMenuVisible}
+                                        url={url}
+                                    />
+                                ))}
+                            <LanguageSelect mt={2} />
+                        </>
+                    </MobileContent>
+                    <SocialMenu pt={1.5} />
                 </HeaderMobileContent>
-            </HeaderWrapper>
-        </>
+            </HeaderContent>
+        </HeaderWrapper>
     );
 };
