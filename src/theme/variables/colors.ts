@@ -18,6 +18,8 @@ export const colors = {
     g700: '#344054',
     g900: '#101828',
 
+    p200: '#D3DFFE',
+    p400: '#7BA1FD',
     p700: '#1A51D8',
 
     s50: '#ECFDF3',
