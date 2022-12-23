@@ -6,6 +6,7 @@ const slices = {
     Hero: dynamic(() => import('./Hero'), { ssr: false }),
     LogoList: dynamic(() => import('./LogoList'), { ssr: false }),
     NumbersFromApi: dynamic(() => import('./NumbersFromApi'), { ssr: false }),
+    Partners: dynamic(() => import('./Partners'), { ssr: false }),
     SubscribeCta: dynamic(() => import('./SubscribeCta'), { ssr: false }),
     Testimonial: dynamic(() => import('./Testimonial'), { ssr: false })
 } as { [componentName: string]: ComponentType | Function };
