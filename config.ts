@@ -93,7 +93,12 @@ const config = {
     /**
      * Subgraph URL
      */
-    subgraphUrl: process.env.NEXT_PUBLIC_SUBGRAPH_URL
+    subgraphUrl: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
+
+    /**
+     * Chain ID
+     */
+    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!, 10)
 };
 
 export default config;

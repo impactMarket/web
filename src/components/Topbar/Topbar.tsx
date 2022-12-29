@@ -38,7 +38,7 @@ export const Topbar = ({ setTopbarHeight }: any) => {
             setIsLoading(true);
             try {
                 const response = await getPACTTradingMetrics(provider as any);
-                const circulatingSupply = await getCirculatingSupply(provider as any);
+                const circulatingSupply = await getCirculatingSupply(provider as any, envConfig.chainId);
 
                 const { priceUSD: priceCUSD } = response;
 
