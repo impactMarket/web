@@ -37,8 +37,8 @@ export const Topbar = ({ setTopbarHeight }: any) => {
         const loadPactPriceVolumeLiquidity = async () => {
             setIsLoading(true);
             try {
-                const response = await getPACTTradingMetrics(provider as any);
-                const circulatingSupply = await getCirculatingSupply(provider as any, envConfig.chainId);
+                const response = await getPACTTradingMetrics(envConfig.chainId);
+                const circulatingSupply = await getCirculatingSupply(provider, envConfig.chainId);
 
                 const { priceUSD: priceCUSD } = response;
 
