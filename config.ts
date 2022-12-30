@@ -9,7 +9,7 @@ const config = {
     /**
      * Base URL to api
      */
-    baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api`!,
+    baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api/v2`!,
 
     /**
      * cUSD decimals to use in ui format
