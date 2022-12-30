@@ -11,9 +11,9 @@
     },
     "dependencies": {
         "@apollo/client": "^3.6.2",
-        "@celo/contractkit": "2.0.0",
-        "@celo/react-celo": "4.1.0",
-        "@impact-market/utils": "3.2.0",
+        "@celo/contractkit": "2.3.0",
+        "@celo/react-celo": "4.2.1",
+        "@impact-market/utils": "3.2.4",
         "@prismicio/client": "^6.1.0",
         "@prismicio/react": "^2.0.3",
         "@prismicio/types": "^0.1.22",
@@ -77,7 +77,7 @@
     },
     "license": "MIT",
     "resolutions": {
-        "@celo/contractkit": "2.0.0",
-        "@celo/react-celo": "4.1.0"
+        "@celo/contractkit": "2.3.0",
+        "@celo/react-celo": "4.2.1"
     }
 }
