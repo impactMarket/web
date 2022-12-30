@@ -9,7 +9,7 @@ const config = {
     /**
      * Base URL to api
      */
-    baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api`!,
+    baseApiUrl: `${process.env.NEXT_PUBLIC_URL_API}/api/v2`!,
 
     /**
      * cUSD decimals to use in ui format
@@ -93,7 +93,12 @@ const config = {
     /**
      * Subgraph URL
      */
-    subgraphUrl: process.env.NEXT_PUBLIC_SUBGRAPH_URL
+    subgraphUrl: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
+
+    /**
+     * Chain ID
+     */
+    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!, 10)
 };
 
 export default config;

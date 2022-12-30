@@ -1,41 +1,14 @@
 import { Div, TextLink } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { String } from '../String/String';
-import { hasPACTVotingPower } from '@impact-market/utils';
-import { useProvider } from '@celo/react-celo';
 import { useWallet } from '../../hooks/useWallet';
 import Infobox from '../Infobox/Infobox';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export const CommunitySubmissionWarnings = (props: GeneratedPropsTypes) => {
-    const { address, connect, wrongNetwork } = useWallet();
-    const provider = useProvider();
+    const { connect } = useWallet();
 
-    const [hasVotingPower, setHasVotingPower] = useState(false);
-
-    const [status, setStatus] = useState(null);
-
-    useEffect(() => {
-        if (address) {
-            hasPACTVotingPower(provider as any, address).then(has => setHasVotingPower(has));
-        }
-    }, [address, provider]);
-
-    useEffect(() => {
-        if (!address) {
-            return setStatus('noWallet');
-        }
-
-        if (!!address && wrongNetwork) {
-            return setStatus('wrongNetwork');
-        }
-
-        if (!!address && typeof hasVotingPower === 'boolean' && !hasVotingPower) {
-            return setStatus('noVotingPower');
-        }
-
-        return setStatus(null);
-    }, [address, hasVotingPower, wrongNetwork]);
+    const [status] = useState(null);
 
     if (!status) {
         return null;

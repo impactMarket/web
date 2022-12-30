@@ -51,7 +51,12 @@ const Wrapper = (props: any) => {
                 signer
             }}
         >
-            <ImpactProvider address={address} connection={kit.connection} jsonRpc={config.networkRpcUrl}>
+            <ImpactProvider
+                address={address}
+                connection={kit.connection}
+                jsonRpc={config.networkRpcUrl}
+                networkId={config.chainId}
+            >
                 {children}
             </ImpactProvider>
         </ImpactMarketDaoContext.Provider>
