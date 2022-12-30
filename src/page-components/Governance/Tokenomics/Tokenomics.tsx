@@ -65,11 +65,11 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         const loadPactPriceVolumeLiquidity = async () => {
             setIsLoading(true);
             try {
-                const response = await getPACTTradingMetrics(provider as any);
-                const circulatingSupply = await getCirculatingSupply(provider as any, envConfig.chainId);
+                const response = await getPACTTradingMetrics(envConfig.chainId);
+                const circulatingSupply = await getCirculatingSupply(provider, envConfig.chainId);
                 const globalDashboard = await Api.getGlobalValues();
-                const daoLiquidity = await getUBILiquidity(provider as any, envConfig.chainId);
-                const daoTreasury = await getPACTTVL(provider as any, envConfig.chainId);
+                const daoLiquidity = await getUBILiquidity(provider, envConfig.chainId);
+                const daoTreasury = await getPACTTVL(provider, envConfig.chainId);
 
                 const { priceUSD: priceCUSD } = response;
 
