@@ -23,7 +23,7 @@ const SocialLink = styled.a.attrs({
 })`
     ${transitions(['color', 'text-shadow'], 250, ease.outSine)};
 
-    color: ${colors.brandSecondary};
+    color: ${props => (props.color ? props.color : colors.brandSecondary)};
 
     &:hover {
         color: ${colors.textPrimary};
@@ -31,7 +31,9 @@ const SocialLink = styled.a.attrs({
     }
 `;
 
-type SocialMenuProps = GeneratedPropsTypes;
+type SocialMenuProps = GeneratedPropsTypes & {
+    color?: string;
+};
 
 type Social = {
     name: typeof socialIcons[number];
@@ -43,11 +45,11 @@ export const SocialMenu = (props: SocialMenuProps) => {
     const socialNetworks = config?.data?.social as Social;
 
     return (
-        <Div {...props} style={{ flexWrap: 'wrap', gap: '0.5rem' }}>
+        <Div {...props} style={{ flexWrap: 'wrap', gap: '1rem 1.5rem' }}>
             {!!socialNetworks?.length &&
                 socialNetworks.map(({ name, url }, index) => (
-                    <SocialLink href={url} key={index}>
-                        <Icon icon={name} sHeight={1.875} />
+                    <SocialLink color={props.color} href={url} key={index}>
+                        <Icon icon={name} sHeight={1.563} />
                     </SocialLink>
                 ))}
         </Div>

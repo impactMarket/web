@@ -1,133 +1,101 @@
-import { Col, Div, Grid, Row, Text, TextLink } from '../../theme/components';
-import { DonateButton } from '../DonateButton/DonateButton';
-import { FooterLogo, FooterWrapper } from './Footer.style';
+import { Col, Grid, Row, Section, Text, TextLink } from '../../theme/components';
+import { Img, LinksColumn, LinksWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
-import { String } from '../String/String';
+import { colors } from '../../theme';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
 
-type FooterProps = {
-    showDonateButton?: boolean;
-    whiteBackground?: boolean;
+type FooterLinksSlice = {
+    primary?: {
+        groupTitle?: string;
+        groupTitleUrl?: string;
+    };
+    items?: {
+        title?: string;
+        url?: string;
+    }[];
 };
 
-type FooterMenuItemType = {
-    label?: string;
-    url?: string;
-};
+export const Footer = () => {
+    const { config: prismicConfig } = usePrismicData();
 
-type FooterFromPrismicType = {
-    menu: FooterMenuItemType[];
-};
-
-export const Footer = (props: FooterProps) => {
-    const { extractFromConfig } = usePrismicData();
-    const { asPath } = useRouter();
-    const { showDonateButton = false, whiteBackground = false } = props;
-
-    const footer = extractFromConfig('footer') as FooterFromPrismicType;
-
-    const checkActiveRoute = (route: string | undefined) => route === asPath;
+    const { footerCopyright, footerDescription, footerLogo } = prismicConfig?.data;
+    const footerLinks = prismicConfig?.data?.footerLinks as FooterLinksSlice[];
 
     return (
-        <FooterWrapper whiteBackground={whiteBackground} withDonateButton={showDonateButton}>
+        <Section
+            flex
+            relative
+            sPadding={{ sm: '4 1', xs: '2 0' }}
+            sWidth="100%"
+            style={{
+                background: colors.brandPrimary,
+                overflow: 'hidden'
+            }}
+        >
             <Grid>
-                <Row>
-                    <Col xs={12}>
-                        <Link href="/">
-                            <a
-                                className={checkActiveRoute('/') ? 'is-disabled' : ''}
-                                style={{
-                                    cursor: checkActiveRoute('/') ? 'default' : 'pointer',
-                                    fontSize: 0
-                                }}
-                            >
-                                <FooterLogo />
-                            </a>
-                        </Link>
-                    </Col>
-                </Row>
-                <Row mt={{ md: 1.5, xs: 2 }}>
-                    <Col lg={12} xs={false}>
-                        <Div>
-                            <Div>
-                                {footer?.menu?.length &&
-                                    footer.menu.map((item: FooterMenuItemType, index) =>
-                                        item?.url ? (
-                                            <Link href={item?.url || ''} key={index} passHref>
-                                                <TextLink isActive={checkActiveRoute(item?.url)} ml={index ? 2 : 0}>
-                                                    {item?.label}
-                                                </TextLink>
-                                            </Link>
-                                        ) : (
-                                            <TextLink
-                                                href={item?.url}
-                                                key={index}
-                                                ml={index ? 2 : 0}
-                                                rel="noopener noreferrer"
-                                                target="_blank"
-                                            >
-                                                {item?.label}
-                                            </TextLink>
-                                        )
-                                    )}
-                            </Div>
-                            <Div ml="auto">
-                                <SocialMenu ml="auto" />
-                            </Div>
-                        </Div>
-                    </Col>
-                    {footer?.menu?.length &&
-                        footer.menu.map((item: FooterMenuItemType, index) => (
-                            <Col
-                                key={index}
-                                lg={false}
-                                mt={{ sm: index > 3 ? 1 : 0, xs: index > 1 ? 1 : 0 }}
-                                sm={3}
-                                xs={6}
-                            >
-                                {item?.url ? (
-                                    <Link href={item?.url || ''} key={index} passHref>
-                                        <TextLink isActive={checkActiveRoute(item?.url)}>{item?.label}</TextLink>
-                                    </Link>
-                                ) : (
-                                    <TextLink href={item?.url} key={index} rel="noopener noreferrer" target="_blank">
-                                        {item?.label}
-                                    </TextLink>
-                                )}
-                            </Col>
-                        ))}
-                </Row>
-                {showDonateButton && (
-                    <Row mt={{ lg: 2, xs: 4 }}>
-                        <Col xs={12}>
-                            <Div sAlignItems="center" sFlexDirection={{ sm: 'row', xs: 'column' }}>
-                                <Div sWidth={{ lg: 'unset', xs: '100%' }}>
-                                    <DonateButton pl={1.375} pr={1.375} />
-                                </Div>
-                                <Text
-                                    ml={{ sm: 2, xs: 0 }}
-                                    mt={{ sm: 0, xs: 1 }}
-                                    sMaxWidth={{ lg: 30 }}
-                                    small
-                                    textSecondary
+                <Row mb={5}>
+                    <Col md={3} sWidth="100%" sm={12}>
+                        {footerLogo && (
+                            <Link href="/">
+                                <a
+                                    style={{
+                                        cursor: 'pointer',
+                                        fontSize: 0
+                                    }}
                                 >
-                                    <String id="footer.note" />
-                                </Text>
-                            </Div>
-                        </Col>
-                    </Row>
-                )}
+                                    <Img inlineFlex sHeight={2.813} sWidth="auto" src={footerLogo.url} />
+                                </a>
+                            </Link>
+                        )}
+                        {footerDescription && (
+                            <Text className="text" mt={2} sMaxWidth="400px">
+                                <RichText content={footerDescription} sColor={colors.p200} />
+                            </Text>
+                        )}
+                    </Col>
+                    <LinksColumn>
+                        {footerLinks?.map((content, contentKey) => (
+                            <LinksWrapper key={contentKey}>
+                                {content?.primary?.groupTitle && (
+                                    <Text mb={0.125} sColor={colors.p400} sFontSize={0.875} sFontWeight={600}>
+                                        {content?.primary?.groupTitle}
+                                    </Text>
+                                )}
+                                {content?.items &&
+                                    content.items.map(
+                                        (link, linkKey) =>
+                                            link?.url && (
+                                                <TextLink
+                                                    href={link.url}
+                                                    key={linkKey}
+                                                    sColor={colors.p200}
+                                                    sFontWeight={500}
+                                                >
+                                                    {link?.title}
+                                                </TextLink>
+                                            )
+                                    )}
+                            </LinksWrapper>
+                        ))}
+                    </LinksColumn>
+                </Row>
+
                 <Row>
-                    <Col center lg={false} mt={4.625} xs={12}>
-                        <Div inlineBlock>
-                            <SocialMenu />
-                        </Div>
+                    <Col
+                        flex
+                        sAlignItems="center"
+                        sJustifyContent="space-between"
+                        sWidth="100%"
+                        style={{ flexWrap: 'wrap', gap: '1rem 2rem' }}
+                    >
+                        {footerCopyright && <Text sColor={colors.white}>{footerCopyright}</Text>}
+                        <SocialMenu color={colors.g25} />
                     </Col>
                 </Row>
             </Grid>
-        </FooterWrapper>
+        </Section>
     );
 };
