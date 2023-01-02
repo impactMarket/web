@@ -10,6 +10,7 @@ export const colors = {
 
     b300: '#84CAFF',
 
+    g100: '#F2F4F7',
     g200: '#E4E7EC',
     g25: '#FCFCFD;',
     g300: '#D0D5DD',
