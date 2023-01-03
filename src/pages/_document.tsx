@@ -50,6 +50,7 @@ export default class MyDocument extends Document {
                     />
                     <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet" />
                     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+                    <meta content="Olc-7fpG2pEGwPVP5pHIOaYw6kUPsLGv77k8wth6RHc" name="google-site-verification" />
                 </Head>
                 <body>
                     <Main />
