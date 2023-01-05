@@ -1,27 +1,36 @@
-import { Icon } from '../../theme/components';
-import { colors } from '../../theme';
-import { mq } from 'styled-gen';
+import { Col } from '../../theme/components';
+import { GeneratedPropsTypes } from '../../theme/Types';
+import { generateProps, mq } from 'styled-gen';
 import styled, { css } from 'styled-components';
 
-export const FooterLogo = styled(Icon).attrs({ icon: 'im' })`
-    color: ${colors.brandPrimary};
-    height: 2.75rem;
-    width: auto;
-`;
-
-type FooterWrapperProps = {
-    whiteBackground?: boolean;
-    withDonateButton?: boolean;
-};
-
-export const FooterWrapper = styled.div<FooterWrapperProps>`
-    background-color: ${({ whiteBackground = false }) => (whiteBackground ? colors.white : colors.backgroundLight)};
-    margin-top: auto;
-    padding: 3.75rem 0 2.625rem;
+export const LinksColumn = styled(Col).attrs({
+    flex: true,
+    md: 9,
+    pl: 2,
+    xs: 12
+})`
+    gap: 3rem;
+    justify-content: end;
     width: 100%;
 
-    ${({ withDonateButton }) =>
-        mq.desktop(css`
-            padding: ${withDonateButton ? '3.75rem 0' : '6.25rem 0'};
-        `)};
+    ${mq.upTo(
+        'md',
+        css`
+            flex-wrap: wrap;
+            gap: 2.5rem 2rem;
+            justify-content: start;
+            padding: 0 1rem;
+            margin-top: 2rem;
+        `
+    )}
+`;
+
+export const LinksWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+`;
+
+export const Img = styled.img<GeneratedPropsTypes>`
+    ${generateProps};
 `;

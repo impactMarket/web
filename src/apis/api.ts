@@ -23,7 +23,7 @@ import config from '../../config';
 
 export default class Api {
     static async getAllClaimLocation(): Promise<IClaimLocation[]> {
-        const result = await getRequest<IClaimLocation[]>('/claim-location');
+        const result = await getRequest<IClaimLocation[]>('/claims-location');
 
         return result ? result : [];
     }
@@ -38,7 +38,7 @@ export default class Api {
 
         const offset = (page - 1) * limit;
         const query = createQueryParamsFromObj({ offset, ...options }, params);
-        const url = `/v2/communities/${query}&state=base&state=ubi`;
+        const url = `/communities/${query}&state=base&state=ubi`;
 
         const response = await getRequest<{ data: ICommunities }>(url);
 

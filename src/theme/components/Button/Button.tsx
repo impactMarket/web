@@ -73,7 +73,7 @@ const colorVariations = {
     linedSecondaryDark: css`
         background-color: transparent;
         border-radius: 0.5rem;
-        border: 0.0625rem solid ${colors.backgroundSecondary};
+        border: 0.0625rem solid ${colors.g300};
         color: ${colors.g700};
 
         > p {

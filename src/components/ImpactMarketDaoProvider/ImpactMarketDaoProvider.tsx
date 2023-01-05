@@ -1,7 +1,7 @@
 import '@celo/react-celo/lib/styles.css';
 import { Alfajores, CeloProvider, Mainnet, useCelo, useConnectedSigner } from '@celo/react-celo';
+import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 import { ImpactProvider } from '@impact-market/utils';
-import { JsonRpcProvider } from '@ethersproject/providers';
 import { modal } from 'react-modal-handler';
 import { useRouter } from 'next/router';
 import React, { createContext, useEffect } from 'react';
@@ -15,7 +15,7 @@ type ProviderProps = {
 type ContextProps = {
     address?: string;
     initialised?: boolean;
-    provider?: object;
+    provider?: BaseProvider;
     signer?: object;
 };
 
@@ -51,7 +51,12 @@ const Wrapper = (props: any) => {
                 signer
             }}
         >
-            <ImpactProvider address={address} connection={kit.connection} jsonRpc={config.networkRpcUrl}>
+            <ImpactProvider
+                address={address}
+                connection={kit.connection}
+                jsonRpc={config.networkRpcUrl}
+                networkId={config.chainId}
+            >
                 {children}
             </ImpactProvider>
         </ImpactMarketDaoContext.Provider>
