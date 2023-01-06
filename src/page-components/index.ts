@@ -8,3 +8,4 @@ export * from './Homepage/Homepage';
 export * from './Libera';
 export * from './Staking/Staking';
 export * from './Ubi';
+export * from './LearnAndEarn';
