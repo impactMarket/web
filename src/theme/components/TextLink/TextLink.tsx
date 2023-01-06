@@ -56,7 +56,7 @@ const TextLinkElement = styled.a<TextLinkProps>`
 export const TLink = (props: TextLinkProps) => {
     const { children, href: url, ...forwardProps } = props;
 
-    const href = (url || '').replace('https:///', '/');
+    const href = (url || '').replace('https://', '/');
 
     const isInternal = href.startsWith('/');
 

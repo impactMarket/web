@@ -16,7 +16,7 @@ const i18n = {
 };
 
 const images = {
-  domains: ['impact-market.cdn.prismic.io', 'images.prismic.io']
+  domains: ['impact-market.cdn.prismic.io', 'images.prismic.io', 'prismic-io.s3.amazonaws.com', 'dxdwf61ltxjyn.cloudfront.net', 'd3ma540h3o1zlk.cloudfront.net']
 };
 
 const manifest = {

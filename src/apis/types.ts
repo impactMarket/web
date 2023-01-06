@@ -37,6 +37,16 @@ export interface IClaimLocation {
     gps: IClaimLocationGps;
 }
 
+export interface IStory {
+    storyMediaPath: string;
+}
+
+export interface IStories {
+    data: IStory[];
+    count: number;
+    success: boolean;
+}
+
 export interface ICommunities {
     count: number;
     rows: ICommunity[];
