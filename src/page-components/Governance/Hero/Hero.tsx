@@ -11,30 +11,30 @@ import {
     Section,
     Text
 } from '../../../theme/components';
-import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
-import { colors } from '../../../theme';
+// import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
+// import { colors } from '../../../theme';
 import { modal } from 'react-modal-handler';
-import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
+// import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React from 'react';
-import config from '../../../../config';
+// import config from '../../../../config';
 
 export const Hero = () => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     const handleContributeClick = () => {
         return modal.open('governanceContribute');
     };
 
-    const triggerRamp = () => {
-        new RampInstantSDK({
-            hostAppName: 'impactMarket',
-            hostLogoUrl:
-                'https://www.gitbook.com/cdn-cgi/image/height=40,fit=contain,dpr=2,format=auto/https%3A%2F%2F2074548608-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FCYFjCZsJmtFWjyXZmVH8%252Flogo%252FrnP1xUXSL3jJHhxKkA82%252Flogo_blue_on_transparent_background.png%3Falt%3Dmedia%26token%3D42e89872-c292-4ccc-b8c5-771b055c4581',
-            swapAmount: '',
-            swapAsset: 'CELO_CUSD',
-            userAddress: config.treasuryAddress
-        }).show();
-    };
+    // const triggerRamp = () => {
+    //     new RampInstantSDK({
+    //         hostAppName: 'impactMarket',
+    //         hostLogoUrl:
+    //             'https://www.gitbook.com/cdn-cgi/image/height=40,fit=contain,dpr=2,format=auto/https%3A%2F%2F2074548608-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FCYFjCZsJmtFWjyXZmVH8%252Flogo%252FrnP1xUXSL3jJHhxKkA82%252Flogo_blue_on_transparent_background.png%3Falt%3Dmedia%26token%3D42e89872-c292-4ccc-b8c5-771b055c4581',
+    //         swapAmount: '',
+    //         swapAsset: 'CELO_CUSD',
+    //         userAddress: config.treasuryAddress
+    //     }).show();
+    // };
 
     return (
         <Section relative>
@@ -60,10 +60,10 @@ export const Hero = () => {
                                 </Text>
                             </Button>
                         </Div>
-                        <Text flex g500 mt={0.5} small>
+                        {/* <Text flex g500 mt={0.5} small>
                             {t('or').toLocaleLowerCase()}
-                        </Text>
-                        <Button
+                        </Text> */}
+                        {/* <Button
                             lined
                             mt={{ xs: 0.5 }}
                             onClick={triggerRamp}
@@ -75,7 +75,7 @@ export const Hero = () => {
                             <Text bold sFontSize="1rem" sFontWeight={500}>
                                 <String id="cashin.button.text" />
                             </Text>
-                        </Button>
+                        </Button> */}
                         <ShareThis mt={2} sJustifyContent={{ sm: 'left', xs: 'center' }} />
                     </Col>
                     <Col md={6} mt={{ md: 0, xs: 2.5 }} relative xs={12}>
