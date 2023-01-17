@@ -1,4 +1,4 @@
-import { Alfajores, Mainnet, useCelo } from '@celo/react-celo';
+import { Alfajores, Mainnet, useCelo } from 'react-celo-impactmarket';
 import config from '../../config';
 
 const network = config.isDaoTestnet ? Alfajores : Mainnet;

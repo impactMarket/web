@@ -1,5 +1,12 @@
-import '@celo/react-celo/lib/styles.css';
-import { Alfajores, CeloProvider, Mainnet, useCelo, useConnectedSigner } from '@celo/react-celo';
+import 'react-celo-impactmarket/lib/styles.css';
+import {
+    Alfajores,
+    CeloProvider,
+    Mainnet,
+    SupportedProviders,
+    useCelo,
+    useConnectedSigner
+} from 'react-celo-impactmarket';
 import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 import { ImpactProvider } from '@impact-market/utils';
 import { modal } from 'react-modal-handler';
@@ -70,39 +77,38 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
         return null;
     }
 
+    const networks = [
+        { ...Mainnet, rpcUrl: config.networkRpcUrl },
+        { ...Alfajores, rpcUrl: config.networkRpcUrl }
+    ];
+
     const provider = new JsonRpcProvider(rpcUrl);
 
     return (
         <CeloProvider
             connectModal={{
-                reactModalProps: {
-                    overlayClassName: 'tw-fixed tw-bg-gray-100 dark:tw-bg-gray-700 tw-bg-opacity-75 tw-inset-0',
-                    style: {
-                        content: {
-                            background: 'unset',
-                            border: 'unset',
-                            bottom: 'auto',
-                            color: 'black',
-                            left: '50%',
-                            padding: 'unset',
-                            right: 'auto',
-                            top: '50%',
-                            transform: 'translate(-50%, -50%)'
-                        },
-                        overlay: {
-                            zIndex: 100
-                        }
-                    }
+                providersOptions: {
+                    // This option hides specific wallets from the default list
+                    hideFromDefaults: [
+                        SupportedProviders.PrivateKey,
+                        SupportedProviders.CeloTerminal,
+                        SupportedProviders.CeloWallet,
+                        SupportedProviders.CeloDance,
+                        SupportedProviders.Injected,
+                        SupportedProviders.Ledger,
+                        SupportedProviders.Omni,
+                        SupportedProviders.CoinbaseWallet
+                    ]
                 }
             }}
             dapp={{
-                description: 'Decentralized Poverty Alleviation Protocol',
-                icon: 'https://impact-market.com/favicon.png',
-                name: 'impactMarket web',
-                url: 'https://impactmarket.com'
+                description: 'Human Empowerment Protocol',
+                icon: 'https://www.impactmarket.com/img/android-chrome-192x192.png',
+                name: 'impactMarket',
+                url: 'https://www.impactmarket.com'
             }}
             network={network}
-            networks={[Mainnet, Alfajores]}
+            networks={networks}
         >
             <Wrapper provider={provider}>{children}</Wrapper>
         </CeloProvider>
