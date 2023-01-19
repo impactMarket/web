@@ -7,7 +7,7 @@ export const HeaderWrapper = styled.div<{ direction?: string; topbarHeight?: num
     ${position('sticky', 0, 0, null, 0)};
 
     width: 100%;
-    z-index: 99;
+    z-index: 2;
 
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
