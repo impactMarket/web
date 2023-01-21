@@ -89,7 +89,7 @@ export const Header = () => {
     }, [isMenuVisible]);
 
     const ButtonLink = ({ buttonUrl, buttonLabel, buttonColor }: any) => {
-        if (buttonUrl.includes('modal:')) {
+        if (buttonUrl?.includes('modal:')) {
             const modalName = buttonUrl.substring(buttonUrl.indexOf(':') + 1);
 
             return (

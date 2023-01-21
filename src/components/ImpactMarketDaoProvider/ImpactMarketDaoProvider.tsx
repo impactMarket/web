@@ -106,7 +106,7 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                 name: 'impactMarket',
                 url: 'https://www.impactmarket.com'
             }}
-            network={network}
+            defaultNetwork={network?.name}
             networks={networks}
         >
             <Wrapper provider={provider}>{children}</Wrapper>

@@ -18,6 +18,7 @@ type NumbersFromApiSliceType = {
         ctaLabel?: string;
         ctaUrl?: string;
         heading?: string;
+        smallHeading?: string;
     };
 };
 
@@ -64,7 +65,7 @@ const Content = styled(Div)`
 
 export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
     const { items, primary } = props;
-    const { content, ctaLabel, ctaUrl, heading } = primary;
+    const { content, ctaLabel, ctaUrl, heading, smallHeading } = primary;
     const metrics = useData();
     const metricsLength = metrics ? Object.keys(metrics).length : 0;
 
@@ -78,8 +79,13 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
             }}
         >
             <Grid sPadding={{ md: '6rem 2rem', xs: '3rem 2rem' }}>
-                {(heading || content) && (
+                {(heading || content || smallHeading) && (
                     <Heading>
+                        {smallHeading && (
+                            <Text mb={1} sColor={colors.p700} sFontSize={1} sFontWeight={600}>
+                                {smallHeading}
+                            </Text>
+                        )}
                         {heading && (
                             <Text
                                 mb={1}

@@ -149,9 +149,7 @@ const ModalGovernanceContributeContent = (props: ModalProps) => {
     const handleConnect = async () => {
         modal.close();
 
-        const cb = () => new Promise(resolve => setTimeout(resolve, 500));
-
-        await connect(cb);
+        await connect();
 
         modal.open('governanceContribute', { onSuccess });
     };

@@ -130,6 +130,17 @@ const colorVariations = {
         }
     `,
 
+    secondaryDefault: css`
+        background-color: ${colors.p50};
+        color: ${colors.p700};
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: ${darken(0.1, colors.white)};
+            }
+        }
+    `,
+
     secondaryLight: css`
         background-color: ${colors.brandSecondaryLight};
         color: ${colors.white};

@@ -1,4 +1,4 @@
-import { Col, Grid, Row, Section, Text, TextLink } from '../../theme/components';
+import { Col, Grid, Row, Section, TLink, Text } from '../../theme/components';
 import { Img, LinksColumn, LinksWrapper } from './Footer.style';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { colors } from '../../theme';
@@ -69,14 +69,14 @@ export const Footer = () => {
                                     content.items.map(
                                         (link, linkKey) =>
                                             link?.url && (
-                                                <TextLink
+                                                <TLink
                                                     href={link.url}
                                                     key={linkKey}
                                                     sColor={colors.p200}
                                                     sFontWeight={500}
                                                 >
                                                     {link?.title}
-                                                </TextLink>
+                                                </TLink>
                                             )
                                     )}
                             </LinksWrapper>

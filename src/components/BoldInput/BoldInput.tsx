@@ -26,11 +26,12 @@ const Content = styled.div`
 const Input = styled.input`
     border: 0;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 1.5rem;
     font-weight: inherit;
     font-weight: inherit;
     outline: 0;
     width: 100%;
+    color: ${colors.g800};
 
     -moz-appearance: textfield;
 
@@ -81,8 +82,8 @@ export const BoldInput = (props: BoldInputProps) => {
             <Label>{label}</Label>
             <Content>
                 <InputWrapper>
-                    {inputPrefix && <>{inputPrefix}&nbsp;</>}
                     {asStaticValue ? inputProps?.value || 0 : <Input type="number" {...(inputProps as any)} />}
+                    {inputPrefix && <>{inputPrefix}&nbsp;</>}
                 </InputWrapper>
                 {children}
             </Content>

@@ -117,11 +117,15 @@ export const Pagination = (props: PaginationProps) => {
         return null;
     }
 
+    const PaginationTypes: any = PaginationComp;
+
     return (
         <PaginationWrapper>
-            <PaginationComp
+            <PaginationTypes
                 current={page}
-                itemRender={(current, type, element) => buttonItemRender({ current, element, page, type })}
+                itemRender={(current: any, type: any, element: any) =>
+                    buttonItemRender({ current, element, page, type })
+                }
                 onChange={(pageNumber: number) => onPageChange(pageNumber)}
                 pageSize={limit}
                 showTitle={false}

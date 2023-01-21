@@ -38,7 +38,7 @@ const Hero = (props: PrismicSlice) => {
     const services = Object.keys(items).map(key => items[key as any].service);
 
     const ButtonLink = ({ arrowColor, buttonUrl, buttonLabel, buttonColor }: any) => {
-        if (buttonUrl.includes('modal:')) {
+        if (buttonUrl?.includes('modal:')) {
             const modalName = buttonUrl.substring(buttonUrl.indexOf(':') + 1);
 
             return (
