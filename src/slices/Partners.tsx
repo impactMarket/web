@@ -81,7 +81,15 @@ const Partners = (props: PrismicSlice) => {
                 </HeadingRow>
                 <LogoWrapper>
                     {items?.map((item, key) => (
-                        <Img key={key} sHeight={{ sm: 5, xs: 4 }} sWidth="auto" src={item.logo.url} />
+                        <>
+                            {item?.url ? (
+                                <a href={item?.url || ''} key={key} rel="noopener noreferrer" target="_blank">
+                                    <Img sHeight={3} sWidth="auto" src={item.logo.url} />
+                                </a>
+                            ) : (
+                                <Img key={key} sHeight={3} sWidth="auto" src={item.logo.url} />
+                            )}
+                        </>
                     ))}
                 </LogoWrapper>
                 {buttonUrl && (
