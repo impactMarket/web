@@ -84,7 +84,7 @@ export const Stories = (props: StoriesPrismic) => {
         getStories();
     }, []);
 
-    if (!stories?.length) {
+    if (!stories?.data?.length) {
         return null;
     }
 
