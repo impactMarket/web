@@ -130,14 +130,14 @@ export const Stories = (props: StoriesPrismic) => {
                                 boxShadow: '0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%)'
                             }}
                         >
-                            {story?.storyMedia && (
+                            {(story?.storyMediaPath || story?.storyMedia[0]) && (
                                 <ImageWrapper
                                     href={`https://app.impactmarket.com/stories?id=${story?.id}`}
                                     rel="noopener noreferrer"
                                     sHeight={{ md: '230px', sm: '450px', xs: '250px' }}
                                     target="_blank"
                                 >
-                                    <Image alt="" src={story?.storyMedia[0]} />
+                                    <Image alt="" src={story?.storyMediaPath || story?.storyMedia[0]} />
                                 </ImageWrapper>
                             )}
                             <Row style={{ alignItems: 'center', margin: 0, padding: '1.875rem 1rem 1rem 1rem' }}>
