@@ -84,6 +84,10 @@ export const Stories = (props: StoriesPrismic) => {
         getStories();
     }, []);
 
+    if (!stories?.length) {
+        return null;
+    }
+
     return (
         <Section {...props} sPadding={{ sm: '6 1 6 1', xs: '3 0 3 0' }}>
             <Grid>
@@ -130,7 +134,7 @@ export const Stories = (props: StoriesPrismic) => {
                                 boxShadow: '0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%)'
                             }}
                         >
-                            {(story?.storyMediaPath || story?.storyMedia[0]) && (
+                            {(story?.storyMediaPath || story?.storyMedia?.[0]) && (
                                 <ImageWrapper
                                     href={`https://app.impactmarket.com/stories?id=${story?.id}`}
                                     rel="noopener noreferrer"
