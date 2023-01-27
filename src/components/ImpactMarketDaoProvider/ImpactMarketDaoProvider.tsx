@@ -95,7 +95,6 @@ export const ImpactMarketDaoProvider = ({ children }: ProviderProps) => {
                         SupportedProviders.CeloWallet,
                         SupportedProviders.CeloDance,
                         SupportedProviders.Injected,
-                        SupportedProviders.Ledger,
                         SupportedProviders.Omni,
                         SupportedProviders.CoinbaseWallet
                     ]
