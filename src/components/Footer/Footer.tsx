@@ -33,7 +33,7 @@ export const Footer = () => {
             style={{
                 background: colors.brandPrimary,
                 overflow: 'hidden',
-                zIndex: -1
+                zIndex: 0
             }}
         >
             <Grid>
