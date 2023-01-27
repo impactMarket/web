@@ -9,7 +9,7 @@ import getTypesToFetchWithConfigs from '../lib/Prismic/helpers/getTypesToFetchWi
 export const getServerSideProps: GetServerSideProps = async ({ locale: lang, previewData }) => {
     const clientOptions = previewData as ClientConfig;
 
-    const types = getTypesToFetchWithConfigs(['website_global_dashboard_page']);
+    const types = getTypesToFetchWithConfigs(['website_global_dashboard_page', 'website_stories']);
 
     const data = await Prismic.getByTypes({ clientOptions, lang, types });
 

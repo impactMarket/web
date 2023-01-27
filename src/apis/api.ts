@@ -12,7 +12,8 @@ import {
     IGlobalApiResult,
     IGlobalDashboard,
     IGlobalNumbers,
-    IManager
+    IManager,
+    IStories
 } from './types';
 import { Numbers } from 'humanify-numbers';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -47,7 +48,6 @@ export default class Api {
 
         return { count, items, page };
     }
-
     static async getCommunity(communityId?: number | string): Promise<any> {
         const communityResponse = await getRequest<DataResponseType<ICommunity>>(`/community/${communityId}`);
         const managersResponse = await getRequest<DataResponseType<IManager[]>>(`/community/${communityId}/managers`);
@@ -71,13 +71,11 @@ export default class Api {
 
         return communityResponse?.success ? data : undefined;
     }
-
     static async getCommunityCount(groupBy: string = 'country'): Promise<any> {
         const response = await getRequest<DataResponseType<any>>(`/community/count?groupBy=${groupBy}`);
 
         return response?.data;
     }
-
     static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {
         const response = await getRequest<IGlobalNumbers | undefined>('/global/numbers');
 
@@ -93,7 +91,6 @@ export default class Api {
 
         return result || {};
     }
-
     static async getGlobalValues(): Promise<IGlobalDashboard | {}> {
         // retry with intervals
         const retry = new RetryLink({ attempts: { max: 100 }, delay: { max: 30000 } });
@@ -149,7 +146,6 @@ export default class Api {
             general: ubiDailyEntityZero.data.ubidailyEntity
         };
     }
-
     static async getPendingCommunities(requestOptions: CommunityListRequestArguments): Promise<any> {
         const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
         const baseOptions = { extended: false, limit: 4, orderBy: 'bigger', page: 1 };
@@ -166,6 +162,12 @@ export default class Api {
         const count = response?.count;
 
         return { count, items, page };
+    }
+
+    static async getStories(): Promise<IStories[]> {
+        const result = await getRequest<IStories[]>('/stories?limit=3');
+
+        return result ? result : [];
     }
 
     static async submitHubspotContact({
