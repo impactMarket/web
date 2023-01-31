@@ -13,7 +13,6 @@ type PromotionalBannerType = {
 const PromotionalBannerWrapper = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
     background-color: ${colors.backgroundSecondary};
     padding: 0.625rem 2rem;
 `;
