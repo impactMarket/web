@@ -4,6 +4,7 @@ export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Chip/Chip';
 export * from './Content/Content';
+export * from './CountryFlag/CountryFlag';
 export * from './Currency/Currency';
 export * from './DashboardCard/DashboardCard';
 export * from './Div/Div';

@@ -12,6 +12,7 @@ import {
 } from '../theme/components';
 import { PrismicImageType } from '../lib/Prismic/types';
 import { String } from '../components';
+import { colors } from '../theme';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useTranslation } from '../components/TranslationProvider/TranslationProvider';
 import { validateEmail } from '../helpers/validateEmail';
@@ -84,7 +85,7 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     };
 
     return (
-        <Section id="subscribe">
+        <Section id="subscribe" style={{ backgroundColor: colors.g50 }}>
             <Grid sPadding={{ md: '2.75 null', xs: '2 null' }}>
                 <Row center="xs" middle="xs" reverse>
                     <Col md={5} mdOffset={0.5} xs={12}>

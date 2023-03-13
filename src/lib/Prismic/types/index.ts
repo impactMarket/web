@@ -1,7 +1,7 @@
 import * as prismicT from '@prismicio/types';
 
 export type PrismicSlice = {
-    isActive: boolean;
+    isActive?: boolean;
     items: any[];
     primary: any;
     sliceType: string;

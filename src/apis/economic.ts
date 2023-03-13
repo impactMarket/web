@@ -14,7 +14,7 @@ export const economic: { [key: string]: Function } = {
         },
         growth: data.growth.reach,
         numeric: {
-            value: numericalValue(data.daily.reduce((result, { reach }) => result + reach, 0))
+            value: numericalValue(Math.ceil(data.daily.reduce((result, { reach }) => result + reach, 0) / 30))
         }
     }),
 

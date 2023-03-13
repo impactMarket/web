@@ -32,7 +32,8 @@ export const Footer = () => {
             sWidth="100%"
             style={{
                 background: colors.brandPrimary,
-                overflow: 'hidden'
+                overflow: 'hidden',
+                zIndex: 0
             }}
         >
             <Grid>

@@ -5644,6 +5644,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+libphonenumber-js@^1.10.15:
+  version "1.10.15"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.15.tgz#cad454adb5bf271bc820bbf7dd66776afcda7be6"
+  integrity sha512-sLeVLmWX17VCKKulc+aDIRHS95TxoTsKMRJi5s5gJdwlqNzMWcBCtSHHruVyXjqfi67daXM2SnLf2juSrdx5Sg==
+
 load-json-file@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
@@ -6881,7 +6886,7 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-celo-impactmarket@4.2.2:
+react-celo-impactmarket@4.2.2, react-celo-impactmarket@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-celo-impactmarket/-/react-celo-impactmarket-4.2.2.tgz#57bbdc4a44002c36b690d773e2b255f0045f4f05"
   integrity sha512-DrJsanEXeLqoDG2MPVRkXLZYP0Uetb28n68UISIFOs/qO/B45svmOxqI/jH/c8VlClRHEFX/D0y7ziF/MYtqbw==
@@ -6901,6 +6906,11 @@ react-celo-impactmarket@4.2.2:
     react-device-detect "^2.1.2"
     react-helmet "^6.1.0"
     react-modal "^3.14.4"
+
+react-circle-flags@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/react-circle-flags/-/react-circle-flags-0.0.18.tgz#ab48b410435dd2bb4419cda6f59b4378019fbbec"
+  integrity sha512-3taT04bifZ2oSARDfoO4bMDfdIDfAxW6MeOaJ6fR17OcEn+/dGivE/nrtUYwfGKFp9/Sq92yo4FTT2I+DqAIqA==
 
 react-cookie@^4.0.3:
   version "4.1.1"

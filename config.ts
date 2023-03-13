@@ -26,6 +26,16 @@ const config = {
      */
     mapBoxStyle: process.env.NEXT_PUBLIC_MAPBOX_STYLE!,
 
+    /*
+     * Images URL
+     */
+    imagesUrl: process.env.NEXT_PUBLIC_IMAGES_URL!,
+
+    /*
+     * Images Bucket
+     */
+    imagesBucket: process.env.NEXT_PUBLIC_IMAGES_BUCKET!,
+
     /**
      * Base URL to api
      */
