@@ -22,8 +22,26 @@ const serializer: SerializerFunction = ({ children, key, node, type, ...options 
 
     if (type === 'hyperlink') {
         const { url: href, ...otherProps } = node?.data;
+        let internalLinkLength: any;
 
-        const linkProps = { ...otherProps, ...forwardProps, href };
+        const internalLinks = [
+            'https:///',
+            'https://impactmarket.com/',
+            'www.impactmarket.com/',
+            'https://www.impactmarket.com/'
+        ];
+
+        internalLinks.map(isInternalLink => {
+            href.startsWith(isInternalLink) && (internalLinkLength = isInternalLink.length);
+        });
+
+        const urlValidator = internalLinks.filter(isInternalLink => {
+            href.startsWith(isInternalLink);
+        });
+
+        const isInternal = urlValidator ? href.substring(internalLinkLength - 1) : href;
+
+        const linkProps = { ...otherProps, ...forwardProps, href: isInternal };
 
         return (
             <TLink key={key} {...linkProps}>
