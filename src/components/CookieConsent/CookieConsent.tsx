@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import { Col, Div, Grid, IconButton, Row } from '../../theme/components';
+import { Button, Col, Div, Grid, Row, Text } from '../../theme/components';
 import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { colors } from '../../theme';
 import { ease, transitions } from 'styled-gen';
@@ -100,7 +100,11 @@ export const CookieConsent = () => {
                                 >
                                     <RichText XSmall content={cookieConsentText} medium />
                                     <Div pl={1}>
-                                        <IconButton icon="close" onClick={handleConsentDismiss} round />
+                                        <Button onClick={handleConsentDismiss}>
+                                            <Text sFontSize={1} sFontWeight={500}>
+                                                Ok
+                                            </Text>
+                                        </Button>
                                     </Div>
                                 </Div>
                             </Col>
