@@ -23,7 +23,9 @@ const serializer: SerializerFunction = ({ children, key, node, type, ...options 
     if (type === 'hyperlink') {
         const { url: href, ...otherProps } = node?.data;
 
-        const linkProps = { ...otherProps, ...forwardProps, href };
+        const isInternal = href.startsWith('https:///') ? href.substring(8) : href;
+
+        const linkProps = { ...otherProps, ...forwardProps, href: isInternal };
 
         return (
             <TLink key={key} {...linkProps}>
