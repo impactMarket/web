@@ -23,12 +23,17 @@ import axios from 'axios';
 import config from '../../config';
 
 export default class Api {
+    static async createUser(address: any): Promise<any> {
+        const result = await postRequest('/users', { address });
+
+        return result ? result : [];
+    }
+
     static async getAllClaimLocation(): Promise<IClaimLocation[]> {
         const result = await getRequest<IClaimLocation[]>('/claims-location');
 
         return result ? result : [];
     }
-
     static async getCommunities(
         requestOptions: CommunityListRequestArguments
     ): Promise<CommunityListRequestResponseType> {
@@ -163,13 +168,11 @@ export default class Api {
 
         return { count, items, page };
     }
-
     static async getStories(): Promise<IStories[]> {
         const result = await getRequest<IStories[]>('/stories?limit=3');
 
         return result ? result : [];
     }
-
     static async submitHubspotContact({
         email,
         name,

@@ -108,7 +108,27 @@ const config = {
     /**
      * Chain ID
      */
-    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!, 10)
+    chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!, 10),
+
+    /**
+     * Number of days until a signature is expired
+     */
+    signatureExpires: process.env.NEXT_PUBLIC_SIGNATURE_EXPIRES,
+
+    /**
+     * Signature message to confirm signature
+     */
+    signatureMessage: process.env.NEXT_PUBLIC_SIGNATURE_MESSAGE,
+
+    /**
+     * Signature secret
+     */
+    signatureSecret: process.env.NEXT_PUBLIC_SIGNATURE_SECRET,
+
+    /**
+     * Deposit Token
+     */
+    depositToken: process.env.NEXT_PUBLIC_DEPOSIT_TOKEN
 };
 
 export default config;

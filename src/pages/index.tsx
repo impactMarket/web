@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/named
-// eslint-disable-next-line import/named
 import { ClientConfig } from '@prismicio/client';
 import { GetStaticProps } from 'next';
 import { Homepage } from '../page-components';

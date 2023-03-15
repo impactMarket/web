@@ -1,4 +1,4 @@
-import { Button, Col, Div, Grid, Row, Section, Text, TextLink } from '../../theme/components';
+import { Button, Col, Div, Grid, Row, Section, TLink, Text } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { PrismicImageType, PrismicRichTextType } from '../../lib/Prismic/types';
 import { String } from '..';
@@ -137,7 +137,7 @@ export const Testimonial = (props: TestimonialProps) => {
                                                 textSecondary
                                             />
                                             <Div mt="auto">
-                                                <TextLink
+                                                <TLink
                                                     href={!!ctaUrl && ctaUrl}
                                                     rel="noopener noreferrer"
                                                     target="_blank"
@@ -155,7 +155,7 @@ export const Testimonial = (props: TestimonialProps) => {
                                                             )}
                                                         </Text>
                                                     </Button>
-                                                </TextLink>
+                                                </TLink>
                                             </Div>
                                         </TestimonialWrapper>
                                     </TestimonialCard>

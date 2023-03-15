@@ -25,8 +25,9 @@ const TabButton = styled.button<{ isActive?: boolean }>`
     ${({ isActive }) =>
         isActive &&
         css`
+            color: ${colors.g800};
             cursor: default !important;
-            font-weight: ${fonts.weights.bold};
+            font-weight: ${fonts.weights.semibold};
         `}
 
     ${({ isActive }) =>

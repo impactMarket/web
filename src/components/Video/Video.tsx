@@ -69,6 +69,8 @@ export const Video = (props: VideoType) => {
         return null;
     }
 
+    const YoutubePlayer: any = ReactPlayer;
+
     return (
         <Wrapper {...forwardProps}>
             {!!thumbnailUrl && (
@@ -76,7 +78,7 @@ export const Video = (props: VideoType) => {
                     <Icon icon="play" sHeight={4.5} sWidth={4.5} white />
                 </CoverImage>
             )}
-            <ReactPlayer
+            <YoutubePlayer
                 controls
                 height="100%"
                 onEnded={() => setIsPlaying(false)}
