@@ -3,7 +3,7 @@ import { GeneratedPropsTypes } from '../theme/Types';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme';
 import { generateProps, mq } from 'styled-gen';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled, { css } from 'styled-components';
 
@@ -37,11 +37,19 @@ const Img = styled.img<GeneratedPropsTypes>`
 
 const Info = (props: PrismicSlice) => {
     const { primary } = props;
-    const { title, icon, description, text } = primary;
+    const { title, icon, id, description, text } = primary;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     return (
         <Section
             flex
+            id={id?.substring(1)}
             relative
             sPadding={{ sm: '0 1', xs: '0 0 2 0' }}
             style={{

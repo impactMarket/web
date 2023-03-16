@@ -2,7 +2,7 @@ import { Button, Col, Div, Grid, Row, Section, Text } from '../theme/components'
 import { PrismicRichTextType } from '../lib/Prismic/types';
 import { colors } from '../theme';
 import { mq } from 'styled-gen';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled, { css } from 'styled-components';
 
@@ -18,6 +18,7 @@ type NumbersFromApiSliceType = {
         ctaLabel?: string;
         ctaUrl?: string;
         heading?: string;
+        id?: string;
         smallHeading?: string;
     };
 };
@@ -65,13 +66,21 @@ const Content = styled(Div)`
 
 export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
     const { items, primary } = props;
-    const { content, ctaLabel, ctaUrl, heading, smallHeading } = primary;
+    const { content, ctaLabel, ctaUrl, heading, id, smallHeading } = primary;
     const metrics = useData();
     const metricsLength = metrics ? Object.keys(metrics).length : 0;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     return (
         <Section
             flex
+            id={id?.substring(1)}
             relative
             sPadding={{ sm: '0 1', xs: '0 0 2 0' }}
             style={{

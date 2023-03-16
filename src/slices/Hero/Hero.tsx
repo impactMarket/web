@@ -5,7 +5,7 @@ import { PrismicSlice } from '../../lib/Prismic/types';
 import { colors } from '../../theme';
 import { modal } from 'react-modal-handler';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../../lib/Prismic/components/RichText';
 
 const Hero = (props: PrismicSlice) => {
@@ -27,6 +27,7 @@ const Hero = (props: PrismicSlice) => {
         headingFont,
         headingFontSize,
         heroBanner,
+        id,
         smallHeading,
         subText,
         subtextColor,
@@ -36,6 +37,13 @@ const Hero = (props: PrismicSlice) => {
     } = primary;
     const { asPath, push } = useRouter();
     const services = Object.keys(items).map(key => items[key as any].service);
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     const ButtonLink = ({ arrowColor, buttonUrl, buttonLabel, buttonColor }: any) => {
         if (buttonUrl?.includes('modal:')) {
@@ -82,6 +90,7 @@ const Hero = (props: PrismicSlice) => {
     return (
         <Section
             flex
+            id={id?.substring(1)}
             relative
             sPadding={{
                 sm: '0 1',

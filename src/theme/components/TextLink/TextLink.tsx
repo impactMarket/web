@@ -56,7 +56,7 @@ const TextLinkElement = styled.a<TextLinkProps>`
 export const TLink = (props: TextLinkProps) => {
     const { children, href, ...forwardProps } = props;
 
-    const isInternal = href ? href.startsWith('/') : '';
+    const isInternal = href ? href.startsWith('/') || href.startsWith('#') : '';
 
     const Wrapper = isInternal ? Link : React.Fragment;
     const wrapperProps = (isInternal ? { href, passHref: true } : {}) as any;
