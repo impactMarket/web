@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     html,
     body {
         min-height: 100%;
+        scroll-behavior: smooth;
 
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;

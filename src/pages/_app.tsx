@@ -20,6 +20,7 @@ import theme from '../theme';
 const { baseUrl, isProduction, recaptchaKey } = config;
 
 Router.events.on('routeChangeComplete', url => pageview(url));
+Router.events.on('hashChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props;
@@ -45,10 +46,17 @@ export default function App(props: AppProps) {
             router.events.on('routeChangeStart', handleRouteChange);
             router.events.on('routeChangeComplete', handleRouteComplete);
 
+            router.events.on('hashChangeStart', handleRouteChange);
+            router.events.on('hashChangeComplete', handleRouteComplete);
+
             return () => {
                 setShowSpinner(true);
+
                 router.events.off('routeChangeStart', handleRouteChange);
                 router.events.on('routeChangeComplete', handleRouteComplete);
+
+                router.events.off('hashChangeStart', handleRouteChange);
+                router.events.on('hashChangeComplete', handleRouteComplete);
             };
         }
     }, [isReady, locale, router.events]);

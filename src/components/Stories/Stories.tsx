@@ -15,6 +15,7 @@ import styled, { css } from 'styled-components';
 type StoriesPrismic = {
     isActive: boolean;
     stories: {
+        id: string;
         allStories?: string;
         button?: string;
         buttonUrl?: string;
@@ -89,7 +90,7 @@ export const Stories = (props: StoriesPrismic) => {
     }
 
     return (
-        <Section {...props} sPadding={{ sm: '6 1 6 1', xs: '3 0 3 0' }}>
+        <Section {...props} id={storiesPrismicData?.id?.substring(1)} sPadding={{ sm: '6 1 6 1', xs: '3 0 3 0' }}>
             <Grid>
                 <HeadingRow>
                     {storiesPrismicData?.smallHeading && (

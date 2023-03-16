@@ -1,7 +1,7 @@
 import { Col, Grid, Row, Section, Text } from '../theme/components';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled from 'styled-components';
 
@@ -32,11 +32,19 @@ const Heading = styled(Row)`
 
 const Features = (props: PrismicSlice) => {
     const { items, primary } = props;
-    const { heading } = primary;
+    const { heading, id } = primary;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     return (
         <Section
             flex
+            id={id?.substring(1)}
             relative
             sPadding={{ sm: '0 1', xs: '0 0 2 0' }}
             style={{

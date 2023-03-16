@@ -2,6 +2,7 @@ import { Col, Div, GhostElement, Grid, InfoTooltip, RichContentFormat, Row, Sect
 import { GeneratedPropsTypes } from '../theme/Types';
 import { ImpactMarketDaoContext, String } from '../components';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { PrismicSlice } from '../lib/Prismic/types';
 import { currencyValue } from '../helpers/currencyValue';
 import { dashboard } from '../apis/dashboard';
 import {
@@ -41,7 +42,17 @@ type PactMetricsType = {
     daoTreasury?: number | string;
 };
 
-const Tokenomics = (props: GeneratedPropsTypes) => {
+const Tokenomics = (props: GeneratedPropsTypes & PrismicSlice) => {
+    const { primary } = props;
+    const { id } = primary;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
+
     const { config } = useData();
     const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
 
@@ -133,7 +144,7 @@ const Tokenomics = (props: GeneratedPropsTypes) => {
     };
 
     return (
-        <Section {...props}>
+        <Section {...props} id={id?.substring(1)}>
             <Grid>
                 <Row pb={4.5} pt={1.5}>
                     {items.map(({ name, tooltip }, index) => (

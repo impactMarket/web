@@ -2,7 +2,7 @@ import { Button, Col, Div, Grid, Row, Section, TLink, Text, TextLink } from '../
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme/variables/colors';
 import { modal } from 'react-modal-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled from 'styled-components';
 
@@ -45,7 +45,14 @@ const HeadingRow = styled(Row)`
 
 const CardList = (props: PrismicSlice) => {
     const { items, primary } = props;
-    const { heading, subtitle, text } = primary;
+    const { heading, id, subtitle, text } = primary;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     const ButtonStyle = ({ buttonUrl, buttonLabel }: any) => (
         <Button disabled={!buttonUrl} linedSecondary={!buttonUrl && true} linedSecondaryDark={buttonUrl && true}>
@@ -78,7 +85,7 @@ const CardList = (props: PrismicSlice) => {
     };
 
     return (
-        <Section {...props}>
+        <Section {...props} id={id?.substring(1)}>
             <Grid pb={3} pt={3}>
                 {(heading || subtitle || !!text.length) && (
                     <HeadingRow>

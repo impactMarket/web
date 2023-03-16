@@ -1,7 +1,7 @@
 import { ATag, Col, Div, Grid, Heading, Row, Section } from '../theme/components';
 import { PrismicImageType } from '../lib/Prismic/types';
 import Image from '../lib/Prismic/components/Image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type LogoListSliceType = {
     items: {
@@ -11,6 +11,7 @@ type LogoListSliceType = {
     }[];
     primary: {
         labels?: string;
+        id?: string;
     };
 };
 
@@ -31,8 +32,15 @@ const LogoList = (props: LogoListSliceType) => {
         label
     })) as ItemType[];
 
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
+
     return (
-        <Section sPadding={{ sm: '3 null', xs: '2 null' }}>
+        <Section id={props?.primary?.id?.substring(1)} sPadding={{ sm: '3 null', xs: '2 null' }}>
             <Grid>
                 <Row>
                     <Col center xs={12}>

@@ -6,7 +6,7 @@ import { Stake } from './Stake';
 import { colors } from '../../theme';
 import { modal } from 'react-modal-handler';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RichText from '../../lib/Prismic/components/RichText';
 
 const Pact = (props: PrismicSlice) => {
@@ -21,10 +21,18 @@ const Pact = (props: PrismicSlice) => {
         buttonSecondaryUrl,
         buttonSecondaryColor,
         heading,
+        id,
         subtitle,
         text,
         pactCard
     } = primary;
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     const ButtonStyle = ({ buttonColor, buttonLabel }: any) => (
         <Button rebranded sHeight="3rem" sWidth="100%" secondaryDefault={buttonColor === 'secondary' && true}>
@@ -56,7 +64,7 @@ const Pact = (props: PrismicSlice) => {
     };
 
     return (
-        <Section relative sBackground={backgroundColor || colors.white}>
+        <Section id={id?.substring(1)} relative sBackground={backgroundColor || colors.white}>
             <Grid pb={4} pt={4} relative>
                 <Row>
                     <Col md={6} pr={{ md: '5vw', xs: 0 }} xs={12}>

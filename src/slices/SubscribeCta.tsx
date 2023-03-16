@@ -18,18 +18,19 @@ import { useTranslation } from '../components/TranslationProvider/TranslationPro
 import { validateEmail } from '../helpers/validateEmail';
 import Api from '../apis/api';
 import Image from '../lib/Prismic/components/Image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type SubscribeCtaSliceType = {
     primary: {
         heading?: string;
+        id?: string;
         image?: PrismicImageType;
     };
 };
 
 const SubscribeCta = (props: SubscribeCtaSliceType) => {
     const { primary } = props;
-    const { image, heading } = primary;
+    const { id, image, heading } = primary;
 
     const { t } = useTranslation();
     const [fields, setFields] = useState({ email: '', name: '' });
@@ -37,6 +38,13 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     const [subscribed, setSubscribed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const { executeRecaptcha } = useGoogleReCaptcha();
+
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
 
     const { name, email } = fields;
 
@@ -85,7 +93,7 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     };
 
     return (
-        <Section id="subscribe" style={{ backgroundColor: colors.g50 }}>
+        <Section id={id?.substring(1)} style={{ backgroundColor: colors.g50 }}>
             <Grid sPadding={{ md: '2.75 null', xs: '2 null' }}>
                 <Row center="xs" middle="xs" reverse>
                     <Col md={5} mdOffset={0.5} xs={12}>

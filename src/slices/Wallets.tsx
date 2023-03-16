@@ -3,7 +3,7 @@ import { Copied } from '../components/Copied/Copied';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled from 'styled-components';
 
@@ -28,11 +28,18 @@ const Image = styled.img`
 
 const Wallets = (props: PrismicSlice) => {
     const { items, primary } = props;
-    const { heading, subtitle, text } = primary;
+    const { heading, id, subtitle, text } = primary;
     const [copied, setCopied] = useState<any>();
 
+    // Send to component X if url has hash
+    useEffect(() => {
+        if (document.getElementById(location.hash.slice(1))) {
+            document.getElementById(location.hash.slice(1)).scrollIntoView();
+        }
+    }, [location.hash]);
+
     return (
-        <Section sBackground={colors.g50}>
+        <Section id={id?.substring(1)} sBackground={colors.g50}>
             <Grid pb={4} pt={4}>
                 <Row>
                     <Col sWidth="100%">
