@@ -1,4 +1,5 @@
-import { Icon, NewChip, Text, TextLink } from '../../theme/components';
+import { Icon } from '@impact-market/ui';
+import { NewChip, Text, TextLink } from '../../theme/components';
 import { String } from '../../components';
 import { colors } from '../../theme';
 import { ease, mq, transitions } from 'styled-gen';
@@ -240,9 +241,7 @@ export const MenuItem = (props: MenuItemProps) => {
                     target={!!url && !url?.startsWith('/') && url ? '_blank' : undefined}
                 >
                     {label}
-                    {!!submenu?.[0]?.label && (
-                        <Icon brandSecondary icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} />
-                    )}
+                    {!!submenu?.[0]?.label && <Icon g500 icon="chevronDown" ml={0.5} size={1.3} />}
                 </TextLink>
             </LinkWrapper>
             {!!submenu?.[0]?.label && (
@@ -270,7 +269,7 @@ export const MenuItem = (props: MenuItemProps) => {
                                             }
                                         >
                                             <SubmenuItem>
-                                                <Icon icon={item?.icon} sHeight="20px" sWidth="20px" />
+                                                <Icon icon={item?.icon} p500 size={1.3} />
                                                 <SubmenuText>
                                                     <Flex>
                                                         <SubmenuTitle>

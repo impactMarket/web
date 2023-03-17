@@ -42,7 +42,7 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView();
+            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
