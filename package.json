@@ -12,7 +12,7 @@
     "dependencies": {
         "@apollo/client": "^3.6.9",
         "@celo/contractkit": "3.2.0",
-        "@impact-market/ui": "1.5.3",
+        "@impact-market/ui": "1.5.4",
         "@impact-market/utils": "3.3.3",
         "@prismicio/client": "^6.1.0",
         "@prismicio/react": "^2.0.3",

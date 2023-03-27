@@ -1309,10 +1309,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@impact-market/ui@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@impact-market/ui/-/ui-1.5.3.tgz#ac57f9c806b2d0d132dbeb384b21d936c680a26e"
-  integrity sha512-XpOhJh1bwZcnMbrOU+AppIbsjMG4v4q3APQLtXDspKr4t6j/6oaY3l0WyXy71mfXuHnfTVgKaeSr9avS+Gv5qw==
+"@impact-market/ui@1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@impact-market/ui/-/ui-1.5.4.tgz#1c8e4baf20971d56a6291dc05e556ddaa37fcdce"
+  integrity sha512-bjhc8bj1/72ty6xuSsbFoF2wAFsHrmtlNs0g/SQJIas3rYWc2oDk1/vWp1xoBgRTMmr0A0+vuEhr8rX9lcvy+A==
   dependencies:
     polished "^4.1.4"
     react-circle-flags "^0.0.17"

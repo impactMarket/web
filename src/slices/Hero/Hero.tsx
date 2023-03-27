@@ -133,7 +133,7 @@ const Hero = (props: PrismicSlice) => {
                             </HeadingText>
                         )}
 
-                        {!!text.length && (
+                        {!!text?.length && !!text[0].text && (
                             <Text className="text">
                                 <RichText
                                     content={text}
@@ -144,7 +144,7 @@ const Hero = (props: PrismicSlice) => {
                             </Text>
                         )}
 
-                        {!!subText.length && (
+                        {!!subText?.length && !!subText[0].text && (
                             <Text className="text">
                                 <RichText content={subText} sColor={subtextColor} sFontWeight={700} />
                             </Text>
@@ -192,7 +192,7 @@ const Hero = (props: PrismicSlice) => {
                             </Row>
                         )}
 
-                        {!!extraText.length && (
+                        {!!extraText?.length && !!extraText[0].text && (
                             <Text className="text">
                                 <RichText content={extraText} sFontWeight={400} />
                             </Text>
