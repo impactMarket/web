@@ -111,10 +111,10 @@ export const ButtonsStyled = styled.div<{ state: string }>`
         'sm',
         css`
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 0.5rem;
 
             svg:nth-child(2) {
-                display: none;
+                transform: rotate(90deg);
             }
         `
     )}

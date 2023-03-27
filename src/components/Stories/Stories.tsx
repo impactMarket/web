@@ -10,6 +10,7 @@ import Api from '../../apis/api';
 import Image from '../Image/Image';
 import React, { useEffect, useState } from 'react';
 import RichText from '../../lib/Prismic/components/RichText';
+import Trim from '../../theme/components/Trim/Trim';
 import styled, { css } from 'styled-components';
 
 type StoriesPrismic = {
@@ -159,13 +160,18 @@ export const Stories = (props: StoriesPrismic) => {
                                 </Div>
                                 <Div ml={1} sFlexDirection="column">
                                     <TextLink
-                                        g700
                                         href={`https://app.impactmarket.com/communities/${story?.community?.id}`}
                                         rel="noopener noreferrer"
-                                        semibold
                                         target="_blank"
                                     >
-                                        {story?.community?.name}
+                                        <Trim
+                                            g700
+                                            hideSeeMore
+                                            limit={20}
+                                            message={story?.community?.name}
+                                            rows={1}
+                                            semibold
+                                        />
                                     </TextLink>
                                     <Div flex sAlignItems="center">
                                         <CountryFlag countryCode={story?.community?.country} height={1.2} mr={0.5} />
