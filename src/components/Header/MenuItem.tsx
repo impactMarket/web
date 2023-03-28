@@ -39,7 +39,6 @@ const MenuItemWrapper = styled.div`
         justify-content: center;
 
         & + & {
-            margin-left: 2rem;
             margin-top: 0;
         }
     `)}
@@ -50,7 +49,6 @@ const SubmenuItem = styled.a<any>`
     display: flex;
     gap: 1rem;
     width: 100%;
-    padding: 0 32px;
 
     ${mq.phone(css`
         padding: 0;
@@ -104,23 +102,18 @@ const Flex = styled.div`
 const SubmenuContent = styled.div<any>`
     display: flex;
     flex-direction: column;
-
-    a:first-child a {
-        padding-top: 32px;
-    }
+    gap: 1rem 1.25rem;
+    padding: 1.2rem;
 
     a a {
-        padding: 16px 32px;
-    }
-
-    a:last-child a {
-        padding-bottom: 32px;
+        padding: 0.7rem;
     }
 
     ${mq.phone(css`
         margin-top: 1.3rem;
         margin-bottom: 1rem;
-        gap: 1.5rem;
+        gap: 0.5rem;
+        padding: 0;
 
         a:first-child a,
         a a,
@@ -136,7 +129,8 @@ const SubmenuWrapper = styled.div<any>`
     height: ${({ elHeight, isVisible }) => (isVisible ? elHeight / 16 : 0)}rem;
     overflow: hidden;
     position: relative;
-    width: 370px;
+    width: max-content;
+    max-width: 400px;
 
     ${mq.tablet(css`
         ${transitions(['opacity', 'transform', 'visibility'], 250, ease.inOutCubic)};
@@ -166,10 +160,20 @@ const SubmenuWrapper = styled.div<any>`
     ${props =>
         mq.phone(css`
             width: 100%;
-            padding-left: 0.5rem;
             height: ${props.isVisible ? 'fit-content' : 0};
             overflow: auto;
         `)}
+`;
+
+const MobileSubmenuLinks = styled(TextLink)`
+    ${mq.upTo(
+        'tablet',
+        css`
+            background-color: ${colors.g50};
+            border-radius: 1rem;
+            padding: 0.75rem;
+        `
+    )}
 `;
 
 const LinkWrapper = (props: { children: any; url?: string }) => {
@@ -252,7 +256,7 @@ export const MenuItem = (props: MenuItemProps) => {
                                 !!item?.label &&
                                 !!item?.url && (
                                     <LinkWrapper key={index} url={item?.url}>
-                                        <TextLink
+                                        <MobileSubmenuLinks
                                             href={item?.url}
                                             isActive={checkActiveRoute(item?.url)}
                                             onClick={() => handleLinkClick(item?.url)}
@@ -291,7 +295,7 @@ export const MenuItem = (props: MenuItemProps) => {
                                                     </Text>
                                                 </SubmenuText>
                                             </SubmenuItem>
-                                        </TextLink>
+                                        </MobileSubmenuLinks>
                                     </LinkWrapper>
                                 )
                         )}

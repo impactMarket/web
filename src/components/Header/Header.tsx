@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 import { Button, Icon, Logo, Text, TextLink } from '../../theme/components';
 import {
     HeaderBarContent,
@@ -153,7 +154,7 @@ export const Header = () => {
                             </HeaderMainBarMenu>
                         </>
                         <HeaderLanguage>
-                            <LanguageSelect ml={1.5} sDisplay={{ sm: 'flex', xs: 'none' }} />
+                            <LanguageSelect sDisplay={{ sm: 'flex', xs: 'none' }} />
                         </HeaderLanguage>
                     </HeaderBarContent>
                 </HeaderMainBar>
