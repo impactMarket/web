@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 const slices = {
     Banner: dynamic(() => import('./Banner'), { ssr: false }),
     CardList: dynamic(() => import('./CardList'), { ssr: false }),
+    CardsFromApi: dynamic(() => import('./CardsFromApi'), { ssr: false }),
     DocumentLink: dynamic(() => import('./DocumentLink'), { ssr: false }),
     Features: dynamic(() => import('./Features'), { ssr: false }),
     Hero: dynamic(() => import('./Hero/Hero'), { ssr: false }),
