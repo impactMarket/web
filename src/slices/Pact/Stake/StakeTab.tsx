@@ -4,6 +4,7 @@ import { String } from '../../../components';
 import { colors } from '../../../theme';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { dateHelpers } from '../../../helpers/dateHelpers';
+import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
 import { toast } from '../../../components/Toaster/Toaster';
 import { usePACTBalance, useStaking } from '@impact-market/utils';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -93,7 +94,7 @@ const Stake = ({ translations }: any) => {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessagesStakeApproveError} />);
+            return handleKnownErrors(error, <RichText content={toastMessagesStakeApproveError} />);
         }
     };
 
@@ -129,7 +130,7 @@ const Stake = ({ translations }: any) => {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessagesStakeError} />);
+            return handleKnownErrors(error, <RichText content={toastMessagesStakeError} />);
         }
     };
 
@@ -169,7 +170,7 @@ const Stake = ({ translations }: any) => {
             setRewardIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessagesAllocatedStakeError} />);
+            return handleKnownErrors(error, <RichText content={toastMessagesAllocatedStakeError} />);
         }
     };
 

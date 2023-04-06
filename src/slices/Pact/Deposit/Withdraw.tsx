@@ -2,6 +2,7 @@ import { Box, Icon, Input } from '@impact-market/ui';
 import { ButtonStyled, WithdrawAmountStyled, WithdrawLabelStyled } from './Deposit.style.ts';
 import { TLink, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
+import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useDepositRedirect } from '@impact-market/utils/useDepositRedirect';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -48,8 +49,8 @@ export const Withdraw = ({ funds, setFunds, setOpenWithdraw, token, translations
 
             return toast.success(t(toastMessagesWithdrawSuccess, { amount: withdrawAmount }));
         } catch (error) {
+            handleKnownErrors(error, t('somethingWrong'));
             setWithdrawIsLoading(false);
-            toast.error(t('somethingWrong'));
 
             console.log(error);
         }

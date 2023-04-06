@@ -16,6 +16,7 @@ import { WrongNetwork } from '../../components/WrongNetwork/WrongNetwork';
 import { colors } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
 import { dateHelpers } from '../../helpers/dateHelpers';
+import { handleKnownErrors } from '../../helpers/handleKnownErrors';
 import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';
 import { toast } from '../../components/Toaster/Toaster';
@@ -122,8 +123,8 @@ const AirgrabContent = (props: {
 
             return toast.success(toastMessagesClaimSuccess);
         } catch (error) {
+            handleKnownErrors(error, toastMessagesClaimError);
             setAirgrabClaimIsLoading(false);
-            toast.error(toastMessagesClaimError);
         }
     };
 
@@ -232,8 +233,8 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
 
             return toast.success(toastMessagesClaimSuccess);
         } catch (error) {
+            handleKnownErrors(error, toastMessagesClaimError);
             setClaimIsLoading(false);
-            toast.error(toastMessagesClaimError);
         }
     }, [claim, claimIsLoading]);
 
