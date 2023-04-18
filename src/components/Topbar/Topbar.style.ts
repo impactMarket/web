@@ -11,7 +11,7 @@ export const TopbarStyle = styled.div<{ direction?: string }>`
         'tablet',
         css`
             padding: 0.75rem 0;
-            height: 48px;
+            height: 56px;
         `
     )}
 `;
@@ -19,7 +19,7 @@ export const TopbarStyle = styled.div<{ direction?: string }>`
 export const TopbarContent = styled.div`
     align-items: center;
     display: flex;
-    gap: 3rem;
+    gap: 2.5vw;
     justify-content: center;
     margin: auto;
     max-width: 84rem;
@@ -30,6 +30,7 @@ export const TopbarContent = styled.div`
         css`
             flex-wrap: wrap;
             gap: 0.5rem;
+            padding: 0;
         `
     )}
 `;
@@ -38,7 +39,7 @@ export const TopbarLeft = styled.div`
     color: ${colors.white};
     display: flex;
     flex-wrap: wrap;
-    gap: 1vw;
+    gap: 2.5vw;
     justify-content: center;
 
     ${mq.upTo(
@@ -56,12 +57,25 @@ export const TopbarColumn = styled.div`
     flex-wrap: wrap;
     gap: 0.3rem;
     justify-content: center;
+
+    .buy {
+        border-radius: 0.25rem;
+        margin-left: 0.2rem;
+
+        span {
+            padding: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0;
+            line-height: inherit;
+        }
+    }
 `;
 
 export const TopbarWallet = styled.div`
     align-items: center;
     display: flex;
-    height: 1.5rem;
+    height: 2rem;
 
     ${mq.upTo(
         'tablet',

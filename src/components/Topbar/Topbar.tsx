@@ -1,4 +1,5 @@
-import { GhostElement, Text } from '../../theme/components';
+import { Button } from '@impact-market/ui';
+import { GhostElement, TLink, Text } from '../../theme/components';
 import { ImpactMarketDaoContext } from '..';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { String } from '../String/String';
@@ -9,6 +10,7 @@ import { currencyValue } from '../../helpers/currencyValue';
 
 import { circulatingSupply as getCirculatingSupply, getPACTTradingMetrics } from '@impact-market/utils';
 import { useData } from '../DataProvider/DataProvider';
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import envConfig from '../../../config';
 
@@ -20,14 +22,16 @@ type TokenMetricItem = {
 
 type PactMetricsType = {
     marketCap?: number | string;
-    priceCUSD?: number | string;
+    priceCUSD?: number | string | any;
 };
 
 export const Topbar = ({ setTopbarHeight }: any) => {
     const { config } = useData();
+    const { locale } = useRouter();
     const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [buyUrl, setBuyUrl] = useState('https://docs.impactmarket.com/impactmarket-apps-1/usdpact/buy-pact');
 
     const items = config?.topBarTokenMetrics as TokenMetricItem[];
 
@@ -84,6 +88,24 @@ export const Topbar = ({ setTopbarHeight }: any) => {
         setTopbarHeight(topbarRef.current.offsetHeight);
     }, []);
 
+    useEffect(() => {
+        switch (locale) {
+            case 'fr-FR':
+                setBuyUrl(
+                    'https://docs.impactmarket.com/v/francais-1/impactmarket-apps-1/how-to-back-a-community-1/acheter-pact'
+                );
+                break;
+            case 'pt-BR':
+                setBuyUrl('https://docs.impactmarket.com/v/portugues-brasil-1/comunidades/usdpact/compre-pact');
+                break;
+            case 'es-ES':
+                setBuyUrl('https://docs.impactmarket.com/v/espanol-1/impactmarket-apps-1/usdpact/comprar-pact');
+                break;
+            default:
+                setBuyUrl('https://docs.impactmarket.com/impactmarket-apps-1/usdpact/buy-pact');
+        }
+    }, [locale]);
+
     return (
         <TopbarStyle ref={topbarRef}>
             <TopbarContent>
@@ -104,6 +126,11 @@ export const Topbar = ({ setTopbarHeight }: any) => {
                                 <Text sColor={colors.b300} sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="500">
                                     {getValue(name as keyof PactMetricsType)}
                                 </Text>
+                            )}
+                            {name === 'priceCUSD' && (
+                                <TLink href={buyUrl}>
+                                    <Button className="buy">BUY</Button>
+                                </TLink>
                             )}
                         </TopbarColumn>
                     ))}

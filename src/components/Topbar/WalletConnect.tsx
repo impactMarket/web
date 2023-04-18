@@ -1,4 +1,5 @@
-import { Icon, Select, Text } from '../../theme/components';
+import { Button } from '@impact-market/ui';
+import { Icon, Select, TLink, Text } from '../../theme/components';
 import { String } from '..';
 import { colors, fonts } from '../../theme';
 import { currencyValue } from '../../helpers/currencyValue';
@@ -61,6 +62,20 @@ const WalletWrapper = styled.div<any>`
 const Pact = styled.div<any>`
     font-weight: 500;
     color: ${colors.g700};
+
+    .stake {
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+        margin: 0 0.3rem 0 0.5rem;
+
+        span {
+            padding: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0;
+            line-height: inherit;
+        }
+    }
 `;
 
 const PactBalance = () => {
@@ -68,14 +83,13 @@ const PactBalance = () => {
 
     return (
         <Pact>
-            <Text
-                ellipsis
-                fontSize={{ md: '0.875rem', xs: '0.75rem' }}
-                medium
-                sMaxWidth={{ sm: 12, xs: 7.5 }}
-                sPadding="0 0 0 1rem"
-            >
+            <Text ellipsis fontSize={{ md: '0.875rem', xs: '0.75rem' }} medium sPadding="0 0 0 1rem">
                 {currencyValue(pact, { isToken: true, symbol: 'PACT' })}
+                {!!pact && pact > 0 && (
+                    <TLink href="/crypto-hub#staking">
+                        <Button className="stake">STAKE</Button>
+                    </TLink>
+                )}
             </Text>
         </Pact>
     );

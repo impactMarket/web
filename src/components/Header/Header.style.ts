@@ -63,6 +63,13 @@ export const HeaderBarContent = styled.div`
     padding: 0 2rem;
 
     ${mq.upTo(
+        'desktop',
+        css`
+            padding: 0 1rem;
+        `
+    )}
+
+    ${mq.upTo(
         'tablet',
         css`
             padding: 1rem 2rem;
@@ -79,10 +86,15 @@ export const HeaderMainBarMenu = styled.div`
 
     ${mq.tablet(css`
         display: flex;
+        gap: 1rem;
 
         & > a + a {
             margin-left: 2rem;
         }
+    `)}
+
+    ${mq.desktop(css`
+        gap: 2rem;
     `)}
 `;
 
