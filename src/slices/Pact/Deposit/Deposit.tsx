@@ -4,6 +4,7 @@ import { Box, Button, Icon, Input } from '@impact-market/ui';
 import { TLink, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
 import { getCookie } from 'cookies-next';
+import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
 import { handleSignature } from '../../../helpers/handleSignature';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useDepositRedirect } from '@impact-market/utils/useDepositRedirect';
@@ -95,8 +96,8 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
 
             return toast.success(depositTransactionApproved);
         } catch (error) {
+            handleKnownErrors(error, t('somethingWrong'));
             setApproveIsLoading(false);
-            toast.error(t('somethingWrong'));
 
             console.log('Approve Error: ', error);
         }
@@ -147,8 +148,8 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
 
             return toast.success(t(toastMessagesDepositSuccess, { amount: depositAmount }));
         } catch (error) {
+            handleKnownErrors(error, t('somethingWrong'));
             setDepositIsLoading(false);
-            toast.error(t('somethingWrong'));
 
             console.log('Deposit Error: ', error);
         }

@@ -2,6 +2,7 @@ import { BoldInput, String } from '../../../components';
 import { Button, Div, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
 import { currencyValue } from '../../../helpers/currencyValue';
+import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useStaking } from '@impact-market/utils';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -56,7 +57,7 @@ const Unstake = ({ translations }: any) => {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessagesUnstakeError} />);
+            return handleKnownErrors(error, <RichText content={toastMessagesUnstakeError} />);
         }
     };
 
@@ -90,7 +91,7 @@ const Unstake = ({ translations }: any) => {
             setClaimIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessagesClaimError} />);
+            return handleKnownErrors(error, <RichText content={toastMessagesClaimError} />);
         }
     };
 

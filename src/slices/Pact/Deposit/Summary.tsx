@@ -2,6 +2,7 @@ import { AlertStyled, FlexWrapperStyled } from './Deposit.style.ts';
 import { Box, Button } from '@impact-market/ui';
 import { Div, Img, TLink, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
+import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
 import { toast } from '../../../components/Toaster/Toaster';
 import { useDepositRedirect } from '@impact-market/utils/useDepositRedirect';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
@@ -64,8 +65,8 @@ export const Summary = ({
 
             return toast.success(t(toastMessagesDonateSuccess, { amount: funds?.availableInterest }));
         } catch (error) {
+            handleKnownErrors(error, t('somethingWrong'));
             setDonateInterestIsLoading(false);
-            toast.error(t('somethingWrong'));
 
             console.log(error);
         }
