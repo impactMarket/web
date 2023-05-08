@@ -38,6 +38,26 @@ export interface IClaimLocation {
     gps: IClaimLocationGps;
 }
 
+export interface IMicrocreditData {
+    totalApplications: number;
+    inReview: number;
+    estimatedMaturity: number;
+    avgBorrowedAmount: number;
+    apr: number;
+    totalBorrowed: number;
+    currentDebt: number;
+    paidBack: number;
+    earnedInterest: number;
+    activeBorrowers: number;
+    totalDebitsRepaid: number;
+    liquidityAvailable: number;
+}
+
+export interface IMicrocredit {
+    data: IMicrocreditData[];
+    success: boolean;
+}
+
 export interface IStory {
     storyMediaPath: string;
 }

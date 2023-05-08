@@ -13,7 +13,7 @@ export const colors = {
     g25: '#FCFCFD;',
     g50: '#F9FAFB',
     g100: '#F2F4F7',
-    g200: '#E4E7EC',
+    g200: '#EAECF0',
     g300: '#D0D5DD',
     g500: '#667085',
     g600: '#475467',
@@ -21,6 +21,7 @@ export const colors = {
     g800: '#1D2939',
     g900: '#101828',
 
+    p25: '#F8F9FD',
     p50: '#DFE7F8',
     p200: '#D3DFFE',
     p300: '#A7C0FE',

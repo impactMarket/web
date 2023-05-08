@@ -13,6 +13,7 @@ import {
     IGlobalDashboard,
     IGlobalNumbers,
     IManager,
+    IMicrocredit,
     IStories
 } from './types';
 import { Numbers } from 'humanify-numbers';
@@ -151,6 +152,12 @@ export default class Api {
             general: ubiDailyEntityZero.data.ubidailyEntity
         };
     }
+    static async getMicrocreditData(): Promise<IMicrocredit[]> {
+        const result = await getRequest<IMicrocredit[]>('/protocol/microcredit');
+
+        return result ? result : [];
+    }
+
     static async getPendingCommunities(requestOptions: CommunityListRequestArguments): Promise<any> {
         const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
         const baseOptions = { extended: false, limit: 4, orderBy: 'bigger', page: 1 };
