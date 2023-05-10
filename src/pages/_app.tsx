@@ -3,7 +3,7 @@ import { Content, GlobalStyle, Main } from '../theme/components';
 import { CookieConsent, Footer, Header, ImpactMarketDaoProvider, Loading, SEO } from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { ModalManager } from 'react-modal-handler';
+import { ModalManager as OModalManager } from 'react-modal-handler';
 import { PrismicDataProvider } from '../lib/Prismic/components/PrismicDataProvider';
 import { ThemeProvider } from 'styled-components';
 import { TranslationProvider } from '../components/TranslationProvider/TranslationProvider';
@@ -23,12 +23,12 @@ Router.events.on('routeChangeComplete', url => pageview(url));
 Router.events.on('hashChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
-    const { Component, pageProps, router } = props;
+    const { Component, pageProps, router } = props as any;
     const { asPath, isReady, locale, query } = router;
     const url = `${baseUrl}/${locale}${asPath}`;
     const [showSpinner, setShowSpinner] = useState(true);
 
-    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps;
+    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps as any;
 
     useEffect(() => {
         if (isReady) {
@@ -70,6 +70,8 @@ export default function App(props: AppProps) {
         meta['image:height'] = 1080;
         meta['image:width'] = 1080;
     }
+
+    const ModalManager = OModalManager as any;
 
     return (
         <DataProvider page={page} url={url}>

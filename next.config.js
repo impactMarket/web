@@ -1,4 +1,5 @@
-const withManifest = require('next-manifest');
+/* eslint-disable sort-keys */
+// const withManifest = require('next-manifest');
 const langConfig = require('./lang-config');
 
 const languageRedirects = [
@@ -8,7 +9,7 @@ const languageRedirects = [
     { source: '/pt-br/:path*', destination: '/pt-BR/:path*' },
 ].map(redirect => ({ ...redirect, permanent: true }));
 
-const redirects = async () => languageRedirects;
+const redirects = () => languageRedirects;
 
 const i18n = {
   defaultLocale: langConfig.find(({ isDefault }) => isDefault)?.code || 'en-us',
@@ -19,27 +20,27 @@ const images = {
   domains: ['impact-market.cdn.prismic.io', 'images.prismic.io', 'prismic-io.s3.amazonaws.com', 'dxdwf61ltxjyn.cloudfront.net', 'd3ma540h3o1zlk.cloudfront.net']
 };
 
-const manifest = {
-  background_color: '#ffffff',
-  display: 'standalone',
-  icons: [
-    {
-      sizes: '192x192',
-      src: '/img/android-chrome-192x192.png',
-      type: 'img/png'
-    },
-    {
-      sizes: '512x512',
-      src: '/img/android-chrome-512x512.png',
-      type: 'img/png'
-    }
-  ],
-  name: 'impact-market',
-  output: './public/manifest/',
-  short_name: 'impact-market',
-  start_url: '/',
-  theme_color: '#2362FB'
-};
+// const manifest = {
+//   background_color: '#ffffff',
+//   display: 'standalone',
+//   icons: [
+//     {
+//       sizes: '192x192',
+//       src: '/img/android-chrome-192x192.png',
+//       type: 'img/png'
+//     },
+//     {
+//       sizes: '512x512',
+//       src: '/img/android-chrome-512x512.png',
+//       type: 'img/png'
+//     }
+//   ],
+//   name: 'impact-market',
+//   output: './public/manifest/',
+//   short_name: 'impact-market',
+//   start_url: '/',
+//   theme_color: '#2362FB'
+// };
 
 const typescript = {
     ignoreBuildErrors: false
@@ -48,15 +49,16 @@ const typescript = {
 const webpack = config => {
     config.resolve.fallback = {
         ...config.resolve.fallback,
+        child_process: false,
         fs: false,
         net: false,
-        child_process: false,
         readline: false,
     };
 
     return config
 }
 
-const config = withManifest({ i18n, images, typescript, manifest, redirects, webpack });
+/** @type {import('next').NextConfig} */
+const config = { i18n, images, redirects, typescript, webpack };
 
 module.exports = config;

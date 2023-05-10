@@ -172,4 +172,4 @@ const MapComponent = (props: MapProps) => {
     return <MapWrapper onBlur={() => map.dragPan.disable()} onFocus={() => map.dragPan.enable()} ref={mapContainer} />;
 };
 
-export const Map = withCookies(MapComponent);
+export const Map = withCookies(MapComponent) as any;
