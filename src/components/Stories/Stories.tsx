@@ -80,7 +80,7 @@ export const Stories = (props: StoriesPrismic) => {
         const getStories = async () => {
             const stories = await Api.getStories();
 
-            setStories(stories);
+            // setStories(stories);
         };
 
         getStories();

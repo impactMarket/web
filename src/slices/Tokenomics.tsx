@@ -1,6 +1,6 @@
 import { Col, Div, GhostElement, Grid, InfoTooltip, RichContentFormat, Row, Section, Text } from '../theme/components';
 import { GeneratedPropsTypes } from '../theme/Types';
-import { ImpactMarketDaoContext, String } from '../components';
+import { String } from '../components';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { currencyValue } from '../helpers/currencyValue';
@@ -14,7 +14,7 @@ import {
 import { numericalValue } from '../helpers/numericalValue';
 import { useData } from '../components/DataProvider/DataProvider';
 import Api from '../apis/api';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import envConfig from '../../config';
 import styled from 'styled-components';
 
@@ -54,7 +54,7 @@ const Tokenomics = (props: GeneratedPropsTypes & PrismicSlice) => {
     }, [location.hash]);
 
     const { config } = useData();
-    const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
+    const provider = new JsonRpcProvider(envConfig.networkRpcUrl);
 
     const [isLoading, setIsLoading] = useState(false);
 
