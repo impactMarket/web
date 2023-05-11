@@ -1,5 +1,4 @@
 /* eslint-disable sort-keys */
-// const withManifest = require('next-manifest');
 const langConfig = require('./lang-config');
 
 const languageRedirects = [
@@ -19,28 +18,6 @@ const i18n = {
 const images = {
   domains: ['impact-market.cdn.prismic.io', 'images.prismic.io', 'prismic-io.s3.amazonaws.com', 'dxdwf61ltxjyn.cloudfront.net', 'd3ma540h3o1zlk.cloudfront.net']
 };
-
-// const manifest = {
-//   background_color: '#ffffff',
-//   display: 'standalone',
-//   icons: [
-//     {
-//       sizes: '192x192',
-//       src: '/img/android-chrome-192x192.png',
-//       type: 'img/png'
-//     },
-//     {
-//       sizes: '512x512',
-//       src: '/img/android-chrome-512x512.png',
-//       type: 'img/png'
-//     }
-//   ],
-//   name: 'impact-market',
-//   output: './public/manifest/',
-//   short_name: 'impact-market',
-//   start_url: '/',
-//   theme_color: '#2362FB'
-// };
 
 const typescript = {
     ignoreBuildErrors: false

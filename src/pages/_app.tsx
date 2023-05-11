@@ -78,6 +78,9 @@ export default function App(props: AppProps) {
                     <Head>
                         <meta content="width=device-width, initial-scale=1" name="viewport" />
                         <meta content="#2362FB" name="theme-color" />
+                        <link rel="manifest" href="/manifest.json" />
+                        <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png" />
+                        <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
                     </Head>
                     <SEO meta={meta} />
                     <ThemeProvider theme={theme}>
