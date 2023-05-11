@@ -15,7 +15,7 @@
     "dependencies": {
         "@apollo/client": "3.7.14",
         "@impact-market/ui": "1.5.4",
-        "@impact-market/utils": "4.0.0-beta.1",
+        "@impact-market/utils": "4.0.0-beta.2",
         "@prismicio/client": "6.7.3",
         "@prismicio/react": "2.6.1",
         "@sentry/nextjs": "7.37.2",
