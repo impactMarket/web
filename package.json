@@ -56,7 +56,7 @@
         "styled-gen": "1.4.8",
         "styled-reset": "4.4.7",
         "viem": "0.3.21",
-        "wagmi": "1.0.2"
+        "wagmi": "^1.0.2"
     },
     "devDependencies": {
         "@babel/core": "7.21.8",
