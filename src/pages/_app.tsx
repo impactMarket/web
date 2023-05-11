@@ -3,7 +3,7 @@ import { Content, GlobalStyle, Main } from '../theme/components';
 import { CookieConsent, Footer, Header, ImpactMarketDaoProvider, Loading, SEO } from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { ModalManager as OModalManager } from 'react-modal-handler';
+import { ModalManager } from 'react-modal-handler';
 import { PrismicDataProvider } from '../lib/Prismic/components/PrismicDataProvider';
 import { ThemeProvider } from 'styled-components';
 import { TranslationProvider } from '../components/TranslationProvider/TranslationProvider';
@@ -70,8 +70,6 @@ export default function App(props: AppProps) {
         meta['image:height'] = 1080;
         meta['image:width'] = 1080;
     }
-
-    const ModalManager = OModalManager as any;
 
     return (
         <DataProvider page={page} url={url}>

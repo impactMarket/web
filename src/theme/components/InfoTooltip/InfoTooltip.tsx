@@ -4,11 +4,11 @@ import { colors } from '../../variables/colors';
 import { ease, mq, transitions } from 'styled-gen';
 import React from 'react';
 // eslint-disable-next-line import/named
-import styled, { ThemeProps, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type TypeWithPosition = {
     position?: string;
-} & ThemeProps<any>;
+};
 
 const TooltipWrapper = styled.div<TypeWithPosition>`
     align-items: flex-start;
