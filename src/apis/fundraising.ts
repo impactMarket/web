@@ -43,7 +43,7 @@ export const fundraising: { [key: string]: Function } = {
             data: data.daily
                 .map(({ id, contributed }) => ({
                     name: new Date(parseInt(id, 10) * 86400000).getTime(),
-                    uv: parseFloat(contributed)
+                    uv: Math.round(parseFloat(contributed) * 100) / 100
                 }))
                 .reverse(),
             tooltip: (payload: any, label: any): string => getChartDateValueTooltip(t('raisedOn'), payload, label),
