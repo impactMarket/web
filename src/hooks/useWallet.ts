@@ -4,16 +4,17 @@ import { deleteCookie, setCookie, getCookie } from 'cookies-next';
 import { configureChains, createConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum';
-import { celo } from '@wagmi/chains';
+import { celo, celoAlfajores } from '@wagmi/chains';
 import { useWeb3Modal } from '@web3modal/react';
 import { useEffect } from 'react';
 import { getAddress } from '@ethersproject/address';
 import Api from '../apis/api';
+import config from '../../config';
 
-export const projectId = 'e14be5c27cfd796596686bdc6876e836';
+export const projectId = config.walletConnectProjectId;;
 
 const { chains, publicClient } = configureChains(
-    [celo],
+    [config.chainId === 42220 ? celo : celoAlfajores],
     [jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default.http[0] }) })]
 );
 

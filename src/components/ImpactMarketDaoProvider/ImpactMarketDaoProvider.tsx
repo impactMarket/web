@@ -17,7 +17,7 @@ const Wrapper = ({ children }: { children: any }) => {
             jsonRpc={config.networkRpcUrl || chain?.rpcUrls.public.http[0] || ''}
             signer={signer ?? null}
             address={address ?? null}
-            networkId={chain?.id || 44787}
+            networkId={chain?.id || config.chainId || 44787}
         >
             {children}
         </ImpactProvider>
