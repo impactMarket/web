@@ -10,11 +10,14 @@ import { ethereumClient, projectId, wagmiConfig } from '../../hooks/useWallet';
 const Wrapper = ({ children }: { children: any }) => {
     const { address } = useAccount();
     const { data: signer } = useWalletClient();
-    const { chain } = useNetwork();
+    const { chains } = useNetwork();
+    const chain = chains[0];
 
     return (
         <ImpactProvider
-            jsonRpc={config.networkRpcUrl || chain?.rpcUrls.public.http[0] || ''}
+            jsonRpc={
+                config.networkRpcUrl || chain?.rpcUrls.public.http[0] || ''
+            }
             signer={signer ?? null}
             address={address ?? null}
             networkId={chain?.id || config.chainId || 44787}
@@ -36,7 +39,23 @@ export const ImpactMarketDaoProvider = ({ children }: { children: any }) => {
             <WagmiConfig config={wagmiConfig}>
                 <Wrapper>{children}</Wrapper>
             </WagmiConfig>
-            <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+            <Web3Modal
+                projectId={projectId}
+                ethereumClient={ethereumClient}
+                mobileWallets={[
+                    {
+                        id: 'libera',
+                        name: 'Libera',
+                        links: {
+                            native: 'libera://',
+                            universal: 'https://liberawallet.com'
+                        }
+                    }
+                ]}
+                walletImages={{
+                    libera: 'https://imagedelivery.net/_aTEfDRm7z3tKgu9JhfeKA/9485d17f-c413-47fe-ebee-a876a9dc9100/lg'
+                }}
+            />
         </>
     );
 };
