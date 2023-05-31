@@ -23,6 +23,7 @@ import { toast } from '../../components/Toaster/Toaster';
 import { useEpoch, useMerkleDistributor, useRewards } from '@impact-market/utils';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback, useEffect, useState } from 'react';
+import RichText from '../../lib/Prismic/components/RichText';
 import axios from 'axios';
 import config from '../../../config';
 import styled, { css } from 'styled-components';
@@ -121,7 +122,12 @@ const AirgrabContent = (props: {
                 return toast.error(toastMessagesClaimError);
             }
 
-            return toast.success(toastMessagesClaimSuccess);
+            return toast.success(
+                <RichText
+                    content={toastMessagesClaimSuccess}
+                    variables={{ amount: currencyValue(amountToClaim, { isToken: true }) }}
+                />
+            );
         } catch (error) {
             handleKnownErrors(error, toastMessagesClaimError);
             setAirgrabClaimIsLoading(false);
@@ -231,7 +237,12 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
                 return toast.error(toastMessagesClaimError);
             }
 
-            return toast.success(toastMessagesClaimSuccess);
+            return toast.success(
+                <RichText
+                    content={toastMessagesClaimSuccess}
+                    variables={{ amount: currencyValue(rewards?.claimable, { isToken: true }) }}
+                />
+            );
         } catch (error) {
             handleKnownErrors(error, toastMessagesClaimError);
             setClaimIsLoading(false);
@@ -294,9 +305,7 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
             {!rewards?.claimable && !rewards?.estimated && (
                 <Highlight mt={1}>
                     <HighlightRow>
-                        <Text div sColor={colors.g500} small>
-                            {donateNocontributionrewardtobeclaimed[0]?.text}
-                        </Text>
+                        <RichText content={donateNocontributionrewardtobeclaimed} div sColor={colors.g500} small />
                         <TextLink
                             brandPrimary
                             ml={{ md: 'unset', xs: 'auto' }}
