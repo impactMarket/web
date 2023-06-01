@@ -128,7 +128,12 @@ const config = {
     /**
      * Deposit Token
      */
-    depositToken: process.env.NEXT_PUBLIC_DEPOSIT_TOKEN
+    depositToken: process.env.NEXT_PUBLIC_DEPOSIT_TOKEN,
+
+    /**
+     * WalletConnect project id, mandatory for WalletConnect v2
+     */
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!
 };
 
 export default config;

@@ -1,6 +1,5 @@
 import { Button } from '@impact-market/ui';
 import { GhostElement, TLink, Text } from '../../theme/components';
-import { ImpactMarketDaoContext } from '..';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { String } from '../String/String';
 import { TopbarColumn, TopbarContent, TopbarLeft, TopbarStyle, TopbarWallet } from './Topbar.style';
@@ -11,7 +10,7 @@ import { currencyValue } from '../../helpers/currencyValue';
 import { circulatingSupply as getCirculatingSupply, getPACTTradingMetrics } from '@impact-market/utils';
 import { useData } from '../DataProvider/DataProvider';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import envConfig from '../../../config';
 
 const getString = (name: string) => `page.governanceToken.metrics.${name}`;
@@ -28,7 +27,7 @@ type PactMetricsType = {
 export const Topbar = ({ setTopbarHeight }: any) => {
     const { config } = useData();
     const { locale } = useRouter();
-    const provider = useContext(ImpactMarketDaoContext).provider || new JsonRpcProvider(envConfig.networkRpcUrl);
+    const provider = new JsonRpcProvider(envConfig.networkRpcUrl);
 
     const [isLoading, setIsLoading] = useState(false);
     const [buyUrl, setBuyUrl] = useState('https://docs.impactmarket.com/impactmarket-apps-1/usdpact/buy-pact');

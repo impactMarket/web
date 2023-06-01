@@ -9,7 +9,6 @@
     "jsx": "preserve",
     "lib": [
       "dom",
-      "dom.iterable",
       "es2017"
     ],
     "module": "esnext",
@@ -18,6 +17,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": false,
@@ -26,12 +26,16 @@
       "./types",
       "./node_modules/@types"
     ],
-    "incremental": true
+    "baseUrl": ".",
+    "sourceMap": true,
+    "incremental": true,
+    "inlineSources": true,
+
+    // Set `sourceRoot` to  `/` to strip the build path prefix from
+    // generated source code references. This allows Sentry to match source files
+    // relative to your source root folder.
+    "sourceRoot": "/"
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": [".github", ".next", "_content_cache", "node_modules", "public"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
 }

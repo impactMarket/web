@@ -17,7 +17,7 @@ type CurrencyProps = {
     currency: 'btc' | 'celo' | 'eth' | 'cUSD' | string;
 };
 
-const SVG = styled.svg.attrs<any>({
+const SVG = styled.svg.attrs({
     xmlns: 'http://www.w3.org/2000/svg'
 })`
     height: 100%;

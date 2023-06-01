@@ -25,8 +25,17 @@ const Wrapper = styled.div<LanguageSelectProps>`
     ${generateProps};
 `;
 const LanguageSelect = (props: LanguageSelectProps) => {
-    const { asPath, locale, replace } = useRouter();
-    const handleLanguageChange = (locale: string) => replace(asPath, undefined, { locale });
+    const { asPath, locale } = useRouter();
+    const router = useRouter();
+    const handleLanguageChange = (locale: string) => {
+        router
+            .replace(asPath, undefined, { locale })
+            .catch((e) => {
+                if (!e.cancelled) {
+                    throw e
+                }
+            })
+    };
 
     const languageOptions = langConfig.map(({ code: value, label }) => ({ label, value }));
 

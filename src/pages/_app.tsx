@@ -23,12 +23,12 @@ Router.events.on('routeChangeComplete', url => pageview(url));
 Router.events.on('hashChangeComplete', url => pageview(url));
 
 export default function App(props: AppProps) {
-    const { Component, pageProps, router } = props;
+    const { Component, pageProps, router } = props as any;
     const { asPath, isReady, locale, query } = router;
     const url = `${baseUrl}/${locale}${asPath}`;
     const [showSpinner, setShowSpinner] = useState(true);
 
-    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps;
+    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps as any;
 
     useEffect(() => {
         if (isReady) {
@@ -78,6 +78,9 @@ export default function App(props: AppProps) {
                     <Head>
                         <meta content="width=device-width, initial-scale=1" name="viewport" />
                         <meta content="#2362FB" name="theme-color" />
+                        <link rel="manifest" href="/manifest.json" />
+                        <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png" />
+                        <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
                     </Head>
                     <SEO meta={meta} />
                     <ThemeProvider theme={theme}>

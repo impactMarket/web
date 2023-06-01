@@ -6,7 +6,6 @@ import {
     GhostElement,
     Highlight,
     HighlightRow,
-    Spinner,
     Text,
     TextLink
 } from '../../theme/components';
@@ -20,12 +19,10 @@ import { handleKnownErrors } from '../../helpers/handleKnownErrors';
 import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';
 import { toast } from '../../components/Toaster/Toaster';
-import { useEpoch, useMerkleDistributor, useRewards } from '@impact-market/utils';
+import { useEpoch, useRewards } from '@impact-market/utils';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback, useEffect, useState } from 'react';
 import RichText from '../../lib/Prismic/components/RichText';
-import axios from 'axios';
-import config from '../../../config';
 import styled, { css } from 'styled-components';
 
 const SummaryRow = styled.div`
@@ -65,144 +62,6 @@ const CountdownWrapper = styled.div`
     border-bottom: 1px solid ${colors.backgroundShadow};
     padding: 1rem;
 `;
-
-const SpinnerContent = styled.div`
-    border-radius: 50%;
-    height: 4rem;
-    overflow: hidden;
-    position: relative;
-    width: 4rem;
-`;
-
-const SpinnerWrapper = styled.div`
-    align-items: center;
-    display: flex;
-    height: 100%;
-    position: absolute;
-    justify-content: center;
-    width: 100%;
-`;
-
-const getMerkleTreeUrl = (address: string) =>
-    `/api/merkletree/?address=${address}${!config.networkRpcUrl ? '&testnet=true' : ''}`;
-
-const AirgrabContent = (props: {
-    onUpdate: Function;
-    treeAccount?: { index: number; amount: string; proof: string[] };
-    translations: any;
-}) => {
-    const { onUpdate, treeAccount, translations } = props;
-    const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
-    const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(treeAccount);
-    const {
-        donateAirgrabReward,
-        donateAirgrabrewardText,
-        donateClaim,
-        toastMessagesClaimError,
-        toastMessagesClaimSuccess
-    } = translations;
-
-    useEffect(() => {
-        onUpdate();
-    }, [hasClaim]);
-
-    const handleAirgrabRewardClaimClick = async () => {
-        if (airgrabClaimIsLoading) {
-            return;
-        }
-
-        setAirgrabClaimIsLoading(true);
-
-        try {
-            const response = await claimAirgrab();
-
-            setAirgrabClaimIsLoading(false);
-
-            if (!response?.status) {
-                return toast.error(toastMessagesClaimError);
-            }
-
-            return toast.success(
-                <RichText
-                    content={toastMessagesClaimSuccess}
-                    variables={{ amount: currencyValue(amountToClaim, { isToken: true }) }}
-                />
-            );
-        } catch (error) {
-            handleKnownErrors(error, toastMessagesClaimError);
-            setAirgrabClaimIsLoading(false);
-        }
-    };
-
-    if (!hasClaim) {
-        return null;
-    }
-
-    return (
-        <Div column sWidth="100%">
-            <Text sColor={colors.g800} sFontSize={1.125} sFontWeight={600}>
-                {donateAirgrabReward}
-            </Text>
-            <Text mt={0.5} sColor={colors.g500} small>
-                {donateAirgrabrewardText[0]?.text}
-            </Text>
-            <Highlight mt={1}>
-                <HighlightRow>
-                    <Text sColor={colors.g800} sFontSize={1.5} sFontWeight={600}>
-                        {currencyValue(amountToClaim, { isToken: true })}
-                        &nbsp; PACT
-                    </Text>
-                    <Button isLoading={airgrabClaimIsLoading} onClick={handleAirgrabRewardClaimClick} smaller>
-                        <Text semibold span="true">
-                            {donateClaim}
-                        </Text>
-                    </Button>
-                </HighlightRow>
-            </Highlight>
-        </Div>
-    );
-};
-
-const Airgrab = (props: { address?: string; onUpdate: Function; translations: any }) => {
-    const { address, onUpdate, translations } = props;
-    const [treeAccount, setTreeAccount] = useState();
-
-    useEffect(() => {
-        const getTreeAccount = async () => {
-            if (!address) {
-                return;
-            }
-
-            try {
-                const response = await axios.get(getMerkleTreeUrl(address));
-
-                const treeAccount = response?.data?.merkleTree;
-
-                setTreeAccount(treeAccount);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        getTreeAccount();
-    }, [address]);
-
-    if (!address || !treeAccount) {
-        return null;
-    }
-
-    if (!treeAccount) {
-        return (
-            <SpinnerWrapper>
-                <SpinnerContent>
-                    <Spinner isLoading />
-                </SpinnerContent>
-            </SpinnerWrapper>
-        );
-    }
-
-    return <AirgrabContent onUpdate={onUpdate} translations={translations} treeAccount={treeAccount} />;
-};
 
 const Rewards = (props: { onUpdate: Function; translations: any }) => {
     const { onUpdate, translations } = props;
@@ -384,7 +243,7 @@ export const Donate = ({ translations }: any) => {
     const { address, connect, wrongNetwork } = useWallet();
     const { epoch } = useEpoch();
     const { endPeriod } = epoch || {};
-    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod));
+    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod || '0'));
     const [, setUpdated] = useState(new Date().getMilliseconds());
 
     const tabs = [donatePactRewards, donateSummary];
@@ -439,9 +298,6 @@ export const Donate = ({ translations }: any) => {
                     <Tabs mb="auto" tabs={tabs}>
                         {/* Breakdown */}
                         <Div column sWidth="100%">
-                            {/* Airgrab */}
-                            <Airgrab address={address} onUpdate={setUpdated} translations={translations} />
-
                             {/* Contribution Reward */}
                             <Rewards onUpdate={setUpdated} translations={translations} />
                         </Div>
