@@ -81,6 +81,13 @@ export default function App(props: AppProps) {
                         <link rel="manifest" href="/manifest.json" />
                         <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png" />
                         <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
+                        <script type="text/javascript">
+                            {`(function(c,l,a,r,i,t,y){
+                            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                        })(window, document, "clarity", "script", "hiriq2fzcz");`}
+                        </script>
                     </Head>
                     <SEO meta={meta} />
                     <ThemeProvider theme={theme}>
