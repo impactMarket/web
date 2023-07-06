@@ -1,0 +1,14 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.impactmarket.mobile",
+        "sha256_cert_fingerprints": [
+          "02:D7:08:C7:96:1C:EB:12:18:55:72:58:1A:FF:33:A4:37:9C:AC:AF:09:2E:C5:63:46:50:4D:D0:F2:3C:EA:AF"
+        ]
+      }
+    }
+  ]
