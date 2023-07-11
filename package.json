@@ -73,7 +73,7 @@
         "@types/styled-components": "5.1.25",
         "@types/react-table": "7.7.14",
         "babel-plugin-styled-components": "2.1.1",
-        "typescript": "5.1.16"
+        "typescript": "5.1.6"
     },
     "resolutions": {
         "@types/react": "17.0.59"
