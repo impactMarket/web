@@ -1,10 +1,9 @@
-import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
+import { usePrismicData } from '../lib/Prismic/components/PrismicDataProvider';
 import React, { useEffect, useState } from 'react';
-import Slices from '../../lib/Prismic/components/Slices';
-
-import { CommunityMetricsProvider } from '../../components/CommunityMetricsProvider/CommunityMetricsProvider';
-import Api from '../../apis/api';
-import { formatData } from '../../helpers/formatData';
+import Slices from '../lib/Prismic/components/Slices';
+import { formatData } from '../helpers/formatData';
+import { CommunityMetricsProvider } from '../components/CommunityMetricsProvider/CommunityMetricsProvider';
+import Api from '../apis/api';
 
 export const Ubi = () => {
     const { page } = usePrismicData();

@@ -1,11 +1,20 @@
 import { AgeRange } from './AgeRange';
 import { Beneficiaries } from './Beneficiaries';
-import { Col, DashboardCard, Grid, Heading, InfoTooltip, Row, Section, Text } from '../../../theme/components';
+import {
+    Col,
+    DashboardCard,
+    Grid,
+    Heading,
+    InfoTooltip,
+    Row,
+    Section,
+    Text
+} from '../../../theme/components';
 import { IGlobalDashboard } from '../../../apis/types';
 import { String } from '../../../components';
 import {
     getDemographicsAgeRange,
-    getDemographicsBeneficiariesByCountry,
+    getDemographicsByCountry,
     getDemographicsTotalPercentage
 } from '../../../apis/demographics';
 import React, { useEffect, useState } from 'react';
@@ -20,7 +29,7 @@ export const Demographics = (props: DemographicsProps) => {
     const totalPercentage = getDemographicsTotalPercentage(demographics);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const demographicsCountriesData = getDemographicsBeneficiariesByCountry(demographics);
+    const demographicsCountriesData = getDemographicsByCountry(demographics);
     const demographicsAgeData = getDemographicsAgeRange(demographics);
 
     useEffect(() => {
@@ -65,7 +74,10 @@ export const Demographics = (props: DemographicsProps) => {
                             <Text sPadding="1 1 null 1" small textSecondary>
                                 <String id="page.globalDashboard.demographics.charts.countries.heading" />
                             </Text>
-                            <Beneficiaries countriesCount={demographics?.length} data={demographicsCountriesData} />
+                            <Beneficiaries
+                                countriesCount={demographics?.length}
+                                data={demographicsCountriesData}
+                            />
                         </DashboardCard>
                     </Col>
                 </Row>

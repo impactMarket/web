@@ -58,6 +58,47 @@ export interface IMicrocredit {
     success: boolean;
 }
 
+export interface IMicrocreditDemographicsData {
+    gender: {
+        country: string;
+        male: string;
+        female: string;
+        undisclosed: string;
+        totalGender: string;
+    }[];
+    ageRange: {
+        paid: {
+            ageRange1: string;
+            ageRange2: string;
+            ageRange3: string;
+            ageRange4: string;
+            ageRange5: string;
+            ageRange6: string;
+        };
+        pending: {
+            ageRange1: string;
+            ageRange2: string;
+            ageRange3: string;
+            ageRange4: string;
+            ageRange5: string;
+            ageRange6: string;
+        };
+        overdue: {
+            ageRange1: string;
+            ageRange2: string;
+            ageRange3: string;
+            ageRange4: string;
+            ageRange5: string;
+            ageRange6: string;
+        };
+    };
+}
+
+export interface IMicrocreditDemographics {
+    data: IMicrocreditDemographicsData[];
+    success: boolean;
+}
+
 export interface IStory {
     storyMediaPath: string;
 }
@@ -134,7 +175,11 @@ export interface IGlobalApiResult {
         reach: number;
     }[];
     lastQuarterAvgSSI: { date: Date; avgMedianSSI: number }[];
-    today: { totalClaimed: string; totalBeneficiaries: number; totalRaised: string };
+    today: {
+        totalClaimed: string;
+        totalBeneficiaries: number;
+        totalRaised: string;
+    };
     totalBackers: number;
     reachedLastMonth: {
         reach: number;
@@ -262,7 +307,10 @@ export interface ICommunity extends CommunityAttributes {
     claimLocations?: IClaimLocationGps[];
     contract: CommunityContractAttributes;
     managers?: IManager[];
-    metrics?: CommunityDailyMetricsAttributes | CommunityDailyMetricsAttributes[] | any;
+    metrics?:
+        | CommunityDailyMetricsAttributes
+        | CommunityDailyMetricsAttributes[]
+        | any;
     state: CommunityStateAttributes;
     dashboard: ICommunityDashboard;
 }
