@@ -59,23 +59,34 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
 
     const items = config?.tokenMetrics as TokenMetricItem[];
 
-    const [pactTradingMetrics, setPactTradingMetrics] = useState<PactMetricsType>({});
+    const [pactTradingMetrics, setPactTradingMetrics] =
+        useState<PactMetricsType>({});
 
     useEffect(() => {
         const loadPactPriceVolumeLiquidity = async () => {
             setIsLoading(true);
             try {
                 const response = await getPACTTradingMetrics(envConfig.chainId);
-                const circulatingSupply = await getCirculatingSupply(provider, envConfig.chainId);
+                const circulatingSupply = await getCirculatingSupply(
+                    provider,
+                    envConfig.chainId
+                );
                 const globalDashboard = await Api.getGlobalValues();
-                const daoLiquidity = await getUBILiquidity(provider, envConfig.chainId);
-                const daoTreasury = await getPACTTVL(provider, envConfig.chainId);
+                const daoLiquidity = await getUBILiquidity(
+                    provider,
+                    envConfig.chainId
+                );
+                const daoTreasury = await getPACTTVL(
+                    provider,
+                    envConfig.chainId
+                );
 
                 const { priceUSD: priceCUSD } = response;
 
                 const marketCap = +priceCUSD * circulatingSupply;
 
-                const { value } = dashboard.getTotalRaised(globalDashboard) || {};
+                const { value } =
+                    dashboard.getTotalRaised(globalDashboard) || {};
                 const totalCUSD = value;
 
                 setPactTradingMetrics({
@@ -98,7 +109,10 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
     }, []);
 
     const getValue = (name: keyof PactMetricsType) => {
-        if (typeof pactTradingMetrics?.[name] !== 'string' && isNaN(+pactTradingMetrics?.[name])) {
+        if (
+            typeof pactTradingMetrics?.[name] !== 'string' &&
+            isNaN(+pactTradingMetrics?.[name])
+        ) {
             return '--';
         }
 
@@ -107,9 +121,13 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         }
 
         if (name === 'priceCUSD') {
-            return `~$${Number(pactTradingMetrics?.priceCUSD).toLocaleString('en', {
-                maximumFractionDigits: pactTradingMetrics?.priceCUSD < 1 ? 5 : 2
-            })}`;
+            return `~$${Number(pactTradingMetrics?.priceCUSD).toLocaleString(
+                'en',
+                {
+                    maximumFractionDigits:
+                        Number(pactTradingMetrics?.priceCUSD) < 1 ? 5 : 2
+                }
+            )}`;
         }
 
         if (name === 'tokenHolders') {
@@ -117,7 +135,9 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         }
 
         if (name === 'marketCap') {
-            return currencyValue(pactTradingMetrics?.marketCap, { symbol: '~$' });
+            return currencyValue(pactTradingMetrics?.marketCap, {
+                symbol: '~$'
+            });
         }
 
         if (name === 'circulatingSupply') {
@@ -132,11 +152,15 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
         }
 
         if (name === 'daoLiquidity') {
-            return currencyValue(pactTradingMetrics?.daoLiquidity, { symbol: '$' });
+            return currencyValue(pactTradingMetrics?.daoLiquidity, {
+                symbol: '$'
+            });
         }
 
         if (name === 'daoTreasury') {
-            return currencyValue(pactTradingMetrics?.daoTreasury, { symbol: '~$' });
+            return currencyValue(pactTradingMetrics?.daoTreasury, {
+                symbol: '~$'
+            });
         }
 
         return pactTradingMetrics[name] || '--';
@@ -147,24 +171,45 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
             <Grid>
                 <Row pb={1.5} pt={1.5}>
                     {items.map(({ name, tooltip }, index) => (
-                        <Col key={index} md={3} pb={0.5} pt={0.5} sm={2} xs={12}>
+                        <Col
+                            key={index}
+                            md={3}
+                            pb={0.5}
+                            pt={0.5}
+                            sm={2}
+                            xs={12}
+                        >
                             <Item>
                                 <RichContentFormat>
                                     <Text XSmall medium textSecondary>
-                                        <String id={getString(name as keyof PactMetricsType)} />
+                                        <String
+                                            id={getString(
+                                                name as keyof PactMetricsType
+                                            )}
+                                        />
                                     </Text>
                                 </RichContentFormat>
                                 <Div mt={0.5}>
                                     {isLoading ? (
-                                        <GhostElement mt={0.25} pt={1} sHeight={0.75} sWidth={3} />
+                                        <GhostElement
+                                            mt={0.25}
+                                            pt={1}
+                                            sHeight={0.75}
+                                            sWidth={3}
+                                        />
                                     ) : (
                                         <Text bold label2>
-                                            {getValue(name as keyof PactMetricsType)}
+                                            {getValue(
+                                                name as keyof PactMetricsType
+                                            )}
                                         </Text>
                                     )}
                                 </Div>
                                 {tooltip && (
-                                    <InfoTooltip ml={0.5} position="bottom center">
+                                    <InfoTooltip
+                                        ml={0.5}
+                                        position="bottom center"
+                                    >
                                         <Text small textSecondary>
                                             <String id={tooltip} />
                                         </Text>

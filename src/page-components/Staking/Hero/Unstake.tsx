@@ -25,7 +25,7 @@ export const Unstake = () => {
     const { unstakeTooltip } = extractFromPage('string') as any;
 
     const handleUnstake = async () => {
-        if (value > stakedAmount || isLoading) {
+        if (Number(value) > stakedAmount || isLoading) {
             return null;
         }
 
@@ -39,7 +39,9 @@ export const Unstake = () => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(<RichText content={toastMessages?.unstakeError} />);
+                return toast.error(
+                    <RichText content={toastMessages?.unstakeError} />
+                );
             }
 
             setValue('');
@@ -47,14 +49,21 @@ export const Unstake = () => {
             return toast.success(
                 <RichText
                     content={toastMessages?.successfulUnstaked}
-                    variables={{ amount: currencyValue(value, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(value, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
         } catch (error) {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessages?.unstakeError} />);
+            return toast.error(
+                <RichText content={toastMessages?.unstakeError} />
+            );
         }
     };
 
@@ -73,13 +82,20 @@ export const Unstake = () => {
             if (!response?.status) {
                 setClaimIsLoading(false);
 
-                return toast.error(<RichText content={toastMessages?.claimError} />);
+                return toast.error(
+                    <RichText content={toastMessages?.claimError} />
+                );
             }
 
             toast.success(
                 <RichText
                     content={toastMessages?.claimSuccess}
-                    variables={{ amount: currencyValue(claiming, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(claiming, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
 
@@ -88,7 +104,9 @@ export const Unstake = () => {
             setClaimIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessages?.claimError} />);
+            return toast.error(
+                <RichText content={toastMessages?.claimError} />
+            );
         }
     };
 
@@ -104,16 +122,28 @@ export const Unstake = () => {
                                 <String id="staked" />
                             </Text>
                             : &nbsp;
-                            <Text span="true">{currencyValue(stakedAmount, { isToken: true, symbol: 'PACT' })}</Text>
+                            <Text span="true">
+                                {currencyValue(stakedAmount, {
+                                    isToken: true,
+                                    symbol: 'PACT'
+                                })}
+                            </Text>
                         </>
                     }
                     onChange={(event: any) => setValue(event?.target?.value)}
                     placeholder="0"
                     value={value}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
-                        {stakedAmount > value && (
-                            <Button onClick={() => setValue(stakedAmount)} silenced smaller>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
+                        {stakedAmount > Number(value) && (
+                            <Button
+                                onClick={() => setValue(stakedAmount)}
+                                silenced
+                                smaller
+                            >
                                 Max.
                             </Button>
                         )}
@@ -121,8 +151,11 @@ export const Unstake = () => {
                             disabled={!value}
                             errorBkg
                             isLoading={isLoading}
-                            ml={{ sm: stakedAmount > value ? 1 : 0 }}
-                            mt={{ sm: 0, xs: stakedAmount > value ? 1 : 0 }}
+                            ml={{ sm: stakedAmount > Number(value) ? 1 : 0 }}
+                            mt={{
+                                sm: 0,
+                                xs: stakedAmount > Number(value) ? 1 : 0
+                            }}
                             onClick={handleUnstake}
                             smaller
                         >
@@ -143,13 +176,19 @@ export const Unstake = () => {
                             </Text>
                             : &nbsp;
                             <Text span="true">
-                                {currencyValue(claimableUnstaked, { isToken: true, symbol: 'PACT' })}
+                                {currencyValue(claimableUnstaked, {
+                                    isToken: true,
+                                    symbol: 'PACT'
+                                })}
                             </Text>
                         </>
                     }
                     value={claimableUnstaked}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
                         <Button
                             disabled={!claimableUnstaked}
                             isLoading={claimIsLoading}
@@ -167,7 +206,12 @@ export const Unstake = () => {
             {!!unstakeCooldown && (
                 <Div mt={1}>
                     <Text center div>
-                        <RichText content={unstakeTooltip} variables={{ period: `${unstakeCooldown} ${t('days')}` }} />
+                        <RichText
+                            content={unstakeTooltip}
+                            variables={{
+                                period: `${unstakeCooldown} ${t('days')}`
+                            }}
+                        />
                     </Text>
                 </Div>
             )}
