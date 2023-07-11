@@ -1,4 +1,4 @@
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi';
 import { deleteCookie, setCookie, getCookie } from 'cookies-next';
 
 import { configureChains, createConfig } from 'wagmi';
@@ -11,17 +11,21 @@ import { getAddress } from '@ethersproject/address';
 import Api from '../apis/api';
 import config from '../../config';
 
-export const projectId = config.walletConnectProjectId;;
+export const projectId = config.walletConnectProjectId;
 
 const { chains, publicClient } = configureChains(
     [config.chainId === 42220 ? celo : celoAlfajores],
-    [jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default.http[0] }) })]
+    [
+        jsonRpcProvider({
+            rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] })
+        })
+    ]
 );
 
 export const wagmiConfig = createConfig({
     autoConnect: true,
-    connectors: w3mConnectors({ projectId, version: 2, chains }),
-    publicClient,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
 });
 
 export const ethereumClient = new EthereumClient(wagmiConfig, chains);
@@ -29,7 +33,7 @@ export const ethereumClient = new EthereumClient(wagmiConfig, chains);
 export const useWallet = () => {
     const { open } = useWeb3Modal();
     const { disconnect: disconnect_ } = useDisconnect();
-    const { address, isConnected } = useAccount()
+    const { address, isConnected } = useAccount();
 
     useEffect(() => {
         const connectUser = async () => {
@@ -42,13 +46,17 @@ export const useWallet = () => {
                 // Create cookie to save Auth Token
                 const expiryDate = new Date();
 
-                expiryDate.setTime(expiryDate.getTime() + 30 * 24 * 60 * 60 * 1000);
-                setCookie('AUTH_TOKEN', payload?.data?.token, { expires: expiryDate });
+                expiryDate.setTime(
+                    expiryDate.getTime() + 30 * 24 * 60 * 60 * 1000
+                );
+                setCookie('AUTH_TOKEN', payload?.data?.token, {
+                    expires: expiryDate
+                });
             }
         };
 
         if (isConnected && address) {
-            connectUser();    
+            connectUser();
         }
     }, [isConnected, address]);
 
