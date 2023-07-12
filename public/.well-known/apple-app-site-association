@@ -7,7 +7,7 @@
             "components": [
                 {
                     "/": "/libera/*",
-                    "?": { "referralId": "?*" }
+                    "?": { "referral": "?*" }
                 }
             ]
         }]
