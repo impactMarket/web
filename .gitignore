@@ -37,5 +37,7 @@ yarn-error.log*
 # editor
 .vscode
 
+tsconfig.tsbuildinfo
+
 # project related
 /i18n
