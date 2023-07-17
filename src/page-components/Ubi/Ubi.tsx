@@ -4,6 +4,7 @@ import Slices from '../../lib/Prismic/components/Slices';
 
 import { CommunityMetricsProvider } from '../../components/CommunityMetricsProvider/CommunityMetricsProvider';
 import Api from '../../apis/api';
+import { formatData } from '../../helpers/formatData';
 
 export const Ubi = () => {
     const { page } = usePrismicData();
@@ -15,15 +16,30 @@ export const Ubi = () => {
         const getNumbers = async () => {
             try {
                 const numbers = (await Api.getGlobalNumbers()) as any;
+                const microcredit = (await Api.getMicrocreditData()) as any;
+                const global = (await Api.getGlobalValues()) as any;
 
-                setNumbers(numbers);
+                const mergedData = {
+                    ...global?.general,
+                    ...microcredit?.data,
+                    ...numbers
+                };
+
+                const numbersFromAPI = slices.find((item: any) =>
+                    item.sliceType.includes('numbers_from_api')
+                );
+                const formatNumbers = numbersFromAPI?.primary?.formatNumbers;
+
+                const format = formatData(mergedData, formatNumbers);
+
+                setNumbers(format);
             } catch (error) {
                 console.log(error);
             }
         };
 
         getNumbers();
-    }, []);
+    }, [slices]);
 
     return (
         <CommunityMetricsProvider metrics={numbers}>

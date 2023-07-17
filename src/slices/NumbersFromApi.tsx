@@ -1,4 +1,12 @@
-import { Button, Col, Div, Grid, Row, Section, Text } from '../theme/components';
+import {
+    Button,
+    Col,
+    Div,
+    Grid,
+    Row,
+    Section,
+    Text
+} from '../theme/components';
 import { PrismicRichTextType } from '../lib/Prismic/types';
 import { colors } from '../theme';
 import { mq } from 'styled-gen';
@@ -10,8 +18,10 @@ import { useData } from '../components/CommunityMetricsProvider/CommunityMetrics
 
 type NumbersFromApiSliceType = {
     items: {
-        helperName?: string;
+        helperNameDropdown?: string;
         label?: string;
+        prefix?: string;
+        suffix?: string;
     }[];
     primary: {
         content?: PrismicRichTextType;
@@ -33,7 +43,7 @@ const Heading = styled(Row)`
 
 const Box = styled(Row)<{ columns: number }>`
     display: grid;
-    grid-template-columns: ${props => `repeat(${props.columns}, auto)`};
+    grid-template-columns: ${(props) => `repeat(${props.columns}, auto)`};
     gap: 2rem 0;
 
     ${mq.upTo(
@@ -68,12 +78,14 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
     const { items, primary } = props;
     const { content, ctaLabel, ctaUrl, heading, id, smallHeading } = primary;
     const metrics = useData();
-    const metricsLength = metrics ? Object.keys(metrics).length : 0;
+    const itemsLength = items ? items?.length : 0;
 
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
+            document
+                .getElementById(location.hash.slice(1))
+                .scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
@@ -91,7 +103,12 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
                 {(heading || content || smallHeading) && (
                     <Heading>
                         {smallHeading && (
-                            <Text mb={1} sColor={colors.p700} sFontSize={1} sFontWeight={600}>
+                            <Text
+                                mb={1}
+                                sColor={colors.p700}
+                                sFontSize={1}
+                                sFontWeight={600}
+                            >
                                 {smallHeading}
                             </Text>
                         )}
@@ -119,28 +136,43 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
                 )}
                 <Row>
                     <Col center mt={{ md: 4, xs: 3 }} xs={12}>
-                        <Box columns={metricsLength}>
-                            {items.map(({ helperName, label }, index) => (
-                                <Content center column key={index}>
-                                    <Text
-                                        sColor={colors.brandPrimary}
-                                        sFontSize={{ sm: 3.75, xs: 2.75 }}
-                                        sFontWeight={600}
-                                        sLineHeight={4.5}
-                                    >
-                                        {metrics?.[helperName] || '--'}
-                                    </Text>
-                                    <Text
-                                        sColor={colors.g900}
-                                        sFontSize={1.125}
-                                        sFontWeight={500}
-                                        sLineHeight={1.75}
-                                        style={{ textTransform: 'capitalize' }}
-                                    >
-                                        {label}
-                                    </Text>
-                                </Content>
-                            ))}
+                        <Box columns={itemsLength}>
+                            {items.map(
+                                (
+                                    {
+                                        label,
+                                        prefix,
+                                        suffix,
+                                        helperNameDropdown
+                                    },
+                                    index
+                                ) => (
+                                    <Content center column key={index}>
+                                        <Text
+                                            sColor={colors.brandPrimary}
+                                            sFontSize={{ sm: 3.75, xs: 2.75 }}
+                                            sFontWeight={600}
+                                            sLineHeight={4.5}
+                                        >
+                                            {prefix}
+                                            {metrics?.[helperNameDropdown] ||
+                                                '--'}
+                                            {suffix}
+                                        </Text>
+                                        <Text
+                                            sColor={colors.g900}
+                                            sFontSize={1.125}
+                                            sFontWeight={500}
+                                            sLineHeight={1.75}
+                                            style={{
+                                                textTransform: 'capitalize'
+                                            }}
+                                        >
+                                            {label}
+                                        </Text>
+                                    </Content>
+                                )
+                            )}
                         </Box>
                         {!!ctaUrl && (
                             <Button

@@ -7,13 +7,19 @@ export const dashboard: { [key: string]: Function } = {
     getAvgCumulativeUbi: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('beneficiary')}`,
-        value: currencyValue(humanifyNumber(data?.monthly?.[0]?.avgComulativeUbi), { decimals: false, symbol: '$' })
+        value: currencyValue(
+            humanifyNumber(data?.monthly?.[0]?.avgComulativeUbi),
+            { decimals: false, symbol: '$' }
+        )
     }),
 
     getAvgUbiDuration: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `${t('months')} / ${t('beneficiary')}`,
-        value: numericalValue(data?.monthly?.[0]?.avgUbiDuration.toString(), false)
+        value: numericalValue(
+            data?.monthly?.[0]?.avgUbiDuration?.toString(),
+            false
+        )
     }),
 
     getBackers: (data: IGlobalDashboard) => ({
@@ -24,8 +30,14 @@ export const dashboard: { [key: string]: Function } = {
         value: numericalValue(data?.general?.beneficiaries)
     }),
 
-    getHelper: (helper: string, data: IGlobalDashboard, t: Function): Function => {
-        const method: string = `get${`${helper.charAt(0).toUpperCase()}${helper.slice(1)}`}`;
+    getHelper: (
+        helper: string,
+        data: IGlobalDashboard,
+        t: Function
+    ): Function => {
+        const method: string = `get${`${helper
+            .charAt(0)
+            .toUpperCase()}${helper.slice(1)}`}`;
 
         const helperFunction: any = dashboard[method];
 
@@ -39,17 +51,17 @@ export const dashboard: { [key: string]: Function } = {
     getRatePerBacker: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('day')}`,
-        value: currencyValue(data?.monthly?.[0]?.givingRate.toString())
+        value: currencyValue(data?.monthly?.[0]?.givingRate?.toString())
     }),
 
     getRatePerBeneficiary: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('day')}`,
-        value: currencyValue(data?.monthly?.[0]?.ubiRate.toString())
+        value: currencyValue(data?.monthly?.[0]?.ubiRate?.toString())
     }),
 
     getReach: (data: IGlobalDashboard) => ({
-        value: numericalValue(data?.monthly?.[0]?.totalReach.toString())
+        value: numericalValue(data?.monthly?.[0]?.totalReach?.toString())
     }),
 
     getSpendingRate: () => ({
