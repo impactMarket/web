@@ -69,7 +69,9 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
+            document
+                .getElementById(location.hash.slice(1))
+                .scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
@@ -91,42 +93,73 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                 {heading}
                             </Display>
                         )}
-                        {description && <RichText content={description} sColor={colors.g500} sFontSize={1.25} />}
+                        {description && (
+                            <RichText
+                                content={description}
+                                sColor={colors.g500}
+                                sFontSize={1.25}
+                            />
+                        )}
                     </Box>
                 )}
                 <CardsRow>
-                    {items.map(({ approximately, helperName, label, icon, type }, key) => (
-                        <Card key={key}>
-                            <Row style={{ alignItems: 'center', margin: 0, padding: '1rem' }}>
-                                {icon && (
-                                    <IconWrapper>
-                                        <Icon icon={icon} sColor={colors.brandPrimary} size={[1.5, 1.5]} />
-                                    </IconWrapper>
-                                )}
-                                <Div ml={1} sFlexDirection="column">
-                                    <Text g500 mb={0.5} medium small>
-                                        {label}
-                                    </Text>
-
-                                    <Div flex sAlignItems="flex-end">
-                                        {approximately && (
-                                            <Text semibold style={{ fontSize: '1.5rem' }}>
-                                                ~
-                                            </Text>
-                                        )}
-                                        <Text semibold style={{ fontSize: '1.5rem' }}>
-                                            {Math.floor(data?.[helperName] * 100) / 100}
+                    {items.map(
+                        (
+                            { approximately, helperName, label, icon, type },
+                            key
+                        ) => (
+                            <Card key={key}>
+                                <Row
+                                    style={{
+                                        alignItems: 'center',
+                                        margin: 0,
+                                        padding: '1rem'
+                                    }}
+                                >
+                                    {icon && (
+                                        <IconWrapper>
+                                            <Icon
+                                                icon={icon}
+                                                sColor={colors.brandPrimary}
+                                                size={[1.5, 1.5]}
+                                            />
+                                        </IconWrapper>
+                                    )}
+                                    <Div ml={1} sFlexDirection="column">
+                                        <Text g500 mb={0.5} medium small>
+                                            {label}
                                         </Text>
-                                        {type && (
-                                            <Text extrasmall g600 ml={0.5}>
-                                                {type}
+
+                                        <Div flex sAlignItems="flex-end">
+                                            {approximately && (
+                                                <Text
+                                                    semibold
+                                                    style={{
+                                                        fontSize: '1.5rem'
+                                                    }}
+                                                >
+                                                    ~
+                                                </Text>
+                                            )}
+                                            <Text
+                                                semibold
+                                                style={{ fontSize: '1.5rem' }}
+                                            >
+                                                {Math.floor(
+                                                    data?.[helperName] * 100
+                                                ) / 100 || 0}
                                             </Text>
-                                        )}
+                                            {type && (
+                                                <Text extrasmall g600 ml={0.5}>
+                                                    {type}
+                                                </Text>
+                                            )}
+                                        </Div>
                                     </Div>
-                                </Div>
-                            </Row>
-                        </Card>
-                    ))}
+                                </Row>
+                            </Card>
+                        )
+                    )}
                 </CardsRow>
             </Grid>
         </Section>

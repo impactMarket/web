@@ -6,6 +6,7 @@ const slices = {
     CardList: dynamic(() => import('./CardList'), { ssr: false }),
     CardsFromApi: dynamic(() => import('./CardsFromApi'), { ssr: false }),
     DocumentLink: dynamic(() => import('./DocumentLink'), { ssr: false }),
+    Demographics: dynamic(() => import('./Demographics'), { ssr: false }),
     Features: dynamic(() => import('./Features'), { ssr: false }),
     Hero: dynamic(() => import('./Hero/Hero'), { ssr: false }),
     Info: dynamic(() => import('./Info'), { ssr: false }),

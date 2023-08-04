@@ -10,7 +10,6 @@ export * from './Homepage/Homepage';
 export * from './LearnAndEarn';
 export * from './Libera/Libera';
 export * from './Microcredit/Dashboard';
-export * from './Ubi/Dashboard';
 export * from './Microcredit/Microcredit';
 export * from './Staking/Staking';
-export * from './Ubi/Ubi';
+export * from './Ubi';

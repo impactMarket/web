@@ -20,20 +20,31 @@ export const MicrocreditDashboard = () => {
     const slices = page?.data?.body;
     const { heading, smallHeading } = page?.data;
     const [microcreditData, setMicrocreditData] = useState() as any;
+    const [microcreditDemographics, setMicrocreditDemographics] =
+        useState() as any;
 
     useEffect(() => {
         const getMicrocredit = async () => {
             const microcreditData = await Api.getMicrocreditData();
+            const microcreditDemographics =
+                await Api.getMicrocreditDemographics();
 
             setMicrocreditData(microcreditData);
+            setMicrocreditDemographics(microcreditDemographics);
         };
 
         getMicrocredit();
     }, []);
 
     return (
-        <MicrocreditDashboardProvider data={microcreditData?.data}>
-            <Div sFlexDirection="column" style={{ backgroundColor: colors.p25 }}>
+        <MicrocreditDashboardProvider
+            data={microcreditData?.data}
+            demographics={microcreditDemographics?.data}
+        >
+            <Div
+                sFlexDirection="column"
+                style={{ backgroundColor: colors.p25 }}
+            >
                 <HeadingRow>
                     {smallHeading && (
                         <Text sColor={colors.p700} sFontWeight={600}>

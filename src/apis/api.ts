@@ -1,4 +1,10 @@
-import { ApolloClient, HttpLink, InMemoryCache, concat, gql } from '@apollo/client';
+import {
+    ApolloClient,
+    HttpLink,
+    InMemoryCache,
+    concat,
+    gql
+} from '@apollo/client';
 import {
     CommunityListRequestArguments,
     CommunityListRequestResponseType,
@@ -14,6 +20,7 @@ import {
     IGlobalNumbers,
     IManager,
     IMicrocredit,
+    IMicrocreditDemographics,
     IStories
 } from './types';
 import { Numbers } from 'humanify-numbers';
@@ -38,8 +45,20 @@ export default class Api {
     static async getCommunities(
         requestOptions: CommunityListRequestArguments
     ): Promise<CommunityListRequestResponseType> {
-        const params = ['country', 'filter', 'limit', 'name', 'offset', 'orderBy'];
-        const baseOptions = { limit: 10, orderBy: 'bigger', page: 1, status: 'valid' };
+        const params = [
+            'country',
+            'filter',
+            'limit',
+            'name',
+            'offset',
+            'orderBy'
+        ];
+        const baseOptions = {
+            limit: 10,
+            orderBy: 'bigger',
+            page: 1,
+            status: 'valid'
+        };
         const options = Object.assign({}, baseOptions, requestOptions);
         const { page, limit } = options;
 
@@ -55,17 +74,21 @@ export default class Api {
         return { count, items, page };
     }
     static async getCommunity(communityId?: number | string): Promise<any> {
-        const communityResponse = await getRequest<DataResponseType<ICommunity>>(`/community/${communityId}`);
-        const managersResponse = await getRequest<DataResponseType<IManager[]>>(`/community/${communityId}/managers`);
-        const dashboardResponse = await getRequest<DataResponseType<ICommunityDashboard[]>>(
-            `/community/${communityId}/dashboard`
+        const communityResponse = await getRequest<
+            DataResponseType<ICommunity>
+        >(`/community/${communityId}`);
+        const managersResponse = await getRequest<DataResponseType<IManager[]>>(
+            `/community/${communityId}/managers`
         );
-        const claimLocations = await getRequest<DataResponseType<IClaimLocation[]>>(
-            `/community/${communityId}/claim-location`
-        );
-        const campaignResponse = await getRequest<DataResponseType<ICommunityCampaign>>(
-            `/community/${communityId}/campaign`
-        );
+        const dashboardResponse = await getRequest<
+            DataResponseType<ICommunityDashboard[]>
+        >(`/community/${communityId}/dashboard`);
+        const claimLocations = await getRequest<
+            DataResponseType<IClaimLocation[]>
+        >(`/community/${communityId}/claim-location`);
+        const campaignResponse = await getRequest<
+            DataResponseType<ICommunityCampaign>
+        >(`/community/${communityId}/campaign`);
 
         const data = {
             ...communityResponse?.data,
@@ -78,18 +101,23 @@ export default class Api {
         return communityResponse?.success ? data : undefined;
     }
     static async getCommunityCount(groupBy: string = 'country'): Promise<any> {
-        const response = await getRequest<DataResponseType<any>>(`/community/count?groupBy=${groupBy}`);
+        const response = await getRequest<DataResponseType<any>>(
+            `/community/count?groupBy=${groupBy}`
+        );
 
         return response?.data;
     }
     static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {
-        const response = await getRequest<IGlobalNumbers | undefined>('/global/numbers');
+        const response = await getRequest<IGlobalNumbers | undefined>(
+            '/global/numbers'
+        );
 
         const data = response?.data || ({} as any);
 
         const result = {
             backers: data?.backers || null,
-            beneficiaries: Numbers.stringify(+(data?.beneficiaries || 0)) || null,
+            beneficiaries:
+                Numbers.stringify(+(data?.beneficiaries || 0)) || null,
             claimed: `$${Numbers.stringify(+(data?.claimed || 0))}` || null,
             communities: data?.communities || null,
             countries: data?.countries || null
@@ -99,7 +127,10 @@ export default class Api {
     }
     static async getGlobalValues(): Promise<IGlobalDashboard | {}> {
         // retry with intervals
-        const retry = new RetryLink({ attempts: { max: 100 }, delay: { max: 30000 } });
+        const retry = new RetryLink({
+            attempts: { max: 100 },
+            delay: { max: 30000 }
+        });
         const http = new HttpLink({ uri: config.subgraphUrl });
         const link = concat(retry, http);
         const client = new ApolloClient({
@@ -126,7 +157,12 @@ export default class Api {
         const ubiDailyEntityMonth = await client.query({
             query: gql`
                 query GetUbiDailyMonth {
-                    ubidailyEntities(first: 30, skip: 1, orderBy: id, orderDirection: desc) {
+                    ubidailyEntities(
+                        first: 30
+                        skip: 1
+                        orderBy: id
+                        orderDirection: desc
+                    ) {
                         id
                         claimed
                         claims
@@ -142,8 +178,13 @@ export default class Api {
             `
         });
 
-        const result = (await getRequest<IGlobalApiResult | undefined>('/global/status')) || {};
-        const demographics = await getRequest<IDemographics[] | undefined>('/global/demographics');
+        const result =
+            (await getRequest<IGlobalApiResult | undefined>(
+                '/global/status'
+            )) || {};
+        const demographics = await getRequest<IDemographics[] | undefined>(
+            '/global/demographics'
+        );
 
         return {
             ...result,
@@ -153,14 +194,40 @@ export default class Api {
         };
     }
     static async getMicrocreditData(): Promise<IMicrocredit[]> {
-        const result = await getRequest<IMicrocredit[]>('/protocol/microcredit');
+        const result = await getRequest<IMicrocredit[]>(
+            '/protocol/microcredit'
+        );
+
+        return result ? result : [];
+    }
+    static async getMicrocreditDemographics(): Promise<
+        IMicrocreditDemographics[]
+    > {
+        const result = await getRequest<IMicrocreditDemographics[]>(
+            '/microcredit/demographics'
+        );
 
         return result ? result : [];
     }
 
-    static async getPendingCommunities(requestOptions: CommunityListRequestArguments): Promise<any> {
-        const params = ['country', 'extended', 'filter', 'limit', 'name', 'offset', 'orderBy'];
-        const baseOptions = { extended: false, limit: 4, orderBy: 'bigger', page: 1 };
+    static async getPendingCommunities(
+        requestOptions: CommunityListRequestArguments
+    ): Promise<any> {
+        const params = [
+            'country',
+            'extended',
+            'filter',
+            'limit',
+            'name',
+            'offset',
+            'orderBy'
+        ];
+        const baseOptions = {
+            extended: false,
+            limit: 4,
+            orderBy: 'bigger',
+            page: 1
+        };
         const options = Object.assign({}, baseOptions, requestOptions);
         const { page, limit } = options;
 
@@ -204,7 +271,10 @@ export default class Api {
 
         const data = { context, fields, submittedAt };
 
-        const result = await axios.post('api/subscribe', { data, recaptchaToken });
+        const result = await axios.post('api/subscribe', {
+            data,
+            recaptchaToken
+        });
 
         return { success: result?.data?.success };
     }
