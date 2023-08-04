@@ -1,9 +1,9 @@
-import { usePrismicData } from '../lib/Prismic/components/PrismicDataProvider';
+import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import React, { useEffect, useState } from 'react';
-import Slices from '../lib/Prismic/components/Slices';
+import Slices from '../../lib/Prismic/components/Slices';
 
-import { CommunityMetricsProvider } from '../components/CommunityMetricsProvider/CommunityMetricsProvider';
-import Api from '../apis/api';
+import { CommunityMetricsProvider } from '../../components/CommunityMetricsProvider/CommunityMetricsProvider';
+import Api from '../../apis/api';
 
 export const Libera = () => {
     const { page } = usePrismicData();

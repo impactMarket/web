@@ -8,7 +8,7 @@ export * from './GlobalDashboard/GlobalDashboard';
 export * from './Governance/Governance';
 export * from './Homepage/Homepage';
 export * from './LearnAndEarn';
-export * from './Libera';
+export * from './Libera/Libera';
 export * from './Microcredit/Dashboard';
 export * from './Ubi/Dashboard';
 export * from './Microcredit/Microcredit';
