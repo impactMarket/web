@@ -4909,7 +4909,14 @@ styled-components@5.3.10:
     shallowequal "^1.1.0"
     supports-color "^5.5.0"
 
-styled-gen@1.4.8, styled-gen@^1.4.8:
+styled-gen@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/styled-gen/-/styled-gen-2.0.1.tgz#9626906005ba909d003e113d831892a949460199"
+  integrity sha512-uefhWKXWu1081jHyzTpB2+QV/yiajBwpQZWROLFqPpzAPrsT65NP4yrLTU5oRu+KEUdzab1haAdZU9z1nOLikw==
+  dependencies:
+    csstype "^3.1.1"
+
+styled-gen@^1.4.8:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/styled-gen/-/styled-gen-1.4.8.tgz#35ae520f95b03d59c5edc762f1ba0cb485758a6e"
   integrity sha512-d2vH5+zghU7csh04HTcv1T2mq0ej3cemhKXJAMlWia2EYMxk6HeFLburgT43p8TKALNxmLBf/oUPp0Vb5Op5Ig==
