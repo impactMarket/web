@@ -21,7 +21,7 @@
         "@impact-market/utils": "4.0.2",
         "@prismicio/client": "6.7.3",
         "@prismicio/react": "2.6.1",
-        "@sentry/nextjs": "7.37.2",
+        "@sentry/nextjs": "7.64.0",
         "@web3modal/ethereum": "2.7.1",
         "@web3modal/react": "2.6.2",
         "axios": "^0.27.2",
