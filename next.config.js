@@ -46,19 +46,34 @@ const webpack = (config) => {
 /** @type {import('next').NextConfig} */
 const config = { i18n, images, redirects, typescript, webpack };
 
+const sentryWebpackPluginOptions = {
+    // Additional config options for the Sentry Webpack plugin. Keep in mind that
+    // the following options are set automatically, and overriding them is not
+    // recommended:
+    //   release, url, org, project, authToken, configFile, stripPrefix,
+    //   urlPrefix, include, ignore
+
+    // eslint-disable-next-line no-process-env
+    dryRun: process.env.VERCEL_ENV !== 'production',
+    setCommits: {
+        auto: true,
+        ignoreMissing: true,
+        ignoreEmpty: true
+    },
+    deploy: {
+        // eslint-disable-next-line no-process-env
+        env: process.env.VERCEL_ENV || 'development'
+    },
+    org: 'impactmarket',
+    project: 'web'
+    // For all available options, see:
+    // https://github.com/getsentry/sentry-webpack-plugin#options.
+};
+
 // Injected content via Sentry wizard below
 module.exports = withSentryConfig(
     config,
-    {
-        // For all available options, see:
-        // https://github.com/getsentry/sentry-webpack-plugin#options
-
-        // Suppresses source map uploading logs during build
-        silent: true,
-
-        org: 'impactmarket',
-        project: 'web'
-    },
+    sentryWebpackPluginOptions,
     {
         // For all available options, see:
         // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
