@@ -21,7 +21,7 @@
         "@impact-market/utils": "4.0.2",
         "@prismicio/client": "6.7.3",
         "@prismicio/react": "2.6.1",
-        "@sentry/nextjs": "7.37.2",
+        "@sentry/nextjs": "7.64.0",
         "@web3modal/ethereum": "2.7.1",
         "@web3modal/react": "2.6.2",
         "axios": "^0.27.2",
@@ -70,8 +70,8 @@
         "@types/node": "18.16.7",
         "@types/react": "17.0.59",
         "@types/react-copy-to-clipboard": "5.0.4",
-        "@types/styled-components": "5.1.25",
         "@types/react-table": "7.7.14",
+        "@types/styled-components": "5.1.25",
         "babel-plugin-styled-components": "2.1.1",
         "typescript": "5.1.6"
     },

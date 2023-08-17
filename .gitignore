@@ -41,3 +41,6 @@ tsconfig.tsbuildinfo
 
 # project related
 /i18n
+
+# Sentry Auth Token
+.sentryclirc

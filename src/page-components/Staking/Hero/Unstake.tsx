@@ -8,6 +8,7 @@ import { useTranslation } from '../../../components/TranslationProvider/Translat
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import RichText from '../../../lib/Prismic/components/RichText';
+import processTransactionError from '../../../../utils/processTransactionError';
 
 export const Unstake = () => {
     const [value, setValue] = useState<number | string>('');
@@ -39,6 +40,7 @@ export const Unstake = () => {
             setIsLoading(false);
 
             if (!response?.status) {
+                processTransactionError(new Error('not valid status'), 'unstake');
                 return toast.error(
                     <RichText content={toastMessages?.unstakeError} />
                 );
@@ -59,7 +61,7 @@ export const Unstake = () => {
             );
         } catch (error) {
             setIsLoading(false);
-            console.log(error);
+            processTransactionError(error, 'unstake');
 
             return toast.error(
                 <RichText content={toastMessages?.unstakeError} />
@@ -81,6 +83,7 @@ export const Unstake = () => {
 
             if (!response?.status) {
                 setClaimIsLoading(false);
+                processTransactionError(new Error('not valid status'), 'claim-unstaked');
 
                 return toast.error(
                     <RichText content={toastMessages?.claimError} />
@@ -102,7 +105,7 @@ export const Unstake = () => {
             return setClaimIsLoading(false);
         } catch (error) {
             setClaimIsLoading(false);
-            console.log(error);
+            processTransactionError(error, 'claim-unstaked');
 
             return toast.error(
                 <RichText content={toastMessages?.claimError} />
