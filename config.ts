@@ -77,11 +77,6 @@ const config = {
     networkRpcUrl: process.env.NEXT_PUBLIC_NETWORK_RPC_URL,
 
     /*
-     * isTestnet
-     */
-    isDaoTestnet: process.env.NEXT_PUBLIC_DAO_TESTNET === 'true',
-
-    /*
      * Voting platform
      */
     votingPlatformUrl: 'https://commonwealth.im/impactmarket/proposal/:id',
@@ -133,7 +128,17 @@ const config = {
     /**
      * WalletConnect project id, mandatory for WalletConnect v2
      */
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
+
+    /**
+     * Sentry DSN
+     */
+    sentryDSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+
+    /**
+     * Use testnet
+     */
+    useTestNet: process.env.NEXT_PUBLIC_USE_TESTNET === 'true',
 };
 
 export default config;
