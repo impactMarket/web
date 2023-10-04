@@ -1,84 +1,69 @@
-import { Button } from '@impact-market/ui';
-import { GhostElement, TLink, Text } from '../../theme/components';
-import { JsonRpcProvider } from '@ethersproject/providers';
-import { String } from '../String/String';
-import { TopbarColumn, TopbarContent, TopbarLeft, TopbarStyle, TopbarWallet } from './Topbar.style';
-import { WalletConnect } from './WalletConnect';
-import { colors } from '../../theme';
-import { currencyValue } from '../../helpers/currencyValue';
+import React, { useLayoutEffect, useRef } from 'react';
+import { Text } from '../../theme/components';
+import { colors, fonts } from '../../theme';
+import { ease, mq, transitions } from 'styled-gen';
+import { formatAddress } from '../../helpers/formatAddress';
+import { useTranslation } from '../TranslationProvider/TranslationProvider';
+import { useWallet } from '../../hooks/useWallet';
+import styled, { css } from 'styled-components';
 
-import { circulatingSupply as getCirculatingSupply, getPACTTradingMetrics } from '@impact-market/utils';
-import { useData } from '../DataProvider/DataProvider';
-import { useRouter } from 'next/router';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import envConfig from '../../../config';
+const TopbarWrapper = styled.div<{ direction?: string }>`
+    background-color: ${colors.g700};
+    padding: 1rem 0;
+    width: 100%;
 
-const getString = (name: string) => `page.governanceToken.metrics.${name}`;
+    ${mq.upTo(
+        'tabletLandscape',
+        css`
+            padding: 0.75rem 0;
+            height: 56px;
+        `
+    )}
+`;
 
-type TokenMetricItem = {
-    name: string;
-};
+const TopbarContent = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 2.5vw;
+    justify-content: center;
+    margin: auto;
+    max-width: 90rem;
+    padding: 0 2rem;
+    height: 2rem;
 
-type PactMetricsType = {
-    marketCap?: number | string;
-    priceCUSD?: number | string | any;
-};
+    ${mq.upTo(
+        'tabletLandscape',
+        css`
+            padding: 0;
+        `
+    )}
+`;
+
+const DisconnectButton = styled.button<any>`
+    ${transitions(
+        ['background-color', 'box-shadow', 'color'],
+        250,
+        ease.outSine
+    )};
+
+    background-color: ${colors.g25};
+    border-radius: 8px;
+    border: 0;
+    cursor: pointer;
+    font-weight: ${fonts.weights.medium};
+    height: 2rem;
+    outline: 0;
+
+    &:hover {
+        background-color: ${colors.brandPrimary};
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+        color: ${colors.white};
+    }
+`;
 
 export const Topbar = ({ setTopbarHeight }: any) => {
-    const { config } = useData();
-    const { locale } = useRouter();
-    const provider = new JsonRpcProvider(envConfig.networkRpcUrl);
-
-    const [isLoading, setIsLoading] = useState(false);
-    const [buyUrl, setBuyUrl] = useState('https://docs.impactmarket.com/impactmarket-apps-1/usdpact/buy-pact');
-
-    const items = config?.topBarTokenMetrics as TokenMetricItem[];
-
-    const [pactTradingMetrics, setPactTradingMetrics] = useState<PactMetricsType>({});
-
-    useEffect(() => {
-        const loadPactPriceVolumeLiquidity = async () => {
-            setIsLoading(true);
-            try {
-                const response = await getPACTTradingMetrics(envConfig.chainId);
-                const circulatingSupply = await getCirculatingSupply(provider, envConfig.chainId);
-
-                const { priceUSD: priceCUSD } = response;
-
-                const marketCap = +priceCUSD * circulatingSupply;
-
-                setPactTradingMetrics({
-                    ...response,
-                    marketCap,
-                    priceCUSD
-                });
-                setIsLoading(false);
-            } catch (error) {
-                setIsLoading(false);
-                console.log(error);
-            }
-        };
-
-        loadPactPriceVolumeLiquidity();
-    }, []);
-
-    const getValue = (name: keyof PactMetricsType) => {
-        if (typeof pactTradingMetrics?.[name] !== 'string' && isNaN(+pactTradingMetrics?.[name])) {
-            return '--';
-        }
-
-        if (name === 'priceCUSD') {
-            return `~$${Number(pactTradingMetrics?.priceCUSD).toLocaleString('en', {
-                maximumFractionDigits: pactTradingMetrics?.priceCUSD < 1 ? 5 : 2
-            })}`;
-        }
-
-        if (name === 'marketCap') {
-            return currencyValue(pactTradingMetrics?.marketCap, { symbol: '~$' });
-        }
-
-        return pactTradingMetrics[name] || '--';
-    };
+    const { t } = useTranslation();
+    const { address, disconnect } = useWallet();
 
     // Get topbar div height
     const topbarRef = useRef(null);
@@ -87,57 +72,18 @@ export const Topbar = ({ setTopbarHeight }: any) => {
         setTopbarHeight(topbarRef.current.offsetHeight);
     }, []);
 
-    useEffect(() => {
-        switch (locale) {
-            case 'fr-FR':
-                setBuyUrl(
-                    'https://docs.impactmarket.com/v/francais-1/impactmarket-apps-1/how-to-back-a-community-1/acheter-pact'
-                );
-                break;
-            case 'pt-BR':
-                setBuyUrl('https://docs.impactmarket.com/v/portugues-brasil-1/comunidades/usdpact/compre-pact');
-                break;
-            case 'es-ES':
-                setBuyUrl('https://docs.impactmarket.com/v/espanol-1/impactmarket-apps-1/usdpact/comprar-pact');
-                break;
-            default:
-                setBuyUrl('https://docs.impactmarket.com/impactmarket-apps-1/usdpact/buy-pact');
-        }
-    }, [locale]);
-
     return (
-        <TopbarStyle ref={topbarRef}>
+        <TopbarWrapper ref={topbarRef}>
             <TopbarContent>
-                <TopbarLeft>
-                    {items.map(({ name }, key) => (
-                        <TopbarColumn key={key}>
-                            {name === 'priceCUSD' && (
-                                <Text sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="700">
-                                    <String id="pact" />
-                                </Text>
-                            )}
-                            <Text sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="500">
-                                <String id={`${getString(name as keyof PactMetricsType)}.topbar`.toLowerCase()} />
-                            </Text>
-                            {isLoading ? (
-                                <GhostElement color={colors.g500} sHeight={0.6} sWidth={3} />
-                            ) : (
-                                <Text sColor={colors.b300} sFontSize={{ sm: 1, xs: 0.75 }} sFontWeight="500">
-                                    {getValue(name as keyof PactMetricsType)}
-                                </Text>
-                            )}
-                            {name === 'priceCUSD' && (
-                                <TLink href={buyUrl}>
-                                    <Button className="buy">BUY</Button>
-                                </TLink>
-                            )}
-                        </TopbarColumn>
-                    ))}
-                </TopbarLeft>
-                <TopbarWallet>
-                    <WalletConnect />
-                </TopbarWallet>
+                <Text bold sColor="#fff">
+                    {formatAddress(address, [6, 4])}
+                </Text>
+                <DisconnectButton onClick={disconnect}>
+                    <Text pl={1} pr={1} small>
+                        {t('disconnect-celo-wallet')}
+                    </Text>
+                </DisconnectButton>
             </TopbarContent>
-        </TopbarStyle>
+        </TopbarWrapper>
     );
 };

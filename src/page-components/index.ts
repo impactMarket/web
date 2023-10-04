@@ -1,6 +1,3 @@
-export * from './Communities/Communities';
-export * from './Community/Community';
-export * from './CommunitySubmissions/CommunitySubmissions';
 export * from './CryptoHub';
 export * from './Donate';
 export * from './Fundraise/Fundraise';
