@@ -28,16 +28,17 @@ const LanguageSelect = (props: LanguageSelectProps) => {
     const { asPath, locale } = useRouter();
     const router = useRouter();
     const handleLanguageChange = (locale: string) => {
-        router
-            .replace(asPath, undefined, { locale })
-            .catch((e) => {
-                if (!e.cancelled) {
-                    throw e
-                }
-            })
+        router.replace(asPath, undefined, { locale }).catch((e) => {
+            if (!e.cancelled) {
+                throw e;
+            }
+        });
     };
 
-    const languageOptions = langConfig.map(({ code: value, label }) => ({ label, value }));
+    const languageOptions = langConfig.map(({ code: value, label }) => ({
+        label,
+        value
+    }));
 
     return (
         <Wrapper {...props}>
