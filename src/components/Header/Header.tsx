@@ -3,11 +3,11 @@ import { Button, Icon, Logo, Text, TextLink } from '../../theme/components';
 import {
     HeaderBarContent,
     HeaderContent,
-    HeaderLanguage,
     HeaderMainBar,
     HeaderMainBarLeftCol,
     HeaderMainBarMenu,
     HeaderMainBarMobileMenuButton,
+    HeaderMainRightCol,
     HeaderMobileContent,
     HeaderWrapper,
     MobileContent,
@@ -22,6 +22,8 @@ import { useRouter } from 'next/router';
 import { useScrollDirection } from '../../helpers/useScrollDirection';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useWallet } from 'src/hooks/useWallet';
+import { useTranslation } from '../TranslationProvider/TranslationProvider';
 
 type MenuItemSlice = {
     primary?: {
@@ -43,11 +45,15 @@ type MobileButtons = {
 };
 
 export const Header = () => {
+    const { t } = useTranslation();
     const { config: prismicConfig } = usePrismicData();
+    const { address } = useWallet();
+
     const scrollDirection = useScrollDirection();
 
     const menu = prismicConfig?.data?.newHeader as MenuItemSlice[];
-    const mobileMenuButtons = prismicConfig?.data?.mobileMenuButtons as MobileButtons[];
+    const mobileMenuButtons = prismicConfig?.data
+        ?.mobileMenuButtons as MobileButtons[];
 
     const router = useRouter();
     const { asPath, push } = router;
@@ -97,11 +103,17 @@ export const Header = () => {
                 <TextLink
                     onClick={() => {
                         return modal.open(modalName, {
-                            onSuccess: () => asPath !== '/governance' && push('/governance')
+                            onSuccess: () =>
+                                asPath !== '/governance' && push('/governance')
                         });
                     }}
                 >
-                    <Button large lined={buttonColor === 'white' && true} sHeight="3rem" sWidth="100%">
+                    <Button
+                        large
+                        lined={buttonColor === 'white' && true}
+                        sHeight="3rem"
+                        sWidth="100%"
+                    >
                         <Text bold>{buttonLabel}</Text>
                     </Button>
                 </TextLink>
@@ -109,8 +121,17 @@ export const Header = () => {
         }
 
         return (
-            <TextLink href={buttonUrl} rel="noopener noreferrer" target="_blank">
-                <Button large lined={buttonColor === 'white' && true} sHeight="3rem" sWidth="100%">
+            <TextLink
+                href={buttonUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                <Button
+                    large
+                    lined={buttonColor === 'white' && true}
+                    sHeight="3rem"
+                    sWidth="100%"
+                >
                     <Text bold>{buttonLabel}</Text>
                 </Button>
             </TextLink>
@@ -118,9 +139,12 @@ export const Header = () => {
     };
 
     return (
-        <HeaderWrapper direction={scrollDirection ? scrollDirection : 'up'} topbarHeight={topbarHeight}>
+        <HeaderWrapper
+            direction={scrollDirection ? scrollDirection : 'up'}
+            topbarHeight={topbarHeight}
+        >
             <HeaderContent>
-                <Topbar setTopbarHeight={setTopbarHeight} />
+                {address && <Topbar setTopbarHeight={setTopbarHeight} />}
                 <HeaderMainBar ref={headerRef}>
                     <HeaderBarContent>
                         <HeaderMainBarLeftCol>
@@ -136,26 +160,54 @@ export const Header = () => {
                             </a>
                         </HeaderMainBarLeftCol>
                         <>
-                            <HeaderMainBarMobileMenuButton onClick={handleMenuButtonClick}>
-                                <Icon icon={isMenuVisible ? 'close' : 'menu'} sHeight={1} />
+                            <HeaderMainBarMobileMenuButton
+                                onClick={handleMenuButtonClick}
+                            >
+                                <Icon
+                                    icon={isMenuVisible ? 'close' : 'menu'}
+                                    sHeight={1}
+                                />
                             </HeaderMainBarMobileMenuButton>
                             <HeaderMainBarMenu>
                                 {!!menu?.length &&
-                                    menu.map(({ items, primary: { label, url } }, index) => (
-                                        <MenuItem
-                                            isMenuVisible={isMenuVisible}
-                                            items={items}
-                                            key={index}
-                                            label={label}
-                                            setIsMenuVisible={setIsMenuVisible}
-                                            url={url}
-                                        />
-                                    ))}
+                                    menu.map(
+                                        (
+                                            { items, primary: { label, url } },
+                                            index
+                                        ) => (
+                                            <MenuItem
+                                                isMenuVisible={isMenuVisible}
+                                                items={items}
+                                                key={index}
+                                                label={label}
+                                                setIsMenuVisible={
+                                                    setIsMenuVisible
+                                                }
+                                                url={url}
+                                            />
+                                        )
+                                    )}
                             </HeaderMainBarMenu>
                         </>
-                        <HeaderLanguage>
-                            <LanguageSelect sDisplay={{ sm: 'flex', xs: 'none' }} />
-                        </HeaderLanguage>
+                        <HeaderMainRightCol>
+                            <LanguageSelect
+                                sDisplay={{ sm: 'flex', xs: 'none' }}
+                            />
+                            <TextLink
+                                href="https://app.impactmarket.com"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                <Button
+                                    smaller
+                                    sDisplay={{ sm: 'flex', xs: 'none' }}
+                                    ml={2}
+                                    sFontWeight={600}
+                                >
+                                    {t('launch-dapp')}
+                                </Button>
+                            </TextLink>
+                        </HeaderMainRightCol>
                     </HeaderBarContent>
                 </HeaderMainBar>
 
@@ -182,16 +234,21 @@ export const Header = () => {
 
                         <>
                             {menu?.length &&
-                                menu.map(({ items, primary: { label, url } }, index) => (
-                                    <MenuItem
-                                        isMenuVisible={isMenuVisible}
-                                        items={items}
-                                        key={index}
-                                        label={label}
-                                        setIsMenuVisible={setIsMenuVisible}
-                                        url={url}
-                                    />
-                                ))}
+                                menu.map(
+                                    (
+                                        { items, primary: { label, url } },
+                                        index
+                                    ) => (
+                                        <MenuItem
+                                            isMenuVisible={isMenuVisible}
+                                            items={items}
+                                            key={index}
+                                            label={label}
+                                            setIsMenuVisible={setIsMenuVisible}
+                                            url={url}
+                                        />
+                                    )
+                                )}
                             <LanguageSelect mt={2} />
                         </>
                     </MobileContent>

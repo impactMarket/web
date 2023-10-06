@@ -3,7 +3,10 @@ import { ease, mq, transitions } from 'styled-gen';
 import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
 
-export const HeaderWrapper = styled.div<{ direction?: string; topbarHeight?: number }>`
+export const HeaderWrapper = styled.div<{
+    direction?: string;
+    topbarHeight?: number;
+}>`
     ${position('sticky', 0, 0, null, 0)};
 
     width: 100%;
@@ -13,11 +16,17 @@ export const HeaderWrapper = styled.div<{ direction?: string; topbarHeight?: num
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
 
-    ${props =>
+    ${(props) =>
         mq.upTo(
-            'tablet',
+            'tabletLandscape',
             css`
-                ${position('sticky', props.direction === 'up' ? 0 : -props.topbarHeight, 0, null, 0)};
+                ${position(
+                    'sticky',
+                    props.direction === 'up' ? 0 : -props.topbarHeight,
+                    0,
+                    null,
+                    0
+                )};
             `
         )}
 `;
@@ -28,13 +37,13 @@ export const HeaderContent = styled.div`
     z-index: 2;
 `;
 
-export const HeaderLanguage = styled.div`
+export const HeaderMainRightCol = styled.div`
     align-items: center;
     display: flex;
     height: 1.5rem;
 
     ${mq.upTo(
-        'tablet',
+        'tabletLandscape',
         css`
             display: none;
         `
@@ -47,7 +56,7 @@ export const HeaderMainBar = styled.div`
     position: relative;
 
     ${mq.upTo(
-        'tablet',
+        'tabletLandscape',
         css`
             padding: 0;
         `
@@ -58,7 +67,7 @@ export const HeaderBarContent = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    max-width: 84rem;
+    max-width: 90rem;
     margin: auto;
     padding: 0 2rem;
 
@@ -70,7 +79,7 @@ export const HeaderBarContent = styled.div`
     )}
 
     ${mq.upTo(
-        'tablet',
+        'tabletLandscape',
         css`
             padding: 1rem 2rem;
         `
@@ -84,7 +93,7 @@ export const HeaderMainBarLeftCol = styled.div`
 export const HeaderMainBarMenu = styled.div`
     display: none;
 
-    ${mq.tablet(css`
+    ${mq.tabletLandscape(css`
         display: flex;
         gap: 1rem;
 
@@ -109,7 +118,7 @@ export const HeaderMainBarMobileMenuButton = styled.a`
     justify-content: center;
     z-index: 100;
 
-    ${mq.tablet(css`
+    ${mq.tabletLandscape(css`
         display: none;
     `)}
 `;
@@ -137,13 +146,15 @@ export const HeaderMobileContent = styled.div<{
     justify-content: space-between;
     overflow: auto;
     padding: 1rem 2rem;
-    top: ${props =>
-        props.direction === 'up' ? `${props.topbarHeight + props.headerHeight}px` : `${props.headerHeight}px`};
+    top: ${(props) =>
+        props.direction === 'up'
+            ? `${props.topbarHeight + props.headerHeight}px`
+            : `${props.headerHeight}px`};
     transform: ${({ isActive }) => `translateX(${isActive ? 0 : '100%'})`};
     width: 100%;
     z-index: 1;
 
-    ${mq.tablet(css`
+    ${mq.tabletLandscape(css`
         display: none;
     `)}
 `;

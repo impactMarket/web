@@ -1,6 +1,11 @@
 import { GeneratedPropsTypes } from '../../Types';
 import { Icon } from '../Icon/Icon';
-import { OptionItem, OptionList, OptionSelected, SelectWrapper } from './Select.style';
+import {
+    OptionItem,
+    OptionList,
+    OptionSelected,
+    SelectWrapper
+} from './Select.style';
 import { Text } from '../Typography/Typography';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import React, { useEffect, useRef, useState } from 'react';
@@ -32,16 +37,22 @@ type SelectProps = {
 } & OptionListProps &
     GeneratedPropsTypes;
 
-const getSelectedLabel = (selected: OptionType | undefined, placeholder: string | undefined) => {
+const getSelectedLabel = (
+    selected: OptionType | undefined,
+    placeholder: string | undefined
+) => {
     if (!selected?.value) {
         return placeholder || '';
     }
 
     if (selected?.label) {
-        return selected?.label;
+        return selected?.value?.slice(0, 2).toUpperCase();
     }
 
-    return typeof selected?.value === 'string' || typeof selected?.value === 'number' ? selected?.value : '';
+    return typeof selected?.value === 'string' ||
+        typeof selected?.value === 'number'
+        ? selected?.value
+        : '';
 };
 
 const getSelectedOption = (initialSelected: any, options: OptionType[]) => {
@@ -66,7 +77,9 @@ export const Select = (props: SelectProps) => {
         type,
         ...forwardProps
     } = props;
-    const [selected, setSelected] = useState<OptionType | undefined>(getSelectedOption(initialSelected, options));
+    const [selected, setSelected] = useState<OptionType | undefined>(
+        getSelectedOption(initialSelected, options)
+    );
     const [optionsVisible, setOptionsVisible] = useState<boolean>(false);
     const selectRef = useRef<any>();
 
@@ -97,11 +110,22 @@ export const Select = (props: SelectProps) => {
             <input name={name} type="hidden" value={selected?.value || ''} />
             <OptionSelected onClick={handleSelectClick} ref={selectRef}>
                 {!!renderSelected ? (
-                    renderSelected(getSelectedLabel(selected, placeholder), !!selected?.value)
+                    renderSelected(
+                        getSelectedLabel(selected, placeholder),
+                        !!selected?.value
+                    )
                 ) : (
                     <Text small>{getSelectedLabel(selected, placeholder)}</Text>
                 )}
-                {!noCaret && <Icon icon="caret" ml={0.5} sHeight={0.75} sWidth={0.75} textSecondary />}
+                {!noCaret && (
+                    <Icon
+                        icon="caret"
+                        ml={0.5}
+                        sHeight={0.75}
+                        sWidth={0.75}
+                        textSecondary
+                    />
+                )}
             </OptionSelected>
             <OptionList anchor={anchor} isVisible={optionsVisible} type={type}>
                 {options.map(({ label, value }) => (

@@ -1,4 +1,11 @@
-import { Button, Grid, Row, Section, Text, TextLink } from '../theme/components';
+import {
+    Button,
+    Grid,
+    Row,
+    Section,
+    Text,
+    TextLink
+} from '../theme/components';
 import { GeneratedPropsTypes } from '../theme/Types';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme/variables/colors';
@@ -37,6 +44,9 @@ const ButtonWrapper = styled.div`
 
 const Img = styled.img<GeneratedPropsTypes>`
     ${generateProps};
+
+    max-width: 300px;
+    object-fit: contain;
 `;
 
 const Partners = (props: PrismicSlice) => {
@@ -46,7 +56,9 @@ const Partners = (props: PrismicSlice) => {
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
+            document
+                .getElementById(location.hash.slice(1))
+                .scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
@@ -95,18 +107,36 @@ const Partners = (props: PrismicSlice) => {
                     {items?.map((item, key) => (
                         <>
                             {item?.url ? (
-                                <a href={item?.url || ''} key={key} rel="noopener noreferrer" target="_blank">
-                                    <Img sHeight={3} sWidth="auto" src={item.logo.url} />
+                                <a
+                                    href={item?.url || ''}
+                                    key={key}
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                >
+                                    <Img
+                                        sHeight={3}
+                                        sWidth="auto"
+                                        src={item.logo.url}
+                                    />
                                 </a>
                             ) : (
-                                <Img key={key} sHeight={3} sWidth="auto" src={item.logo.url} />
+                                <Img
+                                    key={key}
+                                    sHeight={3}
+                                    sWidth="auto"
+                                    src={item.logo.url}
+                                />
                             )}
                         </>
                     ))}
                 </LogoWrapper>
                 {buttonUrl && (
                     <ButtonWrapper>
-                        <TextLink href={!!buttonUrl && buttonUrl} rel="noopener noreferrer" target="_blank">
+                        <TextLink
+                            href={!!buttonUrl && buttonUrl}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
                             <Button linedSecondaryDark>
                                 <Text sFontSize={1} sFontWeight={500}>
                                     {buttonText}
