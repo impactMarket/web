@@ -1,5 +1,4 @@
 import { ChartGroups } from './ChartGroups/ChartGroups';
-import { Communities } from './Communities/Communities';
 import { Demographics } from './Demographics/Demographics';
 import { Global } from './Global/Global';
 import { HealingMap } from './HealingMap/HealingMap';
@@ -21,7 +20,6 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
 
     const global = page?.global;
     const healingMap = page?.healingMap;
-    const communities = page?.communities;
     const demographics = page?.demographics;
 
     const charts = {
@@ -34,7 +32,6 @@ export const GlobalDashboard = (props: GlobalDashboardProps) => {
         <>
             <Global data={dataFromApi} {...global} />
             <HealingMap {...healingMap} />
-            <Communities data={dataFromApi} {...communities} />
             <Demographics data={dataFromApi} {...demographics} />
             <ChartGroups data={dataFromApi} items={charts} />
         </>

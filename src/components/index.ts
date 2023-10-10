@@ -13,7 +13,6 @@ export * from './DashboardChartGroup/DashboardChartGroup';
 export * from './DashboardNumericContent/DashboardNumericContent';
 export * from './DonateButton/DonateButton';
 export * from './DonateButton/DonateLink';
-export * from './FilterFields';
 export * from './Footer/Footer';
 export * from './GenerateProposalButton/GenerateProposalButton';
 export * from './Header/Header';
