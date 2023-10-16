@@ -22,7 +22,7 @@
         "@prismicio/client": "6.7.3",
         "@prismicio/react": "2.6.1",
         "@sentry/browser": "^7.69.0",
-        "@sentry/nextjs": "^7.69.0",
+        "@sentry/nextjs": "^7.74.0",
         "@web3modal/ethereum": "2.7.1",
         "@web3modal/react": "2.6.2",
         "axios": "^0.27.2",
