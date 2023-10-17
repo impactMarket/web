@@ -20,7 +20,11 @@ import { dateHelpers } from '../../helpers/dateHelpers';
 import { modal } from 'react-modal-handler';
 import { mq } from 'styled-gen';
 import { toast } from '../Toaster/Toaster';
-import { useEpoch, useMerkleDistributor, useRewards } from '@impact-market/utils';
+import {
+    useEpoch,
+    useMerkleDistributor,
+    useRewards
+} from '@impact-market/utils';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -84,7 +88,9 @@ const SpinnerWrapper = styled.div`
 `;
 
 const getMerkleTreeUrl = (address: string) =>
-    `/api/merkletree/?address=${address}${!config.networkRpcUrl ? '&testnet=true' : ''}`;
+    `/api/merkletree/?address=${address}${
+        !config.networkRpcUrl ? '&testnet=true' : ''
+    }`;
 
 const AirgrabContent = (props: {
     onUpdate: Function;
@@ -92,7 +98,11 @@ const AirgrabContent = (props: {
 }) => {
     const { onUpdate, treeAccount } = props;
     const [airgrabClaimIsLoading, setAirgrabClaimIsLoading] = useState(false);
-    const { hasClaim, amountToClaim, claim: claimAirgrab } = useMerkleDistributor(treeAccount);
+    const {
+        hasClaim,
+        amountToClaim,
+        claim: claimAirgrab
+    } = useMerkleDistributor(treeAccount);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -143,7 +153,11 @@ const AirgrabContent = (props: {
                             PACT
                         </Text>
                     </Heading>
-                    <Button isLoading={airgrabClaimIsLoading} onClick={handleAirgrabRewardClaimClick} smaller>
+                    <Button
+                        isLoading={airgrabClaimIsLoading}
+                        onClick={handleAirgrabRewardClaimClick}
+                        smaller
+                    >
                         <Text semibold span="true">
                             <String id="claim" />
                         </Text>
@@ -240,7 +254,9 @@ const Rewards = (props: { onUpdate: Function }) => {
                 <Highlight mt={1}>
                     <HighlightRow>
                         <Heading h3>
-                            {currencyValue(rewards?.claimable, { isToken: true })}
+                            {currencyValue(rewards?.claimable, {
+                                isToken: true
+                            })}
                             &nbsp;
                             <Text regular span="true">
                                 PACT
@@ -266,14 +282,21 @@ const Rewards = (props: { onUpdate: Function }) => {
                     <HighlightRow>
                         {rewards?.initialised ? (
                             <Heading h3>
-                                ~{currencyValue(rewards?.estimated, { isToken: true })}
+                                ~
+                                {currencyValue(rewards?.estimated, {
+                                    isToken: true
+                                })}
                                 &nbsp;
                                 <Text regular span="true">
                                     PACT
                                 </Text>
                             </Heading>
                         ) : (
-                            <GhostElement overColored sHeight={1.25} sWidth={20} />
+                            <GhostElement
+                                overColored
+                                sHeight={1.25}
+                                sWidth={20}
+                            />
                         )}
                     </HighlightRow>
                     <HighlightRow>
@@ -296,7 +319,7 @@ const Rewards = (props: { onUpdate: Function }) => {
                             ml={{ md: 'unset', xs: 'auto' }}
                             mr={{ md: 'unset', xs: 'auto' }}
                             mt={{ md: 'unset', xs: 0.625 }}
-                            onClick={() => modal.open('governanceContribute')}
+                            onClick={() => modal.open('donate')}
                         >
                             <String id="contribute" />
                         </TextLink>
@@ -315,11 +338,26 @@ const Epoch = () => {
     useEffect(() => {
         if (rewards.initialised && epoch.initialised) {
             setRows([
-                currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' }),
-                currencyValue(epoch?.donations.user, { isToken: true, symbol: 'cUSD' }),
-                currencyValue(epoch?.donations.everyone, { isToken: true, symbol: 'cUSD' }),
-                currencyValue(rewards?.currentEpoch, { isToken: true, symbol: 'PACT' }),
-                currencyValue(rewards?.allocated, { isToken: true, symbol: 'PACT' })
+                currencyValue(epoch?.rewards, {
+                    isToken: true,
+                    symbol: 'PACT'
+                }),
+                currencyValue(epoch?.donations.user, {
+                    isToken: true,
+                    symbol: 'cUSD'
+                }),
+                currencyValue(epoch?.donations.everyone, {
+                    isToken: true,
+                    symbol: 'cUSD'
+                }),
+                currencyValue(rewards?.currentEpoch, {
+                    isToken: true,
+                    symbol: 'PACT'
+                }),
+                currencyValue(rewards?.allocated, {
+                    isToken: true,
+                    symbol: 'PACT'
+                })
             ]);
         }
     }, [epoch, rewards]);
@@ -330,7 +368,9 @@ const Epoch = () => {
                 {rows.map((value, index) => (
                     <SummaryRow key={index}>
                         <Text bold>
-                            <String id={`breakdown.airgrab.summary.row${index + 1}`} />
+                            <String
+                                id={`breakdown.airgrab.summary.row${index + 1}`}
+                            />
                         </Text>
                         {!(rewards.initialised && epoch.initialised) ? (
                             <GhostElement sHeight={0.75} sWidth={6} />
@@ -366,7 +406,10 @@ export const Breakdown = () => {
             const epochIsOld = dateHelpers.isPast(endPeriod);
 
             if (epochIsOld) {
-                const timerId = setInterval(() => setUpdated(new Date().getMilliseconds()), 10000);
+                const timerId = setInterval(
+                    () => setUpdated(new Date().getMilliseconds()),
+                    10000
+                );
 
                 return clearInterval(timerId);
             }
@@ -386,8 +429,16 @@ export const Breakdown = () => {
                             <String id="epochWillEndIn" />
                             &nbsp;
                         </span>
-                        <span style={{ color: colors.brandPrimary, whiteSpace: 'nowrap' }}>
-                            <Countdown date={endPeriod} onEnd={handleEpochEnd} />
+                        <span
+                            style={{
+                                color: colors.brandPrimary,
+                                whiteSpace: 'nowrap'
+                            }}
+                        >
+                            <Countdown
+                                date={endPeriod}
+                                onEnd={handleEpochEnd}
+                            />
                         </span>
                     </Heading>
                 </CountdownWrapper>

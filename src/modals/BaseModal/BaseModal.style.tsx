@@ -33,26 +33,13 @@ const ModalBackdrop = styled.div<ModalProps>`
     )}
 `;
 
-const ModalCloseButton = styled.a`
-    ${size(40)};
-
-    align-items: center;
-    background-color: ${colors.backgroundSecondary};
-    border-radius: 50%;
-    color: ${colors.brandBlack};
-    display: inline-flex;
-    justify-content: center;
-
-    &:hover {
-        background-color: ${colors.brandBlack};
-        cursor: pointer;
-        color: ${colors.white};
-    }
-`;
-
 const ModalContent = styled.div<ModalProps>`
     ${size('100%')}
-    ${transitions(['height', 'opacity', 'transform', 'visibility'], 500, ease.inOutCubic)};
+    ${transitions(
+        ['height', 'opacity', 'transform', 'visibility'],
+        500,
+        ease.inOutCubic
+    )};
 
     background-color: transparent;
     margin: auto 0;
@@ -87,7 +74,7 @@ const ModalHeading = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 32px 32px 0;
+    padding: 1.5rem 1.5rem 0;
 `;
 
 const ModalInnerContent = styled.div``;
@@ -110,4 +97,10 @@ const ModalWrapper = styled.div`
     `)}
 `;
 
-export { ModalBackdrop, ModalCloseButton, ModalContent, ModalHeading, ModalInnerContent, ModalWrapper };
+export {
+    ModalBackdrop,
+    ModalContent,
+    ModalHeading,
+    ModalInnerContent,
+    ModalWrapper
+};

@@ -13,6 +13,7 @@ import { generateProps, mq } from 'styled-gen';
 import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled, { css } from 'styled-components';
+import useFilters from 'src/hooks/useFilters';
 
 const HeadingRow = styled(Row)`
     align-items: center;
@@ -52,6 +53,8 @@ const Img = styled.img<GeneratedPropsTypes>`
 const Partners = (props: PrismicSlice) => {
     const { items, primary } = props;
     const { buttonText, buttonUrl, heading, id, smallHeading, text } = primary;
+    const { update } = useFilters();
+    const isModal = buttonUrl.startsWith('modal:');
 
     // Send to component X if url has hash
     useEffect(() => {
@@ -133,7 +136,14 @@ const Partners = (props: PrismicSlice) => {
                 {buttonUrl && (
                     <ButtonWrapper>
                         <TextLink
-                            href={!!buttonUrl && buttonUrl}
+                            href={!isModal && buttonUrl}
+                            onClick={() =>
+                                isModal &&
+                                update(
+                                    'modal',
+                                    buttonUrl.replace(/^modal:/, '')
+                                )
+                            }
                             rel="noopener noreferrer"
                             target="_blank"
                         >

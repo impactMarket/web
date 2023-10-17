@@ -1,9 +1,16 @@
 import { AppProps } from 'next/app';
 import { Content, GlobalStyle, Main } from '../theme/components';
-import { CookieConsent, Footer, Header, ImpactMarketDaoProvider, Loading, SEO } from '../components';
+import {
+    CookieConsent,
+    Footer,
+    Header,
+    ImpactMarketDaoProvider,
+    Loading,
+    SEO
+} from '../components';
 import { DataProvider } from '../components/DataProvider/DataProvider';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { ModalManager } from 'react-modal-handler';
+import { ModalManager, modal } from 'react-modal-handler';
 import { PrismicDataProvider } from '../lib/Prismic/components/PrismicDataProvider';
 import { ThemeProvider } from 'styled-components';
 import { TranslationProvider } from '../components/TranslationProvider/TranslationProvider';
@@ -16,19 +23,28 @@ import Router from 'next/router';
 import Toaster from '../components/Toaster/Toaster';
 import config from '../../config';
 import theme from '../theme';
+import useFilters from 'src/hooks/useFilters';
 
 const { baseUrl, isProduction, recaptchaKey } = config;
 
-Router.events.on('routeChangeComplete', url => pageview(url));
-Router.events.on('hashChangeComplete', url => pageview(url));
+Router.events.on('routeChangeComplete', (url) => pageview(url));
+Router.events.on('hashChangeComplete', (url) => pageview(url));
 
 export default function App(props: AppProps) {
     const { Component, pageProps, router } = props as any;
     const { asPath, isReady, locale, query } = router;
     const url = `${baseUrl}/${locale}${asPath}`;
+    const { getByKey } = useFilters();
     const [showSpinner, setShowSpinner] = useState(true);
 
-    const { data, footerOptions = {}, meta = {}, page, statusCode, wip } = pageProps as any;
+    const {
+        data,
+        footerOptions = {},
+        meta = {},
+        page,
+        statusCode,
+        wip
+    } = pageProps as any;
 
     useEffect(() => {
         if (isReady) {
@@ -71,16 +87,32 @@ export default function App(props: AppProps) {
         meta['image:width'] = 1080;
     }
 
+    useEffect(() => {
+        if (asPath.includes('modal')) {
+            // @ts-ignore
+            modal.open(getByKey('modal'));
+        }
+    }, [asPath]);
+
     return (
         <DataProvider page={page} url={url}>
             <PrismicDataProvider data={data} page={page} url={url}>
                 <TranslationProvider locale={locale}>
                     <Head>
-                        <meta content="width=device-width, initial-scale=1" name="viewport" />
+                        <meta
+                            content="width=device-width, initial-scale=1"
+                            name="viewport"
+                        />
                         <meta content="#2362FB" name="theme-color" />
                         <link rel="manifest" href="/manifest.json" />
-                        <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png" />
-                        <meta name="apple-mobile-web-app-status-bar" content="#90cdf4" />
+                        <link
+                            rel="apple-touch-icon"
+                            href="/img/icons/icon-96x96.png"
+                        />
+                        <meta
+                            name="apple-mobile-web-app-status-bar"
+                            content="#90cdf4"
+                        />
                         <script type="text/javascript">
                             {`(function(c,l,a,r,i,t,y){
                             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

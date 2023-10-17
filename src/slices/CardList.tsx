@@ -1,10 +1,20 @@
-import { Button, Col, Div, Grid, Row, Section, TLink, Text, TextLink } from '../theme/components';
+import {
+    Button,
+    Col,
+    Div,
+    Grid,
+    Row,
+    Section,
+    TLink,
+    Text,
+    TextLink
+} from '../theme/components';
 import { PrismicSlice } from '../lib/Prismic/types';
 import { colors } from '../theme/variables/colors';
-import { modal } from 'react-modal-handler';
 import React, { useEffect } from 'react';
 import RichText from '../lib/Prismic/components/RichText';
 import styled from 'styled-components';
+import useFilters from 'src/hooks/useFilters';
 
 const Image = styled.img`
     height: 100%;
@@ -46,16 +56,23 @@ const HeadingRow = styled(Row)`
 const CardList = (props: PrismicSlice) => {
     const { items, primary } = props;
     const { heading, id, subtitle, text } = primary;
+    const { update } = useFilters();
 
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
+            document
+                .getElementById(location.hash.slice(1))
+                .scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
     const ButtonStyle = ({ buttonUrl, buttonLabel }: any) => (
-        <Button disabled={!buttonUrl} linedSecondary={!buttonUrl && true} linedSecondaryDark={buttonUrl && true}>
+        <Button
+            disabled={!buttonUrl}
+            linedSecondary={!buttonUrl && true}
+            linedSecondaryDark={buttonUrl && true}
+        >
             <Text sFontSize={1} sFontWeight={500}>
                 {buttonLabel}
             </Text>
@@ -63,16 +80,19 @@ const CardList = (props: PrismicSlice) => {
     );
 
     const ButtonLink = ({ buttonUrl, buttonLabel }: any) => {
-        if (buttonUrl?.includes('modal:')) {
-            const modalName = buttonUrl?.substring(buttonUrl.indexOf(':') + 1);
+        const isModal = buttonUrl.startsWith('modal:');
 
+        if (isModal) {
             return (
                 <TextLink
-                    onClick={() => {
-                        return modal.open(modalName);
-                    }}
+                    onClick={() =>
+                        update('modal', buttonUrl.replace(/^modal:/, ''))
+                    }
                 >
-                    <ButtonStyle buttonLabel={buttonLabel} buttonUrl={buttonUrl} />
+                    <ButtonStyle
+                        buttonLabel={buttonLabel}
+                        buttonUrl={buttonUrl}
+                    />
                 </TextLink>
             );
         }
@@ -90,7 +110,12 @@ const CardList = (props: PrismicSlice) => {
                 {(heading || subtitle || !!text.length) && (
                     <HeadingRow>
                         {heading && (
-                            <Text mt={1} sColor={colors.p700} sFontSize={1} sFontWeight={600}>
+                            <Text
+                                mt={1}
+                                sColor={colors.p700}
+                                sFontSize={1}
+                                sFontWeight={600}
+                            >
                                 {heading}
                             </Text>
                         )}
@@ -112,13 +137,30 @@ const CardList = (props: PrismicSlice) => {
                                 {subtitle}
                             </Text>
                         )}
-                        {!!text.length && <RichText content={text} mb={2} sColor={colors.g500} textSecondary />}
+                        {!!text.length && (
+                            <RichText
+                                content={text}
+                                mb={2}
+                                sColor={colors.g500}
+                                textSecondary
+                            />
+                        )}
                     </HeadingRow>
                 )}
                 {items && (
                     <Row style={{ justifyContent: 'center' }}>
                         {items.map(
-                            ({ content, ctaLabel, ctaUrl, heading, icon, isActive }, index) =>
+                            (
+                                {
+                                    content,
+                                    ctaLabel,
+                                    ctaUrl,
+                                    heading,
+                                    icon,
+                                    isActive
+                                },
+                                index
+                            ) =>
                                 !!isActive && (
                                     <Col
                                         key={index}
@@ -142,7 +184,12 @@ const CardList = (props: PrismicSlice) => {
                                                 </TestimonialIcon>
                                             )}
                                             <TestimonialWrapper>
-                                                <Text mt={1} sColor={colors.g900} sFontSize={1.25} sFontWeight={500}>
+                                                <Text
+                                                    mt={1}
+                                                    sColor={colors.g900}
+                                                    sFontSize={1.25}
+                                                    sFontWeight={500}
+                                                >
                                                     {heading}
                                                 </Text>
                                                 <RichText
@@ -153,7 +200,10 @@ const CardList = (props: PrismicSlice) => {
                                                     textSecondary
                                                 />
                                                 <Div mt="auto">
-                                                    <ButtonLink buttonLabel={ctaLabel} buttonUrl={ctaUrl} />
+                                                    <ButtonLink
+                                                        buttonLabel={ctaLabel}
+                                                        buttonUrl={ctaUrl}
+                                                    />
                                                 </Div>
                                             </TestimonialWrapper>
                                         </TestimonialCard>

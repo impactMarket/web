@@ -16,7 +16,6 @@ import {
 import { MenuItem } from './MenuItem';
 import { SocialMenu } from '../SocialMenu/SocialMenu';
 import { Topbar } from '../Topbar/Topbar';
-import { modal } from 'react-modal-handler';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import { useRouter } from 'next/router';
 import { useScrollDirection } from '../../helpers/useScrollDirection';
@@ -24,6 +23,7 @@ import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useWallet } from 'src/hooks/useWallet';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
+import useFilters from 'src/hooks/useFilters';
 
 type MenuItemSlice = {
     primary?: {
@@ -48,6 +48,7 @@ export const Header = () => {
     const { t } = useTranslation();
     const { config: prismicConfig } = usePrismicData();
     const { address } = useWallet();
+    const { update } = useFilters();
 
     const scrollDirection = useScrollDirection();
 
@@ -96,33 +97,14 @@ export const Header = () => {
     }, [isMenuVisible]);
 
     const ButtonLink = ({ buttonUrl, buttonLabel, buttonColor }: any) => {
-        if (buttonUrl?.includes('modal:')) {
-            const modalName = buttonUrl.substring(buttonUrl.indexOf(':') + 1);
-
-            return (
-                <TextLink
-                    onClick={() => {
-                        return modal.open(modalName, {
-                            onSuccess: () =>
-                                asPath !== '/governance' && push('/governance')
-                        });
-                    }}
-                >
-                    <Button
-                        large
-                        lined={buttonColor === 'white' && true}
-                        sHeight="3rem"
-                        sWidth="100%"
-                    >
-                        <Text bold>{buttonLabel}</Text>
-                    </Button>
-                </TextLink>
-            );
-        }
+        const isModal = buttonUrl.startsWith('modal:');
 
         return (
             <TextLink
-                href={buttonUrl}
+                href={!isModal && buttonUrl}
+                onClick={() =>
+                    isModal && update('modal', buttonUrl.replace(/^modal:/, ''))
+                }
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -219,7 +201,7 @@ export const Header = () => {
                     topbarHeight={topbarHeight}
                 >
                     <MobileContent>
-                        {!!mobileMenuButtons.length && (
+                        {!!mobileMenuButtons?.length && (
                             <MobileMenuButtons>
                                 {mobileMenuButtons?.map((button, key) => (
                                     <ButtonLink

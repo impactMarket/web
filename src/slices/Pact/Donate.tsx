@@ -99,7 +99,11 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
             return toast.success(
                 <RichText
                     content={toastMessagesClaimSuccess}
-                    variables={{ amount: currencyValue(rewards?.claimable, { isToken: true }) }}
+                    variables={{
+                        amount: currencyValue(rewards?.claimable, {
+                            isToken: true
+                        })
+                    }}
                 />
             );
         } catch (error) {
@@ -121,8 +125,14 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
             {!!rewards?.claimable && (
                 <Highlight mt={1}>
                     <HighlightRow>
-                        <Text sColor={colors.g800} sFontSize={1.5} sFontWeight={600}>
-                            {currencyValue(rewards?.claimable, { isToken: true })}
+                        <Text
+                            sColor={colors.g800}
+                            sFontSize={1.5}
+                            sFontWeight={600}
+                        >
+                            {currencyValue(rewards?.claimable, {
+                                isToken: true
+                            })}
                             &nbsp; PACT
                         </Text>
                         <Button
@@ -144,12 +154,23 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
                 <Highlight mt={1}>
                     <HighlightRow>
                         {rewards?.initialised ? (
-                            <Text sColor={colors.g800} sFontSize={1.5} sFontWeight={600}>
-                                ~{currencyValue(rewards?.estimated, { isToken: true })}
+                            <Text
+                                sColor={colors.g800}
+                                sFontSize={1.5}
+                                sFontWeight={600}
+                            >
+                                ~
+                                {currencyValue(rewards?.estimated, {
+                                    isToken: true
+                                })}
                                 &nbsp; PACT
                             </Text>
                         ) : (
-                            <GhostElement overColored sHeight={1.25} sWidth={20} />
+                            <GhostElement
+                                overColored
+                                sHeight={1.25}
+                                sWidth={20}
+                            />
                         )}
                     </HighlightRow>
                     <HighlightRow>
@@ -164,13 +185,18 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
             {!rewards?.claimable && !rewards?.estimated && (
                 <Highlight mt={1}>
                     <HighlightRow>
-                        <RichText content={donateNocontributionrewardtobeclaimed} div sColor={colors.g500} small />
+                        <RichText
+                            content={donateNocontributionrewardtobeclaimed}
+                            div
+                            sColor={colors.g500}
+                            small
+                        />
                         <TextLink
                             brandPrimary
                             ml={{ md: 'unset', xs: 'auto' }}
                             mr={{ md: 'unset', xs: 'auto' }}
                             mt={{ md: 'unset', xs: 0.625 }}
-                            onClick={() => modal.open('governanceContribute')}
+                            onClick={() => modal.open('donate')}
                         >
                             {donateContribute}
                         </TextLink>
@@ -205,11 +231,26 @@ const Epoch = ({ translations }: any) => {
     useEffect(() => {
         if (rewards.initialised && epoch.initialised) {
             setRows([
-                currencyValue(epoch?.rewards, { isToken: true, symbol: 'PACT' }),
-                currencyValue(epoch?.donations.user, { isToken: true, symbol: 'cUSD' }),
-                currencyValue(epoch?.donations.everyone, { isToken: true, symbol: 'cUSD' }),
-                currencyValue(rewards?.currentEpoch, { isToken: true, symbol: 'PACT' }),
-                currencyValue(rewards?.allocated, { isToken: true, symbol: 'PACT' })
+                currencyValue(epoch?.rewards, {
+                    isToken: true,
+                    symbol: 'PACT'
+                }),
+                currencyValue(epoch?.donations.user, {
+                    isToken: true,
+                    symbol: 'cUSD'
+                }),
+                currencyValue(epoch?.donations.everyone, {
+                    isToken: true,
+                    symbol: 'cUSD'
+                }),
+                currencyValue(rewards?.currentEpoch, {
+                    isToken: true,
+                    symbol: 'PACT'
+                }),
+                currencyValue(rewards?.allocated, {
+                    isToken: true,
+                    symbol: 'PACT'
+                })
             ]);
         }
     }, [epoch, rewards]);
@@ -238,12 +279,19 @@ const Epoch = ({ translations }: any) => {
 };
 
 export const Donate = ({ translations }: any) => {
-    const { donatePactRewards, donateSummary, donateEpochWillEnd, donateWalletNotConnected } = translations;
+    const {
+        donatePactRewards,
+        donateSummary,
+        donateEpochWillEnd,
+        donateWalletNotConnected
+    } = translations;
 
     const { address, connect, wrongNetwork } = useWallet();
     const { epoch } = useEpoch();
     const { endPeriod } = epoch || {};
-    const [endedEpoch, setEndedEpoch] = useState(dateHelpers.isPast(endPeriod || '0'));
+    const [endedEpoch, setEndedEpoch] = useState(
+        dateHelpers.isPast(endPeriod || '0')
+    );
     const [, setUpdated] = useState(new Date().getMilliseconds());
 
     const tabs = [donatePactRewards, donateSummary];
@@ -257,7 +305,10 @@ export const Donate = ({ translations }: any) => {
             const epochIsOld = dateHelpers.isPast(endPeriod);
 
             if (epochIsOld) {
-                const timerId = setInterval(() => setUpdated(new Date().getMilliseconds()), 10000);
+                const timerId = setInterval(
+                    () => setUpdated(new Date().getMilliseconds()),
+                    10000
+                );
 
                 return clearInterval(timerId);
             }
@@ -272,13 +323,26 @@ export const Donate = ({ translations }: any) => {
         <Card sHeight="100%">
             {!!endPeriod && !endedEpoch && (
                 <CountdownWrapper>
-                    <Text center sColor={colors.g800} sFontSize={1.125} sFontWeight={600}>
+                    <Text
+                        center
+                        sColor={colors.g800}
+                        sFontSize={1.125}
+                        sFontWeight={600}
+                    >
                         <span>
                             {donateEpochWillEnd}
                             &nbsp;
                         </span>
-                        <span style={{ color: colors.brandPrimary, whiteSpace: 'nowrap' }}>
-                            <Countdown date={endPeriod} onEnd={handleEpochEnd} />
+                        <span
+                            style={{
+                                color: colors.brandPrimary,
+                                whiteSpace: 'nowrap'
+                            }}
+                        >
+                            <Countdown
+                                date={endPeriod}
+                                onEnd={handleEpochEnd}
+                            />
                         </span>
                     </Text>
                 </CountdownWrapper>
@@ -299,7 +363,10 @@ export const Donate = ({ translations }: any) => {
                         {/* Breakdown */}
                         <Div column sWidth="100%">
                             {/* Contribution Reward */}
-                            <Rewards onUpdate={setUpdated} translations={translations} />
+                            <Rewards
+                                onUpdate={setUpdated}
+                                translations={translations}
+                            />
                         </Div>
 
                         {/* Epoch summary */}
