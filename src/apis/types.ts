@@ -1,19 +1,4 @@
-/* eslint-disable no-undef */
-export type CommunityListRequestArguments = {
-    country?: string;
-    extended?: boolean;
-    filter?: string;
-    limit?: string | number;
-    name?: string;
-    orderBy?: string;
-    page?: string | number;
-};
 
-export type CommunityListRequestResponseType = {
-    count: number;
-    items?: ICommunity[];
-    page: number;
-};
 
 export interface GlobalGrowth {
     date: Date;
@@ -109,16 +94,6 @@ export interface IStories {
     success: boolean;
 }
 
-export interface ICommunities {
-    count: number;
-    rows: ICommunity[];
-}
-
-export interface ICommunityCampaign {
-    id: string | number;
-    communityId: string | number;
-    campaignUrl: string;
-}
 
 export interface IGlobalDailyState {
     avgComulativeUbi: string;
@@ -224,58 +199,6 @@ export interface Cover {
 }
 
 // API and app
-export interface CommunityAttributes {
-    id: string | number;
-    publicId: string;
-    requestByAddress: string;
-    contract?: CommunityContractAttributes;
-    contractAddress: string | null;
-    name: string;
-    description: string;
-    descriptionEn: string | null;
-    language: string;
-    currency: string;
-    city: string;
-    country: string;
-    gps: {
-        latitude: number;
-        longitude: number;
-    };
-    email: string;
-    visibility: 'public' | 'private';
-    cover: Cover;
-    status: 'pending' | 'valid' | 'removed';
-    started: Date;
-}
-
-export interface CommunityStateAttributes {
-    contributors: number;
-    beneficiaries: number;
-    claimed: string;
-    claims: number;
-    contributed: string;
-    claimAmount: string;
-    maxClaim: string;
-    baseInterval: number;
-    ubiRate: number;
-    estimatedDuration: number;
-}
-
-export interface CommunityContractAttributes {
-    communityId: string | number;
-    baseInterval: number;
-    claimAmount: string;
-    incrementInterval: number;
-    maxClaim: string;
-}
-
-export interface CommunityDailyMetricsAttributes {
-    date: Date;
-    estimatedDuration: number;
-    ssi: number;
-    ssiDayAlone: number;
-    ubiRate: number;
-}
 
 export interface IUser {
     address: string;
@@ -284,35 +207,6 @@ export interface IUser {
     };
     createdAt: string;
     username?: string;
-}
-
-export interface IManager {
-    active: boolean;
-    address: string;
-    id: string | number;
-    user: IUser;
-}
-
-export interface ICommunityDashboard {
-    dailyState: IGlobalDailyState[];
-    metrics: CommunityDailyMetricsAttributes[];
-    reachedLastMonth: {
-        reach: number;
-        reachOut: number;
-    };
-}
-
-export interface ICommunity extends CommunityAttributes {
-    campaign?: ICommunityCampaign;
-    claimLocations?: IClaimLocationGps[];
-    contract: CommunityContractAttributes;
-    managers?: IManager[];
-    metrics?:
-        | CommunityDailyMetricsAttributes
-        | CommunityDailyMetricsAttributes[]
-        | any;
-    state: CommunityStateAttributes;
-    dashboard: ICommunityDashboard;
 }
 
 // in app
@@ -347,9 +241,3 @@ export interface IDemographics {
     undisclosed: number;
     updatedAt: Date;
 }
-
-export type DataResponseType<T> = {
-    count?: number;
-    success?: boolean;
-    data?: T;
-};

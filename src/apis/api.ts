@@ -6,26 +6,17 @@ import {
     gql
 } from '@apollo/client';
 import {
-    CommunityListRequestArguments,
-    CommunityListRequestResponseType,
-    DataResponseType,
     IClaimLocation,
-    ICommunities,
-    ICommunity,
-    ICommunityCampaign,
-    ICommunityDashboard,
     IDemographics,
     IGlobalApiResult,
     IGlobalDashboard,
     IGlobalNumbers,
-    IManager,
     IMicrocredit,
     IMicrocreditDemographics,
     IStories
 } from './types';
 import { Numbers } from 'humanify-numbers';
 import { RetryLink } from '@apollo/client/link/retry';
-import { createQueryParamsFromObj } from '../helpers/createQueryParamsFromObj';
 import { getRequest, postRequest } from './client';
 import axios from 'axios';
 import config from '../../config';
@@ -41,71 +32,6 @@ export default class Api {
         const result = await getRequest<IClaimLocation[]>('/claims-location');
 
         return result ? result : [];
-    }
-    static async getCommunities(
-        requestOptions: CommunityListRequestArguments
-    ): Promise<CommunityListRequestResponseType> {
-        const params = [
-            'country',
-            'filter',
-            'limit',
-            'name',
-            'offset',
-            'orderBy'
-        ];
-        const baseOptions = {
-            limit: 10,
-            orderBy: 'bigger',
-            page: 1,
-            status: 'valid'
-        };
-        const options = Object.assign({}, baseOptions, requestOptions);
-        const { page, limit } = options;
-
-        const offset = (page - 1) * limit;
-        const query = createQueryParamsFromObj({ offset, ...options }, params);
-        const url = `/communities/${query}&state=base&state=ubi`;
-
-        const response = await getRequest<{ data: ICommunities }>(url);
-
-        const items = response?.data.rows || [];
-        const count = response?.data.count;
-
-        return { count, items, page };
-    }
-    static async getCommunity(communityId?: number | string): Promise<any> {
-        const communityResponse = await getRequest<
-            DataResponseType<ICommunity>
-        >(`/community/${communityId}`);
-        const managersResponse = await getRequest<DataResponseType<IManager[]>>(
-            `/community/${communityId}/managers`
-        );
-        const dashboardResponse = await getRequest<
-            DataResponseType<ICommunityDashboard[]>
-        >(`/community/${communityId}/dashboard`);
-        const claimLocations = await getRequest<
-            DataResponseType<IClaimLocation[]>
-        >(`/community/${communityId}/claim-location`);
-        const campaignResponse = await getRequest<
-            DataResponseType<ICommunityCampaign>
-        >(`/community/${communityId}/campaign`);
-
-        const data = {
-            ...communityResponse?.data,
-            campaign: campaignResponse?.data,
-            claimLocations: claimLocations?.data || [],
-            dashboard: dashboardResponse?.data || {},
-            managers: managersResponse?.data || {}
-        };
-
-        return communityResponse?.success ? data : undefined;
-    }
-    static async getCommunityCount(groupBy: string = 'country'): Promise<any> {
-        const response = await getRequest<DataResponseType<any>>(
-            `/community/count?groupBy=${groupBy}`
-        );
-
-        return response?.data;
     }
     static async getGlobalNumbers(): Promise<IGlobalNumbers | {}> {
         const response = await getRequest<IGlobalNumbers | undefined>(
@@ -210,38 +136,6 @@ export default class Api {
         return result ? result : [];
     }
 
-    static async getPendingCommunities(
-        requestOptions: CommunityListRequestArguments
-    ): Promise<any> {
-        const params = [
-            'country',
-            'extended',
-            'filter',
-            'limit',
-            'name',
-            'offset',
-            'orderBy'
-        ];
-        const baseOptions = {
-            extended: false,
-            limit: 4,
-            orderBy: 'bigger',
-            page: 1
-        };
-        const options = Object.assign({}, baseOptions, requestOptions);
-        const { page, limit } = options;
-
-        const offset = (page - 1) * limit;
-        const query = createQueryParamsFromObj({ offset, ...options }, params);
-        const response = await getRequest<any | undefined>(
-            `/community/list/${query}&status=pending&fields=id;requestByAddress;name;description;country;city;cover.*;contract.communityId;contract.maxClaim;contract.baseInterval;contract.claimAmount;contract.incrementInterval;proposal.*`
-        );
-
-        const items = response?.data || [];
-        const count = response?.count;
-
-        return { count, items, page };
-    }
     static async getStories(): Promise<IStories[]> {
         const result = await getRequest<IStories[]>('/stories?limit=3');
 
