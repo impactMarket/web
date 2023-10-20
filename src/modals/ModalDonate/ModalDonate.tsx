@@ -16,6 +16,7 @@ import { Thanks } from './Thanks';
 import router from 'next/router';
 import { ModalWrapper, AlertStyled, ButtonsWrapper } from './ModalDonate.style';
 import { useTranslation } from 'src/components/TranslationProvider/TranslationProvider';
+import useFilters from 'src/hooks/useFilters';
 
 type ModalProps = {
     controller: ModalController;
@@ -29,6 +30,7 @@ export const ModalDonate = (props: ModalProps) => {
     const { extractFromModals } = usePrismicData();
     const [recurrentDonation, setRecurrentDonation] = useState() as any;
     const [refresh, setRefresh] = useState(false) as any;
+    const { clear } = useFilters();
 
     // Type -> 0: Modal default page; 1: Donate once; 2: Recurring Donation; 3: Thank you
     const [donationType, setDonationType] = useState(0);
@@ -51,6 +53,7 @@ export const ModalDonate = (props: ModalProps) => {
 
     const handleConnect = async () => {
         modal.close();
+        clear('modal');
 
         await connect();
 
