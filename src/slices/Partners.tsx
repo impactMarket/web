@@ -54,7 +54,7 @@ const Partners = (props: PrismicSlice) => {
     const { items, primary } = props;
     const { buttonText, buttonUrl, heading, id, smallHeading, text } = primary;
     const { update } = useFilters();
-    const isModal = buttonUrl.startsWith('modal:');
+    const isModal = buttonUrl?.startsWith('modal:');
 
     // Send to component X if url has hash
     useEffect(() => {
@@ -141,7 +141,7 @@ const Partners = (props: PrismicSlice) => {
                                 isModal &&
                                 update(
                                     'modal',
-                                    buttonUrl.replace(/^modal:/, '')
+                                    buttonUrl?.replace(/^modal:/, '')
                                 )
                             }
                             rel="noopener noreferrer"

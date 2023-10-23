@@ -60,13 +60,14 @@ const Hero = (props: PrismicSlice) => {
         buttonLabel,
         buttonColor
     }: any) => {
-        const isModal = buttonUrl.startsWith('modal:');
+        const isModal = buttonUrl?.startsWith('modal:');
 
         return (
             <TextLink
                 href={!isModal && buttonUrl}
                 onClick={() =>
-                    isModal && update('modal', buttonUrl.replace(/^modal:/, ''))
+                    isModal &&
+                    update('modal', buttonUrl?.replace(/^modal:/, ''))
                 }
                 rel="noopener noreferrer"
                 target="_blank"

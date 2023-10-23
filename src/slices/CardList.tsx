@@ -80,13 +80,13 @@ const CardList = (props: PrismicSlice) => {
     );
 
     const ButtonLink = ({ buttonUrl, buttonLabel }: any) => {
-        const isModal = buttonUrl.startsWith('modal:');
+        const isModal = buttonUrl?.startsWith('modal:');
 
         if (isModal) {
             return (
                 <TextLink
                     onClick={() =>
-                        update('modal', buttonUrl.replace(/^modal:/, ''))
+                        update('modal', buttonUrl?.replace(/^modal:/, ''))
                     }
                 >
                     <ButtonStyle
