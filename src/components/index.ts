@@ -3,7 +3,6 @@ export * from './AddressDonationButton/AddressDonationButton';
 export * from './BoldInput/BoldInput';
 export * from './Breakdown/Breakdown';
 export * from './CommunitySubmissionWarnings/CommunitySubmissionWarnings';
-export * from './ContributeAmountInput/ContributeAmountInput';
 export * from './CookieConsent/CookieConsent';
 export * from './Copied/Copied';
 export * from './Countdown/Countdown';

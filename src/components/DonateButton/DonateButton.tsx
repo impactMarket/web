@@ -17,9 +17,15 @@ export const DonateButton = (props: GeneratedPropsTypes) => {
     return (
         <Button fluid large lined onClick={handleDonateClick} {...props}>
             <String id="donate" />
-            {currencies.map((currency: typeof currencies[number], index: number) => (
-                <Currency currency={currency} key={currency} ml={index ? 0.5 : 1} />
-            ))}
+            {currencies.map(
+                (currency: (typeof currencies)[number], index: number) => (
+                    <Currency
+                        currency={currency}
+                        key={currency}
+                        ml={index ? 0.5 : 1}
+                    />
+                )
+            )}
         </Button>
     );
 };

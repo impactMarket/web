@@ -1,7 +1,6 @@
-import { Heading, Icon } from '../../theme/components';
+import { Heading, TLink } from '../../theme/components';
 import {
     ModalBackdrop,
-    ModalCloseButton,
     ModalContent,
     ModalHeading,
     ModalInnerContent,
@@ -9,6 +8,21 @@ import {
 } from './BaseModal.style';
 import { String } from '../../components';
 import React, { useEffect } from 'react';
+import { Button, CircledIcon, colors, Icon } from '@impact-market/ui';
+import styled from 'styled-components';
+import useFilters from 'src/hooks/useFilters';
+
+const ModalCloseButton = styled(Button)`
+    padding: 0;
+
+    .button-content {
+        padding: 0.5rem;
+    }
+`;
+
+export const LabelStyled = styled.div`
+    cursor: pointer;
+`;
 
 export type ModalController = {
     animationDuration: number;
@@ -21,19 +35,34 @@ export type ModalController = {
 type ModalComponentProps = {
     children: any;
     controller: ModalController;
+    handleBackButton?: Function;
     heading?: string;
     headingKey?: string;
     size?: number;
+    withBackButton?: boolean;
     withCloseButton?: boolean;
+    icon?: string;
 };
 
 export const BaseModal = (props: ModalComponentProps) => {
-    const { children, controller, heading, headingKey, size = 630, withCloseButton = true } = props;
+    const {
+        children,
+        controller,
+        handleBackButton,
+        heading,
+        headingKey,
+        size = 630,
+        withBackButton,
+        withCloseButton = true,
+        icon
+    } = props;
 
     const { isActive, onClose } = controller;
+    const { clear } = useFilters();
 
     const handleClose = () => {
-        return onClose();
+        onClose();
+        clear('modal');
     };
 
     useEffect(() => {
@@ -57,14 +86,41 @@ export const BaseModal = (props: ModalComponentProps) => {
                 <ModalInnerContent>
                     {(!!headingKey || !!heading || withCloseButton) && (
                         <ModalHeading>
-                            {(!!heading || !!headingKey) && (
+                            {icon && !withBackButton && (
+                                <CircledIcon icon={icon} medium />
+                            )}
+                            {withBackButton && (
+                                <LabelStyled onClick={handleBackButton}>
+                                    <Icon
+                                        icon="arrowLeft"
+                                        mr={0.5}
+                                        sColor={colors.p700}
+                                    />
+                                    <TLink
+                                        sColor={colors.p700}
+                                        sFontSize={0.875}
+                                        sFontWeight={500}
+                                    >
+                                        Back
+                                    </TLink>
+                                </LabelStyled>
+                            )}
+                            {(!!heading || !!headingKey || !icon) && (
                                 <Heading extrabold h3>
-                                    {headingKey ? <String id={headingKey} /> : heading}
+                                    {headingKey ? (
+                                        <String id={headingKey} />
+                                    ) : (
+                                        heading
+                                    )}
                                 </Heading>
                             )}
                             {withCloseButton && (
-                                <ModalCloseButton onClick={handleClose}>
-                                    <Icon icon="close" sHeight={0.95} />
+                                <ModalCloseButton
+                                    onClick={handleClose}
+                                    bgColor={colors.n01}
+                                    gray
+                                >
+                                    <Icon icon="close" g900 />
                                 </ModalCloseButton>
                             )}
                         </ModalHeading>
