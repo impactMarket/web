@@ -1,34 +1,42 @@
 import { useAccount, useDisconnect } from 'wagmi';
 import { deleteCookie, setCookie, getCookie } from 'cookies-next';
-
-import { configureChains, createConfig } from 'wagmi';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { EthereumClient, w3mConnectors } from '@web3modal/ethereum';
 import { celo, celoAlfajores } from '@wagmi/chains';
-import { useWeb3Modal } from '@web3modal/react';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useEffect } from 'react';
 import { getAddress } from '@ethersproject/address';
 import Api from '../apis/api';
 import config from '../../config';
+import { configureChains, createConfig } from 'wagmi';
+import { publicProvider } from 'wagmi/providers/public';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { walletConnectProvider } from '@web3modal/wagmi';
 
 export const projectId = config.walletConnectProjectId;
 
-const { chains, publicClient } = configureChains(
+const metadata = {
+    name: 'impactMarket',
+    description: 'impactMarket',
+    url: 'https://impactmarket.com',
+    icons: ['https://avatars.githubusercontent.com/u/42247406']
+};
+
+export const { chains, publicClient } = configureChains(
     [config.chainId === 42220 ? celo : celoAlfajores],
-    [
-        jsonRpcProvider({
-            rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] })
-        })
-    ]
+    [walletConnectProvider({ projectId }), publicProvider()]
 );
 
 export const wagmiConfig = createConfig({
     autoConnect: true,
-    connectors: w3mConnectors({ projectId, chains }),
+    connectors: [
+        new WalletConnectConnector({
+            chains,
+            options: { projectId, showQrModal: false, metadata }
+        }),
+        new InjectedConnector({ chains, options: { shimDisconnect: true } })
+    ],
     publicClient
 });
-
-export const ethereumClient = new EthereumClient(wagmiConfig, chains);
 
 export const useWallet = () => {
     const { open } = useWeb3Modal();
