@@ -23,10 +23,13 @@ const Slices = (props: SlicesProps) => {
             {slices?.map((slice, index) => {
                 if (slice?.primary?.isActive) {
                     const SliceComponent =
-                        components[componentCase(slice.sliceType)] || sliceComponents[componentCase(slice.sliceType)];
+                        components[componentCase(slice.sliceType)] ||
+                        sliceComponents[componentCase(slice.sliceType)];
 
                     if (!SliceComponent) {
-                        console.log(`No slice component found for ${slice.sliceType}`);
+                        console.log(
+                            `No slice component found for ${slice.sliceType}`
+                        );
 
                         return null;
                     }
