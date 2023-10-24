@@ -21,21 +21,21 @@ const Slices = (props: SlicesProps) => {
     return (
         <>
             {slices?.map((slice, index) => {
-                // if (slice?.primary?.isActive) {
-                const SliceComponent =
-                    components[componentCase(slice.sliceType)] ||
-                    sliceComponents[componentCase(slice.sliceType)];
+                if (slice?.primary?.isActive) {
+                    const SliceComponent =
+                        components[componentCase(slice.sliceType)] ||
+                        sliceComponents[componentCase(slice.sliceType)];
 
-                if (!SliceComponent) {
-                    console.log(
-                        `No slice component found for ${slice.sliceType}`
-                    );
+                    if (!SliceComponent) {
+                        console.log(
+                            `No slice component found for ${slice.sliceType}`
+                        );
 
-                    return null;
+                        return null;
+                    }
+
+                    return <SliceComponent key={index} {...slice} />;
                 }
-
-                return <SliceComponent key={index} {...slice} />;
-                // }
 
                 return null;
             })}
