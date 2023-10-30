@@ -21,7 +21,7 @@
         "@impact-market/utils": "4.1.0",
         "@prismicio/client": "6.7.3",
         "@prismicio/react": "2.6.1",
-        "@sentry/browser": "^7.69.0",
+        "@sentry/browser": "^7.76.0",
         "@sentry/nextjs": "^7.69.0",
         "@wagmi/core": "1.4.2",
         "@web3modal/wagmi": "3.0.1",
