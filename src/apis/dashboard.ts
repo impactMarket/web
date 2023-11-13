@@ -57,7 +57,9 @@ export const dashboard: { [key: string]: Function } = {
     getRatePerBeneficiary: (data: IGlobalDashboard, t: Function) => ({
         prefix: '~',
         suffix: `/${t('day')}`,
-        value: currencyValue(data?.monthly?.[0]?.ubiRate?.toString())
+        value: currencyValue(data?.monthly?.[0]?.ubiRate?.toString(), {
+            fixed: 3
+        })
     }),
 
     getReach: (data: IGlobalDashboard) => ({
