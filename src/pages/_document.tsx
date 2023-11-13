@@ -1,5 +1,11 @@
 import { ServerStyleSheet } from 'styled-components';
-import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
+import Document, {
+    DocumentContext,
+    Head,
+    Html,
+    Main,
+    NextScript
+} from 'next/document';
 import React from 'react';
 
 export default class MyDocument extends Document {
@@ -10,7 +16,8 @@ export default class MyDocument extends Document {
         try {
             ctx.renderPage = () =>
                 originalRenderPage({
-                    enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+                    enhanceApp: (App) => (props) =>
+                        sheet.collectStyles(<App {...props} />)
                 });
 
             const initialProps = await Document.getInitialProps(ctx);
@@ -34,7 +41,11 @@ export default class MyDocument extends Document {
             <Html>
                 <Head>
                     <link href="/manifest/manifest.json" rel="manifest" />
-                    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+                    <link
+                        href="/favicon.ico"
+                        rel="shortcut icon"
+                        type="image/x-icon"
+                    />
                     <link href="https://fonts.gstatic.com" rel="preconnect" />
                     <link
                         href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -48,9 +59,19 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap"
                         rel="stylesheet"
                     />
-                    <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet" />
-                    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
-                    <meta content="Olc-7fpG2pEGwPVP5pHIOaYw6kUPsLGv77k8wth6RHc" name="google-site-verification" />
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Bevan&display=swap"
+                        rel="stylesheet"
+                    />
+                    <link
+                        href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+                        rel="stylesheet"
+                    />
+                    <meta
+                        content="Olc-7fpG2pEGwPVP5pHIOaYw6kUPsLGv77k8wth6RHc"
+                        name="google-site-verification"
+                    />
+                    <meta name="apple-itunes-app" content="app-id=6449259802" />
                 </Head>
                 <body>
                     <Main />
