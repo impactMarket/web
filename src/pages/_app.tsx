@@ -113,10 +113,6 @@ export default function App(props: AppProps) {
                             name="apple-mobile-web-app-status-bar"
                             content="#90cdf4"
                         />
-                        <meta
-                            name="apple-itunes-app"
-                            content="app-id=6449259802"
-                        />
                         <script type="text/javascript">
                             {`(function(c,l,a,r,i,t,y){
                             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
