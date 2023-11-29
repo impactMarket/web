@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 type ItemsRowProps = {
     children?: any;
-    distribute?: boolean | 'tablet' | 'tabletLandscape' | 'desktop';
+    distribute?: boolean | 'xs' | 'sm' | 'md' | 'lg';
     scrollable?: boolean;
     spacing?: number;
 };
@@ -24,23 +24,28 @@ const ItemsCol = styled.div<ItemsRowProps>`
 
 const ItemsRowWrapper = styled.div<ItemsRowProps>`
     display: flex;
-    flex-direction: ${({ distribute }) => (distribute && distribute !== true ? 'column' : 'row')};
-    justify-content: ${({ distribute }) => (distribute ? 'space-between' : 'flex-start')};
+    flex-direction: ${({ distribute }) =>
+        distribute && distribute !== true ? 'column' : 'row'};
+    justify-content: ${({ distribute }) =>
+        distribute ? 'space-between' : 'flex-start'};
     margin: 0 -${({ spacing }) => (spacing || 0) / 2}px;
 
     ${({ distribute }) =>
         typeof distribute === 'string' &&
         css`
-            ${mq[distribute](css`
-                flex-direction: row;
-            `)}
+            ${mq.from(
+                distribute,
+                css`
+                    flex-direction: row;
+                `
+            )}
         `}
 
     ${({ scrollable, spacing }) =>
         scrollable &&
         css`
             ${mq.upTo(
-                'tablet',
+                'sm',
                 css`
                     margin: 0 -${32}px;
                     overflow: auto;
@@ -56,7 +61,11 @@ export const ItemsRow = (props: ItemsRowProps & GeneratedPropsTypes) => {
     const { children, distribute, spacing = 16, ...forwardProps } = props;
 
     return (
-        <ItemsRowWrapper distribute={distribute} {...forwardProps} spacing={spacing}>
+        <ItemsRowWrapper
+            distribute={distribute}
+            {...forwardProps}
+            spacing={spacing}
+        >
             {React.Children.map(children, (child, index) => (
                 <ItemsCol distribute={distribute} key={index} spacing={spacing}>
                     {React.cloneElement(child, { ...child.props, fluid: true })}

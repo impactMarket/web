@@ -18,9 +18,12 @@ const Content = styled.div`
     align-items: center;
     flex-direction: column;
 
-    ${mq.tablet(css`
-        flex-direction: row;
-    `)}
+    ${mq.from(
+        'sm',
+        css`
+            flex-direction: row;
+        `
+    )}
 `;
 
 const Input = styled.input`
@@ -55,12 +58,15 @@ const InputWrapper = styled.div`
     padding-bottom: 1rem;
     width: 100%;
 
-    ${mq.tablet(css`
-        padding-bottom: unset;
-        padding-right: 1rem;
-        font-weight: ${fonts.weights.bold};
-        font-size: 27px;
-    `)}
+    ${mq.from(
+        'sm',
+        css`
+            padding-bottom: unset;
+            padding-right: 1rem;
+            font-weight: ${fonts.weights.bold};
+            font-size: 27px;
+        `
+    )}
 `;
 
 const Label = styled.div`
@@ -75,14 +81,19 @@ const Wrapper = styled.div`
 `;
 
 export const BoldInput = (props: BoldInputProps) => {
-    const { asStaticValue, children, inputPrefix, label, ...inputProps } = props as any;
+    const { asStaticValue, children, inputPrefix, label, ...inputProps } =
+        props as any;
 
     return (
         <Wrapper>
             <Label>{label}</Label>
             <Content>
                 <InputWrapper>
-                    {asStaticValue ? inputProps?.value || 0 : <Input type="number" {...(inputProps as any)} />}
+                    {asStaticValue ? (
+                        inputProps?.value || 0
+                    ) : (
+                        <Input type="number" {...(inputProps as any)} />
+                    )}
                     {inputPrefix && <>{inputPrefix}&nbsp;</>}
                 </InputWrapper>
                 {children}

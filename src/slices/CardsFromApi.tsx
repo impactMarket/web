@@ -126,14 +126,19 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                         </IconWrapper>
                                     )}
                                     <Div ml={1} sFlexDirection="column">
-                                        <Text g500 mb={0.5} medium small>
+                                        <Text
+                                            g500
+                                            mb={0.5}
+                                            sFontWeight={500}
+                                            small
+                                        >
                                             {label}
                                         </Text>
 
                                         <Div flex sAlignItems="flex-end">
                                             {approximately && (
                                                 <Text
-                                                    semibold
+                                                    sFontWeight={600}
                                                     style={{
                                                         fontSize: '1.5rem'
                                                     }}
@@ -142,7 +147,7 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                                 </Text>
                                             )}
                                             <Text
-                                                semibold
+                                                sFontWeight={600}
                                                 style={{ fontSize: '1.5rem' }}
                                             >
                                                 {Math.floor(

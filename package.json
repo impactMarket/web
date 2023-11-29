@@ -57,7 +57,7 @@
         "recharts": "2.9.3",
         "sharethis-reactjs": "1.6.0",
         "styled-components": "5.3.10",
-        "styled-gen": "1.4.8",
+        "styled-gen": "2.0.1",
         "styled-reset": "4.5.1",
         "viem": "1.12.2",
         "wagmi": "1.4.2"

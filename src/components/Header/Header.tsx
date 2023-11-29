@@ -115,7 +115,7 @@ export const Header = () => {
                     sHeight="3rem"
                     sWidth="100%"
                 >
-                    <Text bold>{buttonLabel}</Text>
+                    <Text sFontWeight={700}>{buttonLabel}</Text>
                 </Button>
             </TextLink>
         );

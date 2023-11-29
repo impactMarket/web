@@ -13,8 +13,14 @@ const ThanksButtonsStyled = styled.div`
     gap: 1rem; */
 `;
 
-export const Thanks = ({ setOpenThanksComponent, funds, setFunds, translations }: any) => {
-    const { depositThankYou, depositYourDonation, depositContinue } = translations;
+export const Thanks = ({
+    setOpenThanksComponent,
+    funds,
+    setFunds,
+    translations
+}: any) => {
+    const { depositThankYou, depositYourDonation, depositContinue } =
+        translations;
 
     return (
         <Box flex style={{ flexDirection: 'column', gap: '2rem' }}>
@@ -43,11 +49,11 @@ export const Thanks = ({ setOpenThanksComponent, funds, setFunds, translations }
                         });
                     }}
                 >
-                    <Text semibold>{depositContinue}</Text>
+                    <Text sFontWeight={600}>{depositContinue}</Text>
                 </Button>
                 {/* Hide for now
                 <Button icon="share" secondary>
-                    <Text semibold>{depositShare}</Text>
+                    <Text  sFontWeight={600}>{depositShare}</Text>
                 </Button> */}
             </ThanksButtonsStyled>
         </Box>

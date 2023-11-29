@@ -1,6 +1,8 @@
 import { GeneratedPropsTypes } from '../../Types';
 import { colors } from '../../variables/colors';
-import { ease, generateProps, transitions } from 'styled-gen';
+import { generateProps } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { fonts } from '../../variables/fonts';
 import Link from 'next/link';
 import React from 'react';
@@ -38,7 +40,8 @@ const TextLinkElement = styled.a<TextLinkProps>`
     ${transitions(['text-shadow'], 250, ease.outSine)};
 
     align-items: center;
-    color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.textPrimary)};
+    color: ${({ isActive }) =>
+        isActive ? colors.brandPrimary : colors.textPrimary};
     cursor: ${({ isActive }) => (isActive ? 'default !important' : 'pointer')};
     display: inline-flex;
 
@@ -60,7 +63,9 @@ export const TLink = (props: TextLinkProps) => {
 
     const Wrapper = isInternal ? Link : React.Fragment;
     const wrapperProps = (isInternal ? { href, passHref: true } : {}) as any;
-    const linkProps = isInternal ? { href } : { href, rel: 'noopener noreferrer', target: '_blank' };
+    const linkProps = isInternal
+        ? { href }
+        : { href, rel: 'noopener noreferrer', target: '_blank' };
 
     return (
         <Wrapper {...wrapperProps}>

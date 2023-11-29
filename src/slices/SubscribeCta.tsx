@@ -42,7 +42,9 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     // Send to component X if url has hash
     useEffect(() => {
         if (document.getElementById(location.hash.slice(1))) {
-            document.getElementById(location.hash.slice(1)).scrollIntoView({ block: 'center' });
+            document
+                .getElementById(location.hash.slice(1))
+                .scrollIntoView({ block: 'center' });
         }
     }, [location.hash]);
 
@@ -51,7 +53,7 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
     const handleChange = (event: any) => {
         const { name, value } = event.target;
 
-        setFields(fields => ({ ...fields, [name]: value }));
+        setFields((fields) => ({ ...fields, [name]: value }));
         if (errorMessage) {
             setErrorMessage('');
         }
@@ -81,7 +83,11 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
         }
 
         setIsLoading(true);
-        const { success } = await Api.submitHubspotContact({ email, name, recaptchaToken });
+        const { success } = await Api.submitHubspotContact({
+            email,
+            name,
+            recaptchaToken
+        });
 
         setIsLoading(false);
 
@@ -107,7 +113,7 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
                             </Text>
                         ) : (
                             <>
-                                <ItemsRow distribute="tablet" mt={{ md: 1, xs: 2 }}>
+                                <ItemsRow distribute="md" mt={{ md: 1, xs: 2 }}>
                                     <Input
                                         lg
                                         name="name"
@@ -128,7 +134,13 @@ const SubscribeCta = (props: SubscribeCtaSliceType) => {
                                         withLightBackground
                                     />
                                 </ItemsRow>
-                                <Button fluid isLoading={isLoading} large mt={1} onClick={handleSubscribe}>
+                                <Button
+                                    fluid
+                                    isLoading={isLoading}
+                                    large
+                                    mt={1}
+                                    onClick={handleSubscribe}
+                                >
                                     <String id="subscribe" />
                                 </Button>
                                 <RichContentFormat mt={1}>

@@ -24,7 +24,9 @@ const radiusVariations = {
     `
 };
 
-type CardProps = GeneratedPropsTypes & BoolProps<typeof borderVariations> & BoolProps<typeof radiusVariations>;
+type CardProps = GeneratedPropsTypes &
+    BoolProps<typeof borderVariations> &
+    BoolProps<typeof radiusVariations>;
 
 export const Card = styled.div<CardProps>`
     background-color: ${colors.white};
@@ -46,9 +48,12 @@ export const CardContent = styled.div<GeneratedPropsTypes>`
     justify-content: center;
     padding: 2.5rem 2rem 2rem;
 
-    ${mq.tablet(css`
-        padding: 2rem;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            padding: 2rem;
+        `
+    )}
 
     ${generateProps};
 `;

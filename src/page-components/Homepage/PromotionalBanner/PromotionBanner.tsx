@@ -19,7 +19,9 @@ const PromotionalBannerWrapper = styled.div`
 
 const PromotionalBanner = () => {
     const { extractFromPage } = usePrismicData();
-    const { content, isActive } = extractFromPage('promotionalBanner') as PromotionalBannerType;
+    const { content, isActive } = extractFromPage(
+        'promotionalBanner'
+    ) as PromotionalBannerType;
 
     if (!isActive) {
         return null;
@@ -27,7 +29,7 @@ const PromotionalBanner = () => {
 
     return (
         <PromotionalBannerWrapper>
-            <RichText bold center content={content} />
+            <RichText sFontWeight={700} center content={content} />
         </PromotionalBannerWrapper>
     );
 };

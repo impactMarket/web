@@ -62,11 +62,19 @@ const MapComponent = (props: MapProps) => {
 
             const bounds = new mapboxgl.LngLatBounds();
 
-            claims.forEach(claim => bounds.extend([claim.gps.longitude, claim.gps.latitude]));
-            bounds.setNorthEast({ lat: bounds.getNorthEast().lat + 2, lng: bounds.getNorthEast().lng });
-            bounds.setSouthWest({ lat: bounds.getSouthWest().lat - 2, lng: bounds.getSouthWest().lng });
+            claims.forEach((claim) =>
+                bounds.extend([claim.gps.longitude, claim.gps.latitude])
+            );
+            bounds.setNorthEast({
+                lat: bounds.getNorthEast().lat + 2,
+                lng: bounds.getNorthEast().lng
+            });
+            bounds.setSouthWest({
+                lat: bounds.getSouthWest().lat - 2,
+                lng: bounds.getSouthWest().lng
+            });
 
-            const claimFeatures = claims.map(claim => ({
+            const claimFeatures = claims.map((claim) => ({
                 geometry: {
                     coordinates: [claim.gps.longitude, claim.gps.latitude],
                     type: 'Point'
@@ -77,7 +85,11 @@ const MapComponent = (props: MapProps) => {
             map.fitBounds(bounds);
             map.setMaxZoom(12);
 
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            if (
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                    navigator.userAgent
+                )
+            ) {
                 // true for mobile device
                 map.dragPan.disable();
             }
@@ -141,9 +153,25 @@ const MapComponent = (props: MapProps) => {
                                 'hsl(10, 94%, 56%)'
                             ],
                             // Transition from heatmap to circle layer by zoom level
-                            'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12, 0.5],
+                            'heatmap-opacity': [
+                                'interpolate',
+                                ['linear'],
+                                ['zoom'],
+                                0,
+                                0.8,
+                                12,
+                                0.5
+                            ],
                             // Adjust the heatmap radius by zoom level
-                            'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 1, 12, 20]
+                            'heatmap-radius': [
+                                'interpolate',
+                                ['linear'],
+                                ['zoom'],
+                                0,
+                                1,
+                                12,
+                                20
+                            ]
                         }
                     },
                     'waterway-label'
@@ -161,15 +189,27 @@ const MapComponent = (props: MapProps) => {
 
     if (!mapboxglAccessToken) {
         return (
-            <MapWrapper style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                <Text semibold textSecondary>
+            <MapWrapper
+                style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}
+            >
+                <Text sFontWeight={600} textSecondary>
                     No token to present map
                 </Text>
             </MapWrapper>
         );
     }
 
-    return <MapWrapper onBlur={() => map.dragPan.disable()} onFocus={() => map.dragPan.enable()} ref={mapContainer} />;
+    return (
+        <MapWrapper
+            onBlur={() => map.dragPan.disable()}
+            onFocus={() => map.dragPan.enable()}
+            ref={mapContainer}
+        />
+    );
 };
 
 export const Map = withCookies(MapComponent);

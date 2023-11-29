@@ -11,18 +11,24 @@ const ModalCol = styled.div`
     &:first-of-type {
         width: 100%;
 
-        ${mq.tablet(css`
-            padding-right: 1rem;
-        `)};
+        ${mq.upTo(
+            'md',
+            css`
+                padding-right: 1rem;
+            `
+        )};
     }
 
     &:nth-child(2n) {
         margin-top: 2.5rem;
 
-        ${mq.tablet(css`
-            margin-left: auto;
-            margin-top: unset;
-        `)}
+        ${mq.upTo(
+            'md',
+            css`
+                margin-left: auto;
+                margin-top: unset;
+            `
+        )}
     }
 `;
 
@@ -30,9 +36,12 @@ const ModalContent = styled.div`
     display: flex;
     width: 100%;
 
-    ${mq.phone(css`
-        flex-direction: column;
-    `)}
+    ${mq.upTo(
+        'sm',
+        css`
+            flex-direction: column;
+        `
+    )}
 `;
 
 const ModalWrapper = styled.div`
@@ -52,7 +61,9 @@ type ModalProps = {
 export const ModalAddressDonation = (props: ModalProps) => {
     const { address, controller } = props;
     const { extractFromModals } = usePrismicData();
-    const { heading, text } = extractFromModals('addressDonationModal') as DataProps;
+    const { heading, text } = extractFromModals(
+        'addressDonationModal'
+    ) as DataProps;
 
     return (
         <BaseModal controller={controller} heading={heading} size={620}>

@@ -26,15 +26,18 @@ const ButtonWrapper = styled.button<ButtonProps>`
         color: ${rgba(colors.textSecondary, 0.5)};
     }
 
-    ${mq.tabletLandscape(css`
-        &:not(:disabled) {
-            cursor: pointer;
+    ${mq.upTo(
+        'lg',
+        css`
+            &:not(:disabled) {
+                cursor: pointer;
 
-            &:hover {
-                background-color: ${colors.backgroundLight};
+                &:hover {
+                    background-color: ${colors.backgroundLight};
+                }
             }
-        }
-    `)}
+        `
+    )}
 
     & + & {
         margin-left: 0.5rem;
@@ -43,7 +46,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
     ${generateProps}
 `;
 
-export const IconButton: React.FC<any> = props => {
+export const IconButton: React.FC<any> = (props) => {
     const { icon, ...forwardProps } = props;
 
     return (

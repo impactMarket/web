@@ -52,12 +52,15 @@ const LegendList = styled.ul`
         align-items: center;
     }
 
-    ${mq.tablet(css`
-        padding: 0;
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            padding: 0;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        `
+    )}
 `;
 
 const BorrowersCountriesWrapper = styled.div`
@@ -125,14 +128,14 @@ const CustomTooltip = (props: any) => {
                         ).toFixed(2);
 
                         return (
-                            <Text key={index} semibold small>
+                            <Text key={index} sFontWeight={600} small>
                                 {gender[name]}:{' '}
                                 {!isNaN(percentage) ? `${percentage}%` : '---'}
                             </Text>
                         );
                     }
                 )}
-                <Text semibold small>
+                <Text sFontWeight={600} small>
                     Undisclosed:{' '}
                     {!isNaN(undisclosedPercentage)
                         ? `${undisclosedPercentage}%`

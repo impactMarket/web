@@ -11,9 +11,12 @@ export const ButtonsWrapper = styled(Box)`
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 
-    ${mq.phone(css`
-        grid-template-columns: 1fr;
-    `)}
+    ${mq.upTo(
+        'sm',
+        css`
+            grid-template-columns: 1fr;
+        `
+    )}
 
     .button-content {
         padding: 1rem;

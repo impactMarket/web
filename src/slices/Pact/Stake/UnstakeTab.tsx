@@ -42,7 +42,9 @@ const Unstake = ({ translations }: any) => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(<RichText content={toastMessagesUnstakeError} />);
+                return toast.error(
+                    <RichText content={toastMessagesUnstakeError} />
+                );
             }
 
             setValue('');
@@ -50,14 +52,22 @@ const Unstake = ({ translations }: any) => {
             return toast.success(
                 <RichText
                     content={toastMessagesSuccessfulUnstaked}
-                    variables={{ amount: currencyValue(value, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(value, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
         } catch (error) {
             setIsLoading(false);
             console.log(error);
 
-            return handleKnownErrors(error, <RichText content={toastMessagesUnstakeError} />);
+            return handleKnownErrors(
+                error,
+                <RichText content={toastMessagesUnstakeError} />
+            );
         }
     };
 
@@ -76,13 +86,20 @@ const Unstake = ({ translations }: any) => {
             if (!response?.status) {
                 setClaimIsLoading(false);
 
-                return toast.error(<RichText content={toastMessagesClaimError} />);
+                return toast.error(
+                    <RichText content={toastMessagesClaimError} />
+                );
             }
 
             toast.success(
                 <RichText
                     content={toastMessagesClaimSuccess}
-                    variables={{ amount: currencyValue(claiming, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(claiming, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
 
@@ -91,7 +108,10 @@ const Unstake = ({ translations }: any) => {
             setClaimIsLoading(false);
             console.log(error);
 
-            return handleKnownErrors(error, <RichText content={toastMessagesClaimError} />);
+            return handleKnownErrors(
+                error,
+                <RichText content={toastMessagesClaimError} />
+            );
         }
     };
 
@@ -103,12 +123,24 @@ const Unstake = ({ translations }: any) => {
                     inputPrefix=""
                     label={
                         <>
-                            <Text sColor={colors.g800} semibold span="true" style={{ textTransform: 'capitalize' }}>
+                            <Text
+                                sColor={colors.g800}
+                                sFontWeight={600}
+                                span="true"
+                                style={{ textTransform: 'capitalize' }}
+                            >
                                 <String id="staked" />
                             </Text>
                             : &nbsp;
-                            <Text sColor={colors.g800} sFontSize={1.125} span="true">
-                                {currencyValue(stakedAmount, { isToken: true, symbol: 'PACT' })}
+                            <Text
+                                sColor={colors.g800}
+                                sFontSize={1.125}
+                                span="true"
+                            >
+                                {currencyValue(stakedAmount, {
+                                    isToken: true,
+                                    symbol: 'PACT'
+                                })}
                             </Text>
                         </>
                     }
@@ -116,9 +148,16 @@ const Unstake = ({ translations }: any) => {
                     placeholder="0 PACT"
                     value={value}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
                         {stakedAmount > value && (
-                            <Button onClick={() => setValue(stakedAmount)} secondaryDefault smaller>
+                            <Button
+                                onClick={() => setValue(stakedAmount)}
+                                secondaryDefault
+                                smaller
+                            >
                                 Max.
                             </Button>
                         )}
@@ -143,19 +182,39 @@ const Unstake = ({ translations }: any) => {
                     inputPrefix=" PACT"
                     label={
                         <>
-                            <Text sColor={colors.g800} semibold span="true" style={{ textTransform: 'capitalize' }}>
+                            <Text
+                                sColor={colors.g800}
+                                sFontWeight={600}
+                                span="true"
+                                style={{ textTransform: 'capitalize' }}
+                            >
                                 <String id="claimableUnstaked" />
                             </Text>
                             : &nbsp;
-                            <Text sColor={colors.g800} sFontSize={1.125} span="true">
-                                {currencyValue(claimableUnstaked, { isToken: true, symbol: 'PACT' })}
+                            <Text
+                                sColor={colors.g800}
+                                sFontSize={1.125}
+                                span="true"
+                            >
+                                {currencyValue(claimableUnstaked, {
+                                    isToken: true,
+                                    symbol: 'PACT'
+                                })}
                             </Text>
                         </>
                     }
                     value={claimableUnstaked}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
-                        <Button disabled={!claimableUnstaked} isLoading={claimIsLoading} onClick={handleClaim} smaller>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
+                        <Button
+                            disabled={!claimableUnstaked}
+                            isLoading={claimIsLoading}
+                            onClick={handleClaim}
+                            smaller
+                        >
                             <String id="claim" />
                         </Button>
                     </Div>
@@ -168,7 +227,9 @@ const Unstake = ({ translations }: any) => {
                     <Text center div sColor={colors.g500} sFontSize={0.875}>
                         <RichText
                             content={stakingUnstakeTooltip}
-                            variables={{ period: `${unstakeCooldown} ${t('days')}` }}
+                            variables={{
+                                period: `${unstakeCooldown} ${t('days')}`
+                            }}
                         />
                     </Text>
                 </Div>

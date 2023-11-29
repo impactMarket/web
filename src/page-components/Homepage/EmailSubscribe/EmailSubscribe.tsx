@@ -31,7 +31,7 @@ export const EmailSubscribe = () => {
     const handleChange = (event: any) => {
         const { name, value } = event.target;
 
-        setFields(fields => ({ ...fields, [name]: value }));
+        setFields((fields) => ({ ...fields, [name]: value }));
         if (errorMessage) {
             setErrorMessage('');
         }
@@ -61,7 +61,11 @@ export const EmailSubscribe = () => {
         }
 
         setIsLoading(true);
-        const { success } = await Api.submitHubspotContact({ email, name, recaptchaToken });
+        const { success } = await Api.submitHubspotContact({
+            email,
+            name,
+            recaptchaToken
+        });
 
         setIsLoading(false);
 
@@ -77,7 +81,10 @@ export const EmailSubscribe = () => {
             <Grid sPadding={{ md: '2.75 null', xs: '2 null' }}>
                 <Row center="xs" middle="xs" reverse>
                     <Col md={5} mdOffset={0.5} xs={12}>
-                        <Img alt="Random community people jumping" src="/img/subscribe.png" />
+                        <Img
+                            alt="Random community people jumping"
+                            src="/img/subscribe.png"
+                        />
                     </Col>
                     <Col md={5} mt={{ md: 0, xs: 2 }} xs={12}>
                         <Heading h3>
@@ -89,7 +96,7 @@ export const EmailSubscribe = () => {
                             </Text>
                         ) : (
                             <>
-                                <ItemsRow distribute="tablet" mt={{ md: 1, xs: 2 }}>
+                                <ItemsRow distribute="md" mt={{ md: 1, xs: 2 }}>
                                     <Input
                                         lg
                                         name="name"
@@ -110,7 +117,13 @@ export const EmailSubscribe = () => {
                                         withLightBackground
                                     />
                                 </ItemsRow>
-                                <Button fluid isLoading={isLoading} large mt={1} onClick={handleSubscribe}>
+                                <Button
+                                    fluid
+                                    isLoading={isLoading}
+                                    large
+                                    mt={1}
+                                    onClick={handleSubscribe}
+                                >
                                     <String id="subscribe" />
                                 </Button>
                                 <RichContentFormat mt={1}>

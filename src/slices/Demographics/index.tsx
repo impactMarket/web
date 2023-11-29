@@ -74,7 +74,7 @@ const Demographics = (props: PrismicSlice) => {
                 <Row mt={1}>
                     <Col md={4} sm={6} xs={12}>
                         <DashboardCard>
-                            <Text small g500 medium>
+                            <Text small g500 sFontWeight={500}>
                                 <String id={paidBackAgeRange} />
                             </Text>
                             <AgeRange data={demographicsAgeRange?.paid} />
@@ -82,7 +82,7 @@ const Demographics = (props: PrismicSlice) => {
                     </Col>
                     <Col md={4} mt={{ sm: 0, xs: 2 }} sm={6} xs={12}>
                         <DashboardCard>
-                            <Text small g500 medium>
+                            <Text small g500 sFontWeight={500}>
                                 <String id={borrowerAgeRange} />
                             </Text>
                             <AgeRange data={demographicsAgeRange?.pending} />
@@ -90,7 +90,12 @@ const Demographics = (props: PrismicSlice) => {
                     </Col>
                     <Col md={4} mt={{ md: 0, xs: 2 }} xs={12}>
                         <DashboardCard sPadding={0}>
-                            <Text sPadding="1 1 null 1" small g500 medium>
+                            <Text
+                                sPadding="1 1 null 1"
+                                small
+                                g500
+                                sFontWeight={500}
+                            >
                                 <String id={country} />
                             </Text>
                             <Borrowers

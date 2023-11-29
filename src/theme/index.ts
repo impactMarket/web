@@ -7,19 +7,23 @@ import { flexDirection } from './variables/flexDirection';
 import { flexboxgrid } from './variables/flexboxgrid';
 import { fonts } from './variables/fonts';
 import { generator } from './variables/generator';
+import { durations } from './variables/durations';
+import { ease } from './variables/ease';
+import { breakpoints } from './variables/breakpoints';
 
-const theme = {
+export { colors, fonts };
+
+export const theme = {
     alignments,
+    breakpoints,
     colors,
     container,
     display,
+    durations,
+    ease,
     flexAlignments,
     flexDirection,
     flexboxgrid,
     fonts,
     generator
 };
-
-export { colors, fonts };
-
-export default theme;

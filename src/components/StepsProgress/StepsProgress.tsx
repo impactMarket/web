@@ -15,7 +15,11 @@ type StepProps = {
 const Step = styled.li<StepProps>`
     align-items: center;
     background-color: ${({ isActive, isDone }) =>
-        isActive ? colors.brandPrimary : isDone ? lighten(0.3, colors.success) : colors.inactive};
+        isActive
+            ? colors.brandPrimary
+            : isDone
+            ? lighten(0.3, colors.success)
+            : colors.inactive};
     border-radius: 50%;
     display: flex;
     flex-shrink: 0;
@@ -65,8 +69,12 @@ export const StepsProgress = (props: StepsIndicatorProps) => {
         <StepsWrapper {...forwardProps}>
             <Steps>
                 {steps.map((_, index) => (
-                    <Step isActive={index === activeStep} isDone={index < activeStep} key={index}>
-                        <Text bold small white>
+                    <Step
+                        isActive={index === activeStep}
+                        isDone={index < activeStep}
+                        key={index}
+                    >
+                        <Text sFontWeight={700} small white>
                             {index + 1}
                         </Text>
                     </Step>

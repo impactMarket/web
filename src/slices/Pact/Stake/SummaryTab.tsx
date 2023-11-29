@@ -20,16 +20,25 @@ const Item = styled.div`
         margin-top: 1rem;
     }
 
-    ${mq.tablet(css`
-        align-items: unset;
-        flex-direction: row;
-        justify-content: space-between;
-    `)}
+    ${mq.from(
+        'md',
+        css`
+            align-items: unset;
+            flex-direction: row;
+            justify-content: space-between;
+        `
+    )}
 `;
 
 const Summary = ({ translations }: any) => {
     const { staking } = useStaking();
-    const { estimateClaimableRewardByStaking, generalAPR, stakedAmount, totalStaked, userAPR } = staking || {};
+    const {
+        estimateClaimableRewardByStaking,
+        generalAPR,
+        stakedAmount,
+        totalStaked,
+        userAPR
+    } = staking || {};
 
     const { stakingSummaryItems } = translations;
 
@@ -39,11 +48,17 @@ const Summary = ({ translations }: any) => {
         }
 
         if (helper === 'total') {
-            return currencyValue(totalStaked, { isToken: true, symbol: 'PACT' });
+            return currencyValue(totalStaked, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         if (helper === 'myTotal') {
-            return currencyValue(stakedAmount, { isToken: true, symbol: 'PACT' });
+            return currencyValue(stakedAmount, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         if (helper === 'generalApr') {
@@ -51,7 +66,10 @@ const Summary = ({ translations }: any) => {
         }
 
         if (helper === 'estimatedFromStaking') {
-            return currencyValue(estimateClaimableRewardByStaking, { isToken: true, symbol: 'PACT' });
+            return currencyValue(estimateClaimableRewardByStaking, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         // if (helper === 'earned') {
@@ -63,22 +81,24 @@ const Summary = ({ translations }: any) => {
 
     return (
         <>
-            {stakingSummaryItems?.map(({ helper, label }: any, index: React.Key) => {
-                const data = getData(helper);
+            {stakingSummaryItems?.map(
+                ({ helper, label }: any, index: React.Key) => {
+                    const data = getData(helper);
 
-                if (!data) {
-                    return null;
+                    if (!data) {
+                        return null;
+                    }
+
+                    return (
+                        <Item key={index}>
+                            <Text sColor={colors.g800} sFontWeight={600}>
+                                {label}
+                            </Text>
+                            <Text sColor={colors.g800}>{getData(helper)}</Text>
+                        </Item>
+                    );
                 }
-
-                return (
-                    <Item key={index}>
-                        <Text sColor={colors.g800} semibold>
-                            {label}
-                        </Text>
-                        <Text sColor={colors.g800}>{getData(helper)}</Text>
-                    </Item>
-                );
-            })}
+            )}
         </>
     );
 };

@@ -14,7 +14,7 @@ export const DashboardChartTooltip = (props: DashboardChartTooltipProps) => {
     if (active && payload !== null && tooltip !== undefined) {
         return (
             <TooltipWrapper>
-                <Text semibold small>
+                <Text sFontWeight={600} small>
                     {tooltip(payload, label)}
                 </Text>
             </TooltipWrapper>

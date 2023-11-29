@@ -2,7 +2,9 @@ import { Icon } from '@impact-market/ui';
 import { NewChip, Text, TextLink } from '../../theme/components';
 import { String } from '../../components';
 import { colors } from '../../theme';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -34,14 +36,17 @@ const MenuItemWrapper = styled.div`
         margin-top: 1rem;
     }
 
-    ${mq.tablet(css`
-        flex-direction: row;
-        justify-content: center;
+    ${mq.from(
+        'md',
+        css`
+            flex-direction: row;
+            justify-content: center;
 
-        & + & {
-            margin-top: 0;
-        }
-    `)}
+            & + & {
+                margin-top: 0;
+            }
+        `
+    )}
 `;
 
 const SubmenuItem = styled.a<any>`
@@ -50,37 +55,43 @@ const SubmenuItem = styled.a<any>`
     gap: 1rem;
     width: 100%;
 
-    ${mq.phone(css`
-        padding: 0;
+    ${mq.upTo(
+        'md',
+        css`
+            padding: 0;
 
-        ${({ isActive }: any) =>
-            isActive &&
-            css`
-                color: ${colors.brandPrimary};
-            `}
-    `)}
+            ${({ isActive }: any) =>
+                isActive &&
+                css`
+                    color: ${colors.brandPrimary};
+                `}
+        `
+    )}
 
-    ${mq.tablet(css`
-        ${transitions(['background-color'], 250, ease.outSine)};
+    ${mq.from(
+        'md',
+        css`
+            ${transitions(['background-color'], 250, ease.outSine)};
 
-        border-radius: 0.25rem;
-        white-space: nowrap;
+            border-radius: 0.25rem;
+            white-space: nowrap;
 
-        & + & {
-            margin-top: 0.5rem;
-        }
+            & + & {
+                margin-top: 0.5rem;
+            }
 
-        ${({ isActive }: any) =>
-            isActive
-                ? css`
-                      cursor: default !important;
-                  `
-                : css`
-                      &:hover {
-                          background-color: ${colors.backgroundLight};
-                      }
-                  `}
-    `)}
+            ${({ isActive }: any) =>
+                isActive
+                    ? css`
+                          cursor: default !important;
+                      `
+                    : css`
+                          &:hover {
+                              background-color: ${colors.backgroundLight};
+                          }
+                      `}
+        `
+    )}
 `;
 
 const SubmenuText = styled.div`
@@ -109,18 +120,21 @@ const SubmenuContent = styled.div<any>`
         padding: 0.7rem;
     }
 
-    ${mq.phone(css`
-        margin-top: 1.3rem;
-        margin-bottom: 1rem;
-        gap: 0.5rem;
-        padding: 0;
-
-        a:first-child a,
-        a a,
-        a:last-child a {
+    ${mq.upTo(
+        'sm',
+        css`
+            margin-top: 1.3rem;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
             padding: 0;
-        }
-    `)}
+
+            a:first-child a,
+            a a,
+            a:last-child a {
+                padding: 0;
+            }
+        `
+    )}
 `;
 
 const SubmenuWrapper = styled.div<any>`
@@ -132,42 +146,53 @@ const SubmenuWrapper = styled.div<any>`
     width: max-content;
     max-width: 400px;
 
-    ${mq.tablet(css`
-        ${transitions(['opacity', 'transform', 'visibility'], 250, ease.inOutCubic)};
-
-        background-color: ${colors.white};
-        border-radius: 0.375rem;
-        border: 1px solid ${colors.g200};
-        box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1), 0px 4px 6px -2px rgba(16, 24, 40, 0.05);
-        height: auto;
-        left: 0;
-        margin-top: 0.75rem;
-        opacity: 0;
-        position: absolute;
-        top: calc(100% + 0.5rem);
-        transform: translateY(1rem);
-        visibility: hidden;
-
-        ${({ isVisible }: any) =>
-            isVisible &&
+    ${(props) =>
+        mq.upTo(
+            'md',
             css`
-                opacity: 1;
-                transform: translateY(0);
-                visibility: visible;
-            `}
-    `)}
+                width: 100%;
+                height: ${props.isVisible ? 'fit-content' : 0};
+                overflow: auto;
+            `
+        )}
 
-    ${props =>
-        mq.phone(css`
-            width: 100%;
-            height: ${props.isVisible ? 'fit-content' : 0};
-            overflow: auto;
-        `)}
+    ${mq.from(
+        'md',
+        css`
+            ${transitions(
+                ['opacity', 'transform', 'visibility'],
+                250,
+                ease.inOutCubic
+            )};
+
+            background-color: ${colors.white};
+            border-radius: 0.375rem;
+            border: 1px solid ${colors.g200};
+            box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1),
+                0px 4px 6px -2px rgba(16, 24, 40, 0.05);
+            height: auto;
+            left: 0;
+            margin-top: 0.75rem;
+            opacity: 0;
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            transform: translateY(1rem);
+            visibility: hidden;
+
+            ${({ isVisible }: any) =>
+                isVisible &&
+                css`
+                    opacity: 1;
+                    transform: translateY(0);
+                    visibility: visible;
+                `}
+        `
+    )}
 `;
 
 const MobileSubmenuLinks = styled(TextLink)`
     ${mq.upTo(
-        'tablet',
+        'md',
         css`
             background-color: ${colors.g50};
             border-radius: 1rem;
@@ -191,7 +216,13 @@ const LinkWrapper = (props: { children: any; url?: string }) => {
 };
 
 export const MenuItem = (props: MenuItemProps) => {
-    const { isMenuVisible, label, setIsMenuVisible, items: submenu, url } = props;
+    const {
+        isMenuVisible,
+        label,
+        setIsMenuVisible,
+        items: submenu,
+        url
+    } = props;
     const [submenuActive, setSubmenuActive] = useState(false);
     const { asPath } = useRouter();
     const submenuRef = useRef<HTMLDivElement>();
@@ -205,7 +236,10 @@ export const MenuItem = (props: MenuItemProps) => {
 
     const checkActiveRoute = (url: any | any[]) => {
         if (Array.isArray(url)) {
-            return url.reduce((result, item) => result || checkRoute(item), false);
+            return url.reduce(
+                (result, item) => result || checkRoute(item),
+                false
+            );
         }
 
         return checkRoute(url);
@@ -241,15 +275,28 @@ export const MenuItem = (props: MenuItemProps) => {
                     href={url}
                     isActive={checkActiveRoute(url || submenu)}
                     onClick={() => handleLinkClick(url || submenu)}
-                    rel={!!url && !url?.startsWith('/') && url ? 'noreferrer noopener' : undefined}
-                    target={!!url && !url?.startsWith('/') && url ? '_blank' : undefined}
+                    rel={
+                        !!url && !url?.startsWith('/') && url
+                            ? 'noreferrer noopener'
+                            : undefined
+                    }
+                    target={
+                        !!url && !url?.startsWith('/') && url
+                            ? '_blank'
+                            : undefined
+                    }
                 >
                     {label}
-                    {!!submenu?.[0]?.label && <Icon g500 icon="chevronDown" ml={0.5} size={1.3} />}
+                    {!!submenu?.[0]?.label && (
+                        <Icon g500 icon="chevronDown" ml={0.5} size={1.3} />
+                    )}
                 </TextLink>
             </LinkWrapper>
             {!!submenu?.[0]?.label && (
-                <SubmenuWrapper elHeight={submenuRef?.current?.clientHeight || 0} isVisible={submenuActive}>
+                <SubmenuWrapper
+                    elHeight={submenuRef?.current?.clientHeight || 0}
+                    isVisible={submenuActive}
+                >
                     <SubmenuContent ref={submenuRef}>
                         {submenu.map(
                             (item: MenuItemType, index) =>
@@ -258,26 +305,44 @@ export const MenuItem = (props: MenuItemProps) => {
                                     <LinkWrapper key={index} url={item?.url}>
                                         <MobileSubmenuLinks
                                             href={item?.url}
-                                            isActive={checkActiveRoute(item?.url)}
-                                            onClick={() => handleLinkClick(item?.url)}
+                                            isActive={checkActiveRoute(
+                                                item?.url
+                                            )}
+                                            onClick={() =>
+                                                handleLinkClick(item?.url)
+                                            }
                                             rel={
-                                                !!item?.url && !item?.url?.startsWith('/') && item?.url
+                                                !!item?.url &&
+                                                !item?.url?.startsWith('/') &&
+                                                item?.url
                                                     ? 'noreferrer noopener'
                                                     : undefined
                                             }
                                             sWidth="100%"
                                             target={
-                                                !!item?.url && !item?.url?.startsWith('/') && item?.url
+                                                !!item?.url &&
+                                                !item?.url?.startsWith('/') &&
+                                                item?.url
                                                     ? '_blank'
                                                     : undefined
                                             }
                                         >
                                             <SubmenuItem>
-                                                <Icon icon={item?.icon} p500 size={1.3} />
+                                                <Icon
+                                                    icon={item?.icon}
+                                                    p500
+                                                    size={1.3}
+                                                />
                                                 <SubmenuText>
                                                     <Flex>
                                                         <SubmenuTitle>
-                                                            <Text sFontWeight={500}>{item.label}</Text>
+                                                            <Text
+                                                                sFontWeight={
+                                                                    500
+                                                                }
+                                                            >
+                                                                {item.label}
+                                                            </Text>
                                                         </SubmenuTitle>
                                                         {item?.new && (
                                                             <NewChip>
@@ -291,7 +356,10 @@ export const MenuItem = (props: MenuItemProps) => {
                                                         sFontWeight={400}
                                                         sLineHeight="20px"
                                                     >
-                                                        {item?.description[0]?.text}
+                                                        {
+                                                            item?.description[0]
+                                                                ?.text
+                                                        }
                                                     </Text>
                                                 </SubmenuText>
                                             </SubmenuItem>

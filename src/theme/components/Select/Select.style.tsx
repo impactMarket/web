@@ -1,10 +1,12 @@
 import { GeneratedPropsTypes } from '../../Types';
 import { OptionListProps } from './Select';
 import { colors } from '../../variables/colors';
-import { ease, generateProps, mq, transitions } from 'styled-gen';
+import { generateProps, mq } from 'styled-gen';
 import { fonts } from '../../variables/fonts';
 import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 
 export const OptionItem = styled.a<{ isActive?: boolean }>`
     padding: 0.75rem 0.75rem;
@@ -25,7 +27,11 @@ export const OptionItem = styled.a<{ isActive?: boolean }>`
 `;
 
 export const OptionList = styled.div<{ isVisible?: boolean } & OptionListProps>`
-    ${transitions(['opacity', 'transform', 'visibility'], 250, ease.inOutCubic)};
+    ${transitions(
+        ['opacity', 'transform', 'visibility'],
+        250,
+        ease.inOutCubic
+    )};
 
     background-color: ${colors.white};
     display: flex;
@@ -73,14 +79,17 @@ export const OptionList = styled.div<{ isVisible?: boolean } & OptionListProps>`
             top: calc(100% + 0.5rem);
             transform: translateY(1rem);
 
-            ${mq.tablet(css`
-                min-width: 8.25rem;
-                width: unset;
+            ${mq.upTo(
+                'md',
+                css`
+                    min-width: 8.25rem;
+                    width: unset;
 
-                a {
-                    border-radius: 0.25rem;
-                }
-            `)}
+                    a {
+                        border-radius: 0.25rem;
+                    }
+                `
+            )}
 
             ${
                 isVisible &&

@@ -2,7 +2,9 @@ import { BoolProps, GeneratedPropsTypes } from '../../Types';
 import { Spinner } from '../Spinner/Spinner';
 import { colors } from '../../variables/colors';
 import { darken, rgba } from 'polished';
-import { ease, generateProps, transitions, variations } from 'styled-gen';
+import { generateProps, variations } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { fonts } from '../../variables/fonts';
 import Link from 'next/link';
 import React from 'react';
@@ -290,7 +292,11 @@ type ButtonMiscVariations = BoolProps<typeof miscVariations>;
 type ButtonSizeVariations = BoolProps<typeof sizeVariations>;
 
 const ButtonWrapper = styled.button<ButtonProps>`
-    ${transitions(['background-color', 'box-shadow', 'color'], 250, ease.outSine)};
+    ${transitions(
+        ['background-color', 'box-shadow', 'color'],
+        250,
+        ease.outSine
+    )};
 
     align-items: center;
     border-radius: 8px;
@@ -330,15 +336,26 @@ export const Button = (props: ButtonProps) => {
 
     const Wrapper = isInternalLink ? Link : React.Fragment;
 
-    const wrapperProps = (isInternalLink ? { href, passHref: true } : {}) as any;
+    const wrapperProps = (
+        isInternalLink ? { href, passHref: true } : {}
+    ) as any;
 
     return (
         <Wrapper {...wrapperProps}>
-            <ButtonWrapper as={href ? 'a' : 'button'} disabled={isLoading} href={href} {...forwardProps}>
+            <ButtonWrapper
+                as={href ? 'a' : 'button'}
+                disabled={isLoading}
+                href={href}
+                {...forwardProps}
+            >
                 <Spinner
-                    backgroundColor={!forwardProps.white ? colors.brandPrimary : colors.white}
+                    backgroundColor={
+                        !forwardProps.white ? colors.brandPrimary : colors.white
+                    }
                     isLoading={isLoading}
-                    spinnerColor={forwardProps.white ? colors.brandPrimary : colors.white}
+                    spinnerColor={
+                        forwardProps.white ? colors.brandPrimary : colors.white
+                    }
                 />
                 {children}
             </ButtonWrapper>

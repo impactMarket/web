@@ -1,9 +1,24 @@
 /* eslint-disable radix */
-import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Div, IconButton, Text, TooltipWrapper } from '../../../theme/components';
+import {
+    Bar,
+    BarChart,
+    LabelList,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
+} from 'recharts';
+import {
+    Div,
+    IconButton,
+    Text,
+    TooltipWrapper
+} from '../../../theme/components';
 import { String } from '../../../components';
 import { colors } from '../../../theme/variables/colors';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import React, { useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -45,12 +60,15 @@ const LegendList = styled.ul`
         align-items: center;
     }
 
-    ${mq.tablet(css`
-        padding: 0;
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            padding: 0;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        `
+    )}
 `;
 
 const BeneficiariesCountriesWrapper = styled.div`
@@ -99,23 +117,36 @@ const CustomTooltip = (props: any) => {
     const { active, payload = [] } = props;
 
     if (active && payload?.length) {
-        const undisclosedPercentage = +((payload[0]?.payload?.undisclosed / payload[0]?.payload?.total) * 100).toFixed(
-            2
-        );
+        const undisclosedPercentage = +(
+            (payload[0]?.payload?.undisclosed / payload[0]?.payload?.total) *
+            100
+        ).toFixed(2);
 
         return (
             <TooltipWrapper>
-                {payload.map(({ name, payload: { total }, value }: any, index: number) => {
-                    const percentage = +((parseInt(value) / total) * 100).toFixed(2);
+                {payload.map(
+                    (
+                        { name, payload: { total }, value }: any,
+                        index: number
+                    ) => {
+                        const percentage = +(
+                            (parseInt(value) / total) *
+                            100
+                        ).toFixed(2);
 
-                    return (
-                        <Text key={index} semibold small>
-                            {gender[name]}: {!isNaN(percentage) ? `${percentage}%` : '---'}
-                        </Text>
-                    );
-                })}
-                <Text semibold small>
-                    Undisclosed: {!isNaN(undisclosedPercentage) ? `${undisclosedPercentage}%` : '---'}
+                        return (
+                            <Text key={index} sFontWeight={600} small>
+                                {gender[name]}:{' '}
+                                {!isNaN(percentage) ? `${percentage}%` : '---'}
+                            </Text>
+                        );
+                    }
+                )}
+                <Text sFontWeight={600} small>
+                    Undisclosed:{' '}
+                    {!isNaN(undisclosedPercentage)
+                        ? `${undisclosedPercentage}%`
+                        : '---'}
                 </Text>
             </TooltipWrapper>
         );
@@ -129,7 +160,13 @@ const CustomYAxisTick = (props: { y: number; payload: any }) => {
 
     return (
         <g transform={`translate(${0},${y + 3})`}>
-            <text fill={colors.textPrimary} fontSize={10} textAnchor="start" x={0} y={0}>
+            <text
+                fill={colors.textPrimary}
+                fontSize={10}
+                textAnchor="start"
+                x={0}
+                y={0}
+            >
                 {payload.value}
             </text>
         </g>
@@ -144,7 +181,11 @@ type PaginationStateProps = {
 
 export const Beneficiaries = (props: BeneficiariesProps) => {
     const { data, countriesCount } = props;
-    const [pagination, setPagination] = useState<PaginationStateProps>({ first: 1, last: 6, page: 0 });
+    const [pagination, setPagination] = useState<PaginationStateProps>({
+        first: 1,
+        last: 6,
+        page: 0
+    });
 
     const changePage = (page: number) => {
         let nextPage = page;
@@ -158,26 +199,32 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
         }
 
         const first = 6 * nextPage + 1;
-        const last = nextPage + 1 === data.length ? countriesCount : first - 1 + 6;
+        const last =
+            nextPage + 1 === data.length ? countriesCount : first - 1 + 6;
 
         return setPagination({ first, last, page: nextPage });
     };
 
     const rightOffset = useMemo(() => {
         const offsetArr = data.reduce((result: any, arr: any) => {
-            const innerResults = arr.reduce((arrResult: any, innerData: any) => {
-                if (!innerData) {
+            const innerResults = arr.reduce(
+                (arrResult: any, innerData: any) => {
+                    if (!innerData) {
+                        return arrResult;
+                    }
+
+                    const offset =
+                        Math.floor(innerData?.total?.toString()?.length) * 10 ||
+                        10;
+
+                    if (offset > arrResult) {
+                        return offset;
+                    }
+
                     return arrResult;
-                }
-
-                const offset = Math.floor(innerData?.total?.toString()?.length) * 10 || 10;
-
-                if (offset > arrResult) {
-                    return offset;
-                }
-
-                return arrResult;
-            }, []);
+                },
+                []
+            );
 
             return [...result, innerResults];
         }, []);
@@ -190,44 +237,72 @@ export const Beneficiaries = (props: BeneficiariesProps) => {
             <Legend />
             <BeneficiariesCountries>
                 {data.map((chartData: any, index: number) => (
-                    <BeneficiariesCountriesPage activePage={pagination.page} key={index}>
+                    <BeneficiariesCountriesPage
+                        activePage={pagination.page}
+                        key={index}
+                    >
                         <ResponsiveContainer height={140} width="100%">
                             <BarChart
                                 barSize={10}
                                 data={chartData}
                                 layout="vertical"
-                                margin={{ bottom: 0, left: 0, right: rightOffset[index] || 0, top: 0 }}
+                                margin={{
+                                    bottom: 0,
+                                    left: 0,
+                                    right: rightOffset[index] || 0,
+                                    top: 0
+                                }}
                             >
                                 <XAxis hide type="number" />
                                 <YAxis
                                     axisLine={false}
                                     dataKey="country"
                                     interval={0}
-                                    tick={tickProps => <CustomYAxisTick {...tickProps} />}
+                                    tick={(tickProps) => (
+                                        <CustomYAxisTick {...tickProps} />
+                                    )}
                                     tickLine={false}
                                     type="category"
                                     width={90}
                                 />
                                 <Tooltip
                                     content={<CustomTooltip />}
-                                    cursor={{ fill: colors.backgroundLight, radius: 8 }}
+                                    cursor={{
+                                        fill: colors.backgroundLight,
+                                        radius: 8
+                                    }}
                                 />
-                                {Object.keys(gender).map((genderType, index) => {
-                                    const isLast = Object.keys(gender).length === index + 1;
-                                    const isFirst = !index;
+                                {Object.keys(gender).map(
+                                    (genderType, index) => {
+                                        const isLast =
+                                            Object.keys(gender).length ===
+                                            index + 1;
+                                        const isFirst = !index;
 
-                                    return (
-                                        <Bar
-                                            dataKey={genderType}
-                                            fill={genderColors[genderType]}
-                                            key={index}
-                                            radius={[isFirst ? 4 : 0, isLast ? 4 : 0, isLast ? 4 : 0, isFirst ? 4 : 0]}
-                                            stackId="a"
-                                        >
-                                            {isLast && <LabelList dataKey="total" offset={8} position="right" />}
-                                        </Bar>
-                                    );
-                                })}
+                                        return (
+                                            <Bar
+                                                dataKey={genderType}
+                                                fill={genderColors[genderType]}
+                                                key={index}
+                                                radius={[
+                                                    isFirst ? 4 : 0,
+                                                    isLast ? 4 : 0,
+                                                    isLast ? 4 : 0,
+                                                    isFirst ? 4 : 0
+                                                ]}
+                                                stackId="a"
+                                            >
+                                                {isLast && (
+                                                    <LabelList
+                                                        dataKey="total"
+                                                        offset={8}
+                                                        position="right"
+                                                    />
+                                                )}
+                                            </Bar>
+                                        );
+                                    }
+                                )}
                             </BarChart>
                         </ResponsiveContainer>
                     </BeneficiariesCountriesPage>

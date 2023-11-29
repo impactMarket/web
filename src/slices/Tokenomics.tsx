@@ -194,7 +194,11 @@ const Tokenomics = (props: GeneratedPropsTypes & PrismicSlice) => {
                         >
                             <Item>
                                 <RichContentFormat>
-                                    <Text XSmall medium textSecondary>
+                                    <Text
+                                        XSmall
+                                        sFontWeight={500}
+                                        textSecondary
+                                    >
                                         <String
                                             id={getString(
                                                 name as keyof PactMetricsType
@@ -211,7 +215,7 @@ const Tokenomics = (props: GeneratedPropsTypes & PrismicSlice) => {
                                             sWidth={3}
                                         />
                                     ) : (
-                                        <Text bold label2>
+                                        <Text sFontWeight={700} label2>
                                             {getValue(
                                                 name as keyof PactMetricsType
                                             )}

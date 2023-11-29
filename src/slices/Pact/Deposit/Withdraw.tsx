@@ -1,5 +1,9 @@
 import { Box, Icon, Input } from '@impact-market/ui';
-import { ButtonStyled, WithdrawAmountStyled, WithdrawLabelStyled } from './Deposit.style.ts';
+import {
+    ButtonStyled,
+    WithdrawAmountStyled,
+    WithdrawLabelStyled
+} from './Deposit.style.ts';
 import { TLink, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
 import { handleKnownErrors } from '../../../helpers/handleKnownErrors';
@@ -8,7 +12,13 @@ import { useDepositRedirect } from '@impact-market/utils/useDepositRedirect';
 import { useTranslation } from '../../../components/TranslationProvider/TranslationProvider';
 import React, { useState } from 'react';
 
-export const Withdraw = ({ funds, setFunds, setOpenWithdraw, token, translations }: any) => {
+export const Withdraw = ({
+    funds,
+    setFunds,
+    setOpenWithdraw,
+    token,
+    translations
+}: any) => {
     const { t } = useTranslation();
     const {
         depositBack,
@@ -47,7 +57,9 @@ export const Withdraw = ({ funds, setFunds, setOpenWithdraw, token, translations
             setWithdrawAmount('');
             setOpenWithdraw(false);
 
-            return toast.success(t(toastMessagesWithdrawSuccess, { amount: withdrawAmount }));
+            return toast.success(
+                t(toastMessagesWithdrawSuccess, { amount: withdrawAmount })
+            );
         } catch (error) {
             handleKnownErrors(error, t('somethingWrong'));
             setWithdrawIsLoading(false);
@@ -75,12 +87,16 @@ export const Withdraw = ({ funds, setFunds, setOpenWithdraw, token, translations
                         funds: funds?.deposited || 0
                     })}
                     name="withdraw"
-                    onChange={(event: any) => setWithdrawAmount(event.target.value)}
+                    onChange={(event: any) =>
+                        setWithdrawAmount(event.target.value)
+                    }
                     placeholder={depositEnterAmountToWithdraw}
                     suffix="cUSD"
                     type="number"
                     value={withdrawAmount || ''}
-                    withError={withdrawAmount <= '0' && !!withdrawAmount && true}
+                    withError={
+                        withdrawAmount <= '0' && !!withdrawAmount && true
+                    }
                 />
             </WithdrawAmountStyled>
             <ButtonStyled
@@ -88,7 +104,7 @@ export const Withdraw = ({ funds, setFunds, setOpenWithdraw, token, translations
                 isLoading={withdrawIsLoading}
                 onClick={handleWithdraw}
             >
-                <Text semibold>{depositWithdraw}</Text>
+                <Text sFontWeight={600}>{depositWithdraw}</Text>
             </ButtonStyled>
         </Box>
     );

@@ -1,5 +1,12 @@
 import { BoldInput } from '../../../components/BoldInput/BoldInput';
-import { Button, Div, Hr, InfoTooltip, Text, WarningBlock } from '../../../theme/components';
+import {
+    Button,
+    Div,
+    Hr,
+    InfoTooltip,
+    Text,
+    WarningBlock
+} from '../../../theme/components';
 import { String } from '../../../components';
 import { currencyValue } from '../../../helpers/currencyValue';
 import { dateHelpers } from '../../../helpers/dateHelpers';
@@ -12,16 +19,20 @@ import React, { useEffect, useState } from 'react';
 import RichText from '../../../lib/Prismic/components/RichText';
 
 export const Stake = () => {
-    const { approve, stake, stakeRewards, staking, unstakingUserInfo } = useStaking();
+    const { approve, stake, stakeRewards, staking, unstakingUserInfo } =
+        useStaking();
     const { allocated, unstakeCooldown } = staking;
 
-    const [unstakingInfo, setUnstakingInfo] = useState<{ amount: number; cooldown: number }[]>([]);
+    const [unstakingInfo, setUnstakingInfo] = useState<
+        { amount: number; cooldown: number }[]
+    >([]);
 
     const pact = usePACTBalance();
     const { extractFromPage } = usePrismicData();
     const { t } = useTranslation();
 
-    const { allocatedNotes, amountToBeReleased, stakingWarning } = extractFromPage('string') as any;
+    const { allocatedNotes, amountToBeReleased, stakingWarning } =
+        extractFromPage('string') as any;
 
     const toastMessages = extractFromPage('toastMessages') || ({} as any);
 
@@ -72,13 +83,20 @@ export const Stake = () => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(<RichText content={toastMessages?.stakeApproveError} />);
+                return toast.error(
+                    <RichText content={toastMessages?.stakeApproveError} />
+                );
             }
 
             toast.success(
                 <RichText
                     content={toastMessages?.successfulStakeApprove}
-                    variables={{ amount: currencyValue(value, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(value, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
 
@@ -87,7 +105,9 @@ export const Stake = () => {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessages?.stakeApproveError} />);
+            return toast.error(
+                <RichText content={toastMessages?.stakeApproveError} />
+            );
         }
     };
 
@@ -106,7 +126,9 @@ export const Stake = () => {
             setIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(<RichText content={toastMessages?.stakeError} />);
+                return toast.error(
+                    <RichText content={toastMessages?.stakeError} />
+                );
             }
 
             setValue('');
@@ -116,14 +138,21 @@ export const Stake = () => {
             return toast.success(
                 <RichText
                     content={toastMessages?.successfulStaked}
-                    variables={{ amount: currencyValue(value, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(value, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
         } catch (error) {
             setIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessages?.stakeError} />);
+            return toast.error(
+                <RichText content={toastMessages?.stakeError} />
+            );
         }
     };
 
@@ -150,20 +179,29 @@ export const Stake = () => {
             setRewardIsLoading(false);
 
             if (!response?.status) {
-                return toast.error(<RichText content={toastMessages?.stakeAllocatedError} />);
+                return toast.error(
+                    <RichText content={toastMessages?.stakeAllocatedError} />
+                );
             }
 
             return toast.success(
                 <RichText
                     content={toastMessages?.successfulAllocatedStaked}
-                    variables={{ amount: currencyValue(allocated, { isToken: true, symbol: 'PACT' }) }}
+                    variables={{
+                        amount: currencyValue(allocated, {
+                            isToken: true,
+                            symbol: 'PACT'
+                        })
+                    }}
                 />
             );
         } catch (error) {
             setRewardIsLoading(false);
             console.log(error);
 
-            return toast.error(<RichText content={toastMessages?.stakeAllocatedError} />);
+            return toast.error(
+                <RichText content={toastMessages?.stakeAllocatedError} />
+            );
         }
     };
 
@@ -182,7 +220,7 @@ export const Stake = () => {
                     inputPrefix="PACT"
                     label={
                         <>
-                            <Text bold span="true" uppercase>
+                            <Text sFontWeight={700} span="true" uppercase>
                                 <String id="walletBalance" />
                             </Text>
                             : &nbsp;
@@ -193,9 +231,16 @@ export const Stake = () => {
                     placeholder="0"
                     value={value}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
                         {!withApprovedAmount && (
-                            <Button onClick={() => setValue(pact)} silenced smaller>
+                            <Button
+                                onClick={() => setValue(pact)}
+                                silenced
+                                smaller
+                            >
                                 Max.
                             </Button>
                         )}
@@ -208,7 +253,9 @@ export const Stake = () => {
                             smaller
                             successBkg
                         >
-                            <String id={withApprovedAmount ? 'stake' : 'approve'} />
+                            <String
+                                id={withApprovedAmount ? 'stake' : 'approve'}
+                            />
                         </Button>
                     </Div>
                 </BoldInput>
@@ -219,7 +266,7 @@ export const Stake = () => {
                     inputPrefix="PACT"
                     label={
                         <Div>
-                            <Text bold span="true" uppercase>
+                            <Text sFontWeight={700} span="true" uppercase>
                                 <String id="rewardsAllocated" />
                             </Text>
                             <InfoTooltip>
@@ -227,29 +274,44 @@ export const Stake = () => {
                                 {!!unstakingInfo?.length && (
                                     <>
                                         <Hr />
-                                        {unstakingInfo.map(({ amount, cooldown }, index) => (
-                                            <RichText
-                                                content={amountToBeReleased}
-                                                key={index}
-                                                mt={index ? 0.5 : 0}
-                                                small
-                                                variables={{
-                                                    amount: currencyValue(amount, {
-                                                        isToken: true,
-                                                        symbol: 'PACT'
-                                                    }),
-                                                    period: dateHelpers.difference(new Date(cooldown * 1000))
-                                                }}
-                                            />
-                                        ))}
+                                        {unstakingInfo.map(
+                                            ({ amount, cooldown }, index) => (
+                                                <RichText
+                                                    content={amountToBeReleased}
+                                                    key={index}
+                                                    mt={index ? 0.5 : 0}
+                                                    small
+                                                    variables={{
+                                                        amount: currencyValue(
+                                                            amount,
+                                                            {
+                                                                isToken: true,
+                                                                symbol: 'PACT'
+                                                            }
+                                                        ),
+                                                        period: dateHelpers.difference(
+                                                            new Date(
+                                                                cooldown * 1000
+                                                            )
+                                                        )
+                                                    }}
+                                                />
+                                            )
+                                        )}
                                     </>
                                 )}
                             </InfoTooltip>
                         </Div>
                     }
-                    value={currencyValue(allocated, { fixed: 5, isToken: true })}
+                    value={currencyValue(allocated, {
+                        fixed: 5,
+                        isToken: true
+                    })}
                 >
-                    <Div sFlexDirection={{ sm: 'row', xs: 'column' }} sWidth={{ sm: 'unset', xs: '100%' }}>
+                    <Div
+                        sFlexDirection={{ sm: 'row', xs: 'column' }}
+                        sWidth={{ sm: 'unset', xs: '100%' }}
+                    >
                         <Button
                             disabled={!allocated}
                             isLoading={rewardIsLoading}

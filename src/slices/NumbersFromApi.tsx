@@ -179,7 +179,7 @@ export const NumbersFromApi = (props: NumbersFromApiSliceType) => {
                                 href={ctaUrl}
                                 large
                                 linedSecondaryDark
-                                medium
+                                sFontWeight={500}
                                 mt={{ md: 4, xs: 3 }}
                                 sWidth={{ sm: 'unset', xs: '100%' }}
                             >

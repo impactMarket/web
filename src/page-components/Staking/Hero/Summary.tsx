@@ -21,20 +21,31 @@ const Item = styled.div`
         margin-top: 1rem;
     }
 
-    ${mq.tablet(css`
-        align-items: unset;
-        flex-direction: row;
-        justify-content: space-between;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            align-items: unset;
+            flex-direction: row;
+            justify-content: space-between;
+        `
+    )}
 `;
 
 export const Summary = () => {
     const { staking } = useStaking();
-    const { estimateClaimableRewardByStaking, generalAPR, stakedAmount, totalStaked, userAPR } = staking || {};
+    const {
+        estimateClaimableRewardByStaking,
+        generalAPR,
+        stakedAmount,
+        totalStaked,
+        userAPR
+    } = staking || {};
 
     const { extractFromPage } = usePrismicData();
 
-    const { items } = extractFromPage('summary') as { items: { helper: string; label: string }[] };
+    const { items } = extractFromPage('summary') as {
+        items: { helper: string; label: string }[];
+    };
 
     const getData = (helper: string) => {
         if (helper === 'apr') {
@@ -42,11 +53,17 @@ export const Summary = () => {
         }
 
         if (helper === 'total') {
-            return currencyValue(totalStaked, { isToken: true, symbol: 'PACT' });
+            return currencyValue(totalStaked, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         if (helper === 'myTotal') {
-            return currencyValue(stakedAmount, { isToken: true, symbol: 'PACT' });
+            return currencyValue(stakedAmount, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         if (helper === 'generalApr') {
@@ -54,7 +71,10 @@ export const Summary = () => {
         }
 
         if (helper === 'estimatedFromStaking') {
-            return currencyValue(estimateClaimableRewardByStaking, { isToken: true, symbol: 'PACT' });
+            return currencyValue(estimateClaimableRewardByStaking, {
+                isToken: true,
+                symbol: 'PACT'
+            });
         }
 
         // if (helper === 'earned') {
@@ -75,7 +95,7 @@ export const Summary = () => {
 
                 return (
                     <Item key={index}>
-                        <Text bold>{label}</Text>
+                        <Text sFontWeight={700}>{label}</Text>
                         <Text>{getData(helper)}</Text>
                     </Item>
                 );

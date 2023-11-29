@@ -26,9 +26,12 @@ const AddressWrapper = styled.div<any>`
     text-align: center;
     width: 100%;
 
-    ${mq.phone(css`
-        user-select: none !important;
-    `)}
+    ${mq.upTo(
+        'sm',
+        css`
+            user-select: none !important;
+        `
+    )}
 `;
 
 const CopyLink = styled.div`
@@ -51,7 +54,14 @@ export const Address = (
         small?: boolean;
     } & GeneratedPropsTypes
 ) => {
-    const { address, currency, forceEllipsis, renderLabel, small, ...forwardProps } = props;
+    const {
+        address,
+        currency,
+        forceEllipsis,
+        renderLabel,
+        small,
+        ...forwardProps
+    } = props;
     const [copied, setCopied] = useState<any>();
     const { sizes, width } = useDeviceSize();
 
@@ -62,26 +72,46 @@ export const Address = (
     return (
         <Wrapper {...forwardProps}>
             <AddressRow>
-                {!!currency && <Currency currency={currency} mr={0.5} sHeight={2.375} sWidth={2.375} />}
-                <CopyToClipboard onCopy={() => setCopied(Date.now())} text={address}>
+                {!!currency && (
+                    <Currency
+                        currency={currency}
+                        mr={0.5}
+                        sHeight={2.375}
+                        sWidth={2.375}
+                    />
+                )}
+                <CopyToClipboard
+                    onCopy={() => setCopied(Date.now())}
+                    text={address}
+                >
                     <AddressWrapper small={small}>
                         <Copied trigger={copied} />
                         {forceEllipsis ? (
                             <span>
-                                {formatAddress(address, [width < sizes.sm ? 8 : 12, width < sizes.sm ? 8 : 12])}
+                                {formatAddress(address, [
+                                    width < sizes.sm ? 8 : 12,
+                                    width < sizes.sm ? 8 : 12
+                                ])}
                             </span>
                         ) : (
-                            <span>{width < sizes.sm ? formatAddress(address) : address}</span>
+                            <span>
+                                {width < sizes.sm
+                                    ? formatAddress(address)
+                                    : address}
+                            </span>
                         )}
                     </AddressWrapper>
                 </CopyToClipboard>
             </AddressRow>
             <CopyLink>
-                <CopyToClipboard onCopy={() => setCopied(Date.now())} text={address}>
+                <CopyToClipboard
+                    onCopy={() => setCopied(Date.now())}
+                    text={address}
+                >
                     {!!renderLabel ? (
                         renderLabel()
                     ) : (
-                        <Text brandPrimary medium>
+                        <Text brandPrimary sFontWeight={500}>
                             <String id="copyAddress" />
                         </Text>
                     )}

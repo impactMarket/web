@@ -72,7 +72,10 @@ export const Hero = (props: HeroProps) => {
                                     <String id="page.fundraise.hero.countdown.label" />
                                 </Text>
                                 <Heading brandPrimary h4 manrope mt={0.25}>
-                                    <Countdown date={endDate} onEnd={() => setEnded(true)} />
+                                    <Countdown
+                                        date={endDate}
+                                        onEnd={() => setEnded(true)}
+                                    />
                                 </Heading>
                             </>
                         )}
@@ -87,7 +90,13 @@ export const Hero = (props: HeroProps) => {
                             <ShareThis />
                         </Div>
                     </Col>
-                    <Col md={6} mdOffset={1} mt={{ md: 0, xs: 2 }} sm={8} xs={12}>
+                    <Col
+                        md={6}
+                        mdOffset={1}
+                        mt={{ md: 0, xs: 2 }}
+                        sm={8}
+                        xs={12}
+                    >
                         <Card>
                             <CardContent sPadding={2}>
                                 <HeroCardRow>
@@ -96,10 +105,11 @@ export const Hero = (props: HeroProps) => {
                                     </Heading>
                                 </HeroCardRow>
 
-                                {addresses.map(({ address, name: currency }, index) => (
-                                    <HeroCardRow key={index}>
-                                        {/* {currency === 'celo' && (
-                                            <Text mb={0.5} semibold small>
+                                {addresses.map(
+                                    ({ address, name: currency }, index) => (
+                                        <HeroCardRow key={index}>
+                                            {/* {currency === 'celo' && (
+                                            <Text mb={0.5}  sFontWeight={600} small>
                                                 <String id="page.fundraise.hero.addresses.text" />
                                                 {!!learnMoreUrl && (
                                                     <>
@@ -118,30 +128,40 @@ export const Hero = (props: HeroProps) => {
                                                 )}
                                             </Text>
                                         )} */}
-                                        <Address
-                                            address={address}
-                                            currency={currency}
-                                            forceEllipsis
-                                            renderLabel={() => (
-                                                <Text brandPrimary small>
-                                                    <String
-                                                        id="copyWalletAddress"
-                                                        variables={{ currency: t(currency) }}
-                                                    />
-                                                </Text>
-                                            )}
-                                            small
-                                        />
-                                    </HeroCardRow>
-                                ))}
+                                            <Address
+                                                address={address}
+                                                currency={currency}
+                                                forceEllipsis
+                                                renderLabel={() => (
+                                                    <Text brandPrimary small>
+                                                        <String
+                                                            id="copyWalletAddress"
+                                                            variables={{
+                                                                currency:
+                                                                    t(currency)
+                                                            }}
+                                                        />
+                                                    </Text>
+                                                )}
+                                                small
+                                            />
+                                        </HeroCardRow>
+                                    )
+                                )}
                                 <HeroCardRow>
                                     <Div inlineFlex sAlignItems="center">
-                                        <Icon esolidar icon="esolidar" sHeight={2.375} />
+                                        <Icon
+                                            esolidar
+                                            icon="esolidar"
+                                            sHeight={2.375}
+                                        />
                                         <RichContentFormat ml={0.5}>
                                             <Text small>
                                                 <String
                                                     id="page.fundraise.hero.addresses.esolidar.label"
-                                                    variables={{ url: esolidarCampaignUrl }}
+                                                    variables={{
+                                                        url: esolidarCampaignUrl
+                                                    }}
                                                 />
                                             </Text>
                                         </RichContentFormat>

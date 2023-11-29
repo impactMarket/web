@@ -38,7 +38,8 @@ export const Summary = ({
 
     const { address } = useWallet();
     const { donateInterest } = useDepositRedirect();
-    const [donateInterestIsLoading, setDonateInterestIsLoading] = useState(false);
+    const [donateInterestIsLoading, setDonateInterestIsLoading] =
+        useState(false);
 
     const handleDonateInterest = async () => {
         setDonateInterestIsLoading(true);
@@ -63,7 +64,11 @@ export const Summary = ({
 
             setOpenThanksComponent(true);
 
-            return toast.success(t(toastMessagesDonateSuccess, { amount: funds?.availableInterest }));
+            return toast.success(
+                t(toastMessagesDonateSuccess, {
+                    amount: funds?.availableInterest
+                })
+            );
         } catch (error) {
             handleKnownErrors(error, t('somethingWrong'));
             setDonateInterestIsLoading(false);
@@ -91,7 +96,9 @@ export const Summary = ({
             return funds?.availableInterest;
         }
         if (parseFloat(funds?.availableInterest) >= 0.01) {
-            return Math.floor(parseFloat(funds?.availableInterest) * 1000) / 1000;
+            return (
+                Math.floor(parseFloat(funds?.availableInterest) * 1000) / 1000
+            );
         }
 
         return 0;
@@ -114,24 +121,52 @@ export const Summary = ({
                 <>
                     {(funds?.deposited === 0 || !funds?.deposited) &&
                         Math.floor(funds?.cUsdBalance * 100) / 100 > 0 && (
-                            <AlertStyled icon="infoCircle" system title={depositYouHaveNotDepositedYet} />
+                            <AlertStyled
+                                icon="infoCircle"
+                                system
+                                title={depositYouHaveNotDepositedYet}
+                            />
                         )}
                     {Math.floor(funds?.cUsdBalance * 100) / 100 === 0 && (
-                        <AlertStyled error icon="alertCircle" title="You don’t own any Celo Dollar (cUSD)." />
+                        <AlertStyled
+                            error
+                            icon="alertCircle"
+                            title="You don’t own any Celo Dollar (cUSD)."
+                        />
                     )}
                     {funds?.deposited > 0 && (
                         <>
                             {parseFloat(funds?.availableInterest) > 0 && (
-                                <AlertStyled icon="checkCircle" success title={depositYouHaveEarnedInterest} />
+                                <AlertStyled
+                                    icon="checkCircle"
+                                    success
+                                    title={depositYouHaveEarnedInterest}
+                                />
                             )}
                             <FlexWrapperStyled>
-                                <Box inlineFlex style={{ alignItems: 'center' }}>
-                                    <Img sHeight={2} sWidth="auto" src="/img/cusd.png" />
+                                <Box
+                                    inlineFlex
+                                    style={{ alignItems: 'center' }}
+                                >
+                                    <Img
+                                        sHeight={2}
+                                        sWidth="auto"
+                                        src="/img/cusd.png"
+                                    />
                                     <Div ml={0.5} sFlexDirection="column">
-                                        <Text sColor={colors.g800} sFontSize={1} sFontWeight={600} sLineHeight={1.5}>
+                                        <Text
+                                            sColor={colors.g800}
+                                            sFontSize={1}
+                                            sFontWeight={600}
+                                            sLineHeight={1.5}
+                                        >
                                             {fundsDepositedFormat()} cUSD
                                         </Text>
-                                        <Text sColor={colors.g500} sFontSize={0.875} sLineHeight={1.25}>
+                                        <Text
+                                            sColor={colors.g500}
+                                            sFontSize={0.875}
+                                            sLineHeight={1.25}
+                                        >
                                             {depositInterestEarned}
                                             {interestEarnedFormat()} cUSD
                                         </Text>
@@ -148,13 +183,17 @@ export const Summary = ({
                                     </TLink>
                                     <Button
                                         disabled={
-                                            parseFloat(funds?.availableInterest) <= 0 || !funds?.availableInterest
+                                            parseFloat(
+                                                funds?.availableInterest
+                                            ) <= 0 || !funds?.availableInterest
                                         }
                                         isLoading={donateInterestIsLoading}
                                         onClick={handleDonateInterest}
                                         secondary
                                     >
-                                        <Text semibold>{depositDonateInterest}</Text>
+                                        <Text sFontWeight={600}>
+                                            {depositDonateInterest}
+                                        </Text>
                                     </Button>
                                 </Box>
                             </FlexWrapperStyled>
@@ -169,20 +208,27 @@ export const Summary = ({
                     icon="coins"
                     onClick={() => setOpenDeposit(true)}
                 >
-                    <Text medium>{funds?.deposited > 0 ? depositDepositMore : depositDepositCusd}</Text>
+                    <Text sFontWeight={500}>
+                        {funds?.deposited > 0
+                            ? depositDepositMore
+                            : depositDepositCusd}
+                    </Text>
                 </Button>
             )}
 
-            {!openDeposit && !openWithdraw && !openThanksComponent && parseFloat(funds?.totalInterest) > 0 && (
-                <FlexWrapperStyled style={{ gap: '0' }}>
-                    <Text pr={1} sColor={colors.g800} semibold>
-                        {depositTotalEarnedInterest}
-                    </Text>
-                    <Text sColor={colors.g800} sFontWeight={400}>
-                        ~{interestDonatedFormat()} USD
-                    </Text>
-                </FlexWrapperStyled>
-            )}
+            {!openDeposit &&
+                !openWithdraw &&
+                !openThanksComponent &&
+                parseFloat(funds?.totalInterest) > 0 && (
+                    <FlexWrapperStyled style={{ gap: '0' }}>
+                        <Text pr={1} sColor={colors.g800} sFontWeight={600}>
+                            {depositTotalEarnedInterest}
+                        </Text>
+                        <Text sColor={colors.g800} sFontWeight={400}>
+                            ~{interestDonatedFormat()} USD
+                        </Text>
+                    </FlexWrapperStyled>
+                )}
         </Box>
     );
 };

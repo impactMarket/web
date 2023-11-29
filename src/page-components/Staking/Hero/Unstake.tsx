@@ -40,7 +40,10 @@ export const Unstake = () => {
             setIsLoading(false);
 
             if (!response?.status) {
-                processTransactionError(new Error('not valid status'), 'unstake');
+                processTransactionError(
+                    new Error('not valid status'),
+                    'unstake'
+                );
                 return toast.error(
                     <RichText content={toastMessages?.unstakeError} />
                 );
@@ -83,7 +86,10 @@ export const Unstake = () => {
 
             if (!response?.status) {
                 setClaimIsLoading(false);
-                processTransactionError(new Error('not valid status'), 'claim-unstaked');
+                processTransactionError(
+                    new Error('not valid status'),
+                    'claim-unstaked'
+                );
 
                 return toast.error(
                     <RichText content={toastMessages?.claimError} />
@@ -121,7 +127,7 @@ export const Unstake = () => {
                     inputPrefix="PACT"
                     label={
                         <>
-                            <Text bold span="true" uppercase>
+                            <Text sFontWeight={700} span="true" uppercase>
                                 <String id="staked" />
                             </Text>
                             : &nbsp;
@@ -174,7 +180,7 @@ export const Unstake = () => {
                     inputPrefix="PACT"
                     label={
                         <>
-                            <Text bold span="true" uppercase>
+                            <Text sFontWeight={700} span="true" uppercase>
                                 <String id="claimableUnstaked" />
                             </Text>
                             : &nbsp;

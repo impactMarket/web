@@ -27,10 +27,14 @@ const toastType: { [key in TypeOptions]: ToastTypeOptions } = {
     warning: { color: 'warning', icon: 'circleWarning' }
 };
 
-const Toast = ({ color, children, icon }: { children: any } & ToastTypeOptions) => (
+const Toast = ({
+    color,
+    children,
+    icon
+}: { children: any } & ToastTypeOptions) => (
     <ToastWrapper>
         <Icon icon={icon} mr={0.75} sColor={color} sHeight={1.375} />
-        <Text div medium small textPrimary>
+        <Text div sFontWeight={500} small textPrimary>
             {children}
         </Text>
     </ToastWrapper>
@@ -38,13 +42,17 @@ const Toast = ({ color, children, icon }: { children: any } & ToastTypeOptions) 
 
 const types = Object.keys(toastType) as (keyof typeof toastType)[];
 
-export const toast: { [key in TypeOptions]: (content: string | ReactElement) => React.ReactText } = types.reduce(
+export const toast: {
+    [key in TypeOptions]: (content: string | ReactElement) => React.ReactText;
+} = types.reduce(
     (methods: any, type: TypeOptions) => ({
         ...methods,
         [type]: (content: string) => {
             const toastProps = toastType[type];
 
-            return toastifyToast(<Toast {...toastProps}>{content}</Toast>, { type });
+            return toastifyToast(<Toast {...toastProps}>{content}</Toast>, {
+                type
+            });
         }
     }),
     {}

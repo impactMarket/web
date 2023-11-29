@@ -1,7 +1,8 @@
 import { Div, Icon } from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { colors } from '../../theme';
-import { ease, transitions } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import React from 'react';
 import styled from 'styled-components';
@@ -23,7 +24,7 @@ const SocialLink = styled.a.attrs({
 })`
     ${transitions(['color', 'text-shadow'], 250, ease.outSine)};
 
-    color: ${props => (props.color ? props.color : colors.brandSecondary)};
+    color: ${(props) => (props.color ? props.color : colors.brandSecondary)};
 
     &:hover {
         color: ${colors.textPrimary};
@@ -36,7 +37,7 @@ type SocialMenuProps = GeneratedPropsTypes & {
 };
 
 type Social = {
-    name: typeof socialIcons[number];
+    name: (typeof socialIcons)[number];
     url: string;
 }[];
 

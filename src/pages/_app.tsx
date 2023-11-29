@@ -22,7 +22,7 @@ import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import Toaster from '../components/Toaster/Toaster';
 import config from '../../config';
-import theme from '../theme';
+import { theme } from '../theme';
 import useFilters from 'src/hooks/useFilters';
 
 const { baseUrl, isProduction, recaptchaKey } = config;

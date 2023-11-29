@@ -81,7 +81,7 @@ const Hero = (props: PrismicSlice) => {
                     sWidth="100%"
                     secondaryBlue={buttonColor === 'white' && true}
                 >
-                    <Text medium>{buttonLabel}</Text>
+                    <Text sFontWeight={500}>{buttonLabel}</Text>
                     {arrowColor && (
                         <Icon
                             icon="right"

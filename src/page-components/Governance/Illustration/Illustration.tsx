@@ -9,9 +9,12 @@ const IllustrationWrapper = styled.div`
     overflow: hidden;
     position: relative;
 
-    ${mq.tabletLandscape(css`
-        height: unset;
-    `)}
+    ${mq.upTo(
+        'lg',
+        css`
+            height: unset;
+        `
+    )}
 
     img {
         display: block;
@@ -19,11 +22,14 @@ const IllustrationWrapper = styled.div`
         position: absolute;
         width: auto;
 
-        ${mq.tabletLandscape(css`
-            height: auto;
-            position: relative;
-            width: 100%;
-        `)}
+        ${mq.upTo(
+            'lg',
+            css`
+                height: auto;
+                position: relative;
+                width: 100%;
+            `
+        )}
     }
 `;
 
