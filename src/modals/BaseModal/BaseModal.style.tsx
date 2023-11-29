@@ -28,8 +28,8 @@ const ModalBackdrop = styled.div<ModalProps>`
             visibility: visible;
         `}
 
-    ${mq.upTo(
-        'md',
+    ${mq.from(
+        'sm',
         css`
             background-color: rgba(23, 32, 50, 0.2);
         `
@@ -61,8 +61,8 @@ const ModalContent = styled.div<ModalProps>`
             visibility: visible;
         `}
 
-    ${mq.upTo(
-        'md',
+    ${mq.from(
+        'sm',
         css`
             ${size('unset')};
 
@@ -95,8 +95,8 @@ const ModalWrapper = styled.div`
 
     -webkit-overflow-scrolling: touch;
 
-    ${mq.upTo(
-        'md',
+    ${mq.from(
+        'sm',
         css`
             display: flex;
             overflow-y: auto;

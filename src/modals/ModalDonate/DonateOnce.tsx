@@ -149,9 +149,11 @@ export const DonateOnce = ({ setDonationType, setDonateValue }: any) => {
                         onClick={handleApprove}
                     >
                         {depositButtonDisabled ? (
-                            <Text semibold>{t('approve-transaction')}</Text>
+                            <Text sFontWeight={600}>
+                                {t('approve-transaction')}
+                            </Text>
                         ) : (
-                            <Text semibold>{t('approved')}</Text>
+                            <Text sFontWeight={600}>{t('approved')}</Text>
                         )}
                     </Button>
                     <Icon icon="chevronRight" />
@@ -165,7 +167,7 @@ export const DonateOnce = ({ setDonationType, setDonateValue }: any) => {
                         isLoading={depositIsLoading}
                         onClick={handleDeposit}
                     >
-                        <Text semibold>{t('donate')}</Text>
+                        <Text sFontWeight={600}>{t('donate')}</Text>
                     </Button>
                 </ButtonsStyled>
             </Box>

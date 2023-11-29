@@ -1,5 +1,11 @@
 /* eslint-disable no-nested-ternary */
-import { AmountStyled, ButtonsStyled, EmailStyled, LabelStyled, PrivacyPolicyStyled } from './Deposit.style.ts';
+import {
+    AmountStyled,
+    ButtonsStyled,
+    EmailStyled,
+    LabelStyled,
+    PrivacyPolicyStyled
+} from './Deposit.style.ts';
 import { Box, Button, Icon, Input } from '@impact-market/ui';
 import { TLink, Text } from '../../../theme/components';
 import { colors } from '../../../theme';
@@ -15,7 +21,13 @@ import React, { useEffect, useState } from 'react';
 import RichText from '../../../lib/Prismic/components/RichText';
 import config from '../../../../config';
 
-export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }: any) => {
+export const Deposit = ({
+    token,
+    funds,
+    setFunds,
+    setOpenDeposit,
+    translations
+}: any) => {
     const { t } = useTranslation();
     const {
         depositApproveAndCheckYourWallet,
@@ -146,7 +158,9 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
             setDepositButtonDisabled(true);
             setOpenDeposit(false);
 
-            return toast.success(t(toastMessagesDepositSuccess, { amount: depositAmount }));
+            return toast.success(
+                t(toastMessagesDepositSuccess, { amount: depositAmount })
+            );
         } catch (error) {
             handleKnownErrors(error, t('somethingWrong'));
             setDepositIsLoading(false);
@@ -172,12 +186,18 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
             <>
                 <AmountStyled>
                     <Input
-                        disabled={Math.floor(funds?.cUsdBalance * 100) / 100 === 0}
+                        disabled={
+                            Math.floor(funds?.cUsdBalance * 100) / 100 === 0
+                        }
                         hint={t(depositYouHaveCusdAvailableToDeposit, {
-                            cUsdBalance: Math.floor(funds?.cUsdBalance * 100) / 100 || '0'
+                            cUsdBalance:
+                                Math.floor(funds?.cUsdBalance * 100) / 100 ||
+                                '0'
                         })}
                         name="deposit"
-                        onChange={(event: any) => setDepositAmount(event.target.value)}
+                        onChange={(event: any) =>
+                            setDepositAmount(event.target.value)
+                        }
                         placeholder={depositEnterAmountToDeposit}
                         suffix="cUSD"
                         type="number"
@@ -190,7 +210,9 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
                         hint={depositThisEmailWillBeNotified}
                         icon="mail"
                         name="email"
-                        onChange={(event: any) => setNewEmail(event.target.value)}
+                        onChange={(event: any) =>
+                            setNewEmail(event.target.value)
+                        }
                         placeholder={depositEnterEmail}
                         type="email"
                         value={newEmail || email || ''}
@@ -200,7 +222,9 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
                     <label>
                         <input
                             checked={privacyPolicyCheck}
-                            onChange={() => setPrivacyPolicyCheck(!privacyPolicyCheck)}
+                            onChange={() =>
+                                setPrivacyPolicyCheck(!privacyPolicyCheck)
+                            }
                             type="checkbox"
                         />
                         <span />
@@ -215,15 +239,18 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
                 </PrivacyPolicyStyled>
             </>
             <Box>
-                {(!!newEmail || !!email) && !!depositAmount && depositButtonDisabled && privacyPolicyCheck && (
-                    <RichText
-                        center
-                        content={depositApproveAndCheckYourWallet}
-                        mb={0.5}
-                        sColor={colors.g500}
-                        sFontSize={0.875}
-                    />
-                )}
+                {(!!newEmail || !!email) &&
+                    !!depositAmount &&
+                    depositButtonDisabled &&
+                    privacyPolicyCheck && (
+                        <RichText
+                            center
+                            content={depositApproveAndCheckYourWallet}
+                            mb={0.5}
+                            sColor={colors.g500}
+                            sFontSize={0.875}
+                        />
+                    )}
                 {!depositButtonDisabled && (
                     <RichText
                         center
@@ -235,7 +262,9 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
                 )}
                 <ButtonsStyled
                     state={
-                        (!!newEmail || !!email) && !!depositAmount && depositButtonDisabled
+                        (!!newEmail || !!email) &&
+                        !!depositAmount &&
+                        depositButtonDisabled
                             ? 'approve'
                             : !depositButtonDisabled && 'deposit'
                     }
@@ -250,11 +279,19 @@ export const Deposit = ({ token, funds, setFunds, setOpenDeposit, translations }
                         isLoading={approveIsLoading}
                         onClick={handleApprove}
                     >
-                        <Text semibold>{!depositButtonDisabled ? depositApproved : depositApproveTransaction}</Text>
+                        <Text sFontWeight={600}>
+                            {!depositButtonDisabled
+                                ? depositApproved
+                                : depositApproveTransaction}
+                        </Text>
                     </Button>
                     <Icon icon="chevronRight" />
-                    <Button disabled={depositButtonDisabled} isLoading={depositIsLoading} onClick={handleDeposit}>
-                        <Text semibold>{depositDepositCusd}</Text>
+                    <Button
+                        disabled={depositButtonDisabled}
+                        isLoading={depositIsLoading}
+                        onClick={handleDeposit}
+                    >
+                        <Text sFontWeight={600}>{depositDepositCusd}</Text>
                     </Button>
                 </ButtonsStyled>
             </Box>

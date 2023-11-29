@@ -215,7 +215,7 @@ const Tokenomics = (props: GeneratedPropsTypes & PrismicSlice) => {
                                             sWidth={3}
                                         />
                                     ) : (
-                                        <Text bold label2>
+                                        <Text sFontWeight={700} label2>
                                             {getValue(
                                                 name as keyof PactMetricsType
                                             )}

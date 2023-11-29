@@ -53,7 +53,7 @@ export const Thanks = ({
                         width: '100%'
                     }}
                 >
-                    <Text semibold>{t('donate-again')}</Text>
+                    <Text sFontWeight={600}>{t('donate-again')}</Text>
                 </Button>
             </Box>
         </Box>

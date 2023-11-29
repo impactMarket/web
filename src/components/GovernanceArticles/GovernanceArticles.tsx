@@ -40,7 +40,8 @@ export const GovernanceArticles = (props: GovernanceArticlesProps) => {
     const { articles } = props;
 
     const visibleArticles = (articles || []).reduce(
-        (result, article) => (article?.isActive ? [...result, article] : result),
+        (result, article) =>
+            article?.isActive ? [...result, article] : result,
         []
     );
 
@@ -53,13 +54,26 @@ export const GovernanceArticles = (props: GovernanceArticlesProps) => {
             <Grid>
                 <Row>
                     {visibleArticles.map(
-                        ({ content, ctaLabel, ctaUrl, heading, icon, isActive }, index) =>
+                        (
+                            {
+                                content,
+                                ctaLabel,
+                                ctaUrl,
+                                heading,
+                                icon,
+                                isActive
+                            },
+                            index
+                        ) =>
                             !!isActive && (
                                 <Col
                                     key={index}
                                     md={12 / visibleArticles.length}
                                     mt={{
-                                        md: index > 12 / visibleArticles.length ? 2 : 0,
+                                        md:
+                                            index > 12 / visibleArticles.length
+                                                ? 2
+                                                : 0,
                                         sm: index > 1 ? 2 : 0,
                                         xs: index ? 2 : 0
                                     }}
@@ -75,7 +89,11 @@ export const GovernanceArticles = (props: GovernanceArticlesProps) => {
                                         <Heading h4 mt={1}>
                                             {heading}
                                         </Heading>
-                                        <RichText content={content} mt={0.5} textSecondary />
+                                        <RichText
+                                            content={content}
+                                            mt={0.5}
+                                            textSecondary
+                                        />
                                         <Div mt="auto" pt={1}>
                                             {!!ctaUrl ? (
                                                 <TextLink
@@ -84,7 +102,11 @@ export const GovernanceArticles = (props: GovernanceArticlesProps) => {
                                                     rel="noopener noreferrer"
                                                     target="_blank"
                                                 >
-                                                    {!!ctaLabel && <Text bold>{ctaLabel || ''}</Text>}
+                                                    {!!ctaLabel && (
+                                                        <Text sFontWeight={700}>
+                                                            {ctaLabel || ''}
+                                                        </Text>
+                                                    )}
                                                     <Icon
                                                         icon="arrowRight"
                                                         ml={!!ctaLabel && 0.5}
@@ -94,7 +116,10 @@ export const GovernanceArticles = (props: GovernanceArticlesProps) => {
                                                 </TextLink>
                                             ) : (
                                                 <FeatureChip>
-                                                    <Text XSmall bold>
+                                                    <Text
+                                                        XSmall
+                                                        sFontWeight={700}
+                                                    >
                                                         <String id="availableSoon" />
                                                     </Text>
                                                 </FeatureChip>

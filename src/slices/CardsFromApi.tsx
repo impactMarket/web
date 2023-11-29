@@ -138,7 +138,7 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                         <Div flex sAlignItems="flex-end">
                                             {approximately && (
                                                 <Text
-                                                    semibold
+                                                    sFontWeight={600}
                                                     style={{
                                                         fontSize: '1.5rem'
                                                     }}
@@ -147,7 +147,7 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                                 </Text>
                                             )}
                                             <Text
-                                                semibold
+                                                sFontWeight={600}
                                                 style={{ fontSize: '1.5rem' }}
                                             >
                                                 {Math.floor(

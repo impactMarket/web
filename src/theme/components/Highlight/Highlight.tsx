@@ -12,7 +12,7 @@ export const Highlight = styled.div<GeneratedPropsTypes>`
     width: 100%;
     flex-direction: column;
 
-    ${mq.upTo(
+    ${mq.from(
         'md',
         css`
             padding: 1rem 1.375rem;
@@ -33,7 +33,7 @@ export const HighlightRow = styled.div`
         margin-top: 0.625rem;
     }
 
-    ${mq.upTo(
+    ${mq.from(
         'md',
         css`
             flex-direction: row;

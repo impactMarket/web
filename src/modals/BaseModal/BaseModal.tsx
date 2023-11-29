@@ -106,7 +106,7 @@ export const BaseModal = (props: ModalComponentProps) => {
                                 </LabelStyled>
                             )}
                             {(!!heading || !!headingKey || !icon) && (
-                                <Heading extrabold h3>
+                                <Heading sFontWeight={800} h3>
                                     {headingKey ? (
                                         <String id={headingKey} />
                                     ) : (

@@ -141,7 +141,7 @@ const AirgrabContent = (props: {
 
     return (
         <Div column sWidth="100%">
-            <Text bold>
+            <Text sFontWeight={700}>
                 <String id="airgrabReward" />
             </Text>
             <Text brandSecondary mt={0.5} small>
@@ -161,7 +161,7 @@ const AirgrabContent = (props: {
                         onClick={handleAirgrabRewardClaimClick}
                         smaller
                     >
-                        <Text semibold span="true">
+                        <Text sFontWeight={600} span="true">
                             <String id="claim" />
                         </Text>
                     </Button>
@@ -245,7 +245,7 @@ const Rewards = (props: { onUpdate: Function }) => {
 
     return (
         <Div column mt={1} sWidth="100%">
-            <Text bold>
+            <Text sFontWeight={700}>
                 <String id="contributionReward" />
             </Text>
             <Text brandSecondary mt={0.5} small>
@@ -271,7 +271,7 @@ const Rewards = (props: { onUpdate: Function }) => {
                             onClick={handleContributionRewardClaimClick}
                             smaller
                         >
-                            <Text semibold span="true">
+                            <Text sFontWeight={600} span="true">
                                 <String id="claim" />
                             </Text>
                         </Button>
@@ -370,7 +370,7 @@ const Epoch = () => {
             <Div column sWidth="100%">
                 {rows.map((value, index) => (
                     <SummaryRow key={index}>
-                        <Text bold>
+                        <Text sFontWeight={700}>
                             <String
                                 id={`breakdown.airgrab.summary.row${index + 1}`}
                             />

@@ -18,8 +18,8 @@ const Content = styled.div`
     align-items: center;
     flex-direction: column;
 
-    ${mq.upTo(
-        'md',
+    ${mq.from(
+        'sm',
         css`
             flex-direction: row;
         `
@@ -58,8 +58,8 @@ const InputWrapper = styled.div`
     padding-bottom: 1rem;
     width: 100%;
 
-    ${mq.upTo(
-        'md',
+    ${mq.from(
+        'sm',
         css`
             padding-bottom: unset;
             padding-right: 1rem;

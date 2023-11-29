@@ -191,7 +191,7 @@ export const Summary = ({
                                         onClick={handleDonateInterest}
                                         secondary
                                     >
-                                        <Text semibold>
+                                        <Text sFontWeight={600}>
                                             {depositDonateInterest}
                                         </Text>
                                     </Button>
@@ -221,7 +221,7 @@ export const Summary = ({
                 !openThanksComponent &&
                 parseFloat(funds?.totalInterest) > 0 && (
                     <FlexWrapperStyled style={{ gap: '0' }}>
-                        <Text pr={1} sColor={colors.g800} semibold>
+                        <Text pr={1} sColor={colors.g800} sFontWeight={600}>
                             {depositTotalEarnedInterest}
                         </Text>
                         <Text sColor={colors.g800} sFontWeight={400}>

@@ -289,7 +289,7 @@ export const DonateRecurrent = ({
                                     recurrentDonation[0]?.details?.amount
                                 } ${`${t('monthly')}`}`
                             }}
-                            semibold
+                            sFontWeight={600}
                         />
                     </CancelButtonStyled>
                 )}
@@ -321,7 +321,7 @@ export const DonateRecurrent = ({
                             handleDeposit();
                         }}
                     >
-                        <Text semibold>{updateSubscription}</Text>
+                        <Text sFontWeight={600}>{updateSubscription}</Text>
                     </Button>
                 )}
 
@@ -367,9 +367,11 @@ export const DonateRecurrent = ({
                             onClick={handleApprove}
                         >
                             {depositButtonDisabled ? (
-                                <Text semibold>{t('approve-transaction')}</Text>
+                                <Text sFontWeight={600}>
+                                    {t('approve-transaction')}
+                                </Text>
                             ) : (
-                                <Text semibold>{t('approved')}</Text>
+                                <Text sFontWeight={600}>{t('approved')}</Text>
                             )}
                         </Button>
                         <Icon icon="chevronRight" />
@@ -382,7 +384,7 @@ export const DonateRecurrent = ({
                             isLoading={depositIsLoading}
                             onClick={handleDeposit}
                         >
-                            <Text semibold>{t('subscribe')}</Text>
+                            <Text sFontWeight={600}>{t('subscribe')}</Text>
                         </Button>
                     </ButtonsStyled>
                 </Box>

@@ -77,7 +77,7 @@ export const Topbar = ({ setTopbarHeight }: any) => {
     return (
         <TopbarWrapper ref={topbarRef}>
             <TopbarContent>
-                <Text bold sColor="#fff">
+                <Text sFontWeight={700} sColor="#fff">
                     {formatAddress(address, [6, 4])}
                 </Text>
                 <DisconnectButton onClick={disconnect}>

@@ -16,6 +16,7 @@ import { Box } from '@impact-market/ui';
 import styled from 'styled-components';
 import { mq } from 'styled-gen';
 import { css } from 'styled-components';
+import useFilters from 'src/hooks/useFilters';
 
 const SectionStyled = styled(Section)<{ opacity: boolean }>`
     height: 85vh;
@@ -94,6 +95,7 @@ const Hero = (props: PrismicSlice) => {
         videoUrl,
         opacity
     } = primary;
+    const { update } = useFilters();
 
     // Send to component X if url has hash
     useEffect(() => {
@@ -110,18 +112,18 @@ const Hero = (props: PrismicSlice) => {
         return (
             <TextLink
                 href={!isModal && buttonUrl}
-                // onClick={() =>
-                //     isModal && update('modal', buttonUrl?.replace(/^modal:/, ''))
-                // }
+                onClick={() =>
+                    isModal &&
+                    update('modal', buttonUrl?.replace(/^modal:/, ''))
+                }
                 rel="noopener noreferrer"
                 target="_blank"
             >
                 <Button
-                    default={buttonColor && true}
-                    secondaryWhite={!buttonColor && true}
                     rebranded
                     sHeight="3rem"
                     sWidth="100%"
+                    secondaryWhite={!buttonColor && true}
                 >
                     <Text sFontWeight={500}>{buttonLabel}</Text>
                 </Button>

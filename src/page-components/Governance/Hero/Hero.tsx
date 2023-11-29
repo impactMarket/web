@@ -48,7 +48,7 @@ export const Hero = () => {
                                 onClick={handleContributeClick}
                                 sWidth={{ sm: 'unset', xs: '100%' }}
                             >
-                                <Text bold>
+                                <Text sFontWeight={700}>
                                     <String id="contributeAndEarnRewards" />
                                 </Text>
                             </Button>

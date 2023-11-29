@@ -95,7 +95,7 @@ export const Summary = () => {
 
                 return (
                     <Item key={index}>
-                        <Text bold>{label}</Text>
+                        <Text sFontWeight={700}>{label}</Text>
                         <Text>{getData(helper)}</Text>
                     </Item>
                 );

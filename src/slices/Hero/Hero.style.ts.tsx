@@ -106,10 +106,13 @@ export const HeadingText = styled(Text)<{
                     `
                 )}
 
-                ${mq.phone(css`
-                    font-size: 2rem;
-                    line-height: 2.5rem;
-                `)}
+                ${mq.upTo(
+                    'sm',
+                    css`
+                        font-size: 2rem;
+                        line-height: 2.5rem;
+                    `
+                )}
             `;
         }
 

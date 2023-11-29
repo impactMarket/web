@@ -135,14 +135,14 @@ const CustomTooltip = (props: any) => {
                         ).toFixed(2);
 
                         return (
-                            <Text key={index} semibold small>
+                            <Text key={index} sFontWeight={600} small>
                                 {gender[name]}:{' '}
                                 {!isNaN(percentage) ? `${percentage}%` : '---'}
                             </Text>
                         );
                     }
                 )}
-                <Text semibold small>
+                <Text sFontWeight={600} small>
                     Undisclosed:{' '}
                     {!isNaN(undisclosedPercentage)
                         ? `${undisclosedPercentage}%`

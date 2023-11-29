@@ -43,18 +43,21 @@ const SummaryRow = styled.div`
         margin-top: 0.5rem;
     }
 
-    ${mq.tablet(css`
-        flex-direction: row;
-        justify-content: space-between;
+    ${mq.from(
+        'md',
+        css`
+            flex-direction: row;
+            justify-content: space-between;
 
-        & + & {
-            margin-top: 0.5rem;
-        }
+            & + & {
+                margin-top: 0.5rem;
+            }
 
-        & > * + * {
-            margin-top: unset;
-        }
-    `)}
+            & > * + * {
+                margin-top: unset;
+            }
+        `
+    )}
 `;
 
 const CountdownWrapper = styled.div`
@@ -141,7 +144,7 @@ const Rewards = (props: { onUpdate: Function; translations: any }) => {
                             onClick={handleContributionRewardClaimClick}
                             smaller
                         >
-                            <Text semibold span="true">
+                            <Text sFontWeight={600} span="true">
                                 {donateClaim}
                             </Text>
                         </Button>
@@ -260,7 +263,7 @@ const Epoch = ({ translations }: any) => {
             <Div column sWidth="100%">
                 {rows.map((value, index) => (
                     <SummaryRow key={index}>
-                        <Text sColor={colors.g800} semibold>
+                        <Text sColor={colors.g800} sFontWeight={600}>
                             {airgrabSummary[index]}
                         </Text>
                         {!(rewards.initialised && epoch.initialised) ? (
