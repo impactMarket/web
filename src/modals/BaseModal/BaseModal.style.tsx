@@ -1,5 +1,7 @@
 import { colors } from '../../theme';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
 
@@ -26,7 +28,8 @@ const ModalBackdrop = styled.div<ModalProps>`
             visibility: visible;
         `}
 
-    ${mq.tablet(
+    ${mq.upTo(
+        'md',
         css`
             background-color: rgba(23, 32, 50, 0.2);
         `
@@ -58,7 +61,8 @@ const ModalContent = styled.div<ModalProps>`
             visibility: visible;
         `}
 
-    ${mq.tablet(
+    ${mq.upTo(
+        'md',
         css`
             ${size('unset')};
 
@@ -91,10 +95,13 @@ const ModalWrapper = styled.div`
 
     -webkit-overflow-scrolling: touch;
 
-    ${mq.tablet(css`
-        display: flex;
-        overflow-y: auto;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            display: flex;
+            overflow-y: auto;
+        `
+    )}
 `;
 
 export {

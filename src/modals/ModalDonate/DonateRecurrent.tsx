@@ -251,7 +251,7 @@ export const DonateRecurrent = ({
                 <RichText
                     content={recurrentDonationHeading}
                     sFontSize="1.125rem"
-                    medium
+                    sFontWeight={500}
                 />
                 <RichText
                     content={recurrentDonationDescription}

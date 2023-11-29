@@ -68,7 +68,7 @@ export const ModalDonate = (props: ModalProps) => {
                         <RichText center content={connectWallet} small />
                     </RichContentFormat>
                     <Button fluid mt={1.5} onClick={handleConnect}>
-                        <Text medium sub>
+                        <Text sFontWeight={500} sub>
                             <String id="connectToWallet" />
                         </Text>
                     </Button>
@@ -143,7 +143,7 @@ export const ModalDonate = (props: ModalProps) => {
                         <RichText
                             content={heading}
                             sFontSize="1.125rem"
-                            medium
+                            sFontWeight={500}
                         />
                         <RichText content={description} g500 mt={0.5} small />
                         <ButtonsWrapper mt={2} mb={2}>

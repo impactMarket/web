@@ -181,7 +181,11 @@ export const Tokenomics = (props: GeneratedPropsTypes) => {
                         >
                             <Item>
                                 <RichContentFormat>
-                                    <Text XSmall medium textSecondary>
+                                    <Text
+                                        XSmall
+                                        sFontWeight={500}
+                                        textSecondary
+                                    >
                                         <String
                                             id={getString(
                                                 name as keyof PactMetricsType

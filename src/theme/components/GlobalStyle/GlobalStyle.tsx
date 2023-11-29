@@ -33,9 +33,12 @@ export const GlobalStyle = createGlobalStyle`
         }
 
         &.menu-open {
-            ${mq.phone(css`
-                overflow-y: hidden;
-            `)};
+            ${mq.upTo(
+                'sm',
+                css`
+                    overflow-y: hidden;
+                `
+            )};
         }
 
         &.with-modal {
@@ -69,7 +72,7 @@ export const GlobalStyle = createGlobalStyle`
     b,
     strong {
         font-weight: ${fonts.weights.bold};
-    },
+    }
 
     h1,
     h2,
@@ -112,6 +115,7 @@ export const GlobalStyle = createGlobalStyle`
     /* Recaptcha */
     .grecaptcha-badge {
         display:none !important;
+    }
 
     /* React modal */
     .ReactModal__Overlay--after-open {

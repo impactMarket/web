@@ -50,18 +50,21 @@ const SummaryRow = styled.div`
         margin-top: 0.5rem;
     }
 
-    ${mq.tablet(css`
-        flex-direction: row;
-        justify-content: space-between;
+    ${mq.upTo(
+        'md',
+        css`
+            flex-direction: row;
+            justify-content: space-between;
 
-        & + & {
-            margin-top: 0.5rem;
-        }
+            & + & {
+                margin-top: 0.5rem;
+            }
 
-        & > * + * {
-            margin-top: unset;
-        }
-    `)}
+            & > * + * {
+                margin-top: unset;
+            }
+        `
+    )}
 `;
 
 const CountdownWrapper = styled.div`

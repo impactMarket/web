@@ -15,7 +15,8 @@ export const Wrapper = styled.div<{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: ${props => (props.backgroundPosition === 'bottom' ? '4rem 0 0 0' : '4rem 0')};
+    padding: ${(props) =>
+        props.backgroundPosition === 'bottom' ? '4rem 0 0 0' : '4rem 0'};
     width: 100%;
 
     ${mq.upTo(
@@ -34,18 +35,20 @@ export const Wrapper = styled.div<{
         flex-direction: column;
         gap: 1.5rem;
 
-        ${props =>
+        ${(props) =>
             mq.upTo(
                 'md',
                 css`
-                    padding: ${props.backgroundPosition === 'right' ? '2rem 2rem 2rem 0' : '2rem 0 2rem'};
+                    padding: ${props.backgroundPosition === 'right'
+                        ? '2rem 2rem 2rem 0'
+                        : '2rem 0 2rem'};
                 `
             )}
     }
 
     .text {
-        color: ${props => (props.textColor ? colors.white : colors.g500)};
-        font-size: ${props => (props.textSize ? '1.125rem' : '1.25rem')};
+        color: ${(props) => (props.textColor ? colors.white : colors.g500)};
+        font-size: ${(props) => (props.textSize ? '1.125rem' : '1.25rem')};
         line-height: 1.75rem;
 
         p {
@@ -70,11 +73,11 @@ export const HeadingText = styled(Text)<{
     headingFontSize: string;
     headingColor: boolean;
 }>`
-    color: ${props => props.headingColor && colors.white};
+    color: ${(props) => props.headingColor && colors.white};
     letter-spacing: -0.02em;
 
     // FontSize
-    ${props => {
+    ${(props) => {
         if (props.headingFontSize === 'small') {
             return css`
                 font-size: 2.5rem;
@@ -125,7 +128,7 @@ export const HeadingText = styled(Text)<{
     }};
 
     // Font Family
-    ${props => {
+    ${(props) => {
         // If Font is Bevan
         if (props.headingFont) {
             return css`
@@ -133,9 +136,12 @@ export const HeadingText = styled(Text)<{
                 font-weight: ${fonts.weights.regular};
                 max-width: 38rem;
 
-                ${mq.phone(css`
-                    max-width: 24rem;
-                `)}
+                ${mq.upTo(
+                    'sm',
+                    css`
+                        max-width: 24rem;
+                    `
+                )}
             `;
         }
 
@@ -163,7 +169,7 @@ export const BackgroundImage = styled.img<{ backgroundPosition: string }>`
         `
     )};
 
-    ${props => {
+    ${(props) => {
         if (props.backgroundPosition === 'right') {
             return css`
                 position: absolute;

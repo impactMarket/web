@@ -20,7 +20,11 @@ export const Thanks = ({
     return (
         <Box flex style={{ flexDirection: 'column', gap: '2rem' }}>
             <Box>
-                <RichText content={thanksHeading} sFontSize="1.125rem" medium />
+                <RichText
+                    content={thanksHeading}
+                    sFontSize="1.125rem"
+                    sFontWeight={500}
+                />
                 <RichText
                     content={thanksDescription}
                     variables={{

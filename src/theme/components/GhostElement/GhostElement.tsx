@@ -1,6 +1,7 @@
 import { GeneratedPropsTypes } from '../../Types';
 import { colors } from '../..';
-import { ease, generateProps } from 'styled-gen';
+import { generateProps } from 'styled-gen';
+import { ease } from 'src/theme/variables/ease';
 import styled, { keyframes } from 'styled-components';
 
 const load = keyframes`
@@ -13,9 +14,14 @@ const load = keyframes`
     }
 `;
 
-export const GhostElement = styled.div<{ overColored?: boolean; color?: string } & GeneratedPropsTypes>`
+export const GhostElement = styled.div<
+    { overColored?: boolean; color?: string } & GeneratedPropsTypes
+>`
     background-color: ${({ overColored, color }: any) =>
-        !color && colors[overColored ? 'backgroundSecondaryDisabled' : 'backgroundLight']};
+        !color &&
+        colors[
+            overColored ? 'backgroundSecondaryDisabled' : 'backgroundLight'
+        ]};
     border-radius: 0.5rem;
     width: 100%;
     position: relative;

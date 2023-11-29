@@ -1,10 +1,12 @@
 import { GeneratedPropsTypes } from '../../Types';
 import { Icon } from '../Icon/Icon';
 import { colors } from '../../variables/colors';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
 import React from 'react';
 // eslint-disable-next-line import/named
 import styled, { css } from 'styled-components';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 
 type TypeWithPosition = {
     position?: string;
@@ -18,15 +20,18 @@ const TooltipWrapper = styled.div<TypeWithPosition>`
     margin-left: 8px;
     position: relative;
 
-    ${mq.tabletLandscape(css`
-        justify-content: flex-start;
+    ${mq.upTo(
+        'lg',
+        css`
+            justify-content: flex-start;
 
-        ${({ position }: TypeWithPosition) =>
-            position === 'bottom center' &&
-            css`
-                justify-content: center;
-            `};
-    `)}
+            ${({ position }: TypeWithPosition) =>
+                position === 'bottom center' &&
+                css`
+                    justify-content: center;
+                `};
+        `
+    )}
 `;
 
 const Tip = styled.div<TypeWithPosition>`
@@ -47,26 +52,32 @@ const Tip = styled.div<TypeWithPosition>`
     visibility: hidden;
     z-index: 999;
 
-    ${mq.tablet(css`
-        left: unset;
-        margin-top: unset;
-        max-width: 20rem;
-        position: absolute;
-        right: unset;
-        top: 100%;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            left: unset;
+            margin-top: unset;
+            max-width: 20rem;
+            position: absolute;
+            right: unset;
+            top: 100%;
+        `
+    )}
 
-    ${mq.tabletLandscape(css`
-        top: unset;
-        transform: translate(2.875rem, -0.625rem);
-        width: 20.25rem;
+    ${mq.upTo(
+        'lg',
+        css`
+            top: unset;
+            transform: translate(2.875rem, -0.625rem);
+            width: 20.25rem;
 
-        ${({ position }: TypeWithPosition) =>
-            position === 'bottom center' &&
-            css`
-                top: calc(100% + 1rem);
-            `};
-    `)};
+            ${({ position }: TypeWithPosition) =>
+                position === 'bottom center' &&
+                css`
+                    top: calc(100% + 1rem);
+                `};
+        `
+    )};
 `;
 
 const TipIcon = styled.div`
@@ -78,9 +89,12 @@ const TipIcon = styled.div`
             transform: translate(0, 10px);
             visibility: visible;
 
-            ${mq.tabletLandscape(css`
-                transform: translate(26px, -10px);
-            `)}
+            ${mq.upTo(
+                'lg',
+                css`
+                    transform: translate(26px, -10px);
+                `
+            )}
         }
     }
 `;

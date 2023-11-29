@@ -2,8 +2,12 @@
 import { Button, Col, Div, Grid, Row, Text } from '../../theme/components';
 import { PrismicRichTextType } from '../../lib/Prismic/types';
 import { colors } from '../../theme';
-import { ease, transitions } from 'styled-gen';
-import { hasCookieConsentDismissed, setCookieConsentDismissed } from '../../lib/localStorage';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
+import {
+    hasCookieConsentDismissed,
+    setCookieConsentDismissed
+} from '../../lib/localStorage';
 import { usePrismicData } from '../../lib/Prismic/components/PrismicDataProvider';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
@@ -39,10 +43,13 @@ const CookiesConsentWrapper = styled.div<CookiesConsentWrapperProps>`
 export const CookieConsent = () => {
     const { config } = usePrismicData();
 
-    const [isCookiesConsentVisible, setIsCookiesConsentVisible] = useState(false);
-    const [shouldCookiesConsentAppend, setShouldCookiesConsentAppend] = useState(true);
+    const [isCookiesConsentVisible, setIsCookiesConsentVisible] =
+        useState(false);
+    const [shouldCookiesConsentAppend, setShouldCookiesConsentAppend] =
+        useState(true);
 
-    const cookieConsentText = config?.data?.cookiesConsentText as PrismicRichTextType;
+    const cookieConsentText = config?.data
+        ?.cookiesConsentText as PrismicRichTextType;
 
     useEffect(() => {
         const cookieConsentDismissed = hasCookieConsentDismissed();
@@ -66,7 +73,10 @@ export const CookieConsent = () => {
     return (
         <>
             <Head>
-                <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+                <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+                />
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `
@@ -95,13 +105,23 @@ export const CookieConsent = () => {
                             <Col xs={12}>
                                 <Div
                                     flex
-                                    sAlignItems={{ md: 'center', xs: 'flex-start' }}
+                                    sAlignItems={{
+                                        md: 'center',
+                                        xs: 'flex-start'
+                                    }}
                                     sJustifyContent="space-between"
                                 >
-                                    <RichText XSmall content={cookieConsentText} medium />
+                                    <RichText
+                                        XSmall
+                                        content={cookieConsentText}
+                                        sFontWeight={500}
+                                    />
                                     <Div pl={1}>
                                         <Button onClick={handleConsentDismiss}>
-                                            <Text sFontSize={1} sFontWeight={500}>
+                                            <Text
+                                                sFontSize={1}
+                                                sFontWeight={500}
+                                            >
                                                 Ok
                                             </Text>
                                         </Button>

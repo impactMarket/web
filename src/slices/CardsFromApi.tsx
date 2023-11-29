@@ -126,7 +126,12 @@ export const CardsFromApi = (props: NumbersFromApiSliceType) => {
                                         </IconWrapper>
                                     )}
                                     <Div ml={1} sFlexDirection="column">
-                                        <Text g500 mb={0.5} medium small>
+                                        <Text
+                                            g500
+                                            mb={0.5}
+                                            sFontWeight={500}
+                                            small
+                                        >
                                             {label}
                                         </Text>
 

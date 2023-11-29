@@ -54,7 +54,7 @@ const Pact = (props: PrismicSlice) => {
             sWidth="100%"
             secondaryDefault={buttonColor === 'secondary' && true}
         >
-            <Text medium>{buttonLabel}</Text>
+            <Text sFontWeight={500}>{buttonLabel}</Text>
             <Icon
                 icon="right"
                 ml={1}

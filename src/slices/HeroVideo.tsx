@@ -123,7 +123,7 @@ const Hero = (props: PrismicSlice) => {
                     sHeight="3rem"
                     sWidth="100%"
                 >
-                    <Text medium>{buttonLabel}</Text>
+                    <Text sFontWeight={500}>{buttonLabel}</Text>
                 </Button>
             </TextLink>
         );

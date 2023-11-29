@@ -1,6 +1,8 @@
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { colors, fonts } from '../../theme';
-import { ease, generateProps, transitions } from 'styled-gen';
+import { generateProps } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -37,7 +39,8 @@ const TabButton = styled.button<{ isActive?: boolean }>`
         `}
 
     &:after {
-        background-color: ${({ isActive }) => (isActive ? colors.brandPrimary : colors.backgroundSecondary)};
+        background-color: ${({ isActive }) =>
+            isActive ? colors.brandPrimary : colors.backgroundSecondary};
         content: '';
         height: 2px;
         position: absolute;
@@ -93,7 +96,7 @@ export const Tabs = (props: TabsProps) => {
     const [isAnimating, setIsAnimating] = useState(false);
     const contentRefs = useRef<any>(children.map(() => React.createRef()));
 
-    const handleTabClick = useCallback(index => {
+    const handleTabClick = useCallback((index) => {
         setActiveTab(index);
     }, []);
 
@@ -128,14 +131,22 @@ export const Tabs = (props: TabsProps) => {
         <TabsWrapper {...forwardProps}>
             <TabButtons>
                 {tabs.map((tab, index) => (
-                    <TabButton isActive={activeTab === index} key={index} onClick={() => handleTabClick(index)}>
+                    <TabButton
+                        isActive={activeTab === index}
+                        key={index}
+                        onClick={() => handleTabClick(index)}
+                    >
                         {tab}
                     </TabButton>
                 ))}
             </TabButtons>
             <TabContents elHeight={containerSize} isAnimating={isAnimating}>
                 {React.Children.map(children, (child, index) => (
-                    <TabContent isActive={activeTab === index} key={index} ref={contentRefs?.current?.[index]}>
+                    <TabContent
+                        isActive={activeTab === index}
+                        key={index}
+                        ref={contentRefs?.current?.[index]}
+                    >
                         {child}
                     </TabContent>
                 ))}

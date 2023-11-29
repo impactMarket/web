@@ -1,5 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Button, Card, CountryFlag, Div, Grid, Row, Section, Text, TextLink } from '../../theme/components';
+import {
+    Button,
+    Card,
+    CountryFlag,
+    Div,
+    Grid,
+    Row,
+    Section,
+    Text,
+    TextLink
+} from '../../theme/components';
 import { GeneratedPropsTypes } from '../../theme/Types';
 import { IStories } from '../../apis/types';
 import { PrismicRichTextType } from '../../lib/Prismic/types';
@@ -91,7 +101,11 @@ export const Stories = (props: StoriesPrismic) => {
     }
 
     return (
-        <Section {...props} id={storiesPrismicData?.id?.substring(1)} sPadding={{ sm: '6 1 6 1', xs: '3 0 3 0' }}>
+        <Section
+            {...props}
+            id={storiesPrismicData?.id?.substring(1)}
+            sPadding={{ sm: '6 1 6 1', xs: '3 0 3 0' }}
+        >
             <Grid>
                 <HeadingRow>
                     {storiesPrismicData?.smallHeading && (
@@ -133,20 +147,38 @@ export const Stories = (props: StoriesPrismic) => {
                             key={key}
                             style={{
                                 border: 'none',
-                                boxShadow: '0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%)'
+                                boxShadow:
+                                    '0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%)'
                             }}
                         >
-                            {(story?.storyMediaPath || story?.storyMedia?.[0]) && (
+                            {(story?.storyMediaPath ||
+                                story?.storyMedia?.[0]) && (
                                 <ImageWrapper
                                     href={`https://app.impactmarket.com/stories?id=${story?.id}`}
                                     rel="noopener noreferrer"
-                                    sHeight={{ md: '230px', sm: '450px', xs: '250px' }}
+                                    sHeight={{
+                                        md: '230px',
+                                        sm: '450px',
+                                        xs: '250px'
+                                    }}
                                     target="_blank"
                                 >
-                                    <Image alt="" src={story?.storyMediaPath || story?.storyMedia[0]} />
+                                    <Image
+                                        alt=""
+                                        src={
+                                            story?.storyMediaPath ||
+                                            story?.storyMedia[0]
+                                        }
+                                    />
                                 </ImageWrapper>
                             )}
-                            <Row style={{ alignItems: 'center', margin: 0, padding: '1.875rem 1rem 1rem 1rem' }}>
+                            <Row
+                                style={{
+                                    alignItems: 'center',
+                                    margin: 0,
+                                    padding: '1.875rem 1rem 1rem 1rem'
+                                }}
+                            >
                                 <Div>
                                     <UserIcon
                                         href={`https://app.impactmarket.com/communities/${story?.community?.id}`}
@@ -155,7 +187,12 @@ export const Stories = (props: StoriesPrismic) => {
                                         sWidth={3}
                                         target="_blank"
                                     >
-                                        <Image alt={story?.community?.name} src={story?.community?.coverMediaPath} />
+                                        <Image
+                                            alt={story?.community?.name}
+                                            src={
+                                                story?.community?.coverMediaPath
+                                            }
+                                        />
                                     </UserIcon>
                                 </Div>
                                 <Div ml={1} sFlexDirection="column">
@@ -174,10 +211,18 @@ export const Stories = (props: StoriesPrismic) => {
                                         />
                                     </TextLink>
                                     <Div flex sAlignItems="center">
-                                        <CountryFlag countryCode={story?.community?.country} height={1.2} mr={0.5} />
+                                        <CountryFlag
+                                            countryCode={
+                                                story?.community?.country
+                                            }
+                                            height={1.2}
+                                            mr={0.5}
+                                        />
                                         <Text g500 sFontSize={0.875}>
                                             {story?.community?.city},{' '}
-                                            {getCountryNameFromInitials(story?.community?.country)}
+                                            {getCountryNameFromInitials(
+                                                story?.community?.country
+                                            )}
                                         </Text>
                                     </Div>
                                 </Div>
@@ -202,8 +247,16 @@ export const Stories = (props: StoriesPrismic) => {
                 </StoriesRow>
 
                 <Div mt={3.125} sJustifyContent="center">
-                    <TextLink href="https://app.impactmarket.com/stories" rel="noopener noreferrer" target="_blank">
-                        <Button linedSecondaryDark medium sFontSize={1}>
+                    <TextLink
+                        href="https://app.impactmarket.com/stories"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        <Button
+                            linedSecondaryDark
+                            sFontWeight={500}
+                            sFontSize={1}
+                        >
                             {storiesPrismicData?.allStories}
                         </Button>
                     </TextLink>

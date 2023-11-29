@@ -1,6 +1,8 @@
 import { Icon } from '../../theme/components';
 import { colors } from '../../theme';
-import { ease, transitions } from 'styled-gen';
+// import { ease, transitions } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { position, size } from 'polished';
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
@@ -29,7 +31,7 @@ const ripple = keyframes`
 
 const LoadingWrapper = styled.div<LoadingProps>`
     ${position('fixed', 0)};
-    ${transitions(['opacity', 'visibility'], '0.25s', ease.inOutCubic)};
+    ${transitions(['opacity', 'visibility'], 0.25, ease.inOutCubic)};
 
     align-items: center;
     background-color: ${colors.white};

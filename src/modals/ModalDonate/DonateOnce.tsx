@@ -86,7 +86,7 @@ export const DonateOnce = ({ setDonationType, setDonateValue }: any) => {
                 <RichText
                     content={donateOnceHeading}
                     sFontSize="1.125rem"
-                    medium
+                    sFontWeight={500}
                 />
                 <RichText content={donateOnceDescription} g500 mt={0.5} small />
             </Box>

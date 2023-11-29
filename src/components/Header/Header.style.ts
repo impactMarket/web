@@ -1,5 +1,7 @@
 import { colors } from '../../theme';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { position, size } from 'polished';
 import styled, { css } from 'styled-components';
 
@@ -18,7 +20,7 @@ export const HeaderWrapper = styled.div<{
 
     ${(props) =>
         mq.upTo(
-            'tabletLandscape',
+            'md',
             css`
                 ${position(
                     'sticky',
@@ -43,7 +45,7 @@ export const HeaderMainRightCol = styled.div`
     height: 1.5rem;
 
     ${mq.upTo(
-        'tabletLandscape',
+        'md',
         css`
             display: none;
         `
@@ -56,7 +58,7 @@ export const HeaderMainBar = styled.div`
     position: relative;
 
     ${mq.upTo(
-        'tabletLandscape',
+        'md',
         css`
             padding: 0;
         `
@@ -72,14 +74,14 @@ export const HeaderBarContent = styled.div`
     padding: 0 2rem;
 
     ${mq.upTo(
-        'desktop',
+        'lg',
         css`
             padding: 0 1rem;
         `
     )}
 
     ${mq.upTo(
-        'tabletLandscape',
+        'md',
         css`
             padding: 1rem 2rem;
         `
@@ -93,18 +95,24 @@ export const HeaderMainBarLeftCol = styled.div`
 export const HeaderMainBarMenu = styled.div`
     display: none;
 
-    ${mq.tabletLandscape(css`
-        display: flex;
-        gap: 1rem;
+    ${mq.from(
+        'md',
+        css`
+            display: flex;
+            gap: 1rem;
 
-        & > a + a {
-            margin-left: 2rem;
-        }
-    `)}
+            & > a + a {
+                margin-left: 2rem;
+            }
+        `
+    )}
 
-    ${mq.desktop(css`
-        gap: 2rem;
-    `)}
+    ${mq.from(
+        'lg',
+        css`
+            gap: 2rem;
+        `
+    )}
 `;
 
 export const HeaderMainBarMobileMenuButton = styled.a`
@@ -118,9 +126,12 @@ export const HeaderMainBarMobileMenuButton = styled.a`
     justify-content: center;
     z-index: 100;
 
-    ${mq.tabletLandscape(css`
-        display: none;
-    `)}
+    ${mq.from(
+        'md',
+        css`
+            display: none;
+        `
+    )}
 `;
 
 export const MobileContent = styled.div``;
@@ -154,9 +165,12 @@ export const HeaderMobileContent = styled.div<{
     width: 100%;
     z-index: 1;
 
-    ${mq.tabletLandscape(css`
-        display: none;
-    `)}
+    ${mq.from(
+        'md',
+        css`
+            display: none;
+        `
+    )}
 `;
 
 export const MobileMenuButtons = styled.div`

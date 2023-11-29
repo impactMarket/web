@@ -37,17 +37,34 @@ export const generator = {
     // Variable props
     variableProps: [
         { name: 'sAlpha', cssProp: 'opacity' },
-        { name: 'sAlignItems', list: flexAlignments.alignItemsAligments, cssProp: 'align-items' },
+        {
+            name: 'sAlignItems',
+            list: flexAlignments.alignItemsAligments,
+            cssProp: 'align-items'
+        },
         { name: 'sBackground', list: colors, cssProp: 'background-color' },
         { name: 'sBorderColor', list: colors, cssProp: 'border-color' },
         { name: 'sBorderRadius', cssProp: 'border-radius', units: 'px' },
         { name: 'sColor', list: colors, cssProp: 'color' },
         { name: 'sDisplay', list: display, cssProp: 'display' },
         { name: 'sFontSize', cssProp: 'font-size', units: 'rem' },
-        { name: 'sFontWeight', list: fonts.weights, cssProp: 'font-weight' },
-        { name: 'sFlexDirection', list: flexDirection, cssProp: 'flex-direction' },
+        {
+            name: 'sFontWeight',
+            list: fonts.weights,
+            cssProp: 'font-weight',
+            units: ''
+        },
+        {
+            name: 'sFlexDirection',
+            list: flexDirection,
+            cssProp: 'flex-direction'
+        },
         { name: 'sHeight', cssProp: 'height', units: 'rem' },
-        { name: 'sJustifyContent', list: flexAlignments.justifyContentAlignments, cssProp: 'justify-content' },
+        {
+            name: 'sJustifyContent',
+            list: flexAlignments.justifyContentAlignments,
+            cssProp: 'justify-content'
+        },
         { name: 'sLineHeight', cssProp: 'line-height', units: 'rem' },
         { name: 'sMaxHeight', cssProp: 'max-height', units: 'rem' },
         { name: 'sMaxWidth', cssProp: 'max-width', units: 'rem' },

@@ -1,6 +1,6 @@
 import { String } from '../String/String';
 import { colors, fonts } from '../../theme';
-import { ease } from 'styled-gen';
+import { ease } from 'src/theme/variables/ease';
 import { size } from 'polished';
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';

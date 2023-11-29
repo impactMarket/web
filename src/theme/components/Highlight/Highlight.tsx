@@ -12,9 +12,12 @@ export const Highlight = styled.div<GeneratedPropsTypes>`
     width: 100%;
     flex-direction: column;
 
-    ${mq.tablet(css`
-        padding: 1rem 1.375rem;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            padding: 1rem 1.375rem;
+        `
+    )}
 
     ${generateProps};
 `;
@@ -30,8 +33,11 @@ export const HighlightRow = styled.div`
         margin-top: 0.625rem;
     }
 
-    ${mq.tablet(css`
-        flex-direction: row;
-        justify-content: space-between;
-    `)}
+    ${mq.upTo(
+        'md',
+        css`
+            flex-direction: row;
+            justify-content: space-between;
+        `
+    )}
 `;

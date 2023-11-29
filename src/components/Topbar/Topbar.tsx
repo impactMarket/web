@@ -1,7 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { Text } from '../../theme/components';
 import { colors, fonts } from '../../theme';
-import { ease, mq, transitions } from 'styled-gen';
+import { mq } from 'styled-gen';
+import { transitions } from 'src/theme/helpers/transitions';
+import { ease } from 'src/theme/variables/ease';
 import { formatAddress } from '../../helpers/formatAddress';
 import { useTranslation } from '../TranslationProvider/TranslationProvider';
 import { useWallet } from '../../hooks/useWallet';
@@ -32,7 +34,7 @@ const TopbarContent = styled.div`
     height: 2rem;
 
     ${mq.upTo(
-        'tabletLandscape',
+        'md',
         css`
             padding: 0;
         `
