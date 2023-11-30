@@ -13,7 +13,7 @@ Sentry.init({
     enabled:
         // eslint-disable-next-line no-process-env
         process.env.NODE_ENV !== 'development' && config.useTestNet !== true,
-    integrations: [new BrowserTracing()],
+    integrations: [new BrowserTracing()] as Array<Function | object | any>,
     transport: Sentry.makeBrowserOfflineTransport(Sentry.makeFetchTransport),
     // Adjust this value in production, or use tracesSampler for greater control
     tracesSampler: (samplingContext) => {
