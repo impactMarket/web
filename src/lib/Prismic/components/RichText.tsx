@@ -152,6 +152,7 @@ const RichText = (props: RichTextProps) => {
                                 variables
                             })
                         }
+                        // @ts-ignore
                         field={content}
                     />
                 </RichContentFormat>
