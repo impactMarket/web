@@ -212,21 +212,23 @@ const Epoch = ({ translations }: any) => {
         donateAirgrabSummaryFootnote,
         donateAirgrabSummaryRow1,
         donateAirgrabSummaryRow2,
-        donateAirgrabSummaryRow3,
+        // donateAirgrabSummaryRow3,
         donateAirgrabSummaryRow4,
         donateAirgrabSummaryRow5
     } = translations;
     const airgrabSummary = [
         donateAirgrabSummaryRow1,
         donateAirgrabSummaryRow2,
-        donateAirgrabSummaryRow3,
+        // donateAirgrabSummaryRow3,
         donateAirgrabSummaryRow4,
         donateAirgrabSummaryRow5
     ];
 
     const { rewards } = useRewards();
     const { epoch } = useEpoch();
-    const [rows, setRows] = useState(new Array(5).fill(undefined));
+    const [rows, setRows] = useState(new Array(4).fill(undefined));
+
+    console.log('Rows: ', rows);
 
     useEffect(() => {
         if (rewards.initialised && epoch.initialised) {
@@ -236,13 +238,12 @@ const Epoch = ({ translations }: any) => {
                     symbol: 'PACT'
                 }),
                 currencyValue(epoch?.donations.user, {
-                    isToken: true,
-                    symbol: 'cUSD'
+                    isToken: true
                 }),
-                currencyValue(epoch?.donations.everyone, {
-                    isToken: true,
-                    symbol: 'cUSD'
-                }),
+                // currencyValue(epoch?.donations.everyone, {
+                //     isToken: true,
+                //     symbol: 'cUSD'
+                // }),
                 currencyValue(rewards?.currentEpoch, {
                     isToken: true,
                     symbol: 'PACT'
