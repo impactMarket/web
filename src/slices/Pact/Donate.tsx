@@ -228,8 +228,6 @@ const Epoch = ({ translations }: any) => {
     const { epoch } = useEpoch();
     const [rows, setRows] = useState(new Array(4).fill(undefined));
 
-    console.log('Rows: ', rows);
-
     useEffect(() => {
         if (rewards.initialised && epoch.initialised) {
             setRows([
