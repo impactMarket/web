@@ -18,7 +18,7 @@
     "dependencies": {
         "@apollo/client": "3.8.4",
         "@impact-market/ui": "1.5.4",
-        "@impact-market/utils": "4.1.0",
+        "@impact-market/utils": "^4.1.5",
         "@prismicio/client": "7.3.1",
         "@prismicio/react": "2.6.1",
         "@sentry/browser": "^7.69.0",
