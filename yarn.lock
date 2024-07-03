@@ -564,10 +564,10 @@
     styled-gen "^1.4.8"
     styled-reset "^4.3.4"
 
-"@impact-market/utils@4.1.5-beta.2":
-  version "4.1.5-beta.2"
-  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-4.1.5-beta.2.tgz#4429855c5daca978bc3996c5544ff7aef1acbcb3"
-  integrity sha512-bBXO2gc4f2j67Qu8jiRxdEozI9ePLCRMfqh1nBBA33fdexBe/ruoDRLxaAzrBxCpLx5xoGVVB8ZNGuC04wn2fg==
+"@impact-market/utils@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@impact-market/utils/-/utils-4.2.1.tgz#a94d4da457b875f577e701a398b9614b41e12379"
+  integrity sha512-+eqs9ONf+hyIl4jVjSnW5Le5yJb3SLfoz8XRWW2Uhwawl27r09axcPEKrlr5X9uuXL/G8AN9fkV9K0ShsBa0Vw==
 
 "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
