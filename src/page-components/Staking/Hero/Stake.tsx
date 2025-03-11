@@ -186,7 +186,7 @@ export const Stake = () => {
                                 <String id="walletBalance" />
                             </Text>
                             : &nbsp;
-                            <Text span="true">{balance}</Text>
+                            <Text span="true">{balance} cenas</Text>
                         </>
                     }
                     onChange={(event: any) => setValue(event?.target?.value)}
