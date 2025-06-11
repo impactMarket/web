@@ -121,7 +121,7 @@ const MapComponent = (props: MapProps) => {
                             'heatmap-intensity': 1,
                             'heatmap-weight': 1,
                             // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-                            // Begin color ramp at 0-stop with a 0-transparancy color
+                            // Begin color ramp at 0-stop with a 0-transparency color
                             // to create a blur-like effect.
                             'heatmap-color': [
                                 'interpolate',
